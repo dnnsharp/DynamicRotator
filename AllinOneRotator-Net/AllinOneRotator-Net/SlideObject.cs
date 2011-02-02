@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.IO;
 using System.Web.UI;
 using System.Drawing.Design;
+using System.Xml;
 
 namespace avt.AllinOneRotator.Net
 {
@@ -94,5 +95,36 @@ namespace avt.AllinOneRotator.Net
             return Path.GetFileName(ObjectUrl);
         }
 
+        public void ToXml(XmlWriter Writer)
+        {
+            Writer.WriteStartElement("picture");
+
+            Writer.WriteAttributeString("Xposition", Xposition.ToString());
+            Writer.WriteAttributeString("Yposition", Yposition.ToString()); 
+            
+            Writer.WriteAttributeString("glowSize", GlowSize.ToString());
+            Writer.WriteAttributeString("glowColor", ColorExt.ColorToHexString(GlowColor));
+            Writer.WriteAttributeString("glowStrength", GlowStrength.ToString());
+
+            Writer.WriteAttributeString("moveType", MoveType.ToString());
+            Writer.WriteAttributeString("easingType", EasingType.ToString());
+            Writer.WriteAttributeString("transitionDuration", TransitionDuration.ToString());
+            Writer.WriteAttributeString("timeDelay", TimeDelay.ToString());
+            Writer.WriteAttributeString("justFade", JustFade ? "yes" : "no");
+            Writer.WriteAttributeString("appearFrom", AppearFrom.ToString().ToLower());
+
+            //if (!string.IsNullOrEmpty(Link))
+                Writer.WriteAttributeString("theLink", Link);
+
+            if (Effect != eEffect.None) {
+                Writer.WriteAttributeString("useEffect", "yes");
+                Writer.WriteAttributeString("effect", Effect.ToString());
+            } else {
+                Writer.WriteAttributeString("useEffect", "no");
+            }
+
+            Writer.WriteString(ObjectUrl);
+            Writer.WriteEndElement(); // ("picture");
+        }
     }
 }

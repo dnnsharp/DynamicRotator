@@ -31,15 +31,39 @@ namespace avt.AllinOneRotator.Net
 
             if (Page.Request.Params["avtadrot"] == "settings") {
                 Page.Response.Write(GetSettingsXml());
+                Page.Response.ContentType = "text/xml";
                 Page.Response.End();
                 return;
             }
 
             if (Page.Request.Params["avtadrot"] == "content") {
                 Page.Response.Write(GetSlidesXml());
+                Page.Response.ContentType = "text/xml";
                 Page.Response.End();
                 return;
             }
+
+            if (Page.Request.Params["avtadrot"] == "transitions") {
+                Page.Response.Write(@"<?xml version=""1.0"" encoding=""utf-8""?>
+<picturesTransitions>
+    <transition theName=""Blinds"" theEasing=""Strong"" theStrips=""20"" theDimension=""1""/>
+    <trasition ></trasition>
+    <transition theName=""Fly"" theEasing=""Strong"" theStartPoint=""9""/>
+    <transition theName=""Iris"" theEasing=""Bounce"" theStartPoint=""1"" theShape=""CIRCLE""/>
+    <transition theName=""Photo"" theEasing=""Elastic""/>
+    <transition theName=""PixelDissolve"" theEasing=""Strong"" theXsections=""20"" theYsections=""20""/>
+    <transition theName=""Rotate"" theEasing=""Strong"" theDegrees=""720""/>
+    <transition theName=""Squeeze"" theEasing=""Strong"" theDimension=""1""/>
+    <transition theName=""Wipe"" theEasing=""Strong"" theStartPoint=""1""/>
+    <transition theName=""Zoom"" theEasing=""Back""/>
+</picturesTransitions>
+"
+                    );
+                Page.Response.ContentType = "text/xml";
+                Page.Response.End();
+                return;
+            }
+            
         }
 
         #region Custom Properties
@@ -125,6 +149,7 @@ namespace avt.AllinOneRotator.Net
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
             settings.OmitXmlDeclaration = false;
+            settings.Encoding = Encoding.UTF8;
             XmlWriter Writer = XmlWriter.Create(strXML, settings);
 
             Writer.WriteStartElement("settings");
@@ -161,7 +186,7 @@ namespace avt.AllinOneRotator.Net
         SlideCollection _Slides = new SlideCollection();
 
         [DefaultValue("")]
-        [PersistenceMode(PersistenceMode.InnerDefaultProperty)]
+        [PersistenceMode(PersistenceMode.InnerProperty)]
         [Category("ALLinOne Rotator - Slides")]
         [Editor("avt.AllinOneRotator.Net.SlideCollectionEditor,avt.AllinOneRotator.Net", typeof(UITypeEditor))]
         [MergableProperty(false)]
@@ -173,28 +198,13 @@ namespace avt.AllinOneRotator.Net
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
             settings.OmitXmlDeclaration = false;
+            settings.Encoding = Encoding.UTF8;
             XmlWriter Writer = XmlWriter.Create(strXML, settings);
 
             Writer.WriteStartElement("ads");
-            Writer.WriteElementString("stageWidth", Width.Value.ToString());
-            Writer.WriteElementString("stageHeight", Height.Value.ToString());
-            Writer.WriteElementString("startSlideShow", AutoStartSlideShow ? "yes" : "no");
-            Writer.WriteElementString("useRoundCornersMask", UseRoundCornersMask ? "yes" : "no");
-            Writer.WriteElementString("roundCornerMaskColor", ColorExt.ColorToHexString(RoundCornerMaskColor));
-            Writer.WriteElementString("showBottomButtons", ShowBottomButtons ? "yes" : "no");
-            Writer.WriteElementString("showPlayPauseControls", ShowPlayPauseControls ? "yes" : "no");
-            Writer.WriteElementString("fadeColor", ColorExt.ColorToHexString(FadeColor));
-            Writer.WriteElementString("showTopTitle", ShowTopTitle ? "yes" : "no");
-            Writer.WriteElementString("topTitleBackground", ColorExt.ColorToHexString(TopTitleBackground));
-            Writer.WriteElementString("topTitleBgTransparency", TopTitleBgTransparency.ToString());
-            Writer.WriteElementString("topTitleTextColor", ColorExt.ColorToHexString(TopTitleTextColor));
-            Writer.WriteElementString("showTimerBar", ShowTimerBar ? "yes" : "no");
-            Writer.WriteElementString("smallButtonsColor", ColorExt.ColorToHexString(SlideButtonsColor));
-            Writer.WriteElementString("smallButtonsNumberColor", ColorExt.ColorToHexString(SlideButtonsNumberColor));
-            Writer.WriteElementString("smallButtonsType", ((int)SlideButtonsType).ToString());
-            Writer.WriteElementString("smallButtonsXoffset", SlideButtonsXoffset.ToString());
-            Writer.WriteElementString("smallButtonsYoffset", SlideButtonsYoffset.ToString());
-            Writer.WriteElementString("transparentBackground", TransparentBackground ? "yes" : "no");
+            foreach (SlideInfo slide in Slides) {
+                slide.ToXml(Writer);
+            }
             Writer.WriteEndElement(); // "ads";
 
             Writer.Close();
@@ -243,14 +253,17 @@ namespace avt.AllinOneRotator.Net
 
                 string contentUrl = Page.Request.RawUrl;
                 contentUrl += (contentUrl.IndexOf('?') > 0 ? (contentUrl.IndexOf('?') != contentUrl.Length - 1 ? "&" : "") : "?") + "avtadrot=content";
+
+                string transitionsUrl = Page.Request.RawUrl;
+                transitionsUrl += (transitionsUrl.IndexOf('?') > 0 ? (transitionsUrl.IndexOf('?') != transitionsUrl.Length - 1 ? "&" : "") : "?") + "avtadrot=transitions";
                 
                 output.Write(
                     //"<script type=\"text/javascript\">AC_FL_RunContent( 'codebase','http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0','width','950','height','250','src','" + flashUrl + "?settingsxml=settings_v2_simple.xml&contentxml=content_v2_simple.xml&transitionsxml=transitions.xml','quality','high','pluginspage','http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash','movie','" + flashUrl + "?settingsxml=settings_v2_simple.xml&contentxml=content_v2_simple.xml&transitionsxml=transitions.xml' ); //end AC code</script>" +
                     //"<noscript>" +
                     "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0\" width=\"" + Width.Value + "\" height=\"" + Height.Value + "\">" +
-                        "<param name=\"movie\" value=\"" + flashUrl + "&settingsxml=" + settingsUrl + "&contentxml=content_v2_simple.xml&transitionsxml=transitions.xml\">" +
+                        "<param name=\"movie\" value=\"" + flashUrl + "&settingsxml=" + settingsUrl + "&contentxml=" + contentUrl + "&transitionsxml=" + transitionsUrl + "\">" +
                         "<param name=\"quality\" value=\"high\">" +
-                        "<embed src=\"" + flashUrl + "&settingsxml=" + settingsUrl + "&contentxml=content_v2_simple.xml&transitionsxml=transitions.xml\" quality=\"high\" pluginspage=\"http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash\" type=\"application/x-shockwave-flash\" width=\"" + Width.Value + "\" height=\"" + Height.Value + "\"></embed>" +
+                        "<embed src=\"" + flashUrl + "&settingsxml=" + settingsUrl + "&contentxml=" + contentUrl + "&transitionsxml=" + transitionsUrl + "\" quality=\"high\" pluginspage=\"http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash\" type=\"application/x-shockwave-flash\" width=\"" + Width.Value + "\" height=\"" + Height.Value + "\"></embed>" +
                     "</object>"
                     // + "</noscript>"
                 );

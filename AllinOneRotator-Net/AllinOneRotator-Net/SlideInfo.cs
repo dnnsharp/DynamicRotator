@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Web.UI.WebControls;
 using System.Web.UI;
 using System.Drawing.Design;
+using System.Xml;
 
 namespace avt.AllinOneRotator.Net
 {
@@ -45,8 +46,12 @@ namespace avt.AllinOneRotator.Net
         New
     }
 
+
     public class SlideInfo
     {
+
+        #region General
+
         string _Title = "New Slide Title";
         [Category("General")]
         public string Title { get { return _Title; } set { _Title = value; } }
@@ -69,6 +74,8 @@ namespace avt.AllinOneRotator.Net
         [TypeConverter(typeof(WebColorConverter))]
         [Category("Slide.Background")]
         public Color BackgroundGradientTo { get { return _BackgroundGradientTo; } set { _BackgroundGradientTo = value; } }
+
+        #endregion
 
 
         #region Text
@@ -146,7 +153,7 @@ namespace avt.AllinOneRotator.Net
         SlideObjectCollection _SlideObjects = new SlideObjectCollection();
 
         [DefaultValue("")]
-        [PersistenceMode(PersistenceMode.InnerDefaultProperty)]
+        [PersistenceMode(PersistenceMode.InnerProperty)]
         [Category("Slide.Objects")]
         [Editor("avt.AllinOneRotator.Net.SlideObjectCollectionEditor,avt.AllinOneRotator.Net", typeof(UITypeEditor))]
         [MergableProperty(false)]
@@ -201,6 +208,69 @@ namespace avt.AllinOneRotator.Net
         public override string ToString()
         {
             return Title;
+        }
+
+        public void ToXml(XmlWriter Writer)
+        {
+            Writer.WriteStartElement("ad");
+
+            // slide node attributes
+            Writer.WriteAttributeString("theTime", DurationSeconds.ToString());
+            Writer.WriteAttributeString("theTitle", Title.ToString());
+
+            // background node and attributes
+            Writer.WriteStartElement("background");
+            Writer.WriteAttributeString("gradient1", ColorExt.ColorToHexString(BackgroundGradientTo));
+            Writer.WriteAttributeString("gradient2", ColorExt.ColorToHexString(BackgroundGradientTo));
+            Writer.WriteEndElement(); //  ("background");
+
+            // text node and attributes
+            Writer.WriteStartElement("theText");
+            Writer.WriteAttributeString("glowSize", GlowSize.ToString());
+            Writer.WriteAttributeString("glowColor", ColorExt.ColorToHexString(GlowColor));
+            Writer.WriteAttributeString("glowStrength", GlowStrength.ToString());
+            Writer.WriteAttributeString("moveType", MoveType.ToString());
+            Writer.WriteAttributeString("easingType", EasingType.ToString());
+            Writer.WriteAttributeString("transitionDuration", TransitionDuration.ToString());
+            Writer.WriteAttributeString("justFade", JustFade ? "yes" : "no");
+            Writer.WriteAttributeString("appearFrom", AppearFrom.ToString().ToLower());
+            Writer.WriteAttributeString("finalXposition", FinalXposition.ToString());
+            Writer.WriteAttributeString("verticalAlign", VerticalAlign.ToString().ToLower());
+            Writer.WriteCData(TextContent);
+            Writer.WriteEndElement(); // ("theText");
+
+            // slide objects
+            foreach (SlideObjectInfo slideObj in SlideObjects) {
+                Writer.WriteStartElement("pictures"); 
+                slideObj.ToXml(Writer);
+                Writer.WriteEndElement(); // ("pictures");
+            }
+
+            // link node and attributes
+            if (!string.IsNullOrEmpty(SlideUrl)) {
+                Writer.WriteStartElement("link");
+                Writer.WriteAttributeString("useLink", "yes");
+                Writer.WriteAttributeString("theTarget", Target == eLinkTarget.New ? "_blank" : "_parent");
+                if (!string.IsNullOrEmpty(ButtonCaption)) {
+                    Writer.WriteAttributeString("showBtn", "yes");
+                    Writer.WriteAttributeString("btnName", ButtonCaption);
+                }
+                Writer.WriteAttributeString("useTextsBackground", UseTextsBackground ? "yes" : "no");
+
+                Writer.WriteString(SlideUrl);
+                Writer.WriteEndElement(); // ("link");
+            }
+
+            // mp3 note and attributes
+            if (!string.IsNullOrEmpty(Mp3Url)) {
+                Writer.WriteStartElement("mp3");
+                Writer.WriteAttributeString("file", Mp3Url);
+                Writer.WriteAttributeString("player", ShowPlayer ? "on" : "off");
+                Writer.WriteAttributeString("iconColor", ColorExt.ColorToHexString(IconColor));
+                Writer.WriteEndElement(); // ("mp3");
+            }
+
+            Writer.WriteEndElement(); // ("ad");
         }
     }
 }
