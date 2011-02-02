@@ -9,8 +9,8 @@
     <ProjectGuid>{2B3E1E9E-512B-4F18-BD29-2737504CA8F1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AllinOneRotator_Net</RootNamespace>
-    <AssemblyName>AllinOneRotator-Net</AssemblyName>
+    <RootNamespace>avt.AllinOneRotator.Net</RootNamespace>
+    <AssemblyName>avt.AllinOneRotator.Net</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Nonshipping>true</Nonshipping>
@@ -34,12 +34,21 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Banner.cs" />
+    <Compile Include="ColorExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AllinOneRotator.cs" />
+    <Compile Include="SlideCollection.cs" />
+    <Compile Include="SlideCollectionEditor.cs" />
+    <Compile Include="SlideInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="flash\banner-v2-4.swf" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

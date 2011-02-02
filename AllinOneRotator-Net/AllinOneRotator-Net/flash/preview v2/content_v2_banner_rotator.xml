@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ads>
+	<ad theTime="7" theTitle="Few details about integration and customization">
+		<background gradient1="0xffffff" gradient2="0xffffff"></background>
+		<theText glowSize="10" glowColor="0x000000" glowStrength="3" moveType="Strong" easingType="Out" transitionDuration="2" justFade="no" appearFrom="right" finalXposition="15" verticalAlign="middle"><![CDATA[<font color="#ffffff" size="+4">The perfect solution for your website header</font><br/><font color="#ffff00">This is a classic banner rotator. Also can be used as a photo gallery</font>]]></theText>
+		<pictures>
+			<picture Xposition="0" Yposition="0" timeDelay="0" appearFrom="left" justFade="no" useEffect="yes" effect="Blinds" theLink=""  glowSize="10" glowColor="0xffffff" glowStrength="3"  moveType="Strong" easingType="Out" transitionDuration="1">images/large_img2.jpg</picture>
+		</pictures>
+		<link theTarget="_blank" btnName="Discover more" showBtn="no" useLink="yes">http://www.YourDomainName.here</link>
+	</ad>
+	
+	<ad theTime="4" theTitle="Simple banner rotator">
+		<background gradient1="0xffffff" gradient2="0xffffff"></background>
+		<theText glowSize="10" glowColor="0xffffff" glowStrength="1" moveType="Strong" easingType="Out" transitionDuration="2" justFade="no" appearFrom="right" finalXposition="15" verticalAlign="middle"><![CDATA[ ]]></theText>
+		<pictures>
+			<picture Xposition="0" Yposition="0" timeDelay="0" appearFrom="top" justFade="yes" useEffect="yes" effect="Photo" theLink="" glowSize="10" glowColor="0xffffff" glowStrength="3"  moveType="Strong" easingType="Out" transitionDuration="1">images/large_img1.jpg</picture>
+		</pictures>
+		<link theTarget="_blank" btnName="Learn more about this" showBtn="no" useLink="yes">http://www.YourDomainName.here</link>
+	</ad>
+	
+	<ad theTime="6" theTitle="You have a lot of different effects and transitions">
+		<background gradient1="0xffffff" gradient2="0xffffff"></background>
+		<theText glowSize="10" glowColor="0x000000" glowStrength="3" moveType="Strong" easingType="Out" transitionDuration="2" justFade="no" appearFrom="right" finalXposition="15" verticalAlign="middle"><![CDATA[<font color="#ffffff" size="+4">You have a lot of transitions and effects which you can combine</font><br/><font color="#ffffff" size="-2">For each one you can customize all the parameters.</font>]]></theText>
+		<pictures>
+			<picture Xposition="0" Yposition="0" timeDelay="0" appearFrom="left" justFade="no" useEffect="yes" effect="PixelDissolve" theLink=""  glowSize="10" glowColor="0xffffff" glowStrength="3"  moveType="Strong" easingType="Out" transitionDuration="1">images/large_img3.jpg</picture>
+		</pictures>
+		<link theTarget="_blank" btnName="More details..." showBtn="yes" useLink="yes">http://www.YourDomainName.here</link>
+	</ad>
+	
+	<ad theTime="6" theTitle="The perfect solution for a photo gallery, too">
+		<background gradient1="0xffffff" gradient2="0xffffff"></background>
+		<theText glowSize="10" glowColor="0x000000" glowStrength="2" moveType="Elastic" easingType="Out" transitionDuration="2" justFade="no" appearFrom="left" finalXposition="550" verticalAlign="middle"><![CDATA[<font color="#ffffff" size="+7">The best solution for your website</font>]]></theText>
+		<pictures>
+			<picture Xposition="0" Yposition="0" timeDelay="0" appearFrom="right" justFade="no" useEffect="yes" effect="Zoom" theLink="" glowSize="10" glowColor="0xffffff" glowStrength="3"  moveType="Strong" easingType="Out" transitionDuration="1" >images/large_img4.jpg</picture>
+		</pictures>
+		<link theTarget="_blank" btnName="" showBtn="no" useLink="yes">http://www.YourDomainName.here</link>
+	</ad>
+</ads>

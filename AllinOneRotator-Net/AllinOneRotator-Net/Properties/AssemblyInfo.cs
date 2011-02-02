@@ -1,16 +1,17 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Web.UI;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AllinOneRotator-Net")]
+[assembly: AssemblyTitle("avt.AllinOneRotator.Net")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("AllinOneRotator-Net")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2011")]
+[assembly: AssemblyCompany("Avatar Software")]
+[assembly: AssemblyProduct("avt.AllinOneRotator.Net")]
+[assembly: AssemblyCopyright("Copyright © Avatar Software 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -34,3 +35,7 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+
+//[assembly: WebResource("avt.AllinOneRotator.Net.flash.AC_RunActiveContent.js", "text/javascript")]
+[assembly: WebResource("avt.AllinOneRotator.Net.flash.banner-v2-4.swf", "application/x-shockwave-flash")]
+

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<settings>
+	<stageWidth>950</stageWidth>
+	<stageHeight>250</stageHeight>
+	<startSlideShow>yes</startSlideShow>
+	<useRoundCornersMask>yes</useRoundCornersMask>
+	<roundCornerMaskColor>0xffffff</roundCornerMaskColor>
+	<showBottomButtons>yes</showBottomButtons>
+	<showPlayPauseControls>yes</showPlayPauseControls>
+	<fadeColor>0xffffff</fadeColor>
+	<showTopTitle>yes</showTopTitle>
+	<topTitleBackground>0x000000</topTitleBackground>
+	<topTitleBgTransparency>70</topTitleBgTransparency>
+	<topTitleTextColor>0xffffff</topTitleTextColor>
+	<showTimerBar>yes</showTimerBar>
+	<smallButtonsColor>0x0066cc</smallButtonsColor>
+	<smallButtonsNumberColor>0xffffff</smallButtonsNumberColor>
+	<smallButtonsType>2</smallButtonsType>
+	<smallButtonsXoffset>800</smallButtonsXoffset>
+	<smallButtonsYoffset>35</smallButtonsYoffset>
+	<transparentBackground>no</transparentBackground>
+</settings>
