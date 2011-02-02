@@ -41,11 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ColorExt.cs" />
+    <Compile Include="SlideObjectCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AllinOneRotator.cs" />
     <Compile Include="SlideCollection.cs" />
     <Compile Include="SlideCollectionEditor.cs" />
     <Compile Include="SlideInfo.cs" />
+    <Compile Include="SlideObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="flash\banner-v2-4.swf" />

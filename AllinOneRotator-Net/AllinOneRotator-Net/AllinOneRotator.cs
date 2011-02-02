@@ -102,7 +102,7 @@ namespace avt.AllinOneRotator.Net
         [Category("ALLinOne Rotator")]
         public Color SlideButtonsNumberColor { get { return _SmallButtonsNumberColor; } set { _SmallButtonsNumberColor = value; } }
 
-        eSlideButtonsType _SmallButtonsType = eSlideButtonsType.RoundNoNumbers;
+        eSlideButtonsType _SmallButtonsType = eSlideButtonsType.SquareWithNumbers;
         [Category("ALLinOne Rotator")]
         public eSlideButtonsType SlideButtonsType { get { return _SmallButtonsType; } set { _SmallButtonsType = value; } }
 

@@ -13,12 +13,10 @@
     <div>
     
     </div>
-    <cc1:AllinOneRotator ID="AllinOneRotator1" runat="server" Height="250px" 
-        Width="950px" AutoStartSlideShow="False" RoundCornerMaskColor="DarkBlue" 
-        UseRoundCornersMask="True" SmallButtonsType="RoundNoNumbers" 
-        ShowTimerBar="True" SmallButtonsXoffset="200" TopTitleBackground="Azure" 
-        TransparentBackground="True" FadeColor="Violet" SlideButtonsColor="Red" 
-        SlideButtonsNumberColor="Teal" TopTitleTextColor="White" />
+    <cc1:AllinOneRotator ID="AllinOneRotator1" runat="server" 
+        AutoStartSlideShow="False" RoundCornerMaskColor="#333399" ShowTopTitle="False" 
+        SlideButtonsNumberColor="#6600CC" SlideButtonsType="RoundNoNumbers">
+    </cc1:AllinOneRotator>
     </form>
 </body>
 </html>
