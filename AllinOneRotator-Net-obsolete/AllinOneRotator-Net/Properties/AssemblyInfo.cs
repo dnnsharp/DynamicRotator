@@ -37,5 +37,5 @@ using System.Web.UI;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
 //[assembly: WebResource("avt.AllinOneRotator.Net.flash.AC_RunActiveContent.js", "text/javascript")]
-[assembly: WebResource("avt.AllinOneRotator.Net.flash.banner-v2-4.swf", "application/x-shockwave-flash")]
+[assembly: WebResource("avt.AllinOneRotator.Net.flash.rotator-v2-5.swf", "application/x-shockwave-flash")]
 

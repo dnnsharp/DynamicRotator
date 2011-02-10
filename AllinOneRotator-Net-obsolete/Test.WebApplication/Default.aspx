@@ -15,7 +15,8 @@
     </div>
     <cc1:AllinOneRotator ID="AllinOneRotator1" runat="server" 
         AutoStartSlideShow="True" RoundCornerMaskColor="#333399" ShowTopTitle="False" 
-        SlideButtonsNumberColor="#6600CC" SlideButtonsType="RoundNoNumbers">
+        SlideButtonsNumberColor="#6600CC" SlideButtonsType="RoundNoNumbers" 
+        DbConnectionString="SiteSqlServer" EnableRuntimeConfiguration="True">
         <Slides>
             <cc1:SlideInfo AppearFrom="Right" BackgroundGradientFrom="#003399" 
                 BackgroundGradientTo="#9900CC" DurationSeconds="10" EasingType="Out" 

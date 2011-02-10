@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -48,9 +49,15 @@
     <Compile Include="SlideCollectionEditor.cs" />
     <Compile Include="SlideInfo.cs" />
     <Compile Include="SlideObject.cs" />
+    <Compile Include="WebManage\Main.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="flash\banner-v2-4.swf" />
+    <EmbeddedResource Include="flash\rotator-v2-5.swf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\" />
+    <Folder Include="RegCore\" />
+    <Folder Include="Serialization\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

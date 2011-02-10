@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using System.Xml;
 using System.Drawing;
 using System.Drawing.Design;
+using System.Configuration;
 
 namespace avt.AllinOneRotator.Net
 {
@@ -23,6 +24,8 @@ namespace avt.AllinOneRotator.Net
         {
             base.Width = new Unit(950, UnitType.Pixel);
             base.Height = new Unit(250, UnitType.Pixel);
+
+            // string connStr = ConfigurationManager.ConnectionStrings["SiteSqlServer"].ConnectionString;
         }
 
         protected override void OnLoad(EventArgs e)
@@ -65,6 +68,27 @@ namespace avt.AllinOneRotator.Net
             }
             
         }
+
+
+        #region Runtime Configuration
+
+        bool _EnableRuntimeConfiguration = false;
+        [Category("ALLinOne Rotator - Runtime Configuration")]
+        [Description("Enable runtime configuration using the Web Interface")]
+        public bool EnableRuntimeConfiguration { get { return _EnableRuntimeConfiguration; } set { _EnableRuntimeConfiguration = value; } }
+
+        string _DbConnectionString = null;
+        [Category("ALLinOne Rotator - Runtime Configuration")]
+        [Description("Specify a connection string (either the name of the connection string from web.config or directly the connection string) to allow runtime manipulation of Rotator Settings using the Web Interface.")]
+        public string DbConnectionString { get { return _DbConnectionString; } set { _DbConnectionString = value; } }
+
+        string _ManageUrl = null;
+        [UrlProperty()]
+        [Description("Provide the URL to where you unpacked ManageRotator.aspx that cames with your ALLinONE Rotator copy.")]
+        [Editor("System.Web.UI.Design.UrlEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
+        public string ManageUrl { get { return _ManageUrl; } set { _ManageUrl = value; } }
+
+        #endregion
 
         #region Custom Properties
 
@@ -215,62 +239,56 @@ namespace avt.AllinOneRotator.Net
         #endregion
 
 
-
-        //[Bindable(true)]
-        //[Category("Appearance")]
-        //[DefaultValue("")]
-        //[Localizable(true)]
-        //public string Text
-        //{
-        //    get
-        //    {
-        //        String s = (String)ViewState["Text"];
-        //        return ((s == null) ? "[" + this.ID + "]" : s);
-        //    }
-
-        //    set
-        //    {
-        //        ViewState["Text"] = value;
-        //    }
-        //}
-
-        
-
         protected override void RenderContents(HtmlTextWriter output)
         {
             if (base.DesignMode) {
                 output.Write("<div style = 'width: " + base.Width + "; height: " + base.Height + "; border: 1px solid #929292; background-color: #c2c2c2;'>ALLinOneRotator.NET</div>");
             } else {
-                // add include
-                //Page.ClientScript.RegisterClientScriptInclude("AC_RunActiveContent", TemplateSourceDirectory + "/flash/AC_RunActiveContent.js");
-                //Page.ClientScript.RegisterClientScriptBlock(GetType(), "AC_FL_RunContent", "AC_FL_RunContent = 0;", true);
+                if (Page.Request.Params["avtadrot"] == "manage") {
+                    new avt.AllinOneRotator.Net.WebManage.Main().Render(output);
+                    return;
+                }
 
-                // render the flash
-                string flashUrl = Page.ClientScript.GetWebResourceUrl(GetType(), "avt.AllinOneRotator.Net.flash.banner-v2-4.swf");
-                
-                string settingsUrl = Page.Request.RawUrl;
-                settingsUrl += (settingsUrl.IndexOf('?') > 0 ? ( settingsUrl.IndexOf('?') != settingsUrl.Length - 1 ? "&" : "" ) : "?") + "avtadrot=settings";
-
-                string contentUrl = Page.Request.RawUrl;
-                contentUrl += (contentUrl.IndexOf('?') > 0 ? (contentUrl.IndexOf('?') != contentUrl.Length - 1 ? "&" : "") : "?") + "avtadrot=content";
-
-                string transitionsUrl = Page.Request.RawUrl;
-                transitionsUrl += (transitionsUrl.IndexOf('?') > 0 ? (transitionsUrl.IndexOf('?') != transitionsUrl.Length - 1 ? "&" : "") : "?") + "avtadrot=transitions";
-                
-                output.Write(
-                    //"<script type=\"text/javascript\">AC_FL_RunContent( 'codebase','http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0','width','950','height','250','src','" + flashUrl + "?settingsxml=settings_v2_simple.xml&contentxml=content_v2_simple.xml&transitionsxml=transitions.xml','quality','high','pluginspage','http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash','movie','" + flashUrl + "?settingsxml=settings_v2_simple.xml&contentxml=content_v2_simple.xml&transitionsxml=transitions.xml' ); //end AC code</script>" +
-                    //"<noscript>" +
-                    "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0\" width=\"" + Width.Value + "\" height=\"" + Height.Value + "\">" +
-                        "<param name=\"movie\" value=\"" + flashUrl + "&settingsxml=" + settingsUrl + "&contentxml=" + contentUrl + "&transitionsxml=" + transitionsUrl + "\">" +
-                        "<param name=\"quality\" value=\"high\">" +
-                        "<embed src=\"" + flashUrl + "&settingsxml=" + settingsUrl + "&contentxml=" + contentUrl + "&transitionsxml=" + transitionsUrl + "\" quality=\"high\" pluginspage=\"http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash\" type=\"application/x-shockwave-flash\" width=\"" + Width.Value + "\" height=\"" + Height.Value + "\"></embed>" +
-                    "</object>"
-                    // + "</noscript>"
-                );
+                RenderFrontEnd(output);
             }
         }
 
-       
+        void RenderFrontEnd(HtmlTextWriter output)
+        {
+            // add include
+            //Page.ClientScript.RegisterClientScriptInclude("AC_RunActiveContent", TemplateSourceDirectory + "/flash/AC_RunActiveContent.js");
+            //Page.ClientScript.RegisterClientScriptBlock(GetType(), "AC_FL_RunContent", "AC_FL_RunContent = 0;", true);
+
+            // render the flash
+            string flashUrl = Page.ClientScript.GetWebResourceUrl(GetType(), "avt.AllinOneRotator.Net.flash.rotator-v2-5.swf");
+
+            string settingsUrl = Page.Request.RawUrl;
+            settingsUrl += (settingsUrl.IndexOf('?') > 0 ? (settingsUrl.IndexOf('?') != settingsUrl.Length - 1 ? "&" : "") : "?") + "avtadrot=settings";
+
+            string contentUrl = Page.Request.RawUrl;
+            contentUrl += (contentUrl.IndexOf('?') > 0 ? (contentUrl.IndexOf('?') != contentUrl.Length - 1 ? "&" : "") : "?") + "avtadrot=content";
+
+            string transitionsUrl = Page.Request.RawUrl;
+            transitionsUrl += (transitionsUrl.IndexOf('?') > 0 ? (transitionsUrl.IndexOf('?') != transitionsUrl.Length - 1 ? "&" : "") : "?") + "avtadrot=transitions";
+
+            output.Write(
+                //"<script type=\"text/javascript\">AC_FL_RunContent( 'codebase','http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0','width','950','height','250','src','" + flashUrl + "?settingsxml=settings_v2_simple.xml&contentxml=content_v2_simple.xml&transitionsxml=transitions.xml','quality','high','pluginspage','http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash','movie','" + flashUrl + "?settingsxml=settings_v2_simple.xml&contentxml=content_v2_simple.xml&transitionsxml=transitions.xml' ); //end AC code</script>" +
+                //"<noscript>" +
+                "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0\" width=\"" + Width.Value + "\" height=\"" + Height.Value + "\">" +
+                    "<param name=\"movie\" value=\"" + flashUrl + "&settingsxml=" + settingsUrl + "&contentxml=" + contentUrl + "&transitionsxml=" + transitionsUrl + "\">" +
+                    "<param name=\"quality\" value=\"high\">" +
+                    "<embed src=\"" + flashUrl + "&settingsxml=" + settingsUrl + "&contentxml=" + contentUrl + "&transitionsxml=" + transitionsUrl + "\" quality=\"high\" pluginspage=\"http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash\" type=\"application/x-shockwave-flash\" width=\"" + Width.Value + "\" height=\"" + Height.Value + "\"></embed>" +
+                "</object>"
+                // + "</noscript>"
+            );
+
+            if (EnableRuntimeConfiguration) {
+                string manageUrl = Page.Request.RawUrl;
+                manageUrl += (manageUrl.IndexOf('?') > 0 ? (manageUrl.IndexOf('?') != manageUrl.Length - 1 ? "&" : "") : "?") + "avtadrot=manage";
+                manageUrl += ("&controlId=" + ID);
+                output.Write("<a href='" + manageUrl + "'>Modify Rotator Settings</a>");
+            }
+        }      
 
         //protected override void OnPreRender(EventArgs e)
         //{
