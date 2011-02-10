@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ads>
+	<ad theTime="10" theTitle="Few details about integration and customization">
+		<background gradient1="0xD6E324" gradient2="0x7D8F14"></background> 
+		<theText textTransparency="100" glowSize="10" glowColor="0xffffff" glowStrength="3" textColor="0xff0000" moveType="Strong" easingType="Out" transitionDuration="2" justFade="no" appearFrom="right" finalXposition="15" verticalAlign="top" useBackground="yes" backgroundColor="0x000000" backgroundTransparency="20" backgroundPadding="5"><![CDATA[<font size="+4">The perfect solution for your website header</font><br/><font color="#ffffff">Very easy to integrate in all the platforms. <b>FULL CUSTOMIZABLE</b></font>]]></theText>
+		<pictures>
+			<picture Xposition="650" Yposition="0" timeDelay="0" appearFrom="right" justFade="no" useEffect="yes" effect="PixelDissolve" theLink="" glowSize="10" glowColor="0x000000" glowStrength="3"  moveType="Strong" easingType="Out" transitionDuration="1" itemTransparency="30">images/globe_animation.swf</picture>
+			<picture Xposition="450" Yposition="0" timeDelay="1" appearFrom="left" justFade="no" useEffect="yes" effect="PixelDissolve" theLink="http://www.YourDomainName.here2" glowSize="10" glowColor="0xffffff" glowStrength="3"  moveType="Strong" easingType="Out" transitionDuration="1" itemTransparency="60">images/poll_img.png</picture>
+			<picture Xposition="250" Yposition="0" timeDelay="1" appearFrom="right" justFade="no" useEffect="yes" effect="Zoom" theLink="http://www.YourDomainName.here3" glowSize="10" glowColor="0xffffff" glowStrength="3"  moveType="Elastic" easingType="Out" transitionDuration="3" itemTransparency="100">images/image1.png</picture>
+		</pictures>
+		<link theTarget="_blank" btnName="Discover more" showBtn="yes" useLink="no" useTextsBackground="yes">http://www.YourDomainName.here</link>
+		<mp3 player="on" file="MP3s/Ambiental - Ghe_Zamfir.mpeg" iconColor="0x000000"></mp3>
+	</ad>
+	
+	<ad theTime="7" theTitle="You can load also SWF movies">
+		<background gradient1="0xff0000" gradient2="0x820000"></background>
+		<theText textTransparency="100" glowSize="10" glowColor="0xffffff" glowStrength="1" textColor="0x000000" moveType="Strong" easingType="Out" transitionDuration="2" justFade="no" appearFrom="right" finalXposition="15" verticalAlign="middle" useBackground="yes" backgroundColor="0xff0000" backgroundTransparency="70" backgroundPadding="5"><![CDATA[<font color="#ffffff" size="+4">Take your business to the next step. <b>GO GLOBAL</b></font><br/><font size="-1" color="#000000">The header supports also <u>SWF animated files</u></font>]]></theText>
+		<pictures>
+			<picture Xposition="650" Yposition="0" timeDelay="0" appearFrom="top" justFade="no" useEffect="no" effect="Photo" theLink="http://www.YourDomainName.here" glowSize="10" glowColor="0xffffff" glowStrength="3"  moveType="Strong" easingType="Out" transitionDuration="1" itemTransparency="100">images/poll_img.png</picture>
+			<picture Xposition="250" Yposition="0" timeDelay="1" appearFrom="bottom" justFade="no" useEffect="no" effect="Photo" theLink="http://www.YourDomainName.here" glowSize="10" glowColor="0xffffff" glowStrength="3"  moveType="Strong" easingType="Out" transitionDuration="1" itemTransparency="100">images/image1.png</picture>
+		</pictures>
+		<link theTarget="_blank" btnName="Learn more about this" showBtn="yes" useLink="yes" useTextsBackground="no">http://www.YourDomainName.here</link>
+		<mp3 player="on" file="MP3s/StraightFLVLink-FetchMp3.mp3" iconColor="0xffffff"></mp3>
+	</ad>
+	
+	<ad theTime="10" theTitle="Using HTML formatted text">
+		<background gradient1="0xD6E324" gradient2="0x7D8F14"></background>
+		<theText textTransparency="100" glowSize="10" glowColor="0xffffff" glowStrength="3" textColor="0x000000" moveType="Strong" easingType="Out" transitionDuration="2" justFade="no" appearFrom="right" finalXposition="15" verticalAlign="middle" useBackground="yes" backgroundColor="0x064582" backgroundTransparency="70" backgroundPadding="5"><![CDATA[<font color="#ff0000" size="+4">It can be used as a simple banner rotator, too.</font><br/><font color="#333333" size="-2">All texts are HTML formatted so you can change font sizes, colors or do other stylings.<br/>You can even add <a href="#" color="blue"><u><font color="#000099">links</font></u></a></font>]]></theText>
+		<pictures>
+			<picture Xposition="0" Yposition="0" timeDelay="0" appearFrom="right" justFade="yes" useEffect="yes" effect="Photo" theLink="http://www.YourDomainName.here" glowSize="10" glowColor="0xffffff" glowStrength="3"  moveType="Strong" easingType="Out" transitionDuration="1" itemTransparency="100">images/large_img1.jpg</picture>
+			<picture Xposition="450" Yposition="0" timeDelay="1" appearFrom="right" justFade="no" useEffect="yes" effect="Photo" theLink="http://www.YourDomainName.here" glowSize="10" glowColor="0xffffff" glowStrength="3"  moveType="Strong" easingType="Out" transitionDuration="1" itemTransparency="100">images/poll_img.png</picture>
+			<picture Xposition="250" Yposition="0" timeDelay="1" appearFrom="right" justFade="no" useEffect="yes" effect="Photo" theLink="http://www.YourDomainName.here" glowSize="10" glowColor="0xffffff" glowStrength="3"  moveType="Strong" easingType="Out" transitionDuration="1" itemTransparency="100">images/image1.png</picture>
+		</pictures>
+		<link theTarget="_blank" btnName="Read and share" showBtn="yes" useLink="no" useTextsBackground="yes">http://www.YourDomainName.here</link>
+		<mp3 player="off" file="MP3s/Ambiental - Ghe_Zamfir.mpeg" iconColor="0x000000"></mp3>
+	</ad>
+	
+	<ad theTime="12" theTitle="For this ad the Read More button is disabled">
+		<background gradient1="0x5ca8ec" gradient2="0x0a5da7"></background>
+		<theText textTransparency="70" glowSize="10" glowColor="0xffffff" glowStrength="1" textColor="0x000000" moveType="Strong" easingType="Out" transitionDuration="2" justFade="no" appearFrom="right" finalXposition="15" verticalAlign="middle" useBackground="no" backgroundColor="0x000000" backgroundTransparency="70" backgroundPadding="5"><![CDATA[<font color="#ffffff" size="+4">You can add interactive items like<br/><b>quick polls</b> or <b>newslists</b> or <em>anything you want</em></font>]]></theText>
+		<pictures>
+			<picture Xposition="650" Yposition="0" timeDelay="0" appearFrom="right" justFade="no" useEffect="yes" effect="Photo" theLink="http://www.YourDomainName.here" glowSize="10" glowColor="0xffffff" glowStrength="3"  moveType="Strong" easingType="Out" transitionDuration="1" itemTransparency="100">images/image1.png</picture>
+			<picture Xposition="650" Yposition="0" timeDelay="1" appearFrom="right" justFade="no" useEffect="yes" effect="Photo" theLink="http://www.YourDomainName.here" glowSize="10" glowColor="0xffffff" glowStrength="3"  moveType="Strong" easingType="Out" transitionDuration="1" itemTransparency="100">images/poll_img.png</picture>
+			<picture Xposition="650" Yposition="0" timeDelay="1" appearFrom="right" justFade="no" useEffect="yes" effect="Photo" theLink="http://www.YourDomainName.here" glowSize="10" glowColor="0xffffff" glowStrength="3"  moveType="Strong" easingType="Out" transitionDuration="1" itemTransparency="100">images/image1.png</picture>
+		</pictures>
+		<link theTarget="_blank" btnName="" showBtn="no" useLink="no" useTextsBackground="yes">http://www.YourDomainName.here</link>
+		<mp3 player="on" file="MP3s/StraightFLVLink-FetchMp3.mp3" iconColor="0x000000"></mp3>
+	</ad>
+</ads>
