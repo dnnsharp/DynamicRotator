@@ -1,0 +1,62 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    font-family: Verdana;
+    font-size: 12px;
+    background-color: #F3F3FF;
+}
+
+.manageTitle {
+    background-color: #F3F3FF;
+    border-bottom: 2px solid #D2D2FF;
+    color: #424242;
+    font-family: Arial;
+    font-size: 24px;
+    margin: 0;
+    padding: 10px;
+}
+
+.footer {
+    background-color: #F3F3FF;
+    border-top: 2px solid #D2D2FF;
+    padding: 10px 0;
+}
+
+#mainTabs {
+    background: none repeat scroll 0 0 white;
+}
+
+.settingField {
+    font-weight: bold;
+    padding: 4px 10px;
+    border: 1px solid #CCCCCC;
+    color: #1C94C4;
+}
+
+
+.grayed_desc {
+    font-style: italic;
+    color: #525252;
+    font-size: 11px;
+    padding: 2px 0 0 20px;
+}
+
+.tbColor {
+    width: 80px;
+}
+
+.tbNumber {
+    width: 60px;
+}
+
+.btnPane {
+    margin: 6px 60px 0 0; 
+    padding: 5px 40px; 
+    float:right;
+}
+
+.btnPane button {
+    padding: 4px 8px;
+    margin-left: 10px;
+}
+

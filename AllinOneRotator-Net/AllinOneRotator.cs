@@ -9,6 +9,8 @@ using System.Xml;
 using System.Drawing;
 using System.Drawing.Design;
 using System.Configuration;
+using avt.AllinOneRotator.Net.Data;
+using avt.AllinOneRotator.Net.Settings;
 
 namespace avt.AllinOneRotator.Net
 {
@@ -20,20 +22,35 @@ namespace avt.AllinOneRotator.Net
     [ToolboxData("<{0}:AllinOneRotator runat=server></{0}:AllinOneRotator>")]
     public class AllinOneRotator : WebControl
     {
+        RotatorSettings Settings;
+
         public AllinOneRotator()
         {
-            base.Width = new Unit(950, UnitType.Pixel);
-            base.Height = new Unit(250, UnitType.Pixel);
+            Settings = new RotatorSettings();
 
-            // string connStr = ConfigurationManager.ConnectionStrings["SiteSqlServer"].ConnectionString;
+            Settings.Width = new Unit(950, UnitType.Pixel);
+            Settings.Height = new Unit(250, UnitType.Pixel);
+
+        }
+
+        protected override void  OnDataBinding(EventArgs e)
+        {
+            base.OnDataBinding(e);
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
+            Settings.Init(ID);
+
+            // merge dynamic settings
+            if (EnableRuntimeConfiguration) {
+                Settings.LoadFromDB(DbConnectionString, DbOwner, DbObjectQualifier);
+            }
+
             if (Page.Request.Params["avtadrot"] == "settings") {
-                Page.Response.Write(GetSettingsXml());
+                Page.Response.Write(Settings.ToXml());
                 Page.Response.ContentType = "text/xml";
                 Page.Response.End();
                 return;
@@ -82,7 +99,18 @@ namespace avt.AllinOneRotator.Net
         [Description("Specify a connection string (either the name of the connection string from web.config or directly the connection string) to allow runtime manipulation of Rotator Settings using the Web Interface.")]
         public string DbConnectionString { get { return _DbConnectionString; } set { _DbConnectionString = value; } }
 
+        string _DbOwner = "dbo";
+        [Category("ALLinOne Rotator - Runtime Configuration")]
+        [Description("Database Owner")]
+        public string DbOwner { get { return _DbOwner; } set { _DbOwner = value; } }
+
+        string _DbObjectQualifier = null;
+        [Category("ALLinOne Rotator - Runtime Configuration")]
+        [Description("Object qualifier (prefix for ALLinONE Rotator tables)")]
+        public string DbObjectQualifier { get { return _DbObjectQualifier; } set { _DbObjectQualifier = value; } }
+
         string _ManageUrl = null;
+        [Category("ALLinOne Rotator - Runtime Configuration")]
         [UrlProperty()]
         [Description("Provide the URL to where you unpacked ManageRotator.aspx that cames with your ALLinONE Rotator copy.")]
         [Editor("System.Web.UI.Design.UrlEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
@@ -90,120 +118,74 @@ namespace avt.AllinOneRotator.Net
 
         #endregion
 
+
         #region Custom Properties
 
-        bool _AutoStartSlideShow = true;
-        [Category("ALLinOne Rotator")]
-        public bool AutoStartSlideShow { get { return _AutoStartSlideShow; } set { _AutoStartSlideShow = value; } }
+        [Category("Layout")]
+        public override Unit Width { get { return Settings.Width; } set { Settings.Width = value; } }
 
-        bool _UseRoundCornersMask = true;
-        [Category("ALLinOne Rotator")]
-        public bool UseRoundCornersMask { get { return _UseRoundCornersMask; } set { _UseRoundCornersMask = value; } }
+        [Category("Layout")]
+        public override Unit Height { get { return Settings.Height; } set { Settings.Height = value; } }
 
-        Color _RoundCornerMaskColor = Color.White;
+        [Category("ALLinOne Rotator")]
+        public bool AutoStartSlideShow { get { return Settings.AutoStartSlideShow; } set { Settings.AutoStartSlideShow = value; } }
+
+        [Category("ALLinOne Rotator")]
+        public bool UseRoundCornersMask { get { return Settings.UseRoundCornersMask; } set { Settings.UseRoundCornersMask = value; } }
+
         [TypeConverter(typeof(WebColorConverter))]
         [Category("ALLinOne Rotator")]
-        public Color RoundCornerMaskColor { get { return _RoundCornerMaskColor; } set { _RoundCornerMaskColor = value; } }
+        public Color RoundCornerMaskColor { get { return Settings.RoundCornerMaskColor; } set { Settings.RoundCornerMaskColor = value; } }
 
-        bool _ShowBottomButtons = true;
         [Category("ALLinOne Rotator")]
-        public bool ShowBottomButtons { get { return _ShowBottomButtons; } set { _ShowBottomButtons = value; } }
+        public bool ShowBottomButtons { get { return Settings.ShowBottomButtons; } set { Settings.ShowBottomButtons = value; } }
 
-        bool _ShowPlayPauseControls = true;
         [Category("ALLinOne Rotator")]
-        public bool ShowPlayPauseControls { get { return _ShowPlayPauseControls; } set { _ShowPlayPauseControls = value; } }
+        public bool ShowPlayPauseControls { get { return Settings.ShowPlayPauseControls; } set { Settings.ShowPlayPauseControls = value; } }
 
-        Color _FadeColor = Color.White;
         [TypeConverter(typeof(WebColorConverter))]
         [Category("ALLinOne Rotator")]
-        public Color FadeColor { get { return _FadeColor; } set { _FadeColor = value; } }
+        public Color FadeColor { get { return Settings.FadeColor; } set { Settings.FadeColor = value; } }
         
-        bool _ShowTopTitle = true;
         [Category("ALLinOne Rotator")]
-        public bool ShowTopTitle { get { return _ShowTopTitle; } set { _ShowTopTitle = value; } }
+        public bool ShowTopTitle { get { return Settings.ShowTopTitle; } set { Settings.ShowTopTitle = value; } }
 
-        Color _TopTitleBackground = Color.Black;
         [TypeConverter(typeof(WebColorConverter))]
         [Category("ALLinOne Rotator")]
-        public Color TopTitleBackground { get { return _TopTitleBackground; } set { _TopTitleBackground = value; } }
+        public Color TopTitleBackground { get { return Settings.TopTitleBackground; } set { Settings.TopTitleBackground = value; } }
 
-        int _TopTitleBgTransparency = 70;
         [Category("ALLinOne Rotator")]
-        public int TopTitleBgTransparency { get { return _TopTitleBgTransparency; } set { _TopTitleBgTransparency = value; } }
+        public int TopTitleBgTransparency { get { return Settings.TopTitleBgTransparency; } set { Settings.TopTitleBgTransparency = value; } }
 
-        Color _TopTitleTextColor = Color.White;
         [TypeConverter(typeof(WebColorConverter))]
         [Category("ALLinOne Rotator")]
-        public Color TopTitleTextColor { get { return _TopTitleTextColor; } set { _TopTitleTextColor = value; } }
+        public Color TopTitleTextColor { get { return Settings.TopTitleTextColor; } set { Settings.TopTitleTextColor = value; } }
 
-        bool _ShowTimerBar = true;
         [Category("ALLinOne Rotator")]
-        public bool ShowTimerBar { get { return _ShowTimerBar; } set { _ShowTimerBar = value; } }
+        public bool ShowTimerBar { get { return Settings.ShowTimerBar; } set { Settings.ShowTimerBar = value; } }
 
-        Color _SmallButtonsColor = Color.FromArgb(0x12, 0x12, 0x12);
         [TypeConverter(typeof(WebColorConverter))]
         [Category("ALLinOne Rotator")]
-        public Color SlideButtonsColor { get { return _SmallButtonsColor; } set { _SmallButtonsColor = value; } }
+        public Color SlideButtonsColor { get { return Settings.SlideButtonsColor; } set { Settings.SlideButtonsColor = value; } }
 
-        Color _SmallButtonsNumberColor = Color.White;
         [TypeConverter(typeof(WebColorConverter))]
         [Category("ALLinOne Rotator")]
-        public Color SlideButtonsNumberColor { get { return _SmallButtonsNumberColor; } set { _SmallButtonsNumberColor = value; } }
+        public Color SlideButtonsNumberColor { get { return Settings.SlideButtonsNumberColor; } set { Settings.SlideButtonsNumberColor = value; } }
 
-        eSlideButtonsType _SmallButtonsType = eSlideButtonsType.SquareWithNumbers;
         [Category("ALLinOne Rotator")]
-        public eSlideButtonsType SlideButtonsType { get { return _SmallButtonsType; } set { _SmallButtonsType = value; } }
+        public eSlideButtonsType SlideButtonsType { get { return Settings.SlideButtonsType; } set { Settings.SlideButtonsType = value; } }
 
-        int _SmallButtonsXoffset = 20;
         [Category("ALLinOne Rotator")]
-        public int SlideButtonsXoffset { get { return _SmallButtonsXoffset; } set { _SmallButtonsXoffset = value; } }
+        public int SlideButtonsXoffset { get { return Settings.SlideButtonsXoffset; } set { Settings.SlideButtonsXoffset = value; } }
 
-        int _SmallButtonsYoffset = 35;
         [Category("ALLinOne Rotator")]
-        public int SlideButtonsYoffset { get { return _SmallButtonsYoffset; } set { _SmallButtonsYoffset = value; } }
+        public int SlideButtonsYoffset { get { return Settings.SlideButtonsYoffset; } set { Settings.SlideButtonsYoffset = value; } }
 
-        bool _TransparentBackground = false;
         [Category("ALLinOne Rotator")]
-        public bool TransparentBackground { get { return _TransparentBackground; } set { _TransparentBackground = value; } }
-
-
-        string GetSettingsXml()
-        {
-            StringBuilder strXML = new StringBuilder();
-            XmlWriterSettings settings = new XmlWriterSettings();
-            settings.Indent = true;
-            settings.OmitXmlDeclaration = false;
-            settings.Encoding = Encoding.UTF8;
-            XmlWriter Writer = XmlWriter.Create(strXML, settings);
-
-            Writer.WriteStartElement("settings");
-            Writer.WriteElementString("stageWidth", Width.Value.ToString());
-            Writer.WriteElementString("stageHeight", Height.Value.ToString());
-            Writer.WriteElementString("startSlideShow", AutoStartSlideShow ? "yes" : "no");
-            Writer.WriteElementString("useRoundCornersMask", UseRoundCornersMask ? "yes" : "no");
-            Writer.WriteElementString("roundCornerMaskColor", ColorExt.ColorToHexString(RoundCornerMaskColor));
-            Writer.WriteElementString("showBottomButtons", ShowBottomButtons ? "yes" : "no");
-            Writer.WriteElementString("showPlayPauseControls", ShowPlayPauseControls ? "yes" : "no");
-            Writer.WriteElementString("fadeColor", ColorExt.ColorToHexString(FadeColor));
-            Writer.WriteElementString("showTopTitle", ShowTopTitle ? "yes" : "no");
-            Writer.WriteElementString("topTitleBackground", ColorExt.ColorToHexString(TopTitleBackground));
-            Writer.WriteElementString("topTitleBgTransparency", TopTitleBgTransparency.ToString());
-            Writer.WriteElementString("topTitleTextColor", ColorExt.ColorToHexString(TopTitleTextColor));
-            Writer.WriteElementString("showTimerBar", ShowTimerBar ? "yes" : "no");
-            Writer.WriteElementString("smallButtonsColor", ColorExt.ColorToHexString(SlideButtonsColor));
-            Writer.WriteElementString("smallButtonsNumberColor", ColorExt.ColorToHexString(SlideButtonsNumberColor));
-            Writer.WriteElementString("smallButtonsType", ((int)SlideButtonsType).ToString());
-            Writer.WriteElementString("smallButtonsXoffset", SlideButtonsXoffset.ToString());
-            Writer.WriteElementString("smallButtonsYoffset", SlideButtonsYoffset.ToString());
-            Writer.WriteElementString("transparentBackground", TransparentBackground ? "yes" : "no");
-            Writer.WriteEndElement(); // "settings";
-
-            Writer.Close();
-
-            return strXML.ToString();
-        }
+        public bool TransparentBackground { get { return Settings.TransparentBackground; } set { Settings.TransparentBackground = value; } }
 
         #endregion
+
 
         #region Slides
 
@@ -244,11 +226,6 @@ namespace avt.AllinOneRotator.Net
             if (base.DesignMode) {
                 output.Write("<div style = 'width: " + base.Width + "; height: " + base.Height + "; border: 1px solid #929292; background-color: #c2c2c2;'>ALLinOneRotator.NET</div>");
             } else {
-                if (Page.Request.Params["avtadrot"] == "manage") {
-                    new avt.AllinOneRotator.Net.WebManage.Main().Render(output);
-                    return;
-                }
-
                 RenderFrontEnd(output);
             }
         }
@@ -283,12 +260,15 @@ namespace avt.AllinOneRotator.Net
             );
 
             if (EnableRuntimeConfiguration) {
-                string manageUrl = Page.Request.RawUrl;
-                manageUrl += (manageUrl.IndexOf('?') > 0 ? (manageUrl.IndexOf('?') != manageUrl.Length - 1 ? "&" : "") : "?") + "avtadrot=manage";
-                manageUrl += ("&controlId=" + ID);
+                string manageUrl = Page.ResolveUrl(ManageUrl);
+                manageUrl += "?controlId=" + ID;
+                manageUrl += "&connStr=" + DbConnectionString;
+                manageUrl += "&dbOwner=" + DbOwner;
+                manageUrl += "&objQualifier=" + DbObjectQualifier;
+                manageUrl += "&rurl=" + HttpUtility.UrlEncode(HttpContext.Current.Request.RawUrl);
                 output.Write("<a href='" + manageUrl + "'>Modify Rotator Settings</a>");
             }
-        }      
+        }
 
         //protected override void OnPreRender(EventArgs e)
         //{
