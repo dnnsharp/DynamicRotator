@@ -65,5 +65,12 @@ namespace avt.AllinOneRotator.Net.Data
         public abstract IDataReader GetSetting(string controlId, string settingName);
         public abstract void RemoveSettings(string controlId);
         public abstract void RemoveSetting(string controlId, string settingName);
+
+        // Slides
+        public abstract void UpdateSlide(
+            int slideId, string controlId, string title, int durationSeconds, string backgroundGradientFrom, string backgroundGradientTo,
+            string linkUrl, string linkCaption, string linkTarget, bool useTextsBk,
+            string mp3LinkUrl, bool mp3ShowPlayer, string mp3IconColor
+        );
     }
 }

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="True" CodeBehind="ManageRotator.aspx.cs" Inherits="avt.AllinOneRotator.Net.WebManage.ManageRotator" %>
+﻿<%@ Page Language="C#" AutoEventWireup="True" CodeBehind="ManageRotator.aspx.cs" Inherits="avt.AllinOneRotator.Net.WebManage.ManageRotator" ValidateRequest="false" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -18,10 +18,12 @@
 <body>
     <form id="form1" runat="server">
     
+    <asp:HiddenField runat="server" ID ="hdnSlideXml" />
+
     <div>
         <div class="btnPane">
             <a href = "<%= System.Web.HttpUtility.UrlDecode(Request.QueryString["rurl"]) %>" style="color: #525252; padding: 1px 10px; margin-right: 10px; font-weight: normal;" >Cancel</a>
-            <asp:Button runat="server" OnClick="SaveSettings" class="ui-state-default" style="padding: 4px 10px;" Text="Save" />
+            <asp:Button runat="server" OnClick="SaveSettings" class="ui-state-default" style="padding: 4px 10px;" Text="Save" OnClientClick="return save();" />
         </div>
 
         <h1 class="manageTitle">Settings for <i>Control1</i></h1>
@@ -248,18 +250,19 @@
 
                     <div class="pnlSlideOpts pnlSlideOptsGeneral">
                         <div style = "margin: 8px;">
+                            <span class="slideId">-1</span>
                             <div class = "fieldRow ui-widget-content">
                                 <b>Slide Title: </b> 
-                                <input type="text" style = "width: 320px;" value="<%= DefaultSlide.Title %>" />
+                                <input type="text" class = "tbSlideTitle" style = "width: 320px;" value="<%= DefaultSlide.Title %>" />
                             </div>
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>Background Gradient: </b>
-                                from <input type="text" style = "width: 60px;" class="tbColor" value="<%= ColorToHex(DefaultSlide.BackgroundGradientFrom) %>" />
-                                to <input type="text" style = "width: 60px;" class="tbColor" value="<%= ColorToHex(DefaultSlide.BackgroundGradientTo) %>" />
+                                from <input type="text" style = "width: 60px;" class="tbColor tbBkGradFrom" value="<%= ColorToHex(DefaultSlide.BackgroundGradientFrom) %>" />
+                                to <input type="text" style = "width: 60px;" class="tbColor tbBkGradTo" value="<%= ColorToHex(DefaultSlide.BackgroundGradientTo) %>" />
                             </div>
                              <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>Duration: </b>
-                                <input type="text" style = "width: 24px;" value="<%= DefaultSlide.DurationSeconds %>" /> seconds
+                                <input type="text" style = "width: 24px;" class="tbDuration" value="<%= DefaultSlide.DurationSeconds %>" /> seconds
                             </div>
                         </div>
                     </div>
@@ -268,25 +271,25 @@
                         <div style = "margin: 8px;">
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>Slide URL: </b> 
-                                <select>
+                                <select class = "ddUrl">
                                     <option>http://</option>
                                     <option>https://</option>
                                     <option>ftp://</option>
                                     <option>other</option>
                                 </select>
-                                <input type="text" style = "width: 260px;" value="<%= DefaultSlide.SlideUrl %>" />
+                                <input type="text" class = "tbUrl tbLinkUrl" style = "width: 260px;" value="<%= DefaultSlide.SlideUrl %>" />
                             </div>
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>Link Caption: </b> 
-                                <input type="text" style = "width: 200px;" value="<%= DefaultSlide.ButtonCaption %>" />
+                                <input type="text" class="tbLinkCaption" style = "width: 200px;" value="<%= DefaultSlide.ButtonCaption %>" />
                             </div>
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>Link Target: </b> 
-                                <input type="text" style = "width: 200px;" value="<%= DefaultSlide.Target %>" />
+                                <asp:DropDownList runat="server" id="ddLinkTarget" class="ddLinkTarget"></asp:DropDownList>
                             </div>
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>Use Texts Background: </b> 
-                                <input type="checkbox" style = "" <%= DefaultSlide.UseTextsBackground ? "checked='checked'" :"" %> />
+                                <input type="checkbox" class = "cbUseTextsBackground" style = "" <%= DefaultSlide.UseTextsBackground ? "checked='checked'" :"" %> />
                             </div>
                         </div>
                     </div>
@@ -307,70 +310,25 @@
                                     <option>ftp://</option>
                                     <option>other</option>
                                 </select>
-                                <input type="text" style = "width: 260px;" class = "tbUrl" value="<%= DefaultSlide.Mp3Url %>" />
+                                <input type="text" style = "width: 260px;" class = "tbUrl tbMp3Url" value="<%= DefaultSlide.Mp3Url %>" />
                             </div>
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>Icon Color: </b> 
-                                <input type="text" style = "width: 60px;" class="tbColor" value="<%= ColorToHex(DefaultSlide.IconColor) %>" />
+                                <input type="text" style = "width: 60px;" class="tbColor tbMp3IconColor" value="<%= ColorToHex(DefaultSlide.IconColor) %>" />
                             </div>
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>Show Player: </b> 
-                                <input type="checkbox" style = "" <%= DefaultSlide.ShowPlayer ? "checked='checked'" :"" %> />
+                                <input type="checkbox" class="cbMp3ShowPlayer" <%= DefaultSlide.ShowPlayer ? "checked='checked'" :"" %> />
                             </div>
                         </div>
                     </div>
 
                     <div class="pnlSlideExtra">
-                        <a href = "#" class="slideExtraBtn" onclick="return false;" style="margin-top: 70px">Clone</a>
+                        <a href = "#" class="slideExtraBtn" onclick="cloneSlide(jQuery(this).parents('.slideRoot:first')); return false;" style="margin-top: 70px">Clone</a>
                         <br />
                         <a href = "#" class="slideExtraBtn" onclick="deleteSlide(jQuery(this).parents('.slideRoot:first')); return false;">Delete</a>
                     </div>
 
-                    <%--<div class = "slideTabs">
-                        <ul>
-                            <li><a href="#tabs-slide-general">General</a></li>
-                            <li><a href="#tabs-slide-objects">Graphics</a></li>
-                            <li><a href="#tabs-slide-mp3">Music</a></li>
-                        </ul>
-
-                        <div id = "tabs-slide-general">
-                            test
-                        </div>
-                        <div id = "tabs-slide-objects">
-                            test
-                        </div>
-                        <div id = "tabs-slide-mp3">
-                            test
-                        </div>
-                    </div>--%>
-
-
-                    <%--<div class ="pnlSlideOptGroups">
-                        <div style = "margin:6px;">
-                            
-                        </div>
-                    </div>
-                    <div class ="pnlSlideOptGroups">
-                        <div style = "margin:6px;">
-                            <table border="0" cellpadding="0" cellspacing="2">
-                                <tr>
-                                    <td><b>Link URL: </b></td>
-                                    <td><input type="text" style = "width: 240px;" /></td>
-                                </tr>
-                                <tr>
-                                    <td><b>Caption: </b></td>
-                                    <td><input type="text" style = "width: 200px;" /></td>
-                                </tr>
-                                <tr>
-                                    <td><b>Target: </b></td>
-                                    <td><input type="text" style = "width: 60px;" /></td>
-                                </tr>
-                            </table>
-                        
-                            <b>Use Texts Background: </b>
-                            <input type="checkbox" style = "" />
-                        </div>
-                    </div>--%>
                     <div style = "clear: both;"></div>
                 </li>
             </ul>
@@ -391,7 +349,7 @@
     <div class="footer">
         <div class="btnPane">
             <a href = "<%= System.Web.HttpUtility.UrlDecode(Request.QueryString["rurl"]) %>" style="color: #525252; padding: 1px 10px; margin-right: 10px; font-weight: normal;" >Cancel</a>
-            <asp:Button runat="server" OnClick="SaveSettings" class="ui-state-default" style="padding: 4px 10px;" Text="Save" />
+            <asp:Button runat="server" OnClick="SaveSettings" class="ui-state-default" style="padding: 4px 10px;" Text="Save" OnClientClick="return save();" />
         </div>
         <div style="clear:both;"></div>
     </div>
@@ -477,6 +435,14 @@
             return false;
         }
 
+        function cloneSlide(slideRoot) {
+            var _new = slideRoot.clone();
+            _new.find(".tbSlideTitle").val(_new.find(".tbSlideTitle").val() + " - Copy");
+            slideRoot.after(_new);
+            _new.find(".slideOptsGroup:first").click();
+            updateSlideIndexes();
+        }
+
         function deleteSlide(slideRoot) {
             if (!confirm("Are you sure you want to delete this slide?\nData will be permanently lost after you hit Save...")) {
                 return;
@@ -484,6 +450,75 @@
 
             slideRoot.remove();
             updateSlideIndexes();
+        }
+
+        function save() {
+            var bErr = false;
+            jQuery(".fieldRowErr").removeClass("fieldRowErr");
+            jQuery(".slideRoot:visible").each(function() {
+                if (!validateSlide(jQuery(this))) {
+                    bErr = true;
+                }
+            });
+
+            if (bErr)
+                return false;
+
+            var x = "<slides>";
+            jQuery(".slideRoot:visible").each(function() {
+                x += saveSlideToXml(jQuery(this));
+            });
+            x += "</slides>";
+            jQuery("#<%=hdnSlideXml.ClientID %>").val(x);
+
+            return true;
+        }
+
+        function validateSlide(slideRoot) {
+            if (isNaN(parseInt(jQuery.trim(slideRoot.find(".tbDuration").val())))) {
+                slideRoot.find(".tbDuration").parents(".fieldRow:first").addClass("fieldRowErr");
+                return false;
+            }
+            return true;
+        }
+
+        function saveSlideToXml(slideRoot) {
+            var x = "<slide>";
+            x += "<id>"+ slideRoot.find(".slideId").text() +"</id>";
+            
+            x += "<title>"+ encodeXml(slideRoot.find(".tbSlideTitle").val()) +"</title>";
+            x += "<duration>"+ slideRoot.find(".tbDuration").val() +"</duration>";
+            x += "<bkGradFrom>"+ encodeXml(slideRoot.find(".tbColortbBkGradFrom").val()) +"</bkGradFrom>";
+            x += "<bkGradTo>"+ encodeXml(slideRoot.find(".tbColortbBkGradTo").val()) +"</bkGradTo>";
+
+            x += "<linkUrl>"+ encodeXml(formatUrl(slideRoot.find(".tbLinkUrl"))) +"</linkUrl>";
+            x += "<linkCaption>"+ encodeXml(slideRoot.find(".tbLinkCaption").val()) +"</linkCaption>";
+            x += "<linkTarget>"+ encodeXml(slideRoot.find(".ddLinkTarget").val()) +"</linkTarget>";
+            x += "<useTextsBk>"+ (slideRoot.find(".cbUseTextsBackground").val() ? "true" : "false") +"</useTextsBk>";
+
+            x += "<mp3Url>"+ encodeXml(formatUrl(slideRoot.find(".tbMp3Url"))) +"</mp3Url>";
+            x += "<mp3IconColor>"+ encodeXml(slideRoot.find(".tbMp3IconColor").val()) +"</mp3IconColor>";
+            x += "<mp3ShowPlayer>"+ (slideRoot.find(".cbMp3ShowPlayer").val() ? "true" : "false") +"</mp3ShowPlayer>";
+
+            x += "</slide>";
+            return x;
+        }
+
+        function encodeXml(sXml) {
+            if (!sXml)
+                return "";
+            return sXml.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&apos;");
+        }
+
+        function formatUrl(tb) {
+            if (jQuery.trim(tb.val()).length == 0)
+                return "";
+            var dd = tb.parents(".fieldRow.:first").find(".ddUrl");
+            if (dd.val() == "other") {
+                return tb;
+            }
+            
+            return dd.val() + tb.val();
         }
 
     </script>

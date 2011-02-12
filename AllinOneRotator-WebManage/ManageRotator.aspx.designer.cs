@@ -22,6 +22,15 @@ namespace avt.AllinOneRotator.Net.WebManage {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// hdnSlideXml control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnSlideXml;
+        
+        /// <summary>
         /// cbAutoStartSlideShow control.
         /// </summary>
         /// <remarks>
@@ -173,5 +182,14 @@ namespace avt.AllinOneRotator.Net.WebManage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox cbTransparentBackground;
+        
+        /// <summary>
+        /// ddLinkTarget control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddLinkTarget;
     }
 }

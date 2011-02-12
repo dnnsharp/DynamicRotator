@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Data;
 using avt.AllinOneRotator.Net.Settings;
 using System.Drawing;
+using System.Xml;
 
 namespace avt.AllinOneRotator.Net.WebManage
 {
@@ -21,6 +22,10 @@ namespace avt.AllinOneRotator.Net.WebManage
 
                 ddSlideButtonsType.DataSource = Enum.GetNames(typeof(eSlideButtonsType));
                 ddSlideButtonsType.DataBind();
+
+                ddLinkTarget.DataSource = Enum.GetNames(typeof(eLinkTarget));
+                ddLinkTarget.DataBind();
+                try { ddLinkTarget.SelectedValue = DefaultSlide.Target.ToString(); } catch { }
 
                 // load settings
 
@@ -81,6 +86,36 @@ namespace avt.AllinOneRotator.Net.WebManage
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "SlideButtonsXoffset", tbSlideButtonsXoffset.Text);
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "SlideButtonsYoffset", tbSlideButtonsYoffset.Text);
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "TransparentBackground", cbTransparentBackground.Checked ? "true" : "false");
+
+            // save slides
+            XmlDocument xmlDocSlides = null;
+            //try {
+                xmlDocSlides = new XmlDocument();
+                xmlDocSlides.LoadXml(hdnSlideXml.Value);
+            //} catch { xmlDocSlides = null; }
+
+            if (xmlDocSlides != null) {
+                foreach (XmlElement xmlSlide in xmlDocSlides.DocumentElement.SelectNodes("slide")) {
+                    DataProvider.Instance().UpdateSlide(
+                        Convert.ToInt32(xmlSlide["id"].InnerText),
+                        Request.QueryString["controlId"],
+                        xmlSlide["title"].InnerText,
+                        Convert.ToInt32(xmlSlide["duration"].InnerText),
+                        xmlSlide["bkGradFrom"].InnerText,
+                        xmlSlide["bkGradTo"].InnerText,
+
+                        xmlSlide["linkUrl"].InnerText,
+                        xmlSlide["linkCaption"].InnerText,
+                        xmlSlide["linkTarget"].InnerText,
+                        xmlSlide["useTextsBk"].InnerText == "true",
+
+                        xmlSlide["mp3Url"].InnerText,
+                        xmlSlide["mp3ShowPlayer"].InnerText == "true",
+                        xmlSlide["mp3IconColor"].InnerText
+                    );
+                }
+            }
+            
 
             Response.Redirect(HttpUtility.UrlDecode(Request.QueryString["rurl"]));
         }

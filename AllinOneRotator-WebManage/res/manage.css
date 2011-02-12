@@ -167,6 +167,20 @@
     color: #1C94C4;
 }
 
+.fieldRowErr {
+    background: none repeat scroll 0 0 #fa5252;
+    color: White;
+}
+
 .pnlSlideOptsMp3, .pnlSlideOptsGeneral {
     margin-top: 15px;
 }
+
+.tbErr {
+    background-color: Red;
+}
+
+.slideId {
+    display: none;
+}
+

@@ -12,6 +12,7 @@ namespace avt.AllinOneRotator.Net.Data
         #region "Private Members"
 
         AvtSqlHelper_Table _TableSettings;
+        AvtSqlHelper_Table _TableSlides;
 
         #endregion
 
@@ -30,6 +31,16 @@ namespace avt.AllinOneRotator.Net.Data
                 false,
                 new string[] { "ControlId", "SettingName" },
                 "SettingValue"
+            );
+
+            _TableSlides = new AvtSqlHelper_Table(
+                ConnStr,
+                DbOwner + ObjQualifier + "avtRotator_Slides",
+                true,
+                new string[] { "SlideId" },
+                "ControlId", "Title", "DurationSeconds", "BackgroundGradientFrom", "BackgroundGradientTo",
+                "Link_Url", "Link_Caption", "Link_Target", "Link_UseTextsBackground",
+                "Mp3_Url", "Mp3_ShowPlayer", "Mp3_IconColor"
             );
         }
 
@@ -64,5 +75,23 @@ namespace avt.AllinOneRotator.Net.Data
         }
 
         #endregion
+
+
+        #region Slides
+
+        public override void UpdateSlide(
+            int slideId, string controlId, string title, int durationSeconds, string backgroundGradientFrom, string backgroundGradientTo,
+            string linkUrl, string linkCaption, string linkTarget, bool useTextsBk,
+            string mp3LinkUrl, bool mp3ShowPlayer, string mp3IconColor)
+        {
+            _TableSlides.Update(
+                new object[] { slideId }, controlId, title, durationSeconds, backgroundGradientFrom, backgroundGradientTo,
+                linkUrl, linkCaption, linkTarget, useTextsBk,
+                mp3LinkUrl, mp3ShowPlayer, mp3IconColor
+            );
+        }
+
+        #endregion
+
     }
 }
