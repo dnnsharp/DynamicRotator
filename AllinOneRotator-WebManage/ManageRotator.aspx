@@ -265,6 +265,33 @@
                         </div>
                     </div>
 
+                    <div class="pnlSlideOpts pnlSlideOptsLink">
+                        <div style = "margin: 8px;">
+                            <div class = "fieldRow ui-widget-content" style="clear: left;">
+                                <b>Slide URL: </b> 
+                                <select>
+                                    <option>http://</option>
+                                    <option>https://</option>
+                                    <option>ftp://</option>
+                                    <option>other</option>
+                                </select>
+                                <input type="text" style = "width: 260px;" />
+                            </div>
+                            <div class = "fieldRow ui-widget-content" style="clear: left;">
+                                <b>Link Caption: </b> 
+                                <input type="text" style = "width: 200px;" />
+                            </div>
+                            <div class = "fieldRow ui-widget-content" style="clear: left;">
+                                <b>Link Target: </b> 
+                                <input type="text" style = "width: 200px;" />
+                            </div>
+                            <div class = "fieldRow ui-widget-content" style="clear: left;">
+                                <b>Use Texts Background: </b> 
+                                <input type="checkbox" style = "" />
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="pnlSlideOpts pnlSlideOptsContent">
                         <div style = "margin: 8px;">
                             Content
@@ -273,7 +300,24 @@
 
                     <div class="pnlSlideOpts pnlSlideOptsMp3">
                         <div style = "margin: 8px;">
-                            Mp3
+                            <div class = "fieldRow ui-widget-content" style="clear: left;">
+                                <b>MP3 URL: </b> 
+                                <select>
+                                    <option>http://</option>
+                                    <option>https://</option>
+                                    <option>ftp://</option>
+                                    <option>other</option>
+                                </select>
+                                <input type="text" style = "width: 260px;" />
+                            </div>
+                            <div class = "fieldRow ui-widget-content" style="clear: left;">
+                                <b>Icon Color: </b> 
+                                <input type="text" style = "width: 60px;" class="tbColor" />
+                            </div>
+                            <div class = "fieldRow ui-widget-content" style="clear: left;">
+                                <b>Show Player: </b> 
+                                <input type="checkbox" style = "" />
+                            </div>
                         </div>
                     </div>
 
