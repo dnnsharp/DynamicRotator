@@ -36,7 +36,6 @@
         </ul>
 
         <div id = "tabs-main-settings">
-            
             <table>
                 <tr>
                     <td class="settingField">
@@ -251,16 +250,16 @@
                         <div style = "margin: 8px;">
                             <div class = "fieldRow ui-widget-content">
                                 <b>Slide Title: </b> 
-                                <input type="text" style = "width: 320px;" />
+                                <input type="text" style = "width: 320px;" value="<%= DefaultSlide.Title %>" />
                             </div>
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>Background Gradient: </b>
-                                from <input type="text" style = "width: 60px;" class="tbColor" />
-                                to <input type="text" style = "width: 60px;" class="tbColor" />
+                                from <input type="text" style = "width: 60px;" class="tbColor" value="<%= ColorToHex(DefaultSlide.BackgroundGradientFrom) %>" />
+                                to <input type="text" style = "width: 60px;" class="tbColor" value="<%= ColorToHex(DefaultSlide.BackgroundGradientTo) %>" />
                             </div>
                              <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>Duration: </b>
-                                <input type="text" style = "width: 24px;" /> seconds
+                                <input type="text" style = "width: 24px;" value="<%= DefaultSlide.DurationSeconds %>" /> seconds
                             </div>
                         </div>
                     </div>
@@ -275,19 +274,19 @@
                                     <option>ftp://</option>
                                     <option>other</option>
                                 </select>
-                                <input type="text" style = "width: 260px;" />
+                                <input type="text" style = "width: 260px;" value="<%= DefaultSlide.SlideUrl %>" />
                             </div>
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>Link Caption: </b> 
-                                <input type="text" style = "width: 200px;" />
+                                <input type="text" style = "width: 200px;" value="<%= DefaultSlide.ButtonCaption %>" />
                             </div>
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>Link Target: </b> 
-                                <input type="text" style = "width: 200px;" />
+                                <input type="text" style = "width: 200px;" value="<%= DefaultSlide.Target %>" />
                             </div>
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>Use Texts Background: </b> 
-                                <input type="checkbox" style = "" />
+                                <input type="checkbox" style = "" <%= DefaultSlide.UseTextsBackground ? "checked='checked'" :"" %> />
                             </div>
                         </div>
                     </div>
@@ -302,21 +301,21 @@
                         <div style = "margin: 8px;">
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>MP3 URL: </b> 
-                                <select>
+                                <select class = "ddUrl">
                                     <option>http://</option>
                                     <option>https://</option>
                                     <option>ftp://</option>
                                     <option>other</option>
                                 </select>
-                                <input type="text" style = "width: 260px;" />
+                                <input type="text" style = "width: 260px;" class = "tbUrl" value="<%= DefaultSlide.Mp3Url %>" />
                             </div>
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>Icon Color: </b> 
-                                <input type="text" style = "width: 60px;" class="tbColor" />
+                                <input type="text" style = "width: 60px;" class="tbColor" value="<%= ColorToHex(DefaultSlide.IconColor) %>" />
                             </div>
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>Show Player: </b> 
-                                <input type="checkbox" style = "" />
+                                <input type="checkbox" style = "" <%= DefaultSlide.ShowPlayer ? "checked='checked'" :"" %> />
                             </div>
                         </div>
                     </div>

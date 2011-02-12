@@ -7,14 +7,18 @@ using avt.AllinOneRotator.Net.Data;
 using System.Configuration;
 using System.Data;
 using avt.AllinOneRotator.Net.Settings;
+using System.Drawing;
 
 namespace avt.AllinOneRotator.Net.WebManage
 {
     public partial class ManageRotator : System.Web.UI.Page
     {
+        protected SlideInfo DefaultSlide = new SlideInfo();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack) {
+
                 ddSlideButtonsType.DataSource = Enum.GetNames(typeof(eSlideButtonsType));
                 ddSlideButtonsType.DataBind();
 
@@ -80,6 +84,16 @@ namespace avt.AllinOneRotator.Net.WebManage
 
             Response.Redirect(HttpUtility.UrlDecode(Request.QueryString["rurl"]));
         }
-        
+
+
+        #region Helpers
+
+        protected string ColorToHex(Color color)
+        {
+            return avt.AllinOneRotator.Net.ColorExt.ColorToHexString(color);
+        }
+
+        #endregion
+
     }
 }

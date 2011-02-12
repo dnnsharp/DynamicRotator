@@ -36,8 +36,6 @@ namespace avt.AllinOneRotator.Net
             }
             return "0x" + new string(chars);
         }
-
-
     }
 
 }
