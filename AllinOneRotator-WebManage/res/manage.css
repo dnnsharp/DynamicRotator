@@ -70,8 +70,9 @@
     display: block;
     margin: 4px;
     /*background-color: #FFFBE7;*/
-    height: 100px;
+    height: 126px;
     background-color: White;
+    min-width: 900px;
 }
 
 .slideTabs {
@@ -111,6 +112,8 @@
     padding: 0 0 0 16px;
     background-color: #f2f2ff;
     height: 100%;
+    border-right: 1px solid #C2C2C2;
+    width: 135px;
 }
 
 
@@ -121,7 +124,6 @@
     text-decoration: none;
     font-size: 12px;
     margin: 4px 0px 4px 4px;
-    border-right: 0px !important;
     outline: 0px;
 }
 
@@ -129,10 +131,16 @@
     background: white;
 }
 
+.pnlSlideOptGroups .ui-state-hover {
+    /*margin-left: 6px;
+    border-right: 0px !important;*/
+    width: 130px;
+}
+
 .pnlSlideOpts {
     float: left;
     display: none;
-    margin: 0 20px;
+    margin: 0 40px;
 }
 
 .pnlSlideExtra {
@@ -152,4 +160,13 @@
     padding: 2px 7px;
 }
 
+.fieldRow {
+    float: left;
+    margin: 1px 10px 1px 0;
+    padding: 0 4px;
+    color: #1C94C4;
+}
 
+.pnlSlideOptsGeneral {
+    margin-top: 15px;
+}

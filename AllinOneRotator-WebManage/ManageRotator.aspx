@@ -241,30 +241,27 @@
                     </div>
 
                     <div class = "pnlSlideOptGroups">
-                        <a href = "#" class="slideOptsGroup ui-state-hover" style="margin-top: 10px" onclick="">General</a>
-                        <a href = "#" class="slideOptsGroup ui-state-default" onclick="">Graphics / Content</a>
-                        <a href = "#" class="slideOptsGroup ui-state-default" onclick="">Music</a>
+                        <a href = "#" class="slideOptsGroup ui-state-hover" style="margin-top: 10px" onclick="return false;">General</a>
+                        <a href = "#" class="slideOptsGroup ui-state-default" onclick="return false;">Slide Link</a>
+                        <a href = "#" class="slideOptsGroup ui-state-default" onclick="return false;">Graphics / Content</a>
+                        <a href = "#" class="slideOptsGroup ui-state-default" onclick="return false;">Music</a>
                     </div>
 
                     <div class="pnlSlideOpts pnlSlideOptsGeneral">
                         <div style = "margin: 8px;">
-                            <table border="0" cellpadding="0" cellspacing="2">
-                                <tr>
-                                    <td colspan="2">
-                                        <b>Title: </b> <input type="text" style = "width: 240px;" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><b>Duration: </b></td>
-                                    <td><input type="text" style = "width: 60px;" /> seconds</td>
-                                </tr>
-                                <tr>
-                                    <td><b>Background Gradient From: </b></td>
-                                    <td><input type="text" style = "width: 60px;" /></td>
-                                    <td><b>Background Gradient To: </b></td>
-                                    <td><input type="text" style = "width: 60px;" /></td>
-                                </tr>
-                            </table>
+                            <div class = "fieldRow ui-widget-content">
+                                <b>Slide Title: </b> 
+                                <input type="text" style = "width: 320px;" />
+                            </div>
+                            <div class = "fieldRow ui-widget-content" style="clear: left;">
+                                <b>Background Gradient: </b>
+                                from <input type="text" style = "width: 60px;" class="tbColor" />
+                                to <input type="text" style = "width: 60px;" class="tbColor" />
+                            </div>
+                             <div class = "fieldRow ui-widget-content" style="clear: left;">
+                                <b>Duration: </b>
+                                <input type="text" style = "width: 24px;" /> seconds
+                            </div>
                         </div>
                     </div>
 
@@ -281,7 +278,7 @@
                     </div>
 
                     <div class="pnlSlideExtra">
-                        <a href = "#" class="slideExtraBtn" onclick="return false;" style="margin-top: 40px">Clone</a>
+                        <a href = "#" class="slideExtraBtn" onclick="return false;" style="margin-top: 70px">Clone</a>
                         <br />
                         <a href = "#" class="slideExtraBtn" onclick="deleteSlide(jQuery(this).parents('.slideRoot:first')); return false;">Delete</a>
                     </div>
@@ -365,21 +362,7 @@
         jQuery(document).ready(function() {
             jQuery("#mainTabs").tabs();
 
-            jQuery(".tbColor").each(function() {
-                var _this = jQuery(this);
-                _this.ColorPicker({
-                    onSubmit: function(hsb, hex, rgb) {
-                        _this.val("#" + hex);
-                        _this.parent().css("background-color", "#"+hex);
-                        jQuery(".colorpicker").hide();
-                    },
-                    onBeforeShow: function () {
-                        jQuery(this).ColorPickerSetColor(this.value);
-                    }
-                });
-            });
-            
-            jQuery(".colorpicker").css("z-index", "1100");
+            applyColorpicker(jQuery("#tabs-main-settings"));
 
             // init slides
             jQuery("#slides").sortable({
@@ -414,6 +397,23 @@
             addSlide();
         });
 
+        function applyColorpicker(rootElement) {
+            rootElement.find(".tbColor").each(function() {
+                var _this = jQuery(this);
+                _this.ColorPicker({
+                    onSubmit: function(hsb, hex, rgb) {
+                        _this.val("#" + hex);
+                        _this.parent().css("background-color", "#"+hex);
+                        jQuery(".colorpicker").hide();
+                    },
+                    onBeforeShow: function () {
+                        jQuery(this).ColorPickerSetColor(this.value);
+                    }
+                });
+            });
+            
+            jQuery(".colorpicker").css("z-index", "1100");
+        }
 
         function updateSlideIndexes() {
             var index = 1;
@@ -428,6 +428,7 @@
 
             _item.find(".slideExtraBtn").button();
             _item.find(".pnlSlideOptsGeneral").show();
+            applyColorpicker(_item);
 
             updateSlideIndexes();
             return false;
