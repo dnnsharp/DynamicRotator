@@ -20,7 +20,7 @@
     
     <div>
         <div class="btnPane">
-            <a href = "<%= System.Web.HttpUtility.UrlDecode(Request.QueryString["rurl"]) %>" style="color: #d24242; padding: 1px 10px; margin-right: 10px; font-weight: normal;" >Cancel</a>
+            <a href = "<%= System.Web.HttpUtility.UrlDecode(Request.QueryString["rurl"]) %>" style="color: #525252; padding: 1px 10px; margin-right: 10px; font-weight: normal;" >Cancel</a>
             <asp:Button runat="server" OnClick="SaveSettings" class="ui-state-default" style="padding: 4px 10px;" Text="Save" />
         </div>
 
@@ -229,7 +229,116 @@
         </div>
 
         <div id = "tabs-main-slides">
-            test
+            
+            <ul style="display:none;">
+                <li id = "slideTpl" class="slideRoot">
+                    <div class="dragHandle">
+                        <div style="margin: 6px;">
+                            <div class="slideIndex">1</div>
+                            <br />
+                            drag here
+                        </div>
+                    </div>
+
+                    <div class = "pnlSlideOptGroups">
+                        <a href = "#" class="slideOptsGroup ui-state-hover" style="margin-top: 10px" onclick="">General</a>
+                        <a href = "#" class="slideOptsGroup ui-state-default" onclick="">Graphics / Content</a>
+                        <a href = "#" class="slideOptsGroup ui-state-default" onclick="">Music</a>
+                    </div>
+
+                    <div class="pnlSlideOpts pnlSlideOptsGeneral">
+                        <div style = "margin: 8px;">
+                            <table border="0" cellpadding="0" cellspacing="2">
+                                <tr>
+                                    <td colspan="2">
+                                        <b>Title: </b> <input type="text" style = "width: 240px;" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Duration: </b></td>
+                                    <td><input type="text" style = "width: 60px;" /> seconds</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Background Gradient From: </b></td>
+                                    <td><input type="text" style = "width: 60px;" /></td>
+                                    <td><b>Background Gradient To: </b></td>
+                                    <td><input type="text" style = "width: 60px;" /></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="pnlSlideOpts pnlSlideOptsContent">
+                        <div style = "margin: 8px;">
+                            Content
+                        </div>
+                    </div>
+
+                    <div class="pnlSlideOpts pnlSlideOptsMp3">
+                        <div style = "margin: 8px;">
+                            Mp3
+                        </div>
+                    </div>
+
+                    <div class="pnlSlideExtra">
+                        <a href = "#" class="slideExtraBtn" onclick="return false;" style="margin-top: 40px">Clone</a>
+                        <br />
+                        <a href = "#" class="slideExtraBtn" onclick="deleteSlide(jQuery(this).parents('.slideRoot:first')); return false;">Delete</a>
+                    </div>
+
+                    <%--<div class = "slideTabs">
+                        <ul>
+                            <li><a href="#tabs-slide-general">General</a></li>
+                            <li><a href="#tabs-slide-objects">Graphics</a></li>
+                            <li><a href="#tabs-slide-mp3">Music</a></li>
+                        </ul>
+
+                        <div id = "tabs-slide-general">
+                            test
+                        </div>
+                        <div id = "tabs-slide-objects">
+                            test
+                        </div>
+                        <div id = "tabs-slide-mp3">
+                            test
+                        </div>
+                    </div>--%>
+
+
+                    <%--<div class ="pnlSlideOptGroups">
+                        <div style = "margin:6px;">
+                            
+                        </div>
+                    </div>
+                    <div class ="pnlSlideOptGroups">
+                        <div style = "margin:6px;">
+                            <table border="0" cellpadding="0" cellspacing="2">
+                                <tr>
+                                    <td><b>Link URL: </b></td>
+                                    <td><input type="text" style = "width: 240px;" /></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Caption: </b></td>
+                                    <td><input type="text" style = "width: 200px;" /></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Target: </b></td>
+                                    <td><input type="text" style = "width: 60px;" /></td>
+                                </tr>
+                            </table>
+                        
+                            <b>Use Texts Background: </b>
+                            <input type="checkbox" style = "" />
+                        </div>
+                    </div>--%>
+                    <div style = "clear: both;"></div>
+                </li>
+            </ul>
+
+            <ul id = "slides">
+                
+            </ul>
+            <a href = "#" onclick="addSlide(); return false;"><img src="<%= TemplateSourceDirectory %>/res/img/add.gif" border="0" /> Add Slide</a>
         </div>
 
         <div id = "tabs-main-activate">
@@ -241,13 +350,15 @@
 
     <div class="footer">
         <div class="btnPane">
-            <a href = "<%= System.Web.HttpUtility.UrlDecode(Request.QueryString["rurl"]) %>" style="color: #d24242; padding: 1px 10px; margin-right: 10px; font-weight: normal;" >Cancel</a>
+            <a href = "<%= System.Web.HttpUtility.UrlDecode(Request.QueryString["rurl"]) %>" style="color: #525252; padding: 1px 10px; margin-right: 10px; font-weight: normal;" >Cancel</a>
             <asp:Button runat="server" OnClick="SaveSettings" class="ui-state-default" style="padding: 4px 10px;" Text="Save" />
         </div>
         <div style="clear:both;"></div>
     </div>
 
     </form>
+
+
 
     <script type="text/javascript">
     
@@ -269,7 +380,67 @@
             });
             
             jQuery(".colorpicker").css("z-index", "1100");
+
+            // init slides
+            jQuery("#slides").sortable({
+                handle: ".dragHandle",
+                placeholder: 'slidePlaceholder',
+                update: function(event, ui) {
+                    updateSlideIndexes();
+                }
+            });
+
+            jQuery(".slideOptsGroup")
+                .mouseover(function() {
+                    if (jQuery(this).hasClass("ui-state-hover"))
+                        return;
+                    jQuery(this).removeClass("ui-state-default").addClass("ui-state-active");
+                })
+                .mouseout(function() {
+                    if (jQuery(this).hasClass("ui-state-hover"))
+                        return;
+                    jQuery(this).removeClass("ui-state-active").addClass("ui-state-default");
+                })
+                .click(function() {
+                    jQuery(this).parents(".pnlSlideOptGroups:first").find(".slideOptsGroup").removeClass("ui-state-hover").addClass("ui-state-default");
+                    jQuery(this).addClass("ui-state-hover").removeClass("ui-state-default").removeClass("ui-state-active");
+                    
+                    var _root = jQuery(this).parents(".slideRoot:first");
+                    _root.find(".pnlSlideOpts").hide();
+                    _root.find(".pnlSlideOpts").eq(_root.find(".slideOptsGroup").index(jQuery(this))).show();
+                });
+
+            addSlide();
+            addSlide();
         });
+
+
+        function updateSlideIndexes() {
+            var index = 1;
+            jQuery("#slides").find(".slideIndex").each(function() {
+                jQuery(this).text(index++);
+            });
+        }
+
+        function addSlide() {
+            var _item = jQuery("#slideTpl").clone().removeAttr("id");
+            _item.appendTo(jQuery("#slides"));
+
+            _item.find(".slideExtraBtn").button();
+            _item.find(".pnlSlideOptsGeneral").show();
+
+            updateSlideIndexes();
+            return false;
+        }
+
+        function deleteSlide(slideRoot) {
+            if (!confirm("Are you sure you want to delete this slide?\nData will be permanently lost after you hit Save...")) {
+                return;
+            }
+
+            slideRoot.remove();
+            updateSlideIndexes();
+        }
 
     </script>
 
