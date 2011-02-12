@@ -7,6 +7,8 @@ using System.Data;
 using avt.AllinOneRotator.Net.Data;
 using System.Configuration;
 using System.Web.UI.WebControls;
+using System.Xml.Xsl;
+using System.IO;
 
 namespace avt.AllinOneRotator.Net.Settings
 {
@@ -16,6 +18,7 @@ namespace avt.AllinOneRotator.Net.Settings
 
         public RotatorSettings()
         {
+            
         }
 
         public void Init(string rotatorId)
@@ -81,6 +84,14 @@ namespace avt.AllinOneRotator.Net.Settings
 
         bool _TransparentBackground = false;
         public bool TransparentBackground { get { return _TransparentBackground; } set { _TransparentBackground = value; } }
+
+        #endregion
+
+
+        #region Slides
+
+        SlideCollection _Slides = new SlideCollection();
+        public SlideCollection Slides { get { return _Slides; } }
 
         #endregion
 
@@ -182,6 +193,33 @@ namespace avt.AllinOneRotator.Net.Settings
                 }
                 dr.Close();
             }
+
+            // load slides
+            using (IDataReader dr = DataProvider.Instance().GetSlides(RotatorId)) {
+                while (dr.Read()) {
+                    SlideInfo slide = new SlideInfo();
+                    slide.Load(dr);
+                    Slides.Add(slide);
+                }
+                dr.Close();
+            }
+        }
+
+        public string SlidesToDesignerJson()
+        {
+            StringBuilder sbJson = new StringBuilder();
+
+            sbJson.Append("[");
+            foreach (SlideInfo slide in Slides) {
+                sbJson.Append(slide.ToDesignerJson());
+                sbJson.Append(",");
+            }
+            if (sbJson[sbJson.Length - 1] == ',') {
+                sbJson = sbJson.Remove(sbJson.Length - 1, 1);
+            }
+            sbJson.Append("]");
+
+            return sbJson.ToString();
         }
 
         public string ToXml()
@@ -218,6 +256,49 @@ namespace avt.AllinOneRotator.Net.Settings
             Writer.Close();
 
             return strXML.ToString();
+        }
+
+
+        public static string JsonEncode(string s)
+        {
+            if (string.IsNullOrEmpty(s))
+                return "";
+
+            char c;
+            int i;
+            int len = s.Length;
+            StringBuilder sb = new StringBuilder(len + 4);
+            string t;
+
+            //sb.Append('"');
+            for (i = 0; i < len; i += 1) {
+                c = s[i];
+                if ((c == '\\') || (c == '"') || (c == '>') || (c == '\'')) {
+                    sb.Append('\\');
+                    sb.Append(c);
+                } else if (c == '\b')
+                    sb.Append("\\b");
+                else if (c == '\t')
+                    sb.Append("\\t");
+                else if (c == '\n')
+                    sb.Append("\\n");
+                else if (c == '\f')
+                    sb.Append("\\f");
+                else if (c == '\r')
+                    sb.Append("\\r");
+                else {
+                    if (c < ' ') {
+                        //t = "000" + Integer.toHexString(c); 
+                        string tmp = new string(c, 1);
+                        t = "000" + int.Parse(tmp, System.Globalization.NumberStyles.HexNumber);
+                        sb.Append("\\u" + t.Substring(t.Length - 4));
+                    } else {
+                        sb.Append(c);
+                    }
+                }
+            }
+            //sb.Append('"');
+            return sb.ToString();
         }
 
     }

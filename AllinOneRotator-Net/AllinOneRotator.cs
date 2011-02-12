@@ -189,14 +189,12 @@ namespace avt.AllinOneRotator.Net
 
         #region Slides
 
-        SlideCollection _Slides = new SlideCollection();
-
         [DefaultValue("")]
         [PersistenceMode(PersistenceMode.InnerProperty)]
         [Category("ALLinOne Rotator - Slides")]
         [Editor("avt.AllinOneRotator.Net.SlideCollectionEditor,avt.AllinOneRotator.Net", typeof(UITypeEditor))]
         [MergableProperty(false)]
-        public SlideCollection Slides { get { return _Slides; } }
+        public SlideCollection Slides { get { return Settings.Slides; } }
 
         string GetSlidesXml()
         {

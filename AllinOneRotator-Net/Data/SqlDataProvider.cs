@@ -91,6 +91,16 @@ namespace avt.AllinOneRotator.Net.Data
             );
         }
 
+        public override IDataReader GetSlides(string controlId)
+        {
+            return _TableSlides.Get("Where ControlID=" + AvtSqlHelper_Table.EncodeSql(controlId));
+        }
+
+        public override void RemoveSlide(int slideId)
+        {
+            _TableSlides.Delete(new object[] { slideId });
+        }
+
         #endregion
 
     }

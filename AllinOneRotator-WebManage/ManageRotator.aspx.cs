@@ -50,11 +50,18 @@ namespace avt.AllinOneRotator.Net.WebManage
                 tbSlideButtonsXoffset.Text = settings.SlideButtonsXoffset.ToString();
                 tbSlideButtonsYoffset.Text = settings.SlideButtonsYoffset.ToString();
                 cbTransparentBackground.Checked = settings.TransparentBackground;
+
+                // load slides
+                hdnSlideXml.Value = settings.SlidesToDesignerJson();
             }
         }
 
         protected void SaveSettings(object sender, EventArgs e)
         {
+            RotatorSettings settings = new RotatorSettings();
+            settings.Init(Request.QueryString["controlId"]);
+            settings.LoadFromDB(Request.QueryString["connStr"], Request.QueryString["dbOwner"], Request.QueryString["objQualifier"]);
+
             string connStr = Request.QueryString["connStr"];
             if (connStr.IndexOf(';') == -1) {
                 // this is a name from web.config connnections
@@ -88,6 +95,12 @@ namespace avt.AllinOneRotator.Net.WebManage
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "TransparentBackground", cbTransparentBackground.Checked ? "true" : "false");
 
             // save slides
+
+            List<int> existingSlides = new List<int>();
+            foreach (SlideInfo slide in settings.Slides) {
+                existingSlides.Add(slide.Id);
+            }
+
             XmlDocument xmlDocSlides = null;
             //try {
                 xmlDocSlides = new XmlDocument();
@@ -96,8 +109,14 @@ namespace avt.AllinOneRotator.Net.WebManage
 
             if (xmlDocSlides != null) {
                 foreach (XmlElement xmlSlide in xmlDocSlides.DocumentElement.SelectNodes("slide")) {
+                    
+                    int slideId = Convert.ToInt32(xmlSlide["id"].InnerText);
+                    if (slideId > 0) {
+                        existingSlides.Remove(slideId);
+                    }
+
                     DataProvider.Instance().UpdateSlide(
-                        Convert.ToInt32(xmlSlide["id"].InnerText),
+                        slideId,
                         Request.QueryString["controlId"],
                         xmlSlide["title"].InnerText,
                         Convert.ToInt32(xmlSlide["duration"].InnerText),
@@ -114,6 +133,11 @@ namespace avt.AllinOneRotator.Net.WebManage
                         xmlSlide["mp3IconColor"].InnerText
                     );
                 }
+            }
+
+            // delete the rest
+            foreach (int slideId in existingSlides) {
+                DataProvider.Instance().RemoveSlide(slideId);
             }
             
 

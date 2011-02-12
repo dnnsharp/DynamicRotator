@@ -72,5 +72,8 @@ namespace avt.AllinOneRotator.Net.Data
             string linkUrl, string linkCaption, string linkTarget, bool useTextsBk,
             string mp3LinkUrl, bool mp3ShowPlayer, string mp3IconColor
         );
+        public abstract IDataReader GetSlides(string controlId);
+
+        public abstract void RemoveSlide(int slideId);
     }
 }

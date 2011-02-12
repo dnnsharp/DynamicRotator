@@ -257,8 +257,8 @@
                             </div>
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>Background Gradient: </b>
-                                from <input type="text" style = "width: 60px;" class="tbColor tbBkGradFrom" value="<%= ColorToHex(DefaultSlide.BackgroundGradientFrom) %>" />
-                                to <input type="text" style = "width: 60px;" class="tbColor tbBkGradTo" value="<%= ColorToHex(DefaultSlide.BackgroundGradientTo) %>" />
+                                from <input type="text" style = "width: 60px;" class="tbColor tbColortbBkGradFrom" value="<%= ColorToHex(DefaultSlide.BackgroundGradientFrom) %>" />
+                                to <input type="text" style = "width: 60px;" class="tbColor tbColortbBkGradTo" value="<%= ColorToHex(DefaultSlide.BackgroundGradientTo) %>" />
                             </div>
                              <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>Duration: </b>
@@ -271,7 +271,7 @@
                         <div style = "margin: 8px;">
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>Slide URL: </b> 
-                                <select class = "ddUrl">
+                                <select class = "ddUrl ddLinkUrl">
                                     <option>http://</option>
                                     <option>https://</option>
                                     <option>ftp://</option>
@@ -304,7 +304,7 @@
                         <div style = "margin: 8px;">
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>MP3 URL: </b> 
-                                <select class = "ddUrl">
+                                <select class = "ddUrl ddMp3Url">
                                     <option>http://</option>
                                     <option>https://</option>
                                     <option>ftp://</option>
@@ -394,8 +394,13 @@
                     _root.find(".pnlSlideOpts").eq(_root.find(".slideOptsGroup").index(jQuery(this))).show();
                 });
 
-            addSlide();
-            addSlide();
+            var slides = eval('<%= hdnSlideXml.Value %>');
+            for (var i  = 0; i < slides.length; i++) {
+                loadSlide(slides[i]);
+            }
+            
+            //addSlide();
+            //addSlide();
         });
 
         function applyColorpicker(rootElement) {
@@ -432,7 +437,27 @@
             applyColorpicker(_item);
 
             updateSlideIndexes();
-            return false;
+            return _item;
+        }
+
+        function loadSlide(slide) {
+            var slideRoot = addSlide();
+
+            slideRoot.find(".slideId").text(slide.id);
+
+            slideRoot.find(".tbSlideTitle").val(slide.title);
+            slideRoot.find(".tbDuration").val(slide.duration);
+            slideRoot.find(".tbColortbBkGradFrom").val(slide.bkGradFrom);
+            slideRoot.find(".tbColortbBkGradTo").val(slide.bkGradTo);
+
+            fillUrl(slideRoot.find(".tbLinkUrl"), slideRoot.find(".ddLinkUrl"), slide.linkUrl);
+            slideRoot.find(".tbLinkCaption").val(slide.linkCaption);
+            slideRoot.find(".ddLinkTarget").val(slide.linkTarget);
+            slide.useTextsBk == "true" ? slideRoot.find(".cbUseTextsBackground").attr("checked","checked") : slideRoot.find(".cbUseTextsBackground").removeAttr("checked");
+
+            fillUrl(slideRoot.find(".tbMp3Url"), slideRoot.find(".ddMp3Url"), slide.mp3Url);
+            slideRoot.find(".tbMp3IconColor").val(slide.mp3IconColor);
+            slide.mp3ShowPlayer == "true" ? slideRoot.find(".cbMp3ShowPlayer").attr("checked","checked") : slideRoot.find(".cbMp3ShowPlayer").removeAttr("checked");
         }
 
         function cloneSlide(slideRoot) {
@@ -501,12 +526,14 @@
             x += "<mp3ShowPlayer>"+ (slideRoot.find(".cbMp3ShowPlayer").val() ? "true" : "false") +"</mp3ShowPlayer>";
 
             x += "</slide>";
+            alert(x);
             return x;
         }
 
         function encodeXml(sXml) {
             if (!sXml)
                 return "";
+            sXml = sXml.toString();
             return sXml.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&apos;");
         }
 
@@ -519,6 +546,26 @@
             }
             
             return dd.val() + tb.val();
+        }
+
+        function fillUrl(tb, dd, url) {
+            if (!url) {
+                return;
+            }
+
+            if (url.indexOf("https://") == 0) {
+                dd.val("https://");
+                tb.val(url.substr("https://".length+1));
+            } else if (url.indexOf("http://") == 0) {
+                dd.val("http://");
+                tb.val(url.substr("http://".length+1));
+            } else if (url.indexOf("ftp://") == 0) {
+                dd.val("ftp://");
+                tb.val(url.substr("ftp://".length+1));
+            } else {
+                dd.val("other");
+                tb.val(url);
+            }
         }
 
     </script>

@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 using System.Web.UI;
 using System.Drawing.Design;
 using System.Xml;
+using System.Data;
+using avt.AllinOneRotator.Net.Settings;
 
 namespace avt.AllinOneRotator.Net
 {
@@ -49,6 +51,9 @@ namespace avt.AllinOneRotator.Net
 
     public class SlideInfo
     {
+
+        int _Id = -1;
+        public int Id { get { return _Id; } set { _Id = value; } }
 
         #region General
 
@@ -205,9 +210,53 @@ namespace avt.AllinOneRotator.Net
         #endregion
 
 
+        public void Load(IDataReader dr)
+        {
+            Id = Convert.ToInt32(dr["SlideId"].ToString());
+            
+            try { Title = dr["Title"].ToString(); } catch { }
+            try { DurationSeconds = Convert.ToInt32(dr["Title"].ToString()); } catch { }
+            try { BackgroundGradientFrom = System.Drawing.Color.FromArgb(Convert.ToInt32(dr["BackgroundGradientFrom"].ToString().Replace("#", "0x"), 16)); } catch { }
+            try { BackgroundGradientTo = System.Drawing.Color.FromArgb(Convert.ToInt32(dr["BackgroundGradientTo"].ToString().Replace("#", "0x"), 16)); } catch { }
+
+            try { SlideUrl = dr["Link_Url"].ToString(); } catch { }
+            try { ButtonCaption = dr["Link_Caption"].ToString(); } catch { }
+            try { Target = (eLinkTarget) Enum.Parse(typeof(eLinkTarget), dr["Link_Target"].ToString(), true); } catch { }
+            try { UseTextsBackground = dr["Link_UseTextsBackground"].ToString() == "true"; } catch { }
+
+            try { Mp3Url = dr["Mp3_Url"].ToString(); } catch { }
+            try { ShowPlayer = dr["Mp3_ShowPlayer"].ToString() == "true"; } catch { }
+            try { IconColor = System.Drawing.Color.FromArgb(Convert.ToInt32(dr["Mp3_IconColor"].ToString().Replace("#", "0x"), 16)); } catch { }
+        }
+
+
         public override string ToString()
         {
             return Title;
+        }
+
+        public string ToDesignerJson()
+        {
+            StringBuilder sbJson = new StringBuilder();
+            
+            sbJson.Append("{");
+            sbJson.AppendFormat("id:{0},", Id.ToString());
+            sbJson.AppendFormat("title:\"{0}\",", RotatorSettings.JsonEncode(Title));
+            sbJson.AppendFormat("duration:{0},", DurationSeconds.ToString());
+            sbJson.AppendFormat("bkGradFrom:\"{0}\",", ColorExt.ColorToHexString(BackgroundGradientFrom));
+            sbJson.AppendFormat("bkGradTo:\"{0}\",", ColorExt.ColorToHexString(BackgroundGradientTo));
+
+            sbJson.AppendFormat("linkUrl:\"{0}\",", SlideUrl);
+            sbJson.AppendFormat("linkCaption:\"{0}\",", ButtonCaption);
+            sbJson.AppendFormat("linkTarget:\"{0}\",", Target.ToString());
+            sbJson.AppendFormat("useTextsBk:{0},", UseTextsBackground ? "true" : "false");
+
+            sbJson.AppendFormat("mp3Url:\"{0}\",", Mp3Url);
+            sbJson.AppendFormat("mp3IconColor:\"{0}\",", ColorExt.ColorToHexString(IconColor));
+            sbJson.AppendFormat("mp3ShowPlayer:{0}", ShowPlayer ? "true" : "false");
+            sbJson.Append("}");
+
+            return sbJson.ToString();
         }
 
         public void ToXml(XmlWriter Writer)
