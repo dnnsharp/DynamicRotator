@@ -34,7 +34,7 @@ namespace avt.AllinOneRotator.Net
                 chars[i * 2] = hexDigits[b >> 4];
                 chars[i * 2 + 1] = hexDigits[b & 0xF];
             }
-            return "0x" + new string(chars);
+            return "#" + new string(chars);
         }
     }
 

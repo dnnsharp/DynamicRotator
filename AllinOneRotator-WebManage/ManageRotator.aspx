@@ -241,6 +241,12 @@
                         </div>
                     </div>
 
+                    <div class="pnlSlideExtra">
+                        <a href = "#" class="slideExtraBtn" onclick="cloneSlide(jQuery(this).parents('.slideRoot:first')); return false;" style="margin-top: 70px">Clone</a>
+                        <br />
+                        <a href = "#" class="slideExtraBtn" onclick="deleteSlide(jQuery(this).parents('.slideRoot:first')); return false;">Delete</a>
+                    </div>
+
                     <div class = "pnlSlideOptGroups">
                         <a href = "#" class="slideOptsGroup ui-state-hover" style="margin-top: 10px" onclick="return false;">General</a>
                         <a href = "#" class="slideOptsGroup ui-state-default" onclick="return false;">Slide Link</a>
@@ -295,8 +301,44 @@
                     </div>
 
                     <div class="pnlSlideOpts pnlSlideOptsContent">
-                        <div style = "margin: 8px;">
-                            Content
+                        <div style = "height: 84px; margin: 8px 8px 2px 8px; overflow: auto; padding-left: 40px;">
+                            <div class="slideObject slideObjectText">
+                                My Text
+                            </div>
+                            <div class="slideObject slideObjectSwf">
+                                This is a flas movie
+                            </div>
+                            <div class="slideObject slideObjectImg">
+                                This is an image
+                            </div>
+                            <%--<div class="slideObject slideObjectImg">
+                                This is an image
+                            </div>
+                            <div class="slideObject slideObjectImg">
+                                This is an image
+                            </div>
+                            <div class="slideObject slideObjectText">
+                                My Text
+                            </div>
+                            <div class="slideObject slideObjectSwf">
+                                This is a flas movie
+                            </div><div class="slideObject slideObjectText">
+                                My Text
+                            </div>
+                            <div class="slideObject slideObjectSwf">
+                                This is a flas movie
+                            </div>
+                            <div class="slideObject slideObjectImg">
+                                This is an image
+                            </div>
+                            <div class="slideObject slideObjectImg">
+                                This is an image
+                            </div>--%>
+                            <div style="clear:both;"></div>
+                        </div>
+                        <div style = "background-color: #F2F2FF; border-top: 1px solid #C2C2C2; padding: 3px 4px 2px 186px;">
+                            <a href = "#" onclick="addSlideText(); return false;" class="btnAddObject"><img src="<%= TemplateSourceDirectory %>/res/img/add.gif" border="0" /> Add Text</a>
+                            <a href = "#" onclick="addSlideImage(); return false;" class="btnAddObject"><img src="<%= TemplateSourceDirectory %>/res/img/add.gif" border="0" /> Add Image/Flash</a>
                         </div>
                     </div>
 
@@ -323,12 +365,6 @@
                         </div>
                     </div>
 
-                    <div class="pnlSlideExtra">
-                        <a href = "#" class="slideExtraBtn" onclick="cloneSlide(jQuery(this).parents('.slideRoot:first')); return false;" style="margin-top: 70px">Clone</a>
-                        <br />
-                        <a href = "#" class="slideExtraBtn" onclick="deleteSlide(jQuery(this).parents('.slideRoot:first')); return false;">Delete</a>
-                    </div>
-
                     <div style = "clear: both;"></div>
                 </li>
             </ul>
@@ -343,6 +379,118 @@
             test
         </div>
 
+    </div>
+
+
+    <div id = "dlgObjectSettings">
+        <div id = "objSettingsTabs">
+            <ul>
+                <li><a href="#obj-settings-general">General</a></li>
+                <li><a href="#obj-settings-effect">Effects</a></li>
+                <li><a href="#obj-settings-transition">Transitions</a></li>
+            </ul>
+
+            <div id = "obj-settings-general">
+                <div style = "margin: 8px;">
+                    <span class="slideId">-1</span>
+                    <div class = "objFieldRow ui-widget-content">
+                        <b>Name: </b> 
+                        <input type="text" class = "tbObjName" style = "width: 200px;" value="<%= DefaultSlide.Title %>" />
+                    </div>
+                    <div class = "objFieldRow ui-widget-content" style="clear: left;">
+                        <b>Link URL: </b> 
+                        <select class = "ddUrl ddLinkUrl">
+                            <option>http://</option>
+                            <option>https://</option>
+                            <option>ftp://</option>
+                            <option>other</option>
+                        </select>
+                        <input type="text" class = "tbUrl tbLinkUrl" style = "width: 260px;" value="<%= DefaultSlide.SlideUrl %>" />
+                    </div>
+                    <div class = "objFieldRow ui-widget-content" style="clear: left;">
+                        <b>Position: </b>
+                        <b>X</b> <input type="text" style = "width: 60px;" class="tbObjPosX" value="<%= ColorToHex(DefaultSlide.BackgroundGradientFrom) %>" />
+                        <b>Y</b> <input type="text" style = "width: 60px;" class="tbObjPosY" value="<%= ColorToHex(DefaultSlide.BackgroundGradientTo) %>" />
+                    </div>
+                    <div class = "objFieldRow ui-widget-content">
+                        <b>Text: </b> 
+                        <textarea class = "tbObjText" style = "width: 360px; height: 60px;"><%= DefaultSlide.Title %></textarea>
+                    </div>
+                    <div style ="clear:both;"></div>
+                </div>
+            </div>
+
+            <div id = "obj-settings-effect">
+                <div style = "margin: 8px;">
+                    <div class = "objFieldRow ui-widget-content">
+                        <b>Glow Size: </b> 
+                        <input type="text" class = "tbObjGlowSize" style = "width: 60px;" value="<%= DefaultSlide.Title %>" />
+                    </div>
+                    <div class = "objFieldRow ui-widget-content" style="clear: left;">
+                        <b>Glow Color: </b> 
+                        <input type="text" style = "width: 60px;" class="tbColor tbObjGlowColor" value="<%= ColorToHex(DefaultSlide.IconColor) %>" />
+                    </div>
+                    <div class = "objFieldRow ui-widget-content">
+                        <b>Glow Strength: </b> 
+                        <input type="text" class = "tbObjGlowStrength" style = "width: 60px;" value="<%= DefaultSlide.Title %>" />
+                    </div>
+                    <div style ="clear:both;"></div>
+                </div>
+            </div>
+
+            <div id = "obj-settings-transition">
+                <div style = "margin: 8px;">
+                    <div class = "objFieldRow ui-widget-content">
+                        <b>Delay: </b> 
+                        <input type="text" class = "tbObjDelay" style = "width: 60px;" value="<%= DefaultSlide.Title %>" /> seconds
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <b>Duration: </b> 
+                        <input type="text" class = "tbObjDuration" style = "width: 60px;" value="<%= DefaultSlide.Title %>" /> seconds
+                    </div>
+                    <div class = "objFieldRow ui-widget-content">
+                        <b>Appear with: </b> 
+                        <select class = "ddObjAppearWith" onchange="jQuery(this).val() == 'slideIn' ? jQuery('#pnlObjSlideParams').show() : jQuery('#pnlObjSlideParams').hide()" >
+                            <option value="fadeIn">Fade In</option>
+                            <option value="slideIn">Slide In</option>
+                        </select>
+                    </div>
+
+                    <div id = "pnlObjSlideParams" style="display:none; margin-top: 8px;">
+                        <div class = "objFieldRow ui-widget-content">
+                            <b>Appear from: </b> 
+                            <select class = "ddObjAppearFrom" >
+                                <option>Top</option>
+                                <option>Left</option>
+                            </select>
+                        </div>
+                        <div class = "objFieldRow ui-widget-content">
+                            <b>Move Type: </b> 
+                            <select class = "ddObjAppearFrom" >
+                                <option>Strong</option>
+                                <option>Bounce</option>
+                            </select>
+                        </div>
+                        <div class = "objFieldRow ui-widget-content">
+                            <b>Easing Type: </b> 
+                            <select class = "ddObjAppearFrom" >
+                                <option>In</option>
+                                <option>Out</option>
+                            </select>
+                        </div>
+
+                        <div class = "objFieldRow ui-widget-content">
+                            <b>Effect: </b> 
+                            <select class = "ddObjAppearFrom" >
+                                <option>--None--</option>
+                                <option>Photo</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
     </div>
 
 
@@ -398,9 +546,39 @@
             for (var i  = 0; i < slides.length; i++) {
                 loadSlide(slides[i]);
             }
-            
-            //addSlide();
-            //addSlide();
+
+            jQuery(".slideObject")
+                .mouseover(function() {
+                    jQuery(this).addClass("slideObjectHover");
+                })
+                .mouseout(function() {
+                    jQuery(this).removeClass("slideObjectHover");
+                });
+
+            jQuery("#dlgObjectSettings").dialog({
+                bgiframe: false,
+                autoOpen: false,
+                title: "Object Settings",
+                width: 600,
+                modal: true,
+                resizable: false,
+                closeOnEscape: true,
+
+                buttons: {
+                    'Save': function() {
+                        
+                    },
+                    'Cancel': function() {
+                        jQuery("#dlgObjectSettings").dialog('close');
+                    }
+                },
+                close: function() {
+                }
+
+            });
+
+            jQuery("#objSettingsTabs").tabs();
+            applyColorpicker(jQuery("#objSettingsTabs"));
         });
 
         function applyColorpicker(rootElement) {
@@ -432,8 +610,11 @@
             var _item = jQuery("#slideTpl").clone().removeAttr("id");
             _item.appendTo(jQuery("#slides"));
 
-            _item.find(".slideExtraBtn").button();
-            _item.find(".pnlSlideOptsGeneral").show();
+            _item.find(".slideExtraBtn,.btnAddObject").button();
+            //_item.find(".pnlSlideOptsGeneral").show();
+            
+            _item.find(".pnlSlideOptsContent").show();
+            
             applyColorpicker(_item);
 
             updateSlideIndexes();
@@ -476,6 +657,17 @@
             slideRoot.remove();
             updateSlideIndexes();
         }
+
+        function addSlideText() {
+            jQuery("#dlgObjectSettings").dialog("open");
+            jQuery(".ui-button").removeClass("ui-state-focus");
+        }
+
+        function addSlideImage() {
+            jQuery("#dlgObjectSettings").dialog("open");
+            jQuery(".ui-button").removeClass("ui-state-focus");
+        }
+
 
         function save() {
             var bErr = false;
@@ -526,7 +718,6 @@
             x += "<mp3ShowPlayer>"+ (slideRoot.find(".cbMp3ShowPlayer").val() ? "true" : "false") +"</mp3ShowPlayer>";
 
             x += "</slide>";
-            alert(x);
             return x;
         }
 

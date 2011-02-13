@@ -73,6 +73,7 @@
     height: 126px;
     background-color: White;
     min-width: 900px;
+    list-style-type: none;
 }
 
 .slideTabs {
@@ -105,6 +106,7 @@
     height: 80px;
     background-color: #f6e1bc;
     display: block;
+    list-style-type: none;
 }
 
 #slides .pnlSlideOptGroups {
@@ -140,7 +142,7 @@
 .pnlSlideOpts {
     float: left;
     display: none;
-    margin: 0 40px;
+    padding: 0 40px;
 }
 
 .pnlSlideExtra {
@@ -148,6 +150,9 @@
     background-color: #f2f2ff;
     height: 100%;
     border-left: 1px solid #C2C2C2;
+    margin-left: 2px;
+    text-align: center;
+    padding-left: 10px;
 }
 
 .slideExtraBtn {
@@ -161,7 +166,7 @@
 }
 
 .fieldRow {
-    float: left;
+    
     margin: 1px 10px 1px 0;
     padding: 0 4px;
     color: #1C94C4;
@@ -176,11 +181,90 @@
     margin-top: 15px;
 }
 
+.pnlSlideOptsContent {
+    float: none;
+}
+
 .tbErr {
     background-color: Red;
 }
 
 .slideId {
     display: none;
+}
+
+
+.slideObject {
+    float: left;
+    width: 110px;
+    padding-top: 56px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 12px;
+    color: #1C94C4;
+    margin: 0px 10px 0px 0;
+    background-position: center 4px;
+    background-repeat: no-repeat;
+    border: 1px solid #f2f2f2;
+    height: 20px;
+}
+
+.slideObjectHover {
+    border: 1px solid #FBCB09;
+    background-color: #FDF9E1;
+}
+
+.slideObjectSwf {
+    background-image: url(img/adobe-swf.png);
+}
+
+.slideObjectImg {
+    background-image: url(img/image-file.png);
+}
+
+.slideObjectText {
+    background-image: url(img/text-icon.png);
+}
+
+.btnAddObject .ui-button-text {
+    font-size: 11px !important;
+    padding: 2px 8px;
+}
+
+.ui-state-default {
+    outline: 0;
+}
+
+#dlgObjectSettings {
+    display: none;
+    background: #ffffff none;
+}
+
+.ui-dialog, .ui-dialog-buttonpane {
+    background: #ffffff none;
+}
+
+
+.objFieldRow {
+    margin: 1px 10px 1px 0;
+    padding: 0 8px;
+    color: #1C94C4;
+}
+
+
+#objSettingsTabs {
+    height: 260px;
+    border-width: 0px;
+    background: White none;
+}
+
+#objSettingsTabs ul {
+    background: White none;
+    border-width: 0;
+    border-bottom-width: 1px;
+}
+
+#ui-dialog-title-dlgObjectSettings {
+    font-size: 14px;
 }
 
