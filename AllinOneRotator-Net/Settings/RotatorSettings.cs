@@ -118,6 +118,16 @@ namespace avt.AllinOneRotator.Net.Settings
                     try { val = dr["SettingValue"].ToString(); } catch { }
 
                     switch (dr["SettingName"].ToString()) {
+                        case "Width":
+                            try {
+                                Width = Convert.ToInt32(val);
+                            } catch { }
+                            break;
+                        case "Height":
+                            try {
+                                Height = Convert.ToInt32(val);
+                            } catch { }
+                            break;
                         case "AutoStartSlideShow":
                             AutoStartSlideShow = val == "true";
                             break;

@@ -189,7 +189,7 @@
     background-color: Red;
 }
 
-.slideId {
+.slideId, .objectId, .itemType {
     display: none;
 }
 
@@ -268,3 +268,18 @@
     font-size: 14px;
 }
 
+.tbNumber {
+    text-align: right;
+}
+
+.tbErr {
+    background-color: #ff6666;
+    color: White;
+    font-weight:bold;
+}
+
+#slideObjErr {
+    display: none;
+    color: #ff2222;
+    font-weight:bold;
+}

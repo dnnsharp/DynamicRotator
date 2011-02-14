@@ -31,6 +31,24 @@ namespace avt.AllinOneRotator.Net.WebManage {
         protected global::System.Web.UI.WebControls.HiddenField hdnSlideXml;
         
         /// <summary>
+        /// tbWidth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbWidth;
+        
+        /// <summary>
+        /// tbHeight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbHeight;
+        
+        /// <summary>
         /// cbAutoStartSlideShow control.
         /// </summary>
         /// <remarks>
@@ -191,5 +209,50 @@ namespace avt.AllinOneRotator.Net.WebManage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddLinkTarget;
+        
+        /// <summary>
+        /// ddObjAppearFromText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddObjAppearFromText;
+        
+        /// <summary>
+        /// ddObjAppearFromImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddObjAppearFromImage;
+        
+        /// <summary>
+        /// ddObjMoveType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddObjMoveType;
+        
+        /// <summary>
+        /// ddObjEasingType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddObjEasingType;
+        
+        /// <summary>
+        /// ddObjEffect control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddObjEffect;
     }
 }

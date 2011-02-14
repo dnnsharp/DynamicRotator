@@ -100,8 +100,8 @@ namespace avt.AllinOneRotator.Net.Data
             sbSql.Append(" WHERE ");
             sbSql.Append(JoinConditions(" AND ", _IdColumns, pKeys));
 
-            //if (_IsIdentity)
-            //    sbSql.AppendFormat("\n \n SELECT {0}", EncodeSql(pKeys[0]));
+            if (_IsIdentity)
+                sbSql.AppendFormat("\n \n SELECT {0}", pKeys[0]);
 
             return sbSql.ToString();
         }
@@ -112,7 +112,7 @@ namespace avt.AllinOneRotator.Net.Data
             ExecuteNonQuery(_ConnString, CommandType.Text, sql, null);
         }
 
-        public void Update(object[] pKeys, params object[] data)
+        public int Update(object[] pKeys, params object[] data)
         {
             string sql;
             if (_IsIdentity) {
@@ -125,7 +125,12 @@ namespace avt.AllinOneRotator.Net.Data
                     " + SqlAdd(pKeys, data) + @"
                 ";
             }
-            ExecuteNonQuery(_ConnString, CommandType.Text, sql, null);
+            if (_IsIdentity) {
+                return (int) ExecuteScalar(_ConnString, CommandType.Text, sql, null);
+            } else {
+                ExecuteNonQuery(_ConnString, CommandType.Text, sql, null);
+                return -1;
+            }
         }
 
         public void UpdateField(string fieldName, object data, string whereCond)

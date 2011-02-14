@@ -41,6 +41,28 @@
             <table>
                 <tr>
                     <td class="settingField">
+                        <asp:Label runat="server" AssociatedControlID="tbWidth">Width</asp:Label>
+                    </td>
+                    <td class="settingField">
+                         <asp:TextBox runat = "server" ID="tbWidth" class="tbNumber" /> px
+                    </td>
+                    <td class = "grayed_desc">
+                        Description Lorem Ipsum
+                    </td>
+                </tr>
+                <tr>
+                    <td class="settingField">
+                        <asp:Label runat="server" AssociatedControlID="tbHeight">Height</asp:Label>
+                    </td>
+                    <td class="settingField">
+                         <asp:TextBox runat = "server" ID="tbHeight" class="tbNumber" /> px
+                    </td>
+                    <td class = "grayed_desc">
+                        Description Lorem Ipsum
+                    </td>
+                </tr>
+                <tr>
+                    <td class="settingField">
                         <asp:Label runat="server" AssociatedControlID="cbAutoStartSlideShow">Auto Start SlideShow</asp:Label>
                     </td>
                     <td class="settingField">
@@ -132,7 +154,7 @@
                         <asp:Label runat="server" AssociatedControlID="tbTopTitleBgTransparency">Top Title Bg Transparency</asp:Label>
                     </td>
                     <td class="settingField">
-                         <asp:TextBox runat = "server" ID="tbTopTitleBgTransparency" class="tbNumber" />
+                         <asp:TextBox runat = "server" ID="tbTopTitleBgTransparency" style="width:30px;" class="tbNumber tbRange" />
                     </td>
                     <td class = "grayed_desc">
                         Description Lorem Ipsum
@@ -301,8 +323,8 @@
                     </div>
 
                     <div class="pnlSlideOpts pnlSlideOptsContent">
-                        <div style = "height: 84px; margin: 8px 8px 2px 8px; overflow: auto; padding-left: 40px;">
-                            <div class="slideObject slideObjectText">
+                        <div style = "height: 84px; margin: 8px 8px 2px 8px; overflow: auto; padding-left: 40px;" class="pnlSlideObjList">
+                            <%--<div class="slideObject slideObjectText">
                                 My Text
                             </div>
                             <div class="slideObject slideObjectSwf">
@@ -310,7 +332,7 @@
                             </div>
                             <div class="slideObject slideObjectImg">
                                 This is an image
-                            </div>
+                            </div>--%>
                             <%--<div class="slideObject slideObjectImg">
                                 This is an image
                             </div>
@@ -337,8 +359,8 @@
                             <div style="clear:both;"></div>
                         </div>
                         <div style = "background-color: #F2F2FF; border-top: 1px solid #C2C2C2; padding: 3px 4px 2px 186px;">
-                            <a href = "#" onclick="addSlideText(); return false;" class="btnAddObject"><img src="<%= TemplateSourceDirectory %>/res/img/add.gif" border="0" /> Add Text</a>
-                            <a href = "#" onclick="addSlideImage(); return false;" class="btnAddObject"><img src="<%= TemplateSourceDirectory %>/res/img/add.gif" border="0" /> Add Image/Flash</a>
+                            <a href = "#" onclick="addSlideText(jQuery(this).parents('.slideRoot:first')); return false;" class="btnAddObject"><img src="<%= TemplateSourceDirectory %>/res/img/add.gif" border="0" /> Add Text</a>
+                            <a href = "#" onclick="addSlideImage(jQuery(this).parents('.slideRoot:first')); return false;" class="btnAddObject"><img src="<%= TemplateSourceDirectory %>/res/img/add.gif" border="0" /> Add Image/Flash</a>
                         </div>
                     </div>
 
@@ -383,6 +405,7 @@
 
 
     <div id = "dlgObjectSettings">
+
         <div id = "objSettingsTabs">
             <ul>
                 <li><a href="#obj-settings-general">General</a></li>
@@ -392,10 +415,22 @@
 
             <div id = "obj-settings-general">
                 <div style = "margin: 8px;">
-                    <span class="slideId">-1</span>
+                    <span class="objectId">-1</span>
+                    <span class="itemType"></span>
+                    
                     <div class = "objFieldRow ui-widget-content">
                         <b>Name: </b> 
-                        <input type="text" class = "tbObjName" style = "width: 200px;" value="<%= DefaultSlide.Title %>" />
+                        <input type="text" class = "tbObjName tbRequired" style = "width: 200px;" value="<%= DefaultSlide.Title %>" />
+                    </div>
+                    <div class = "objFieldRow ui-widget-content objFieldImgOnly" style="clear: left;">
+                        <b>Resource URL: </b> 
+                        <select class = "ddUrl ddResUrl">
+                            <option>http://</option>
+                            <option>https://</option>
+                            <option>ftp://</option>
+                            <option>other</option>
+                        </select>
+                        <input type="text" class = "tbUrl tbLinkUrl" style = "width: 260px;" value="<%= DefaultSlide.SlideUrl %>" />
                     </div>
                     <div class = "objFieldRow ui-widget-content" style="clear: left;">
                         <b>Link URL: </b> 
@@ -412,7 +447,7 @@
                         <b>X</b> <input type="text" style = "width: 60px;" class="tbObjPosX" value="<%= ColorToHex(DefaultSlide.BackgroundGradientFrom) %>" />
                         <b>Y</b> <input type="text" style = "width: 60px;" class="tbObjPosY" value="<%= ColorToHex(DefaultSlide.BackgroundGradientTo) %>" />
                     </div>
-                    <div class = "objFieldRow ui-widget-content">
+                    <div class = "objFieldRow ui-widget-content objFieldTextOnly">
                         <b>Text: </b> 
                         <textarea class = "tbObjText" style = "width: 360px; height: 60px;"><%= DefaultSlide.Title %></textarea>
                     </div>
@@ -422,6 +457,13 @@
 
             <div id = "obj-settings-effect">
                 <div style = "margin: 8px;">
+                    <div class = "objFieldRow ui-widget-content">
+                        <div style = "float: left"><b>Opacity: </b> </div>
+                        <div style="width: 300px; margin-left: 100px;">
+                            <input type="text" class = "tbObjOpacity tbNumber tbRange" style = "width: 60px;" value="<%= DefaultObject.Opacity %>" />
+                        </div>
+                        <div style="clear:both;"></div>
+                    </div>
                     <div class = "objFieldRow ui-widget-content">
                         <b>Glow Size: </b> 
                         <input type="text" class = "tbObjGlowSize" style = "width: 60px;" value="<%= DefaultSlide.Title %>" />
@@ -458,32 +500,27 @@
                     <div id = "pnlObjSlideParams" style="display:none; margin-top: 8px;">
                         <div class = "objFieldRow ui-widget-content">
                             <b>Appear from: </b> 
-                            <select class = "ddObjAppearFrom" >
-                                <option>Top</option>
-                                <option>Left</option>
-                            </select>
+                            <asp:DropDownList runat="server" ID = "ddObjAppearFromText" class = "ddObjAppearFromText">
+                            </asp:DropDownList>
+
+                            <asp:DropDownList runat="server" ID = "ddObjAppearFromImage" class = "ddObjAppearFromImage">
+                            </asp:DropDownList>
                         </div>
                         <div class = "objFieldRow ui-widget-content">
                             <b>Move Type: </b> 
-                            <select class = "ddObjAppearFrom" >
-                                <option>Strong</option>
-                                <option>Bounce</option>
-                            </select>
+                            <asp:DropDownList runat="server" ID = "ddObjMoveType" class = "ddObjMoveType">
+                            </asp:DropDownList>
                         </div>
                         <div class = "objFieldRow ui-widget-content">
                             <b>Easing Type: </b> 
-                            <select class = "ddObjAppearFrom" >
-                                <option>In</option>
-                                <option>Out</option>
-                            </select>
+                            <asp:DropDownList runat="server" ID = "ddObjEasingType" class = "ddObjEasingType">
+                            </asp:DropDownList>
                         </div>
 
                         <div class = "objFieldRow ui-widget-content">
                             <b>Effect: </b> 
-                            <select class = "ddObjAppearFrom" >
-                                <option>--None--</option>
-                                <option>Photo</option>
-                            </select>
+                            <asp:DropDownList runat="server" ID = "ddObjEffect" class = "ddObjEffect">
+                            </asp:DropDownList>
                         </div>
                     </div>
 
@@ -491,6 +528,12 @@
             </div>
 
         </div>
+
+        <div id = "slideObjErr">
+            There are errors in your settings!<br />
+            Please correct them then click Save again...
+        </div>
+
     </div>
 
 
@@ -547,14 +590,6 @@
                 loadSlide(slides[i]);
             }
 
-            jQuery(".slideObject")
-                .mouseover(function() {
-                    jQuery(this).addClass("slideObjectHover");
-                })
-                .mouseout(function() {
-                    jQuery(this).removeClass("slideObjectHover");
-                });
-
             jQuery("#dlgObjectSettings").dialog({
                 bgiframe: false,
                 autoOpen: false,
@@ -566,7 +601,49 @@
 
                 buttons: {
                     'Save': function() {
-                        
+                        var _dlg = jQuery("#dlgObjectSettings");
+
+                        jQuery("#slideObjErr").hide();
+
+                        // validate
+                        var isValid = true;
+                        _dlg.find(".tbRequired:visible").each(function() {
+                            if (jQuery.trim(jQuery(this).val()).length == 0) {
+                                jQuery(this).addClass("tbErr");
+                                
+                                // make sure the tab with the error is visible
+                                if (isValid) {
+                                    _dlg.find("[href='#"+jQuery(this).parents(".ui-tabs-panel:first").attr("id")+"']").click();
+                                    jQuery(this).focus();
+                                    isValid = false;
+                                }
+
+                            }
+                        });
+
+                        if (!isValid) {
+                            jQuery("#slideObjErr").show();
+                            return;
+                        }
+
+                        if (!jQuery(".slideRootActive")[0].slideObjects) {
+                            jQuery(".slideRootActive")[0].slideObjects = [];
+                        }
+                        var slideObj = saveSlideObjectAsJson(_dlg);
+                        if (slideObj.id == "-1") {
+                            jQuery(".slideRootActive")[0].slideObjects.push(slideObj);
+                            appendSlideObject(slideObj);
+                        } else {
+                            for (var i = 0; i < jQuery(".slideRootActive")[0].slideObjects.length; i++) {
+                                if (jQuery(".slideRootActive")[0].slideObjects[i].id == slideObj.id) {
+                                    jQuery(".slideRootActive")[0].slideObjects[i] = slideObj;
+                                    break;
+                                }
+                            }
+                        }
+
+                        jQuery("#dlgObjectSettings").dialog('close');
+
                     },
                     'Cancel': function() {
                         jQuery("#dlgObjectSettings").dialog('close');
@@ -579,7 +656,60 @@
 
             jQuery("#objSettingsTabs").tabs();
             applyColorpicker(jQuery("#objSettingsTabs"));
+
+            jQuery(".tbRange").each(function() {
+                var _s = jQuery("<div style='margin-right:"+(jQuery(this).width()+16)+"px;padding-top:5px;'><div></div></div>");
+                _s.find("div").slider({
+                    value: jQuery(this).val(),
+                    orientation: "horizontal",
+                    min: jQuery(this).attr("min"),
+                    max: jQuery(this).attr("max"),
+                    range: "min",
+                    animate: true,
+                    slide: function(event, ui) {
+                        jQuery(this).parent().prev("input").val(ui.value);
+                    }
+                });
+                jQuery(this).css("float", "right");
+                jQuery(this).after(_s);
+                jQuery(this).keyup(function() {
+                    if (isNaN(parseInt(jQuery(this).val()))) {
+                        return;
+                    }
+                    jQuery(this).next().find("div").slider("value", jQuery(this).val());
+                });
+            });
         });
+
+        function saveSlideObjectAsJson(dlg) {
+            return { 
+                id: dlg.find(".objectId").text(),
+                name: dlg.find(".tbObjName").val(),
+                itemType: dlg.find(".itemType").text()
+            };
+        }
+
+        function appendSlideObject(slideObj) {
+            var _item = jQuery("<div class='slideObject'>"+slideObj.name+"</div>");
+            // determine type
+            if (slideObj.itemType == "text") {
+                _item.addClass("slideObjectText");
+            } else if (slideObj.itemType == "image") {
+                // TODO: determine swf or image
+                _item.addClass("slideObjectImg");
+            }
+
+            jQuery(".slideRootActive").find(".pnlSlideObjList").append(_item);
+
+            _item
+                .mouseover(function() {
+                    jQuery(this).addClass("slideObjectHover");
+                })
+                .mouseout(function() {
+                    jQuery(this).removeClass("slideObjectHover");
+                });
+
+        }
 
         function applyColorpicker(rootElement) {
             rootElement.find(".tbColor").each(function() {
@@ -658,14 +788,31 @@
             updateSlideIndexes();
         }
 
-        function addSlideText() {
-            jQuery("#dlgObjectSettings").dialog("open");
-            jQuery(".ui-button").removeClass("ui-state-focus");
+        function addSlideText(slideRoot) {
+            addSlideObject(slideRoot, "text");
         }
 
-        function addSlideImage() {
-            jQuery("#dlgObjectSettings").dialog("open");
+        function addSlideImage(slideRoot) {
+            addSlideObject(slideRoot, "image");
+        }
+
+        function addSlideObject(slideRoot, itemType) {
+            var _dlg = jQuery("#dlgObjectSettings");
+            _dlg.find(".objectId").text("-1");
+            _dlg.find(".itemType").text(itemType);
+
+            _dlg.find(".objFieldImgOnly, .objFieldTextOnly").show();
+            if (itemType=="text") {
+                _dlg.find(".objFieldImgOnly").hide();
+            } else {
+                _dlg.find(".objFieldTextOnly").hide();
+            }
+            
+            _dlg.dialog("open");
+
             jQuery(".ui-button").removeClass("ui-state-focus");
+            jQuery(".slideRoot").removeClass("slideRootActive");
+            slideRoot.addClass("slideRootActive");
         }
 
 
@@ -716,6 +863,17 @@
             x += "<mp3Url>"+ encodeXml(formatUrl(slideRoot.find(".tbMp3Url"))) +"</mp3Url>";
             x += "<mp3IconColor>"+ encodeXml(slideRoot.find(".tbMp3IconColor").val()) +"</mp3IconColor>";
             x += "<mp3ShowPlayer>"+ (slideRoot.find(".cbMp3ShowPlayer").val() ? "true" : "false") +"</mp3ShowPlayer>";
+
+            // save objects
+            x += "<slideObjects>";
+            if (slideRoot[0].slideObjects) {
+                for (var i = 0; i < slideRoot[0].slideObjects.length; i++) {
+                    for (var key in slideRoot[0].slideObjects[i]) {
+                        x += "<"+key+">"+ encodeXml(slideRoot[0].slideObjects[i][key]) +"</"+key+">";
+                    }
+                }
+            }
+            x += "</slideObjects>";
 
             x += "</slide>";
             return x;

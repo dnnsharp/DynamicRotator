@@ -51,6 +51,10 @@ namespace avt.AllinOneRotator.Net
 
     public class SlideInfo
     {
+        public SlideInfo()
+        {
+        }
+
 
         int _Id = -1;
         public int Id { get { return _Id; } set { _Id = value; } }

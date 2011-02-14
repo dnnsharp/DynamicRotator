@@ -15,6 +15,7 @@ namespace avt.AllinOneRotator.Net.WebManage
     public partial class ManageRotator : System.Web.UI.Page
     {
         protected SlideInfo DefaultSlide = new SlideInfo();
+        protected SlideObjectInfo DefaultObject = new SlideObjectInfo();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -23,9 +24,31 @@ namespace avt.AllinOneRotator.Net.WebManage
                 ddSlideButtonsType.DataSource = Enum.GetNames(typeof(eSlideButtonsType));
                 ddSlideButtonsType.DataBind();
 
+                // load enums for slides
                 ddLinkTarget.DataSource = Enum.GetNames(typeof(eLinkTarget));
                 ddLinkTarget.DataBind();
                 try { ddLinkTarget.SelectedValue = DefaultSlide.Target.ToString(); } catch { }
+
+                // load enums for objects
+                ddObjAppearFromText.DataSource = Enum.GetNames(typeof(eHorizontadDirs));
+                ddObjAppearFromText.DataBind();
+                try { ddObjAppearFromText.SelectedValue = DefaultObject.AppearFrom.ToString(); } catch { }
+
+                ddObjAppearFromImage.DataSource = Enum.GetNames(typeof(eAllDirs));
+                ddObjAppearFromImage.DataBind();
+                try { ddObjAppearFromImage.SelectedValue = DefaultObject.AppearFrom.ToString(); } catch { }
+
+                ddObjMoveType.DataSource = Enum.GetNames(typeof(eMoveType));
+                ddObjMoveType.DataBind();
+                try { ddObjMoveType.SelectedValue = DefaultObject.MoveType.ToString(); } catch { }
+
+                ddObjEasingType.DataSource = Enum.GetNames(typeof(eEasing));
+                ddObjEasingType.DataBind();
+                try { ddObjEasingType.SelectedValue = DefaultObject.EasingType.ToString(); } catch { }
+
+                ddObjEffect.DataSource = Enum.GetNames(typeof(eEffect));
+                ddObjEffect.DataBind();
+                try { ddObjEffect.SelectedValue = DefaultObject.Effect.ToString(); } catch { }
 
                 // load settings
 
@@ -33,6 +56,8 @@ namespace avt.AllinOneRotator.Net.WebManage
                 settings.Init(Request.QueryString["controlId"]);
                 settings.LoadFromDB(Request.QueryString["connStr"], Request.QueryString["dbOwner"], Request.QueryString["objQualifier"]);
 
+                tbWidth.Text = settings.Width.Value.ToString();
+                tbHeight.Text = settings.Height.Value.ToString();
                 cbAutoStartSlideShow.Checked = settings.AutoStartSlideShow;
                 cbUseRoundCornersMask.Checked = settings.UseRoundCornersMask;
                 tbRoundCornerMaskColor.Text = ColorExt.ColorToHexString(settings.RoundCornerMaskColor);
@@ -76,6 +101,8 @@ namespace avt.AllinOneRotator.Net.WebManage
             DataProvider.Instance().ObjQualifier = Request.QueryString["objQualifier"];
             DataProvider.Instance().Init();
 
+            DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "Width", tbWidth.Text);
+            DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "Height", tbHeight.Text);
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "AutoStartSlideShow", cbAutoStartSlideShow.Checked ? "true" : "false");
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "UseRoundCornersMask", cbUseRoundCornersMask.Checked ? "true" : "false");
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "RoundCornerMaskColor", tbRoundCornerMaskColor.Text);
@@ -115,7 +142,7 @@ namespace avt.AllinOneRotator.Net.WebManage
                         existingSlides.Remove(slideId);
                     }
 
-                    DataProvider.Instance().UpdateSlide(
+                    slideId = DataProvider.Instance().UpdateSlide(
                         slideId,
                         Request.QueryString["controlId"],
                         xmlSlide["title"].InnerText,
@@ -132,6 +159,19 @@ namespace avt.AllinOneRotator.Net.WebManage
                         xmlSlide["mp3ShowPlayer"].InnerText == "true",
                         xmlSlide["mp3IconColor"].InnerText
                     );
+
+                    //IDataReader slideData = DataProvider.Instance().GetSlide(slideId);
+                    //slideData.Read();
+                    //SlideInfo slide = new SlideInfo();
+                    //slide.Load(slideData);
+                    //slideData.Close();
+
+                    //// save slide objects
+                    //List<int> existingSlideObjects = new List<int>();
+                    //foreach (SlideObjectInfo slideObj in slide.SlideObjects) {
+                    //    existingSlideObjects.Add(slideObj.Id);
+                    //}
+                    
                 }
             }
 

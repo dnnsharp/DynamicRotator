@@ -13,6 +13,7 @@ namespace avt.AllinOneRotator.Net.Data
 
         AvtSqlHelper_Table _TableSettings;
         AvtSqlHelper_Table _TableSlides;
+        AvtSqlHelper_Table _TableSlideObjects;
 
         #endregion
 
@@ -41,6 +42,14 @@ namespace avt.AllinOneRotator.Net.Data
                 "ControlId", "Title", "DurationSeconds", "BackgroundGradientFrom", "BackgroundGradientTo",
                 "Link_Url", "Link_Caption", "Link_Target", "Link_UseTextsBackground",
                 "Mp3_Url", "Mp3_ShowPlayer", "Mp3_IconColor"
+            );
+
+            _TableSlideObjects = new AvtSqlHelper_Table(
+                ConnStr,
+                DbOwner + ObjQualifier + "avtRotator_SlideObjects",
+                true,
+                new string[] { "ObjectId" },
+                "SlideId", "ObjectType", "Name"
             );
         }
 
@@ -79,12 +88,12 @@ namespace avt.AllinOneRotator.Net.Data
 
         #region Slides
 
-        public override void UpdateSlide(
+        public override int UpdateSlide(
             int slideId, string controlId, string title, int durationSeconds, string backgroundGradientFrom, string backgroundGradientTo,
             string linkUrl, string linkCaption, string linkTarget, bool useTextsBk,
             string mp3LinkUrl, bool mp3ShowPlayer, string mp3IconColor)
         {
-            _TableSlides.Update(
+            return _TableSlides.Update(
                 new object[] { slideId }, controlId, title, durationSeconds, backgroundGradientFrom, backgroundGradientTo,
                 linkUrl, linkCaption, linkTarget, useTextsBk,
                 mp3LinkUrl, mp3ShowPlayer, mp3IconColor
@@ -96,9 +105,39 @@ namespace avt.AllinOneRotator.Net.Data
             return _TableSlides.Get("Where ControlID=" + AvtSqlHelper_Table.EncodeSql(controlId));
         }
 
+        public override IDataReader GetSlide(int slideId)
+        {
+            return _TableSlides.Get("Where SlideId=" + slideId);
+        }
+
         public override void RemoveSlide(int slideId)
         {
             _TableSlides.Delete(new object[] { slideId });
+        }
+
+
+
+        public override int UpdateSlideObject(
+           int slideObjectId, int slideId, string objectType, string Name)
+        {
+            return _TableSlideObjects.Update(
+                new object[] { slideObjectId }, slideId, objectType, Name
+            );
+        }
+
+        public override IDataReader GetSlideObjects(int slideId)
+        {
+            return _TableSlideObjects.Get("Where SideId=" + slideId);
+        }
+
+        public override IDataReader GetSlideObject(int slideObjectId)
+        {
+            return _TableSlideObjects.Get("Where ObjectId=" + slideObjectId);
+        }
+
+        public override void RemoveSlideObject(int slideObjectId)
+        {
+            _TableSlideObjects.Delete(new object[] { slideObjectId });
         }
 
         #endregion

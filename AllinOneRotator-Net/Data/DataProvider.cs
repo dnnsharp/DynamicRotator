@@ -67,13 +67,21 @@ namespace avt.AllinOneRotator.Net.Data
         public abstract void RemoveSetting(string controlId, string settingName);
 
         // Slides
-        public abstract void UpdateSlide(
+        public abstract int UpdateSlide(
             int slideId, string controlId, string title, int durationSeconds, string backgroundGradientFrom, string backgroundGradientTo,
             string linkUrl, string linkCaption, string linkTarget, bool useTextsBk,
             string mp3LinkUrl, bool mp3ShowPlayer, string mp3IconColor
         );
         public abstract IDataReader GetSlides(string controlId);
-
+        public abstract IDataReader GetSlide(int slideId);
         public abstract void RemoveSlide(int slideId);
+
+        // Slide Objects
+        public abstract int UpdateSlideObject(
+            int slideObjectId, int slideId, string objectType, string Name
+        );
+        public abstract IDataReader GetSlideObjects(int slideId);
+        public abstract IDataReader GetSlideObject(int slideObjectId);
+        public abstract void RemoveSlideObject(int slideObjectId);
     }
 }

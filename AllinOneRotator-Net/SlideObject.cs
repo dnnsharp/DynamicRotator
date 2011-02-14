@@ -25,8 +25,26 @@ namespace avt.AllinOneRotator.Net
         Zoom
     }
 
+    public enum eObjectType
+    {
+        Unknown,
+        Text,
+        Image,
+        Flash
+    }
+
     public class SlideObjectInfo
     {
+        eObjectType _ObjectType = eObjectType.Unknown;
+        public eObjectType ObjectType { get { return _ObjectType; } set { _ObjectType = value; } }
+
+        int _Id = -1;
+        public int Id { get { return _Id; } set { _Id = value; } }
+
+        string _Name = "New Slide Object";
+        [Category("General")]
+        public string Name { get { return _Name; } set { _Name = value; } }
+
         string _ObjectUrl = "/path/to/resource.ext";
         [UrlProperty()]
         [Editor("System.Web.UI.Design.UrlEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
@@ -41,7 +59,11 @@ namespace avt.AllinOneRotator.Net
         [Category("Position")]
         public int Yposition { get { return _Yposition; } set { _Yposition = value; } }
 
+        int _Opacity = 100;
+        [Category("Effects")]
+        public int Opacity { get { return _Opacity; } set { _Opacity = value; } }
         
+
         Color _GlowColor = Color.White;
         [TypeConverter(typeof(WebColorConverter))]
         [Category("Effects")]
