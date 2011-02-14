@@ -9,6 +9,7 @@ using System.Data;
 using avt.AllinOneRotator.Net.Settings;
 using System.Drawing;
 using System.Xml;
+using avt.AllinOneRotator.Net.Services;
 
 namespace avt.AllinOneRotator.Net.WebManage
 {
@@ -53,8 +54,8 @@ namespace avt.AllinOneRotator.Net.WebManage
                 // load settings
 
                 RotatorSettings settings = new RotatorSettings();
-                settings.Init(Request.QueryString["controlId"]);
-                settings.LoadFromDB(Request.QueryString["connStr"], Request.QueryString["dbOwner"], Request.QueryString["objQualifier"]);
+                settings.Init(Request.QueryString["controlId"], new AspNetConfiguration());
+                settings.LoadFromDB();
 
                 tbWidth.Text = settings.Width.Value.ToString();
                 tbHeight.Text = settings.Height.Value.ToString();
@@ -84,8 +85,8 @@ namespace avt.AllinOneRotator.Net.WebManage
         protected void SaveSettings(object sender, EventArgs e)
         {
             RotatorSettings settings = new RotatorSettings();
-            settings.Init(Request.QueryString["controlId"]);
-            settings.LoadFromDB(Request.QueryString["connStr"], Request.QueryString["dbOwner"], Request.QueryString["objQualifier"]);
+            settings.Init(Request.QueryString["controlId"], new AspNetConfiguration());
+            settings.LoadFromDB();
 
             string connStr = Request.QueryString["connStr"];
             if (connStr.IndexOf(';') == -1) {
@@ -96,10 +97,7 @@ namespace avt.AllinOneRotator.Net.WebManage
                 connStr = ConfigurationManager.ConnectionStrings[connStr].ConnectionString;
             }
 
-            DataProvider.Instance().ConnStr = connStr;
-            DataProvider.Instance().DbOwner = Request.QueryString["dbOwner"];
-            DataProvider.Instance().ObjQualifier = Request.QueryString["objQualifier"];
-            DataProvider.Instance().Init();
+            DataProvider.Instance().Init(new AspNetConfiguration());
 
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "Width", tbWidth.Text);
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "Height", tbHeight.Text);
@@ -142,36 +140,61 @@ namespace avt.AllinOneRotator.Net.WebManage
                         existingSlides.Remove(slideId);
                     }
 
-                    slideId = DataProvider.Instance().UpdateSlide(
-                        slideId,
-                        Request.QueryString["controlId"],
-                        xmlSlide["title"].InnerText,
-                        Convert.ToInt32(xmlSlide["duration"].InnerText),
-                        xmlSlide["bkGradFrom"].InnerText,
-                        xmlSlide["bkGradTo"].InnerText,
+                    SlideInfo slide;
+                    if (slideId > 0) {
+                        slide = SlideInfo.Get(slideId);
+                    } else {
+                        slide = new SlideInfo();
+                    }
 
-                        xmlSlide["linkUrl"].InnerText,
-                        xmlSlide["linkCaption"].InnerText,
-                        xmlSlide["linkTarget"].InnerText,
-                        xmlSlide["useTextsBk"].InnerText == "true",
+                    slide.ControlId = Request.QueryString["controlId"];
+                    slide.Title = xmlSlide["title"].InnerText;
+                    slide.DurationSeconds = Convert.ToInt32(xmlSlide["duration"].InnerText);
+                    slide.BackgroundGradientFrom = Color.FromArgb(Convert.ToInt32(xmlSlide["bkGradFrom"].InnerText.Replace("#", "0x"), 16));
+                    slide.BackgroundGradientTo = Color.FromArgb(Convert.ToInt32(xmlSlide["bkGradTo"].InnerText.Replace("#", "0x"), 16)); 
+                    slide.SlideUrl = xmlSlide["linkUrl"].InnerText;
+                    slide.ButtonCaption = xmlSlide["linkCaption"].InnerText;
+                    slide.Target = (eLinkTarget) Enum.Parse(typeof(eLinkTarget), xmlSlide["linkTarget"].InnerText);
+                    slide.UseTextsBackground = xmlSlide["useTextsBk"].InnerText == "true";
 
-                        xmlSlide["mp3Url"].InnerText,
-                        xmlSlide["mp3ShowPlayer"].InnerText == "true",
-                        xmlSlide["mp3IconColor"].InnerText
-                    );
+                    slide.Mp3Url = xmlSlide["mp3Url"].InnerText;
+                    slide.ShowPlayer = xmlSlide["mp3ShowPlayer"].InnerText == "true";
+                    slide.IconColor = Color.FromArgb(Convert.ToInt32(xmlSlide["mp3IconColor"].InnerText.Replace("#", "0x"), 16));
 
-                    //IDataReader slideData = DataProvider.Instance().GetSlide(slideId);
-                    //slideData.Read();
-                    //SlideInfo slide = new SlideInfo();
-                    //slide.Load(slideData);
-                    //slideData.Close();
+                    slide.Save();
 
-                    //// save slide objects
-                    //List<int> existingSlideObjects = new List<int>();
-                    //foreach (SlideObjectInfo slideObj in slide.SlideObjects) {
-                    //    existingSlideObjects.Add(slideObj.Id);
-                    //}
+                    // save slide objects
+                    List<int> existingSlideObjects = new List<int>();
+                    foreach (SlideObjectInfo slideObj in slide.SlideObjects) {
+                        existingSlideObjects.Add(slideObj.Id);
+                    }
                     
+                    if (xmlSlide["slideObjects"] != null) {
+                        foreach (XmlElement xmlSlideObj in xmlSlide["slideObjects"].SelectNodes("obj")) {
+                            int slideObjId = Convert.ToInt32(xmlSlideObj["id"].InnerText);
+                            if (slideObjId > 0) {
+                                existingSlideObjects.Remove(slideObjId);
+                            }
+
+                            SlideObjectInfo slideObj;
+                            if (slideObjId > 0) {
+                                slideObj = slide.GetObject(slideObjId);
+                            } else {
+                                slideObj = new SlideObjectInfo();
+                            }
+
+                            slideObj.SlideId = slide.Id;
+                            slideObj.Name = xmlSlideObj["name"].InnerText;
+                            slideObj.ObjectType = (eObjectType)Enum.Parse(typeof(eObjectType), xmlSlideObj["itemType"].InnerText, true);
+
+                            slideObj.Save();
+                        }
+                    }
+
+                    // delete the rest
+                    foreach (int slideObjectId in existingSlideObjects) {
+                        DataProvider.Instance().RemoveSlideObject(slideObjectId);
+                    }
                 }
             }
 

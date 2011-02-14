@@ -9,6 +9,8 @@ using System.Drawing.Design;
 using System.Xml;
 using System.Data;
 using avt.AllinOneRotator.Net.Settings;
+using avt.AllinOneRotator.Net.Services;
+using avt.AllinOneRotator.Net.Data;
 
 namespace avt.AllinOneRotator.Net
 {
@@ -58,6 +60,9 @@ namespace avt.AllinOneRotator.Net
 
         int _Id = -1;
         public int Id { get { return _Id; } set { _Id = value; } }
+
+        string _ControlId;
+        public string ControlId { get { return _ControlId; } set { _ControlId = value; } }
 
         #region General
 
@@ -213,10 +218,23 @@ namespace avt.AllinOneRotator.Net
 
         #endregion
 
+        public SlideObjectInfo GetObject(int objectId)
+        {
+            if (objectId <= 0)
+                return null;
+
+            foreach (SlideObjectInfo slideObject in SlideObjects) {
+                if (slideObject.Id == objectId)
+                    return slideObject;
+            }
+
+            return null;
+        }
 
         public void Load(IDataReader dr)
         {
             Id = Convert.ToInt32(dr["SlideId"].ToString());
+            ControlId = dr["ControlId"].ToString();
             
             try { Title = dr["Title"].ToString(); } catch { }
             try { DurationSeconds = Convert.ToInt32(dr["Title"].ToString()); } catch { }
@@ -231,6 +249,58 @@ namespace avt.AllinOneRotator.Net
             try { Mp3Url = dr["Mp3_Url"].ToString(); } catch { }
             try { ShowPlayer = dr["Mp3_ShowPlayer"].ToString() == "true"; } catch { }
             try { IconColor = System.Drawing.Color.FromArgb(Convert.ToInt32(dr["Mp3_IconColor"].ToString().Replace("#", "0x"), 16)); } catch { }
+
+            using (IDataReader drObj = DataProvider.Instance().GetSlideObjects(Id)) {
+                while (drObj.Read()) {
+                    SlideObjects.Add(SlideObjectInfo.FromDataReader(drObj));
+                }
+                drObj.Close();
+            }
+        }
+
+        public static SlideInfo Get(int slideId)
+        {
+            SlideInfo slide = null;
+            using (IDataReader dr = DataProvider.Instance().GetSlide(slideId)) {
+                if (dr.Read()) {
+                    slide = new SlideInfo();
+                    slide.Load(dr);
+                }
+                dr.Close();
+            }
+
+            if (slide == null)
+                return null;
+
+            using (IDataReader dr = DataProvider.Instance().GetSlideObjects(slide.Id)) {
+                while (dr.Read()) {
+                    slide.SlideObjects.Add(SlideObjectInfo.FromDataReader(dr));
+                }
+                dr.Close();
+            }
+
+            return slide;
+        }
+
+        public void Save()
+        {
+            Id = DataProvider.Instance().UpdateSlide(
+                Id,
+                ControlId,
+                Title,
+                DurationSeconds,
+                ColorExt.ColorToHexString(BackgroundGradientFrom),
+                ColorExt.ColorToHexString(BackgroundGradientTo),
+
+                SlideUrl,
+                ButtonCaption,
+                Target.ToString(),
+                UseTextsBackground,
+
+                Mp3Url,
+                ShowPlayer,
+                ColorExt.ColorToHexString(IconColor)
+            );
         }
 
 
@@ -257,7 +327,18 @@ namespace avt.AllinOneRotator.Net
 
             sbJson.AppendFormat("mp3Url:\"{0}\",", Mp3Url);
             sbJson.AppendFormat("mp3IconColor:\"{0}\",", ColorExt.ColorToHexString(IconColor));
-            sbJson.AppendFormat("mp3ShowPlayer:{0}", ShowPlayer ? "true" : "false");
+            sbJson.AppendFormat("mp3ShowPlayer:{0},", ShowPlayer ? "true" : "false");
+
+            sbJson.Append("slideObjects:[");
+            foreach (SlideObjectInfo slideObject in SlideObjects) {
+                sbJson.Append(slideObject.ToStringJson());
+                sbJson.Append(",");
+            }
+            if (sbJson[sbJson.Length - 1] == ',') {
+                sbJson = sbJson.Remove(sbJson.Length - 1, 1);
+            }
+            sbJson.Append("]");
+
             sbJson.Append("}");
 
             return sbJson.ToString();

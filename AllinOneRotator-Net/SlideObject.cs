@@ -8,6 +8,9 @@ using System.IO;
 using System.Web.UI;
 using System.Drawing.Design;
 using System.Xml;
+using System.Data;
+using avt.AllinOneRotator.Net.Data;
+using avt.AllinOneRotator.Net.Settings;
 
 namespace avt.AllinOneRotator.Net
 {
@@ -40,6 +43,10 @@ namespace avt.AllinOneRotator.Net
 
         int _Id = -1;
         public int Id { get { return _Id; } set { _Id = value; } }
+
+        int _SlideId = -1;
+        public int SlideId { get { return _SlideId; } set { _SlideId = value; } }
+
 
         string _Name = "New Slide Object";
         [Category("General")]
@@ -112,8 +119,21 @@ namespace avt.AllinOneRotator.Net
         public string Link { get { return _Link; } set { _Link = value; } }
 
 
+        public void Save()
+        {
+            Id = DataProvider.Instance().UpdateSlideObject(
+                Id,
+                SlideId,
+                ObjectType.ToString(),
+                Name
+            );
+        }
+
+
         public override string ToString()
         {
+            if (!string.IsNullOrEmpty(Name))
+                return Name;
             return Path.GetFileName(ObjectUrl);
         }
 
@@ -147,6 +167,29 @@ namespace avt.AllinOneRotator.Net
 
             Writer.WriteString(ObjectUrl);
             Writer.WriteEndElement(); // ("picture");
+        }
+
+        public string ToStringJson()
+        {
+            StringBuilder sbJson = new StringBuilder();
+
+            sbJson.Append("{");
+            sbJson.AppendFormat("id:{0},", Id.ToString());
+            sbJson.AppendFormat("name:\"{0}\",", RotatorSettings.JsonEncode(Name));
+            sbJson.AppendFormat("itemType:\"{0}\"", ObjectType.ToString());
+            sbJson.Append("}");
+
+            return sbJson.ToString();
+        }
+
+
+        public static SlideObjectInfo FromDataReader(IDataReader dr)
+        {
+            SlideObjectInfo slideObject = new SlideObjectInfo();
+            slideObject.Id = Convert.ToInt32(dr["ObjectId"].ToString());
+            slideObject.SlideId = Convert.ToInt32(dr["SlideId"].ToString());
+            slideObject.ObjectType = (eObjectType)Enum.Parse(typeof(eObjectType), dr["ObjectType"].ToString(), true);
+            return slideObject;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿
 using System.Data;
 using System.Data.SqlTypes;
+using avt.AllinOneRotator.Net.Services;
 
 namespace avt.AllinOneRotator.Net.Data
 {
@@ -32,29 +33,7 @@ namespace avt.AllinOneRotator.Net.Data
             return objProvider;
         }
 
-        public abstract void Init();
-
-        #endregion
-
-        
-        #region Configuration
-
-        string _ConnStr = "";
-        public string ConnStr { get { return _ConnStr; } set { _ConnStr = value; } }
-
-        string _DbOwner = "";
-        public string DbOwner { 
-            get { return _DbOwner; } 
-            set { 
-                _DbOwner = value;
-                if (!string.IsNullOrEmpty(_DbOwner) && _DbOwner.IndexOf('.') != _DbOwner.Length - 1) {
-                    _DbOwner += ".";
-                }
-            } 
-        }
-
-        string _ObjQualifier = "";
-        public string ObjQualifier { get { return _ObjQualifier; } set { _ObjQualifier = value; } }
+        public abstract void Init(IConfiguration config);
 
         #endregion
 

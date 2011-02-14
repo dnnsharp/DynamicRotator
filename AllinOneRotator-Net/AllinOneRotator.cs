@@ -11,6 +11,7 @@ using System.Drawing.Design;
 using System.Configuration;
 using avt.AllinOneRotator.Net.Data;
 using avt.AllinOneRotator.Net.Settings;
+using avt.AllinOneRotator.Net.Services;
 
 namespace avt.AllinOneRotator.Net
 {
@@ -42,11 +43,11 @@ namespace avt.AllinOneRotator.Net
         {
             base.OnLoad(e);
 
-            Settings.Init(ID);
+            Settings.Init(ID, new AspNetConfiguration(DbConnectionString, DbOwner, DbObjectQualifier));
 
             // merge dynamic settings
             if (EnableRuntimeConfiguration) {
-                Settings.LoadFromDB(DbConnectionString, DbOwner, DbObjectQualifier);
+                Settings.LoadFromDB();
             }
 
             if (Page.Request.Params["avtadrot"] == "settings") {
@@ -96,7 +97,7 @@ namespace avt.AllinOneRotator.Net
 
         string _DbConnectionString = null;
         [Category("ALLinOne Rotator - Runtime Configuration")]
-        [Description("Specify a connection string (either the name of the connection string from web.config or directly the connection string) to allow runtime manipulation of Rotator Settings using the Web Interface.")]
+        [Description("Specify the name of a connection string from web.config to allow runtime manipulation of Rotator Settings using the Web Interface.")]
         public string DbConnectionString { get { return _DbConnectionString; } set { _DbConnectionString = value; } }
 
         string _DbOwner = "dbo";

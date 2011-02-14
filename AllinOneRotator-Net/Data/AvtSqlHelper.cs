@@ -126,7 +126,7 @@ namespace avt.AllinOneRotator.Net.Data
                 ";
             }
             if (_IsIdentity) {
-                return (int) ExecuteScalar(_ConnString, CommandType.Text, sql, null);
+                return Convert.ToInt32(ExecuteScalar(_ConnString, CommandType.Text, sql, null));
             } else {
                 ExecuteNonQuery(_ConnString, CommandType.Text, sql, null);
                 return -1;

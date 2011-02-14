@@ -464,17 +464,17 @@
                         </div>
                         <div style="clear:both;"></div>
                     </div>
-                    <div class = "objFieldRow ui-widget-content">
+                    <div class = "objFieldRow ui-widget-content" style ="margin-top:8px;">
                         <b>Glow Size: </b> 
-                        <input type="text" class = "tbObjGlowSize" style = "width: 60px;" value="<%= DefaultSlide.Title %>" />
+                        <input type="text" class = "tbObjGlowSize" style = "width: 60px;" value="<%= DefaultObject.GlowSize %>" />
                     </div>
                     <div class = "objFieldRow ui-widget-content" style="clear: left;">
                         <b>Glow Color: </b> 
-                        <input type="text" style = "width: 60px;" class="tbColor tbObjGlowColor" value="<%= ColorToHex(DefaultSlide.IconColor) %>" />
+                        <input type="text" style = "width: 60px;" class="tbColor tbObjGlowColor" value="<%= ColorToHex(DefaultObject.GlowColor) %>" />
                     </div>
                     <div class = "objFieldRow ui-widget-content">
                         <b>Glow Strength: </b> 
-                        <input type="text" class = "tbObjGlowStrength" style = "width: 60px;" value="<%= DefaultSlide.Title %>" />
+                        <input type="text" class = "tbObjGlowStrength" style = "width: 60px;" value="<%= DefaultObject.GlowStrength %>" />
                     </div>
                     <div style ="clear:both;"></div>
                 </div>
@@ -539,7 +539,7 @@
 
     <div class="footer">
         <div class="btnPane">
-            <a href = "<%= System.Web.HttpUtility.UrlDecode(Request.QueryString["rurl"]) %>" style="color: #525252; padding: 1px 10px; margin-right: 10px; font-weight: normal;" >Cancel</a>
+            <a target=" href = "<%= System.Web.HttpUtility.UrlDecode(Request.QueryString["rurl"]) %>" style="color: #525252; padding: 1px 10px; margin-right: 10px; font-weight: normal;" >Cancel</a>
             <asp:Button runat="server" OnClick="SaveSettings" class="ui-state-default" style="padding: 4px 10px;" Text="Save" OnClientClick="return save();" />
         </div>
         <div style="clear:both;"></div>
@@ -689,17 +689,21 @@
             };
         }
 
-        function appendSlideObject(slideObj) {
+        function appendSlideObject(slideObj, slideRoot) {
+            if (!slideRoot) {
+                slideRoot = jQuery(".slideRootActive");
+            }
+
             var _item = jQuery("<div class='slideObject'>"+slideObj.name+"</div>");
             // determine type
-            if (slideObj.itemType == "text") {
+            if (slideObj.itemType.toLowerCase() == "text") {
                 _item.addClass("slideObjectText");
-            } else if (slideObj.itemType == "image") {
+            } else if (slideObj.itemType.toLowerCase() == "image") {
                 // TODO: determine swf or image
                 _item.addClass("slideObjectImg");
             }
 
-            jQuery(".slideRootActive").find(".pnlSlideObjList").append(_item);
+           slideRoot .find(".pnlSlideObjList").append(_item);
 
             _item
                 .mouseover(function() {
@@ -769,6 +773,10 @@
             fillUrl(slideRoot.find(".tbMp3Url"), slideRoot.find(".ddMp3Url"), slide.mp3Url);
             slideRoot.find(".tbMp3IconColor").val(slide.mp3IconColor);
             slide.mp3ShowPlayer == "true" ? slideRoot.find(".cbMp3ShowPlayer").attr("checked","checked") : slideRoot.find(".cbMp3ShowPlayer").removeAttr("checked");
+
+            for (var i =0; i < slide.slideObjects.length; i++) {
+                appendSlideObject(slide.slideObjects[i], slideRoot);
+            }
         }
 
         function cloneSlide(slideRoot) {
@@ -868,9 +876,11 @@
             x += "<slideObjects>";
             if (slideRoot[0].slideObjects) {
                 for (var i = 0; i < slideRoot[0].slideObjects.length; i++) {
+                    x += "<obj>";
                     for (var key in slideRoot[0].slideObjects[i]) {
                         x += "<"+key+">"+ encodeXml(slideRoot[0].slideObjects[i][key]) +"</"+key+">";
                     }
+                    x += "</obj>";
                 }
             }
             x += "</slideObjects>";

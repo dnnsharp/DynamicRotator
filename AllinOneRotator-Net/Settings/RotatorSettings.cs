@@ -9,6 +9,7 @@ using System.Configuration;
 using System.Web.UI.WebControls;
 using System.Xml.Xsl;
 using System.IO;
+using avt.AllinOneRotator.Net.Services;
 
 namespace avt.AllinOneRotator.Net.Settings
 {
@@ -21,9 +22,12 @@ namespace avt.AllinOneRotator.Net.Settings
             
         }
 
-        public void Init(string rotatorId)
+        IConfiguration Config;
+
+        public void Init(string rotatorId, IConfiguration config)
         {
             RotatorId = rotatorId;
+            Config = config;
         }
 
         #region Custom Properties
@@ -96,20 +100,9 @@ namespace avt.AllinOneRotator.Net.Settings
         #endregion
 
 
-        public void LoadFromDB(string connStr, string dbOwner, string objQualifier)
+        public void LoadFromDB() // string connStr, string dbOwner, string objQualifier)
         {
-            if (connStr.IndexOf(';') == -1) {
-                // this is a name from web.config connnections
-                if (ConfigurationManager.ConnectionStrings[connStr] == null) {
-                    throw new ArgumentException("Runtime Configuration is enabled but the connection string name is invalid!");
-                }
-                connStr = ConfigurationManager.ConnectionStrings[connStr].ConnectionString;
-            }
-
-            DataProvider.Instance().ConnStr = connStr;
-            DataProvider.Instance().DbOwner = dbOwner;
-            DataProvider.Instance().ObjQualifier = objQualifier;
-            DataProvider.Instance().Init();
+            DataProvider.Instance().Init(Config);
 
             using (IDataReader dr = DataProvider.Instance().GetSettings(RotatorId)) {
                 while (dr.Read()) {

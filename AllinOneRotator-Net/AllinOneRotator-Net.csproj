@@ -46,6 +46,8 @@
     <Compile Include="Data\AvtSqlHelper.cs" />
     <Compile Include="Data\DataProvider.cs" />
     <Compile Include="Data\SqlDataProvider.cs" />
+    <Compile Include="Services\AspNetConfiguration.cs" />
+    <Compile Include="Services\IConfiguration.cs" />
     <Compile Include="Settings\RotatorSettings.cs" />
     <Compile Include="SlideObjectCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

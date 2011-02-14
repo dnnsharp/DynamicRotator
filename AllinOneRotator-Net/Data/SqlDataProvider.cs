@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.SqlTypes;
 using System.Data.SqlClient;
+using avt.AllinOneRotator.Net.Services;
 
 namespace avt.AllinOneRotator.Net.Data
 {
@@ -21,22 +22,22 @@ namespace avt.AllinOneRotator.Net.Data
 
         public SqlDataProvider()
         {
-            Init();
+            
         }
 
-        public override void Init()
+        public override void Init(IConfiguration config)
         {
             _TableSettings = new AvtSqlHelper_Table(
-                ConnStr,
-                DbOwner + ObjQualifier + "avtRotator_Settings",
+                config.ConnStr,
+                config.DbOwner + config.ObjQualifier + "avtRotator_Settings",
                 false,
                 new string[] { "ControlId", "SettingName" },
                 "SettingValue"
             );
 
             _TableSlides = new AvtSqlHelper_Table(
-                ConnStr,
-                DbOwner + ObjQualifier + "avtRotator_Slides",
+                config.ConnStr,
+                config.DbOwner + config.ObjQualifier + "avtRotator_Slides",
                 true,
                 new string[] { "SlideId" },
                 "ControlId", "Title", "DurationSeconds", "BackgroundGradientFrom", "BackgroundGradientTo",
@@ -45,8 +46,8 @@ namespace avt.AllinOneRotator.Net.Data
             );
 
             _TableSlideObjects = new AvtSqlHelper_Table(
-                ConnStr,
-                DbOwner + ObjQualifier + "avtRotator_SlideObjects",
+                config.ConnStr,
+                config.DbOwner + config.ObjQualifier + "avtRotator_SlideObjects",
                 true,
                 new string[] { "ObjectId" },
                 "SlideId", "ObjectType", "Name"
@@ -127,7 +128,7 @@ namespace avt.AllinOneRotator.Net.Data
 
         public override IDataReader GetSlideObjects(int slideId)
         {
-            return _TableSlideObjects.Get("Where SideId=" + slideId);
+            return _TableSlideObjects.Get("Where SlideId=" + slideId);
         }
 
         public override IDataReader GetSlideObject(int slideObjectId)
