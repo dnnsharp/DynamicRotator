@@ -42,7 +42,7 @@
         </ul>
 
         <div id = "tabs-main-settings">
-            <table>
+            <table style="">
                 <tr>
                     <td class="settingField">
                         <asp:Label runat="server" AssociatedControlID="tbWidth">Width</asp:Label>
@@ -51,7 +51,7 @@
                          <asp:TextBox runat = "server" ID="tbWidth" class="tbNumber" /> px
                     </td>
                     <td class = "grayed_desc">
-                        Description Lorem Ipsum
+                        Determines width of the flash rotator
                     </td>
                 </tr>
                 <tr>
@@ -62,183 +62,7 @@
                          <asp:TextBox runat = "server" ID="tbHeight" class="tbNumber" /> px
                     </td>
                     <td class = "grayed_desc">
-                        Description Lorem Ipsum
-                    </td>
-                </tr>
-                <tr>
-                    <td class="settingField">
-                        <asp:Label runat="server" AssociatedControlID="cbAutoStartSlideShow">Auto Start SlideShow</asp:Label>
-                    </td>
-                    <td class="settingField">
-                        <asp:CheckBox runat = "server" ID="cbAutoStartSlideShow" />
-                    </td>
-                    <td class = "grayed_desc">
-                        Description Lorem Ipsum
-                    </td>
-                </tr>
-                <tr>
-                    <td class="settingField">
-                        <asp:Label runat="server" AssociatedControlID="cbUseRoundCornersMask">Use Round Corners Mask</asp:Label>
-                    </td>
-                    <td class="settingField">
-                        <asp:CheckBox runat = "server" ID="cbUseRoundCornersMask" />
-                    </td>
-                    <td class = "grayed_desc">
-                        Description Lorem Ipsum
-                    </td>
-                </tr>
-                <tr>
-                    <td class="settingField">
-                        <asp:Label runat="server" AssociatedControlID="tbRoundCornerMaskColor">Round Corner Mask Color</asp:Label>
-                    </td>
-                    <td class="settingField">
-                        <span><asp:TextBox runat = "server" ID="tbRoundCornerMaskColor" class="tbColor" />&nbsp;&nbsp;&nbsp;</span>
-                    </td>
-                    <td class = "grayed_desc">
-                        Description Lorem Ipsum
-                    </td>
-                </tr>
-                <tr>
-                    <td class="settingField">
-                        <asp:Label runat="server" AssociatedControlID="cbShowBottomButtons">Show Bottom Buttons</asp:Label>
-                    </td>
-                    <td class="settingField">
-                        <asp:CheckBox runat = "server" ID="cbShowBottomButtons" />
-                    </td>
-                    <td class = "grayed_desc">
-                        Description Lorem Ipsum
-                    </td>
-                </tr>
-                <tr>
-                    <td class="settingField">
-                        <asp:Label runat="server" AssociatedControlID="cbShowPlayPauseControls">Show Play Pause Controls</asp:Label>
-                    </td>
-                    <td class="settingField">
-                        <asp:CheckBox runat = "server" ID="cbShowPlayPauseControls" />
-                    </td>
-                    <td class = "grayed_desc">
-                        Description Lorem Ipsum
-                    </td>
-                </tr>
-                <tr>
-                    <td class="settingField">
-                        <asp:Label runat="server" AssociatedControlID="tbFadeColor">Fade Color</asp:Label>
-                    </td>
-                    <td class="settingField">
-                        <span><asp:TextBox runat = "server" ID="tbFadeColor" class="tbColor" />&nbsp;&nbsp;&nbsp;</span>
-                    </td>
-                    <td class = "grayed_desc">
-                        Description Lorem Ipsum
-                    </td>
-                </tr>
-                <tr>
-                    <td class="settingField">
-                        <asp:Label runat="server" AssociatedControlID="cbShowTopTitle">Show Top Title</asp:Label>
-                    </td>
-                    <td class="settingField">
-                        <asp:CheckBox runat = "server" ID="cbShowTopTitle" />
-                    </td>
-                    <td class = "grayed_desc">
-                        Description Lorem Ipsum
-                    </td>
-                </tr>
-                <tr>
-                    <td class="settingField">
-                        <asp:Label runat="server" AssociatedControlID="tbTopTitleBackground">Top Title Background</asp:Label>
-                    </td>
-                    <td class="settingField">
-                         <span><asp:TextBox runat = "server" ID="tbTopTitleBackground" class="tbColor" />&nbsp;&nbsp;&nbsp;</span>
-                    </td>
-                    <td class = "grayed_desc">
-                        Description Lorem Ipsum
-                    </td>
-                </tr>
-                <tr>
-                    <td class="settingField">
-                        <asp:Label runat="server" AssociatedControlID="tbTopTitleBgTransparency">Top Title Bg Transparency</asp:Label>
-                    </td>
-                    <td class="settingField">
-                         <asp:TextBox runat = "server" ID="tbTopTitleBgTransparency" style="width:30px;" class="tbNumber tbRange" />
-                    </td>
-                    <td class = "grayed_desc">
-                        Description Lorem Ipsum
-                    </td>
-                </tr>
-                <tr>
-                    <td class="settingField">
-                        <asp:Label runat="server" AssociatedControlID="tbTopTitleTextColor">Top Title Text Color</asp:Label>
-                    </td>
-                    <td class="settingField">
-                        <span><asp:TextBox runat = "server" ID="tbTopTitleTextColor" class="tbColor" />&nbsp;&nbsp;&nbsp;</span>
-                    </td>
-                    <td class = "grayed_desc">
-                        Description Lorem Ipsum
-                    </td>
-                </tr>
-                <tr>
-                    <td class="settingField">
-                        <asp:Label runat="server" AssociatedControlID="cbShowTimerBar">Show Timer Bar</asp:Label>
-                    </td>
-                    <td class="settingField">
-                        <asp:CheckBox runat = "server" ID="cbShowTimerBar" />
-                    </td>
-                    <td class = "grayed_desc">
-                        Description Lorem Ipsum
-                    </td>
-                </tr>
-                <tr>
-                    <td class="settingField">
-                        <asp:Label runat="server" AssociatedControlID="tbSlideButtonsColor">Slide Buttons Color</asp:Label>
-                    </td>
-                    <td class="settingField">
-                         <span><asp:TextBox runat = "server" ID="tbSlideButtonsColor" class="tbColor" />&nbsp;&nbsp;&nbsp;</span>
-                    </td>
-                    <td class = "grayed_desc">
-                        Description Lorem Ipsum
-                    </td>
-                </tr>
-                <tr>
-                    <td class="settingField">
-                        <asp:Label runat="server" AssociatedControlID="tbSlideButtonsNumberColor">Slide Buttons Number Color</asp:Label>
-                    </td>
-                    <td class="settingField">
-                         <span><asp:TextBox runat = "server" ID="tbSlideButtonsNumberColor" class="tbColor" />&nbsp;&nbsp;&nbsp;</span>
-                    </td>
-                    <td class = "grayed_desc">
-                        Description Lorem Ipsum
-                    </td>
-                </tr>
-                <tr>
-                    <td class="settingField">
-                        <asp:Label runat="server" AssociatedControlID="ddSlideButtonsType">Slide Buttons Type</asp:Label>
-                    </td>
-                    <td class="settingField">
-                         <asp:DropDownList runat = "server" ID="ddSlideButtonsType" />
-                    </td>
-                    <td class = "grayed_desc">
-                        Description Lorem Ipsum
-                    </td>
-                </tr>
-                <tr>
-                    <td class="settingField">
-                        <asp:Label runat="server" AssociatedControlID="tbSlideButtonsXoffset">Slide Buttons X Offset</asp:Label>
-                    </td>
-                    <td class="settingField">
-                         <asp:TextBox runat = "server" ID="tbSlideButtonsXoffset" class="tbNumber" />
-                    </td>
-                    <td class = "grayed_desc">
-                        Description Lorem Ipsum
-                    </td>
-                </tr>
-                <tr>
-                    <td class="settingField">
-                        <asp:Label runat="server" AssociatedControlID="tbSlideButtonsYoffset">Slide Buttons Y Offset</asp:Label>
-                    </td>
-                    <td class="settingField">
-                         <asp:TextBox runat = "server" ID="tbSlideButtonsYoffset" class="tbNumber" />
-                    </td>
-                    <td class = "grayed_desc">
-                        Description Lorem Ipsum
+                        Determines height of the flash rotator
                     </td>
                 </tr>
                 <tr>
@@ -249,7 +73,186 @@
                         <asp:CheckBox runat = "server" ID="cbTransparentBackground" />
                     </td>
                     <td class = "grayed_desc">
-                        Description Lorem Ipsum
+                        If this option is selected, the flash control background is transparent so it takes the color of the HTML page
+                    </td>
+                </tr>
+                <tr>
+                    <td class="settingField">
+                        <asp:Label runat="server" AssociatedControlID="tbFadeColor">Fade Color</asp:Label>
+                    </td>
+                    <td class="settingField">
+                        <span><asp:TextBox runat = "server" ID="tbFadeColor" class="tbColor" />&nbsp;&nbsp;&nbsp;</span>
+                    </td>
+                    <td class = "grayed_desc">
+                        When a slide is changing a nice fade effect is playing whose color is determined by this field
+                    </td>
+                </tr>
+
+                <tr class="rowSep"><td colspan="3">&nbsp;</td></tr>
+
+                <tr>
+                    <td class="settingField">
+                        <asp:Label runat="server" AssociatedControlID="cbAutoStartSlideShow">Auto Start SlideShow</asp:Label>
+                    </td>
+                    <td class="settingField">
+                        <asp:CheckBox runat = "server" ID="cbAutoStartSlideShow" />
+                    </td>
+                    <td class = "grayed_desc">
+                        Select this option if you want the slideshow to start automatically.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="settingField">
+                        <asp:Label runat="server" AssociatedControlID="cbShowPlayPauseControls">Show Play / Pause Controls</asp:Label>
+                    </td>
+                    <td class="settingField">
+                        <asp:CheckBox runat = "server" ID="cbShowPlayPauseControls" />
+                    </td>
+                    <td class = "grayed_desc">
+                        Use this option to determine if the user is able to control the slideshow
+                    </td>
+                </tr>
+                <tr>
+                    <td class="settingField">
+                        <asp:Label runat="server" AssociatedControlID="cbShowTimerBar">Show Timer Bar</asp:Label>
+                    </td>
+                    <td class="settingField">
+                        <asp:CheckBox runat = "server" ID="cbShowTimerBar" />
+                    </td>
+                    <td class = "grayed_desc">
+                        The Timer Bar appears above the slider buttton; it's a visual indicator of Slide Duration option
+                    </td>
+                </tr>
+
+                <tr class="rowSep"><td colspan="3">&nbsp;</td></tr>
+
+                <tr>
+                    <td class="settingField">
+                        <asp:Label runat="server" AssociatedControlID="cbShowBottomButtons">Show Slide Buttons</asp:Label>
+                    </td>
+                    <td class="settingField">
+                        <asp:CheckBox runat = "server" ID="cbShowBottomButtons" />
+                    </td>
+                    <td class = "grayed_desc">
+                        The Slide Buttons are used by the user to navigate to any slide
+                    </td>
+                </tr>
+                <tr>
+                    <td class="settingField">
+                        <asp:Label runat="server" AssociatedControlID="ddSlideButtonsType">Slide Buttons Type</asp:Label>
+                    </td>
+                    <td class="settingField">
+                         <asp:DropDownList runat = "server" ID="ddSlideButtonsType" CssClass="ctlSliderBtn" />
+                    </td>
+                    <td class = "grayed_desc">
+                        This option determines how the slide buttons are rendered (they either are square and display numbers or are round buttons)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="settingField">
+                        <asp:Label runat="server" AssociatedControlID="tbSlideButtonsColor">Slide Buttons Color</asp:Label>
+                    </td>
+                    <td class="settingField">
+                         <span><asp:TextBox runat = "server" ID="tbSlideButtonsColor" class="tbColor ctlSliderBtn" />&nbsp;&nbsp;&nbsp;</span>
+                    </td>
+                    <td class = "grayed_desc">
+                        Customize color for slide buttons (and play/pause button too)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="settingField">
+                        <asp:Label runat="server" AssociatedControlID="tbSlideButtonsNumberColor">Slide Buttons Number Color</asp:Label>
+                    </td>
+                    <td class="settingField">
+                         <span><asp:TextBox runat = "server" ID="tbSlideButtonsNumberColor" class="tbColor ctlSliderBtn" />&nbsp;&nbsp;&nbsp;</span>
+                    </td>
+                    <td class = "grayed_desc">
+                        If the Slide Button Type is set to display numbers, use this option to determine their color
+                    </td>
+                </tr>
+                <tr>
+                    <td class="settingField">
+                        <asp:Label runat="server" AssociatedControlID="tbSlideButtonsXoffset">Slide Buttons X Offset</asp:Label>
+                    </td>
+                    <td class="settingField">
+                         <asp:TextBox runat = "server" ID="tbSlideButtonsXoffset" class="tbNumber ctlSliderBtn" />
+                    </td>
+                    <td class = "grayed_desc">
+                        Distance between left margin and the buttons
+                    </td>
+                </tr>
+                <tr>
+                    <td class="settingField">
+                        <asp:Label runat="server" AssociatedControlID="tbSlideButtonsYoffset">Slide Buttons Y Offset</asp:Label>
+                    </td>
+                    <td class="settingField">
+                         <asp:TextBox runat = "server" ID="tbSlideButtonsYoffset" class="tbNumber ctlSliderBtn" />
+                    </td>
+                    <td class = "grayed_desc">
+                        Distance between bottom margin and the buttons
+                    </td>
+                </tr>
+
+                <tr class="rowSep"><td colspan="3">&nbsp;</td></tr>
+
+                <tr>
+                    <td class="settingField">
+                        <asp:Label runat="server" AssociatedControlID="cbUseRoundCornersMask">Use Round Corners Mask</asp:Label>
+                    </td>
+                    <td class="settingField">
+                        <asp:CheckBox runat = "server" ID="cbUseRoundCornersMask" />
+                    </td>
+                    <td class = "grayed_desc" rowspan="2">
+                        Use this option if you want the rotator to have rounded corners.<br />
+                        Make sure to setup the color so it matches the background of your web page.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="settingField">
+                        <asp:Label runat="server" AssociatedControlID="tbRoundCornerMaskColor">Round Corner Mask Color</asp:Label>
+                    </td>
+                    <td class="settingField">
+                        <span><asp:TextBox runat = "server" ID="tbRoundCornerMaskColor" class="tbColor ctlRoundCornder" />&nbsp;&nbsp;&nbsp;</span>
+                    </td>
+                </tr>
+
+                <tr class="rowSep"><td colspan="3">&nbsp;</td></tr>
+
+                
+                <tr>
+                    <td class="settingField">
+                        <asp:Label runat="server" AssociatedControlID="cbShowTopTitle">Show Top Title</asp:Label>
+                    </td>
+                    <td class="settingField">
+                        <asp:CheckBox runat = "server" ID="cbShowTopTitle" />
+                    </td>
+                    <td class = "grayed_desc" rowspan="4" valign="top" style="padding-top: 20px;">
+                        Show or hide the top part with the slide title when the mouse is over a slide button<br />
+                        Customize appearance of the slide title using the fields below...
+                    </td>
+                </tr>
+                <tr>
+                    <td class="settingField">
+                        <asp:Label runat="server" AssociatedControlID="tbTopTitleBackground">Top Title Background</asp:Label>
+                    </td>
+                    <td class="settingField">
+                         <span><asp:TextBox runat = "server" ID="tbTopTitleBackground" class="tbColor ctlTopTitle" />&nbsp;&nbsp;&nbsp;</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="settingField">
+                        <asp:Label runat="server" AssociatedControlID="tbTopTitleBgTransparency">Top Title Bg Transparency</asp:Label>
+                    </td>
+                    <td class="settingField">
+                         <asp:TextBox runat = "server" ID="tbTopTitleBgTransparency" style="width:30px;" class="tbNumber tbRange ctlTopTitle" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="settingField">
+                        <asp:Label runat="server" AssociatedControlID="tbTopTitleTextColor">Top Title Text Color</asp:Label>
+                    </td>
+                    <td class="settingField">
+                        <span><asp:TextBox runat = "server" ID="tbTopTitleTextColor" class="tbColor ctlTopTitle" />&nbsp;&nbsp;&nbsp;</span>
                     </td>
                 </tr>
             </table>
@@ -548,6 +551,18 @@
             jQuery("#mainTabs").tabs();
 
             applyColorpicker(jQuery("#tabs-main-settings"));
+
+            jQuery("#<%= cbShowBottomButtons.ClientID %>").change(function() {
+                this.checked ? jQuery('.ctlSliderBtn').removeAttr('disabled'):jQuery('.ctlSliderBtn').attr('disabled','disabled');
+            }).change();
+
+            jQuery("#<%= cbUseRoundCornersMask.ClientID %>").change(function() {
+                this.checked ? jQuery('.ctlRoundCornder').removeAttr('disabled'):jQuery('.ctlRoundCornder').attr('disabled','disabled');
+            }).change();
+
+            jQuery("#<%= cbShowTopTitle.ClientID %>").change(function() {
+                this.checked ? jQuery('.ctlTopTitle').removeAttr('disabled'):jQuery('.ctlTopTitle').attr('disabled','disabled');
+            }).change();
 
             // init slides
             jQuery("#slides").sortable({
@@ -861,7 +876,7 @@
         function save() {
             var bErr = false;
             jQuery(".fieldRowErr").removeClass("fieldRowErr");
-            jQuery(".slideRoot:visible").each(function() {
+            jQuery(".slideRoot").not("#slideTpl").each(function() {
                 if (!validateSlide(jQuery(this))) {
                     bErr = true;
                 }
@@ -871,7 +886,7 @@
                 return false;
 
             var x = "<slides>";
-            jQuery(".slideRoot:visible").each(function() {
+            jQuery(".slideRoot").not("#slideTpl").each(function() {
                 x += saveSlideToXml(jQuery(this));
             });
             x += "</slides>";

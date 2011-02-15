@@ -89,6 +89,9 @@ namespace avt.AllinOneRotator.Net.Settings
         bool _TransparentBackground = false;
         public bool TransparentBackground { get { return _TransparentBackground; } set { _TransparentBackground = value; } }
 
+        DateTime _LastUpdate = DateTime.Now;
+        public DateTime LastUpdate { get { return _LastUpdate; } set { _LastUpdate = value; } }
+
         #endregion
 
 
@@ -192,12 +195,18 @@ namespace avt.AllinOneRotator.Net.Settings
                         case "TransparentBackground":
                             TransparentBackground = val == "true";
                             break;
+                        case "LastUpdate":
+                            //try {
+                                LastUpdate = DateTime.Parse(val);
+                            //} catch { LastUpdate = DateTime.Now; }
+                            break;
                     }
                 }
                 dr.Close();
             }
 
             // load slides
+            _Slides = new SlideCollection();
             using (IDataReader dr = DataProvider.Instance().GetSlides(RotatorId)) {
                 while (dr.Read()) {
                     SlideInfo slide = new SlideInfo();
@@ -239,17 +248,17 @@ namespace avt.AllinOneRotator.Net.Settings
             Writer.WriteElementString("stageHeight", Height.Value.ToString());
             Writer.WriteElementString("startSlideShow", AutoStartSlideShow ? "yes" : "no");
             Writer.WriteElementString("useRoundCornersMask", UseRoundCornersMask ? "yes" : "no");
-            Writer.WriteElementString("roundCornerMaskColor", ColorExt.ColorToHexString(RoundCornerMaskColor));
+            Writer.WriteElementString("roundCornerMaskColor", ColorExt.ColorToHexString(RoundCornerMaskColor).Replace("#","0x"));
             Writer.WriteElementString("showBottomButtons", ShowBottomButtons ? "yes" : "no");
             Writer.WriteElementString("showPlayPauseControls", ShowPlayPauseControls ? "yes" : "no");
-            Writer.WriteElementString("fadeColor", ColorExt.ColorToHexString(FadeColor));
+            Writer.WriteElementString("fadeColor", ColorExt.ColorToHexString(FadeColor).Replace("#", "0x"));
             Writer.WriteElementString("showTopTitle", ShowTopTitle ? "yes" : "no");
-            Writer.WriteElementString("topTitleBackground", ColorExt.ColorToHexString(TopTitleBackground));
+            Writer.WriteElementString("topTitleBackground", ColorExt.ColorToHexString(TopTitleBackground).Replace("#", "0x"));
             Writer.WriteElementString("topTitleBgTransparency", TopTitleBgTransparency.ToString());
-            Writer.WriteElementString("topTitleTextColor", ColorExt.ColorToHexString(TopTitleTextColor));
+            Writer.WriteElementString("topTitleTextColor", ColorExt.ColorToHexString(TopTitleTextColor).Replace("#", "0x"));
             Writer.WriteElementString("showTimerBar", ShowTimerBar ? "yes" : "no");
-            Writer.WriteElementString("smallButtonsColor", ColorExt.ColorToHexString(SlideButtonsColor));
-            Writer.WriteElementString("smallButtonsNumberColor", ColorExt.ColorToHexString(SlideButtonsNumberColor));
+            Writer.WriteElementString("smallButtonsColor", ColorExt.ColorToHexString(SlideButtonsColor).Replace("#", "0x"));
+            Writer.WriteElementString("smallButtonsNumberColor", ColorExt.ColorToHexString(SlideButtonsNumberColor).Replace("#", "0x"));
             Writer.WriteElementString("smallButtonsType", ((int)SlideButtonsType).ToString());
             Writer.WriteElementString("smallButtonsXoffset", SlideButtonsXoffset.ToString());
             Writer.WriteElementString("smallButtonsYoffset", SlideButtonsYoffset.ToString());

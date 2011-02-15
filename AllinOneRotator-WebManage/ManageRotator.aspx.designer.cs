@@ -49,6 +49,24 @@ namespace avt.AllinOneRotator.Net.WebManage {
         protected global::System.Web.UI.WebControls.TextBox tbHeight;
         
         /// <summary>
+        /// cbTransparentBackground control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cbTransparentBackground;
+        
+        /// <summary>
+        /// tbFadeColor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbFadeColor;
+        
+        /// <summary>
         /// cbAutoStartSlideShow control.
         /// </summary>
         /// <remarks>
@@ -56,6 +74,78 @@ namespace avt.AllinOneRotator.Net.WebManage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox cbAutoStartSlideShow;
+        
+        /// <summary>
+        /// cbShowPlayPauseControls control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cbShowPlayPauseControls;
+        
+        /// <summary>
+        /// cbShowTimerBar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cbShowTimerBar;
+        
+        /// <summary>
+        /// cbShowBottomButtons control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cbShowBottomButtons;
+        
+        /// <summary>
+        /// ddSlideButtonsType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddSlideButtonsType;
+        
+        /// <summary>
+        /// tbSlideButtonsColor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbSlideButtonsColor;
+        
+        /// <summary>
+        /// tbSlideButtonsNumberColor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbSlideButtonsNumberColor;
+        
+        /// <summary>
+        /// tbSlideButtonsXoffset control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbSlideButtonsXoffset;
+        
+        /// <summary>
+        /// tbSlideButtonsYoffset control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbSlideButtonsYoffset;
         
         /// <summary>
         /// cbUseRoundCornersMask control.
@@ -74,33 +164,6 @@ namespace avt.AllinOneRotator.Net.WebManage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbRoundCornerMaskColor;
-        
-        /// <summary>
-        /// cbShowBottomButtons control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbShowBottomButtons;
-        
-        /// <summary>
-        /// cbShowPlayPauseControls control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbShowPlayPauseControls;
-        
-        /// <summary>
-        /// tbFadeColor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbFadeColor;
         
         /// <summary>
         /// cbShowTopTitle control.
@@ -137,69 +200,6 @@ namespace avt.AllinOneRotator.Net.WebManage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbTopTitleTextColor;
-        
-        /// <summary>
-        /// cbShowTimerBar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbShowTimerBar;
-        
-        /// <summary>
-        /// tbSlideButtonsColor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbSlideButtonsColor;
-        
-        /// <summary>
-        /// tbSlideButtonsNumberColor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbSlideButtonsNumberColor;
-        
-        /// <summary>
-        /// ddSlideButtonsType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddSlideButtonsType;
-        
-        /// <summary>
-        /// tbSlideButtonsXoffset control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbSlideButtonsXoffset;
-        
-        /// <summary>
-        /// tbSlideButtonsYoffset control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbSlideButtonsYoffset;
-        
-        /// <summary>
-        /// cbTransparentBackground control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbTransparentBackground;
         
         /// <summary>
         /// ddLinkTarget control.

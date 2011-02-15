@@ -51,6 +51,8 @@ namespace avt.AllinOneRotator.Net
             }
 
             if (Page.Request.Params["avtadrot"] == "settings") {
+                Page.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                Page.Response.Cache.SetNoStore();
                 Page.Response.Write(Settings.ToXml());
                 Page.Response.ContentType = "text/xml";
                 Page.Response.End();
@@ -58,6 +60,8 @@ namespace avt.AllinOneRotator.Net
             }
 
             if (Page.Request.Params["avtadrot"] == "content") {
+                Page.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                Page.Response.Cache.SetNoStore(); 
                 Page.Response.Write(GetSlidesXml());
                 Page.Response.ContentType = "text/xml";
                 Page.Response.End();
@@ -65,6 +69,8 @@ namespace avt.AllinOneRotator.Net
             }
 
             if (Page.Request.Params["avtadrot"] == "transitions") {
+                Page.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                Page.Response.Cache.SetNoStore(); 
                 Page.Response.Write(@"<?xml version=""1.0"" encoding=""utf-8""?>
 <picturesTransitions>
     <transition theName=""Blinds"" theEasing=""Strong"" theStrips=""20"" theDimension=""1""/>
@@ -237,15 +243,16 @@ namespace avt.AllinOneRotator.Net
 
             // render the flash
             string flashUrl = Page.ClientScript.GetWebResourceUrl(GetType(), "avt.AllinOneRotator.Net.flash.rotator-v2-5.swf");
+            string timestamp = Settings.LastUpdate.ToFileTime().ToString();
 
             string settingsUrl = Page.Request.RawUrl;
-            settingsUrl += (settingsUrl.IndexOf('?') > 0 ? (settingsUrl.IndexOf('?') != settingsUrl.Length - 1 ? "&" : "") : "?") + "avtadrot=settings";
+            settingsUrl += (settingsUrl.IndexOf('?') > 0 ? (settingsUrl.IndexOf('?') != settingsUrl.Length - 1 ? "&" : "") : "?") + "avtadrot=settings&t=" + timestamp;
 
             string contentUrl = Page.Request.RawUrl;
-            contentUrl += (contentUrl.IndexOf('?') > 0 ? (contentUrl.IndexOf('?') != contentUrl.Length - 1 ? "&" : "") : "?") + "avtadrot=content";
+            contentUrl += (contentUrl.IndexOf('?') > 0 ? (contentUrl.IndexOf('?') != contentUrl.Length - 1 ? "&" : "") : "?") + "avtadrot=content&t=" + timestamp;
 
             string transitionsUrl = Page.Request.RawUrl;
-            transitionsUrl += (transitionsUrl.IndexOf('?') > 0 ? (transitionsUrl.IndexOf('?') != transitionsUrl.Length - 1 ? "&" : "") : "?") + "avtadrot=transitions";
+            transitionsUrl += (transitionsUrl.IndexOf('?') > 0 ? (transitionsUrl.IndexOf('?') != transitionsUrl.Length - 1 ? "&" : "") : "?") + "avtadrot=transitions&t=" + timestamp;
 
             output.Write(
                 //"<script type=\"text/javascript\">AC_FL_RunContent( 'codebase','http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0','width','950','height','250','src','" + flashUrl + "?settingsxml=settings_v2_simple.xml&contentxml=content_v2_simple.xml&transitionsxml=transitions.xml','quality','high','pluginspage','http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash','movie','" + flashUrl + "?settingsxml=settings_v2_simple.xml&contentxml=content_v2_simple.xml&transitionsxml=transitions.xml' ); //end AC code</script>" +
@@ -253,7 +260,8 @@ namespace avt.AllinOneRotator.Net
                 "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0\" width=\"" + Width.Value + "\" height=\"" + Height.Value + "\">" +
                     "<param name=\"movie\" value=\"" + flashUrl + "&settingsxml=" + settingsUrl + "&contentxml=" + contentUrl + "&transitionsxml=" + transitionsUrl + "\">" +
                     "<param name=\"quality\" value=\"high\">" +
-                    "<embed src=\"" + flashUrl + "&settingsxml=" + settingsUrl + "&contentxml=" + contentUrl + "&transitionsxml=" + transitionsUrl + "\" quality=\"high\" pluginspage=\"http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash\" type=\"application/x-shockwave-flash\" width=\"" + Width.Value + "\" height=\"" + Height.Value + "\"></embed>" +
+                    (Settings.TransparentBackground ? "<param name=\"wmode\" value=\"transparent\">" : "") +
+                    "<embed src=\"" + flashUrl + "&settingsxml=" + settingsUrl + "&contentxml=" + contentUrl + "&transitionsxml=" + transitionsUrl + "\" quality=\"high\" pluginspage=\"http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash\" type=\"application/x-shockwave-flash\" width=\"" + Width.Value + "\" height=\"" + Height.Value + "\""+ (Settings.TransparentBackground ? " wmode=\"transparent\"" : "") +"></embed>" +
                 "</object>"
                 // + "</noscript>"
             );

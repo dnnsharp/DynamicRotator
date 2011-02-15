@@ -8,7 +8,7 @@
 <head runat="server">
     <title></title>
 </head>
-<body>
+<body style="background-color: #f2f2ff;">
     <form id="form1" runat="server">
     <div>
     

@@ -37,7 +37,7 @@
 .grayed_desc {
     font-style: italic;
     color: #525252;
-    font-size: 11px;
+    font-size: 12px;
     padding: 2px 0 0 20px;
 }
 
@@ -287,5 +287,12 @@
 .slideObjectDeleted {
     color: #626262;
     font-style:italic;
+}
+
+.rowSep td {
+    font-size: 1px;
+    background-color: #FDF9E1;
+    border:1px solid #c2c2c2;
+    padding: 0;
 }
 

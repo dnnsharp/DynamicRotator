@@ -237,7 +237,7 @@ namespace avt.AllinOneRotator.Net
             ControlId = dr["ControlId"].ToString();
             
             try { Title = dr["Title"].ToString(); } catch { }
-            try { DurationSeconds = Convert.ToInt32(dr["Title"].ToString()); } catch { }
+            try { DurationSeconds = Convert.ToInt32(dr["DurationSeconds"].ToString()); } catch { }
             try { BackgroundGradientFrom = System.Drawing.Color.FromArgb(Convert.ToInt32(dr["BackgroundGradientFrom"].ToString().Replace("#", "0x"), 16)); } catch { }
             try { BackgroundGradientTo = System.Drawing.Color.FromArgb(Convert.ToInt32(dr["BackgroundGradientTo"].ToString().Replace("#", "0x"), 16)); } catch { }
 

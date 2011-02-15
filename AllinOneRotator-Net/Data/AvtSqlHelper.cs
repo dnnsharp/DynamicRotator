@@ -237,7 +237,7 @@ namespace avt.AllinOneRotator.Net.Data
             try {
                 SqlDataReader reader2;
                 PrepareCommand(command, connection, transaction, commandType, commandText, commandParameters, ref mustCloseConnection);
-                reader2 = command.ExecuteReader();
+                reader2 = command.ExecuteReader(CommandBehavior.CloseConnection);
 
                 bool flag2 = true;
                 foreach (SqlParameter parameter in command.Parameters) {
