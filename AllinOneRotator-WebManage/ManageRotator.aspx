@@ -7,10 +7,13 @@
     <title>Manage ALLinONE Rotator Settings</title>
     <link type ="text/css" rel="stylesheet" href = "<%=TemplateSourceDirectory + "/res/ui-lightness/jquery-ui.css"%>" />
     <link type ="text/css" rel="stylesheet" href = "<%=TemplateSourceDirectory + "/res/js/colorpicker/css/colorpicker.css"%>" />
+    <link type ="text/css" rel="stylesheet" href = "<%=TemplateSourceDirectory + "/res/jquery.bt.css"%>" />
     <link type ="text/css" rel="stylesheet" href = "<%=TemplateSourceDirectory + "/res/manage.css"%>" />
 
-    <script type = "text/javascript" src = "<%=TemplateSourceDirectory %>/res/js/jQuery.js"></script>
-    <script type = "text/javascript" src = "<%=TemplateSourceDirectory %>/res/js/jQuery-ui.js"></script>
+    <script type = "text/javascript" src = "<%=TemplateSourceDirectory %>/res/js/jquery.js"></script>
+    <script type = "text/javascript" src = "<%=TemplateSourceDirectory %>/res/js/jquery-ui.js"></script>
+    <script type = "text/javascript" src = "<%=TemplateSourceDirectory %>/res/js/excanvas.js"></script>
+    <script type = "text/javascript" src = "<%=TemplateSourceDirectory %>/res/js/jquery.bt.js"></script>
     <script type = "text/javascript" src = "<%=TemplateSourceDirectory %>/res/js/colorpicker/js/colorpicker.js"></script>
     <script type = "text/javascript" src = "<%=TemplateSourceDirectory %>/res/js/colorpicker/js/eye.js"></script>
     <script type = "text/javascript" src = "<%=TemplateSourceDirectory %>/res/js/colorpicker/js/utils.js"></script>
@@ -333,8 +336,8 @@
                             </div>
                         </div>
                         <div style = "background-color: #F2F2FF; border-top: 1px solid #C2C2C2; padding: 3px 4px 2px 186px;">
-                            <a href = "#" onclick="addSlideText(jQuery(this).parents('.slideRoot:first')); return false;" class="btnAddObject"><img src="<%= TemplateSourceDirectory %>/res/img/add.gif" border="0" /> Add Text</a>
-                            <a href = "#" onclick="addSlideImage(jQuery(this).parents('.slideRoot:first')); return false;" class="btnAddObject"><img src="<%= TemplateSourceDirectory %>/res/img/add.gif" border="0" /> Add Image/Flash</a>
+                            <a href = "#" onclick="addSlideText(jQuery(this).parents('.slideRoot:first')); return false;" class="btnAddObject btnAddObjectText"><img src="<%= TemplateSourceDirectory %>/res/img/add.gif" border="0" /> Add Text</a>
+                            <a href = "#" onclick="addSlideImage(jQuery(this).parents('.slideRoot:first')); return false;" class="btnAddObject btnAddObjectImage"><img src="<%= TemplateSourceDirectory %>/res/img/add.gif" border="0" /> Add Image/Flash</a>
                         </div>
                     </div>
 
@@ -683,8 +686,26 @@
                     openSlideObjectSettings(jQuery(this).parents(".slideRoot:first"), this.objData.itemType, jQuery(this));
                 });
 
-            slideRoot.find(".pnlSlideObjList_empty").hide();
-            slideRoot.find(".pnlSlideObjList").show();
+            checkSlideObjects(slideRoot);
+            
+        }
+
+        function checkSlideObjects(slideRoot) {
+            if (slideRoot.find(".slideObject").size() == 0) {
+                slideRoot.find(".pnlSlideObjList_empty").show();
+                slideRoot.find(".pnlSlideObjList").hide();
+            } else {
+                slideRoot.find(".pnlSlideObjList_empty").hide();
+                slideRoot.find(".pnlSlideObjList").show();
+            }
+
+            if(slideRoot.find(".slideObjectText").size() == 0) {
+                slideRoot.find(".btnAddObjectText").removeClass("ui-state-disabled");
+                slideRoot.find(".btnAddObjectText").removeAttr("bt-xtitle").btOff();
+            } else {
+                slideRoot.find(".btnAddObjectText").addClass("ui-state-disabled");
+                slideRoot.find(".btnAddObjectText").attr("title", "Limitation with verion 1, slides can only contain one text object.").bt();
+            }
         }
 
         function applyColorpicker(rootElement) {
@@ -768,6 +789,8 @@
         }
 
         function addSlideText(slideRoot) {
+            if (slideRoot.find(".btnAddObjectText").hasClass("ui-state-disabled"))
+                return;
             openSlideObjectSettings(slideRoot, "text");
         }
 
