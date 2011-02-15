@@ -253,7 +253,7 @@
 
 
 #objSettingsTabs {
-    height: 260px;
+    height: 280px;
     border-width: 0px;
     background: White none;
 }
@@ -283,3 +283,9 @@
     color: #ff2222;
     font-weight:bold;
 }
+
+.slideObjectDeleted {
+    color: #626262;
+    font-style:italic;
+}
+

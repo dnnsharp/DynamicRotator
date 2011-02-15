@@ -37,6 +37,7 @@
         <ul>
             <li><a href="#tabs-main-settings">General Settings</a></li>
             <li><a href="#tabs-main-slides">Slides</a></li>
+            <li><a href="#tabs-main-presets">Presets</a></li>
             <li><a href="#tabs-main-activate">Activate</a></li>
         </ul>
 
@@ -374,6 +375,10 @@
             <a href = "#" onclick="addSlide(); return false;"><img src="<%= TemplateSourceDirectory %>/res/img/add.gif" border="0" /> Add Slide</a>
         </div>
 
+        <div id = "tabs-main-presets">
+            test
+        </div>
+
         <div id = "tabs-main-activate">
             test
         </div>
@@ -429,6 +434,8 @@
                         <textarea class = "tbObjText" style = "width: 360px; height: 60px;"></textarea>
                     </div>
                     <div style ="clear:both;"></div>
+                    <br /><br />
+                    <a href = "#" onclick="deleteSlideObject(); return false;" style="color:red;">Delete This Object</a>
                 </div>
             </div>
 
@@ -516,7 +523,7 @@
 
     <div class="footer">
         <div class="btnPane">
-            <a target=" href = "<%= System.Web.HttpUtility.UrlDecode(Request.QueryString["rurl"]) %>" style="color: #525252; padding: 1px 10px; margin-right: 10px; font-weight: normal;" >Cancel</a>
+            <a href = "<%= System.Web.HttpUtility.UrlDecode(Request.QueryString["rurl"]) %>" style="color: #525252; padding: 1px 10px; margin-right: 10px; font-weight: normal;" >Cancel</a>
             <asp:Button runat="server" OnClick="SaveSettings" class="ui-state-default" style="padding: 4px 10px;" Text="Save" OnClientClick="return save();" />
         </div>
         <div style="clear:both;"></div>
@@ -528,6 +535,15 @@
 
     <script type="text/javascript">
     
+        var btOpts = {
+            fill: "#FDF9E1",
+            cssStyles: {"color":"#C77405","font-weight":"bold"},
+            strokeStyle: "#FBCB09",
+            strokeWidth: 1,
+            spikeLength: 10,
+            spikeGirth: 20
+        }
+
         jQuery(document).ready(function() {
             jQuery("#mainTabs").tabs();
 
@@ -704,7 +720,7 @@
                 slideRoot.find(".btnAddObjectText").removeAttr("bt-xtitle").btOff();
             } else {
                 slideRoot.find(".btnAddObjectText").addClass("ui-state-disabled");
-                slideRoot.find(".btnAddObjectText").attr("title", "Limitation with verion 1, slides can only contain one text object.").bt();
+                slideRoot.find(".btnAddObjectText").attr("title", "Limitation with version 1: slides can only contain one text object.").bt(btOpts);
             }
         }
 
@@ -786,6 +802,19 @@
 
             slideRoot.remove();
             updateSlideIndexes();
+        }
+
+        function deleteSlideObject(slideOjectRoot) {
+            if (!slideOjectRoot) {
+                slideOjectRoot = jQuery("#dlgObjectSettings")[0].slideObjItem;
+            }
+            if (confirm("Are you sure you want to delete this Slide Object?")) {
+                var slideRoot = slideOjectRoot.parents(".slideRoot:first");
+                slideOjectRoot.remove();
+                checkSlideObjects(slideRoot);
+                jQuery("#dlgObjectSettings").dialog('close');
+            }
+            
         }
 
         function addSlideText(slideRoot) {
