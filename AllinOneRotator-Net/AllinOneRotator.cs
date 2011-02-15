@@ -54,7 +54,8 @@ namespace avt.AllinOneRotator.Net
                 Page.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 Page.Response.Cache.SetNoStore();
                 Page.Response.Write(Settings.ToXml());
-                Page.Response.ContentType = "text/xml";
+                //Page.Response.ContentType = "text/xml";
+                Page.Response.ContentType = "text/xml; charset=utf-8";
                 Page.Response.End();
                 return;
             }
@@ -63,7 +64,8 @@ namespace avt.AllinOneRotator.Net
                 Page.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 Page.Response.Cache.SetNoStore(); 
                 Page.Response.Write(GetSlidesXml());
-                Page.Response.ContentType = "text/xml";
+                Page.Response.ContentType = "text/xml; charset=utf-8"; 
+                //Page.Response.ContentType = "text/xml";
                 Page.Response.End();
                 return;
             }
@@ -208,7 +210,7 @@ namespace avt.AllinOneRotator.Net
             StringBuilder strXML = new StringBuilder();
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
-            settings.OmitXmlDeclaration = false;
+            settings.OmitXmlDeclaration = true;
             settings.Encoding = Encoding.UTF8;
             XmlWriter Writer = XmlWriter.Create(strXML, settings);
 

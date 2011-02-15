@@ -42,7 +42,8 @@ namespace avt.AllinOneRotator.Net.Data
                 new string[] { "SlideId" },
                 "ControlId", "Title", "DurationSeconds", "BackgroundGradientFrom", "BackgroundGradientTo",
                 "Link_Url", "Link_Caption", "Link_Target", "Link_UseTextsBackground",
-                "Mp3_Url", "Mp3_ShowPlayer", "Mp3_IconColor"
+                "Mp3_Url", "Mp3_ShowPlayer", "Mp3_IconColor",
+                "ViewOrder"
             );
 
             _TableSlideObjects = new AvtSqlHelper_Table(
@@ -50,7 +51,10 @@ namespace avt.AllinOneRotator.Net.Data
                 config.DbOwner + config.ObjQualifier + "avtRotator_SlideObjects",
                 true,
                 new string[] { "ObjectId" },
-                "SlideId", "ObjectType", "Name"
+                "SlideId", "ObjectType", "Name", "ResourceUrl",
+                "DelaySeconds", "DurationSeconds",
+                "Opacity",
+                "PositionX", "PositionY", "VerticalAlign"
             );
         }
 
@@ -92,18 +96,20 @@ namespace avt.AllinOneRotator.Net.Data
         public override int UpdateSlide(
             int slideId, string controlId, string title, int durationSeconds, string backgroundGradientFrom, string backgroundGradientTo,
             string linkUrl, string linkCaption, string linkTarget, bool useTextsBk,
-            string mp3LinkUrl, bool mp3ShowPlayer, string mp3IconColor)
+            string mp3LinkUrl, bool mp3ShowPlayer, string mp3IconColor,
+            int viewOrder)
         {
             return _TableSlides.Update(
                 new object[] { slideId }, controlId, title, durationSeconds, backgroundGradientFrom, backgroundGradientTo,
                 linkUrl, linkCaption, linkTarget, useTextsBk,
-                mp3LinkUrl, mp3ShowPlayer, mp3IconColor
+                mp3LinkUrl, mp3ShowPlayer, mp3IconColor,
+                viewOrder
             );
         }
 
         public override IDataReader GetSlides(string controlId)
         {
-            return _TableSlides.Get("Where ControlID=" + AvtSqlHelper_Table.EncodeSql(controlId));
+            return _TableSlides.Get("Where ControlID=" + AvtSqlHelper_Table.EncodeSql(controlId) + " Order by ViewOrder");
         }
 
         public override IDataReader GetSlide(int slideId)
@@ -119,10 +125,17 @@ namespace avt.AllinOneRotator.Net.Data
 
 
         public override int UpdateSlideObject(
-           int slideObjectId, int slideId, string objectType, string Name)
+            int slideObjectId, int slideId, string objectType, string name, string resUrl,
+            int delaySeconds, int durationSeconds,
+            int opacity,
+            int xPos, int yPos, string vAlign)
         {
             return _TableSlideObjects.Update(
-                new object[] { slideObjectId }, slideId, objectType, Name
+                new object[] { slideObjectId }, 
+                slideId, objectType, name, resUrl,
+                delaySeconds, durationSeconds,
+                opacity,
+                xPos, yPos, vAlign
             );
         }
 

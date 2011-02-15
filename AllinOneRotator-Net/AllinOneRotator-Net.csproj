@@ -49,13 +49,13 @@
     <Compile Include="Services\AspNetConfiguration.cs" />
     <Compile Include="Services\IConfiguration.cs" />
     <Compile Include="Settings\RotatorSettings.cs" />
-    <Compile Include="SlideObjectCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AllinOneRotator.cs" />
-    <Compile Include="SlideCollection.cs" />
-    <Compile Include="SlideCollectionEditor.cs" />
-    <Compile Include="SlideInfo.cs" />
-    <Compile Include="SlideObject.cs" />
+    <Compile Include="Slides\SlideCollection.cs" />
+    <Compile Include="Slides\SlideCollectionEditor.cs" />
+    <Compile Include="Slides\SlideInfo.cs" />
+    <Compile Include="Slides\SlideObject.cs" />
+    <Compile Include="Slides\SlideObjectCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="flash\rotator-v2-5.swf" />

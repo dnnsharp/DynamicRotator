@@ -49,7 +49,8 @@ namespace avt.AllinOneRotator.Net.Data
         public abstract int UpdateSlide(
             int slideId, string controlId, string title, int durationSeconds, string backgroundGradientFrom, string backgroundGradientTo,
             string linkUrl, string linkCaption, string linkTarget, bool useTextsBk,
-            string mp3LinkUrl, bool mp3ShowPlayer, string mp3IconColor
+            string mp3LinkUrl, bool mp3ShowPlayer, string mp3IconColor,
+            int viewOrder
         );
         public abstract IDataReader GetSlides(string controlId);
         public abstract IDataReader GetSlide(int slideId);
@@ -57,7 +58,10 @@ namespace avt.AllinOneRotator.Net.Data
 
         // Slide Objects
         public abstract int UpdateSlideObject(
-            int slideObjectId, int slideId, string objectType, string Name
+            int slideObjectId, int slideId, string objectType, string name, string resUrl,
+            int delaySeconds, int durationSeconds,
+            int opacity, 
+            int xPos, int yPos, string vAlign
         );
         public abstract IDataReader GetSlideObjects(int slideId);
         public abstract IDataReader GetSlideObject(int slideObjectId);

@@ -64,6 +64,10 @@ namespace avt.AllinOneRotator.Net
         string _ControlId;
         public string ControlId { get { return _ControlId; } set { _ControlId = value; } }
 
+        int _ViewOrder = 0;
+        public int ViewOrder { get { return _ViewOrder; } set { _ViewOrder = value; } }
+        
+
         #region General
 
         string _Title = "New Slide Title";
@@ -250,6 +254,8 @@ namespace avt.AllinOneRotator.Net
             try { ShowPlayer = dr["Mp3_ShowPlayer"].ToString() == "true"; } catch { }
             try { IconColor = System.Drawing.Color.FromArgb(Convert.ToInt32(dr["Mp3_IconColor"].ToString().Replace("#", "0x"), 16)); } catch { }
 
+            try { ViewOrder = Convert.ToInt32(dr["ViewOrder"].ToString()); } catch { }
+
             using (IDataReader drObj = DataProvider.Instance().GetSlideObjects(Id)) {
                 while (drObj.Read()) {
                     SlideObjects.Add(SlideObjectInfo.FromDataReader(drObj));
@@ -299,7 +305,9 @@ namespace avt.AllinOneRotator.Net
 
                 Mp3Url,
                 ShowPlayer,
-                ColorExt.ColorToHexString(IconColor)
+                ColorExt.ColorToHexString(IconColor),
+
+                ViewOrder
             );
         }
 
@@ -354,14 +362,14 @@ namespace avt.AllinOneRotator.Net
 
             // background node and attributes
             Writer.WriteStartElement("background");
-            Writer.WriteAttributeString("gradient1", ColorExt.ColorToHexString(BackgroundGradientTo));
-            Writer.WriteAttributeString("gradient2", ColorExt.ColorToHexString(BackgroundGradientTo));
+            Writer.WriteAttributeString("gradient1", ColorExt.ColorToHexString(BackgroundGradientFrom).Replace("#","0x"));
+            Writer.WriteAttributeString("gradient2", ColorExt.ColorToHexString(BackgroundGradientTo).Replace("#", "0x"));
             Writer.WriteEndElement(); //  ("background");
 
             // text node and attributes
             Writer.WriteStartElement("theText");
             Writer.WriteAttributeString("glowSize", GlowSize.ToString());
-            Writer.WriteAttributeString("glowColor", ColorExt.ColorToHexString(GlowColor));
+            Writer.WriteAttributeString("glowColor", ColorExt.ColorToHexString(GlowColor).Replace("#", "0x"));
             Writer.WriteAttributeString("glowStrength", GlowStrength.ToString());
             Writer.WriteAttributeString("moveType", MoveType.ToString());
             Writer.WriteAttributeString("easingType", EasingType.ToString());
@@ -374,35 +382,35 @@ namespace avt.AllinOneRotator.Net
             Writer.WriteEndElement(); // ("theText");
 
             // slide objects
+            Writer.WriteStartElement("pictures"); 
             foreach (SlideObjectInfo slideObj in SlideObjects) {
-                Writer.WriteStartElement("pictures"); 
                 slideObj.ToXml(Writer);
-                Writer.WriteEndElement(); // ("pictures");
             }
+            Writer.WriteEndElement(); // ("pictures");
 
             // link node and attributes
-            if (!string.IsNullOrEmpty(SlideUrl)) {
-                Writer.WriteStartElement("link");
-                Writer.WriteAttributeString("useLink", "yes");
-                Writer.WriteAttributeString("theTarget", Target == eLinkTarget.New ? "_blank" : "_parent");
-                if (!string.IsNullOrEmpty(ButtonCaption)) {
-                    Writer.WriteAttributeString("showBtn", "yes");
-                    Writer.WriteAttributeString("btnName", ButtonCaption);
-                }
-                Writer.WriteAttributeString("useTextsBackground", UseTextsBackground ? "yes" : "no");
+            Writer.WriteStartElement("link");
 
-                Writer.WriteString(SlideUrl);
-                Writer.WriteEndElement(); // ("link");
+            Writer.WriteAttributeString("useLink", string.IsNullOrEmpty(SlideUrl) ? "no" : "yes");
+            Writer.WriteAttributeString("theTarget", Target == eLinkTarget.New ? "_blank" : "_parent");
+            if (!string.IsNullOrEmpty(ButtonCaption)) {
+                Writer.WriteAttributeString("showBtn", "yes");
+                Writer.WriteAttributeString("btnName", ButtonCaption);
             }
+            Writer.WriteAttributeString("useTextsBackground", UseTextsBackground ? "yes" : "no");
+
+            Writer.WriteString(SlideUrl);
+
+            Writer.WriteEndElement(); // ("link");
 
             // mp3 note and attributes
-            if (!string.IsNullOrEmpty(Mp3Url)) {
-                Writer.WriteStartElement("mp3");
+            Writer.WriteStartElement("mp3");
+            //if (!string.IsNullOrEmpty(Mp3Url)) {
                 Writer.WriteAttributeString("file", Mp3Url);
                 Writer.WriteAttributeString("player", ShowPlayer ? "on" : "off");
                 Writer.WriteAttributeString("iconColor", ColorExt.ColorToHexString(IconColor));
-                Writer.WriteEndElement(); // ("mp3");
-            }
+            //}
+            Writer.WriteEndElement(); // ("mp3");
 
             Writer.WriteEndElement(); // ("ad");
         }

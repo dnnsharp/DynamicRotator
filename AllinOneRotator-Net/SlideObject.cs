@@ -28,6 +28,12 @@ namespace avt.AllinOneRotator.Net
         Zoom
     }
 
+    public enum eVerticalAlign {
+        Top,
+        Middle,
+        Bottom
+    }
+
     public enum eObjectType
     {
         Unknown,
@@ -52,7 +58,7 @@ namespace avt.AllinOneRotator.Net
         [Category("General")]
         public string Name { get { return _Name; } set { _Name = value; } }
 
-        string _ObjectUrl = "/path/to/resource.ext";
+        string _ObjectUrl = "";
         [UrlProperty()]
         [Editor("System.Web.UI.Design.UrlEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         [Category("General")]
@@ -65,6 +71,10 @@ namespace avt.AllinOneRotator.Net
         int _Yposition = 15;
         [Category("Position")]
         public int Yposition { get { return _Yposition; } set { _Yposition = value; } }
+
+        eVerticalAlign _VerticalAlign = eVerticalAlign.Middle;
+        [Category("Position")]
+        public eVerticalAlign VerticalAlign { get { return _VerticalAlign; } set { _VerticalAlign = value; } }
 
         int _Opacity = 100;
         [Category("Effects")]
@@ -122,10 +132,10 @@ namespace avt.AllinOneRotator.Net
         public void Save()
         {
             Id = DataProvider.Instance().UpdateSlideObject(
-                Id,
-                SlideId,
-                ObjectType.ToString(),
-                Name
+                Id, SlideId, ObjectType.ToString(), Name, ObjectUrl,
+                TimeDelay, TransitionDuration,
+                Opacity,
+                Xposition, Yposition, VerticalAlign.ToString().ToLower()
             );
         }
 
@@ -142,8 +152,23 @@ namespace avt.AllinOneRotator.Net
             Writer.WriteStartElement("picture");
 
             Writer.WriteAttributeString("Xposition", Xposition.ToString());
-            Writer.WriteAttributeString("Yposition", Yposition.ToString()); 
-            
+            Writer.WriteAttributeString("Yposition", Yposition.ToString());
+
+            Writer.WriteAttributeString("timeDelay", TimeDelay.ToString());
+            Writer.WriteAttributeString("appearFrom", AppearFrom.ToString().ToLower());
+            Writer.WriteAttributeString("justFade", JustFade ? "yes" : "no");
+
+            if (Effect != eEffect.None) {
+                Writer.WriteAttributeString("useEffect", "yes");
+                Writer.WriteAttributeString("effect", Effect.ToString());
+            } else {
+                Writer.WriteAttributeString("useEffect", "no");
+                Writer.WriteAttributeString("effect", "");
+            }
+
+            //if (!string.IsNullOrEmpty(Link))
+            Writer.WriteAttributeString("theLink", Link);
+
             Writer.WriteAttributeString("glowSize", GlowSize.ToString());
             Writer.WriteAttributeString("glowColor", ColorExt.ColorToHexString(GlowColor));
             Writer.WriteAttributeString("glowStrength", GlowStrength.ToString());
@@ -151,19 +176,8 @@ namespace avt.AllinOneRotator.Net
             Writer.WriteAttributeString("moveType", MoveType.ToString());
             Writer.WriteAttributeString("easingType", EasingType.ToString());
             Writer.WriteAttributeString("transitionDuration", TransitionDuration.ToString());
-            Writer.WriteAttributeString("timeDelay", TimeDelay.ToString());
-            Writer.WriteAttributeString("justFade", JustFade ? "yes" : "no");
-            Writer.WriteAttributeString("appearFrom", AppearFrom.ToString().ToLower());
 
-            //if (!string.IsNullOrEmpty(Link))
-                Writer.WriteAttributeString("theLink", Link);
-
-            if (Effect != eEffect.None) {
-                Writer.WriteAttributeString("useEffect", "yes");
-                Writer.WriteAttributeString("effect", Effect.ToString());
-            } else {
-                Writer.WriteAttributeString("useEffect", "no");
-            }
+            Writer.WriteAttributeString("itemTransparency", Opacity.ToString());
 
             Writer.WriteString(ObjectUrl);
             Writer.WriteEndElement(); // ("picture");
@@ -176,7 +190,14 @@ namespace avt.AllinOneRotator.Net
             sbJson.Append("{");
             sbJson.AppendFormat("id:{0},", Id.ToString());
             sbJson.AppendFormat("name:\"{0}\",", RotatorSettings.JsonEncode(Name));
-            sbJson.AppendFormat("itemType:\"{0}\"", ObjectType.ToString());
+            sbJson.AppendFormat("itemType:\"{0}\",", ObjectType.ToString());
+            sbJson.AppendFormat("resUrl:\"{0}\",", RotatorSettings.JsonEncode(ObjectUrl));
+            sbJson.AppendFormat("delay:{0},", TimeDelay.ToString());
+            sbJson.AppendFormat("duration:{0},", TransitionDuration.ToString());
+            sbJson.AppendFormat("opacity:{0},", Opacity.ToString());
+            sbJson.AppendFormat("posx:{0},", Xposition.ToString());
+            sbJson.AppendFormat("posy:{0},", Yposition.ToString());
+            sbJson.AppendFormat("valign:\"{0}\"", VerticalAlign.ToString());
             sbJson.Append("}");
 
             return sbJson.ToString();
@@ -190,6 +211,13 @@ namespace avt.AllinOneRotator.Net
             slideObject.SlideId = Convert.ToInt32(dr["SlideId"].ToString());
             slideObject.ObjectType = (eObjectType)Enum.Parse(typeof(eObjectType), dr["ObjectType"].ToString(), true);
             slideObject.Name = dr["Name"].ToString();
+            slideObject.ObjectUrl = dr["ResourceUrl"].ToString();
+            slideObject.TimeDelay = Convert.ToInt32(dr["DelaySeconds"].ToString());
+            slideObject.TransitionDuration = Convert.ToInt32(dr["DurationSeconds"].ToString());
+            try { slideObject.Opacity = Convert.ToInt32(dr["Opacity"].ToString()); } catch { }
+            try { slideObject.Xposition = Convert.ToInt32(dr["PositionX"].ToString()); } catch { }
+            try { slideObject.Yposition = Convert.ToInt32(dr["PositionY"].ToString()); } catch { }
+            try { slideObject.VerticalAlign = (eVerticalAlign)Enum.Parse(typeof(eVerticalAlign), dr["VerticalAlign"].ToString()); } catch { slideObject.VerticalAlign = eVerticalAlign.Middle; }
             return slideObject;
         }
     }
