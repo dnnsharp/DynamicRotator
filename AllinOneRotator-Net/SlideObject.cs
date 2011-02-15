@@ -189,6 +189,7 @@ namespace avt.AllinOneRotator.Net
             slideObject.Id = Convert.ToInt32(dr["ObjectId"].ToString());
             slideObject.SlideId = Convert.ToInt32(dr["SlideId"].ToString());
             slideObject.ObjectType = (eObjectType)Enum.Parse(typeof(eObjectType), dr["ObjectType"].ToString(), true);
+            slideObject.Name = dr["Name"].ToString();
             return slideObject;
         }
     }

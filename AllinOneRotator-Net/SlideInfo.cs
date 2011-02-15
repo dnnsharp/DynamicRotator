@@ -269,15 +269,15 @@ namespace avt.AllinOneRotator.Net
                 dr.Close();
             }
 
-            if (slide == null)
-                return null;
+            //if (slide == null)
+            //    return null;
 
-            using (IDataReader dr = DataProvider.Instance().GetSlideObjects(slide.Id)) {
-                while (dr.Read()) {
-                    slide.SlideObjects.Add(SlideObjectInfo.FromDataReader(dr));
-                }
-                dr.Close();
-            }
+            //using (IDataReader dr = DataProvider.Instance().GetSlideObjects(slide.Id)) {
+            //    while (dr.Read()) {
+            //        slide.SlideObjects.Add(SlideObjectInfo.FromDataReader(dr));
+            //    }
+            //    dr.Close();
+            //}
 
             return slide;
         }
