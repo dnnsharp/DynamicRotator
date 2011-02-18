@@ -46,7 +46,7 @@
 }
 
 .tbNumber {
-    width: 60px;
+    width: 40px;
 }
 
 .btnPane {
@@ -215,15 +215,15 @@
 }
 
 .slideObjectSwf {
-    background-image: url(img/adobe-swf.png);
+    background-image: url(img/swf.png);
 }
 
 .slideObjectImg {
-    background-image: url(img/image-file.png);
+    background-image: url(img/images.png);
 }
 
 .slideObjectText {
-    background-image: url(img/text-icon.png);
+    background-image: url(img/html.png);
 }
 
 .btnAddObject .ui-button-text {

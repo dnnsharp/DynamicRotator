@@ -54,7 +54,8 @@ namespace avt.AllinOneRotator.Net.Data
                 "SlideId", "ObjectType", "Name", "ResourceUrl",
                 "DelaySeconds", "DurationSeconds",
                 "Opacity",
-                "PositionX", "PositionY", "VerticalAlign"
+                "PositionX", "PositionY", "VerticalAlign",
+                "GlowSize", "GlowStrength", "GlowColor"
             );
         }
 
@@ -128,14 +129,16 @@ namespace avt.AllinOneRotator.Net.Data
             int slideObjectId, int slideId, string objectType, string name, string resUrl,
             int delaySeconds, int durationSeconds,
             int opacity,
-            int xPos, int yPos, string vAlign)
+            int xPos, int yPos, string vAlign,
+            int glowSize, int glowStrength, string glowColor)
         {
             return _TableSlideObjects.Update(
                 new object[] { slideObjectId }, 
                 slideId, objectType, name, resUrl,
                 delaySeconds, durationSeconds,
                 opacity,
-                xPos, yPos, vAlign
+                xPos, yPos, vAlign,
+                glowSize, glowStrength, glowColor
             );
         }
 

@@ -135,7 +135,8 @@ namespace avt.AllinOneRotator.Net
                 Id, SlideId, ObjectType.ToString(), Name, ObjectUrl,
                 TimeDelay, TransitionDuration,
                 Opacity,
-                Xposition, Yposition, VerticalAlign.ToString().ToLower()
+                Xposition, Yposition, VerticalAlign.ToString().ToLower(),
+                GlowSize, GlowStrength, ColorExt.ColorToHexString(GlowColor)
             );
         }
 
@@ -170,7 +171,7 @@ namespace avt.AllinOneRotator.Net
             Writer.WriteAttributeString("theLink", Link);
 
             Writer.WriteAttributeString("glowSize", GlowSize.ToString());
-            Writer.WriteAttributeString("glowColor", ColorExt.ColorToHexString(GlowColor));
+            Writer.WriteAttributeString("glowColor", ColorExt.ColorToHexString(GlowColor).Replace("#", "0x"));
             Writer.WriteAttributeString("glowStrength", GlowStrength.ToString());
 
             Writer.WriteAttributeString("moveType", MoveType.ToString());
@@ -197,7 +198,10 @@ namespace avt.AllinOneRotator.Net
             sbJson.AppendFormat("opacity:{0},", Opacity.ToString());
             sbJson.AppendFormat("posx:{0},", Xposition.ToString());
             sbJson.AppendFormat("posy:{0},", Yposition.ToString());
-            sbJson.AppendFormat("valign:\"{0}\"", VerticalAlign.ToString());
+            sbJson.AppendFormat("valign:\"{0}\",", VerticalAlign.ToString());
+            sbJson.AppendFormat("glowSize:{0},", GlowSize.ToString());
+            sbJson.AppendFormat("glowStrength:{0},", GlowStrength.ToString());
+            sbJson.AppendFormat("glowColor:\"{0}\"", ColorExt.ColorToHexString(GlowColor));
             sbJson.Append("}");
 
             return sbJson.ToString();
@@ -211,13 +215,17 @@ namespace avt.AllinOneRotator.Net
             slideObject.SlideId = Convert.ToInt32(dr["SlideId"].ToString());
             slideObject.ObjectType = (eObjectType)Enum.Parse(typeof(eObjectType), dr["ObjectType"].ToString(), true);
             slideObject.Name = dr["Name"].ToString();
-            slideObject.ObjectUrl = dr["ResourceUrl"].ToString();
-            slideObject.TimeDelay = Convert.ToInt32(dr["DelaySeconds"].ToString());
-            slideObject.TransitionDuration = Convert.ToInt32(dr["DurationSeconds"].ToString());
+            try { slideObject.ObjectUrl = dr["ResourceUrl"].ToString(); } catch { }
+            try { slideObject.TimeDelay = Convert.ToInt32(dr["DelaySeconds"].ToString()); } catch { }
+            try { slideObject.TransitionDuration = Convert.ToInt32(dr["DurationSeconds"].ToString()); } catch { }
             try { slideObject.Opacity = Convert.ToInt32(dr["Opacity"].ToString()); } catch { }
             try { slideObject.Xposition = Convert.ToInt32(dr["PositionX"].ToString()); } catch { }
             try { slideObject.Yposition = Convert.ToInt32(dr["PositionY"].ToString()); } catch { }
             try { slideObject.VerticalAlign = (eVerticalAlign)Enum.Parse(typeof(eVerticalAlign), dr["VerticalAlign"].ToString()); } catch { slideObject.VerticalAlign = eVerticalAlign.Middle; }
+            try { slideObject.GlowSize = Convert.ToInt32(dr["GlowSize"].ToString()); } catch { }
+            try { slideObject.GlowStrength = Convert.ToInt32(dr["GlowStrength"].ToString()); } catch { }
+            try { slideObject.GlowColor = System.Drawing.Color.FromArgb(Convert.ToInt32(dr["GlowColor"].ToString().Replace("#", "0x"), 16)); } catch { }
+
             return slideObject;
         }
     }

@@ -4,7 +4,7 @@
 		<background gradient1="0x5ca8ec" gradient2="0x0a5da7"></background>
 		<theText glowSize="10" glowColor="0xffffff" glowStrength="3" moveType="Strong" easingType="Out" transitionDuration="2" justFade="no" appearFrom="right" finalXposition="15" verticalAlign="top"><![CDATA[<font color="#333333" size="+4">The perfect solution for your website</font><br/><font color="#ffffff">Banner rotator, Site header, Product catalog, Photo Gallery Slide Show, Team members... </font><br/><font size="+3">ALL IN ONE</font>]]></theText>
 		<pictures>
-			<picture Xposition="700" Yposition="0" timeDelay="1" appearFrom="right" justFade="no" useEffect="yes" effect="Photo" theLink="http://www.YourDomainName.here"  glowSize="10" glowColor="0xffffff" glowStrength="3"  moveType="Strong" easingType="Out" transitionDuration="1">images/image1.png</picture>
+			<picture Xposition="700" Yposition="0" timeDelay="1" appearFrom="right" justFade="no" useEffect="yes" effect="Iris" theLink="http://www.YourDomainName.here"  glowSize="10" glowColor="0xffffff" glowStrength="3"  moveType="Strong" easingType="Out" transitionDuration="1">images/image1.png</picture>
 		</pictures>
 		<link theTarget="_blank" btnName="Discover more" showBtn="yes" useLink="no">http://www.YourDomainName.here</link>
 	</ad>

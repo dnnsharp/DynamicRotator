@@ -148,12 +148,15 @@
                         This option determines how the slide buttons are rendered (they either are square and display numbers or are round buttons)
                     </td>
                 </tr>
+
+                <tr class="rowSep"><td colspan="3">&nbsp;</td></tr>
+
                 <tr>
                     <td class="settingField">
-                        <asp:Label runat="server" AssociatedControlID="tbSlideButtonsColor">Slide Buttons Color</asp:Label>
+                        <asp:Label runat="server" AssociatedControlID="tbSlideButtonsColor">Buttons Color</asp:Label>
                     </td>
                     <td class="settingField">
-                         <span><asp:TextBox runat = "server" ID="tbSlideButtonsColor" class="tbColor ctlSliderBtn" />&nbsp;&nbsp;&nbsp;</span>
+                         <span><asp:TextBox runat = "server" ID="tbSlideButtonsColor" class="tbColor" />&nbsp;&nbsp;&nbsp;</span>
                     </td>
                     <td class = "grayed_desc">
                         Customize color for slide buttons (and play/pause button too)
@@ -161,35 +164,25 @@
                 </tr>
                 <tr>
                     <td class="settingField">
-                        <asp:Label runat="server" AssociatedControlID="tbSlideButtonsNumberColor">Slide Buttons Number Color</asp:Label>
+                        <asp:Label runat="server" AssociatedControlID="tbSlideButtonsNumberColor">Buttons Text Color</asp:Label>
                     </td>
                     <td class="settingField">
-                         <span><asp:TextBox runat = "server" ID="tbSlideButtonsNumberColor" class="tbColor ctlSliderBtn" />&nbsp;&nbsp;&nbsp;</span>
+                         <span><asp:TextBox runat = "server" ID="tbSlideButtonsNumberColor" class="tbColor" />&nbsp;&nbsp;&nbsp;</span>
                     </td>
                     <td class = "grayed_desc">
-                        If the Slide Button Type is set to display numbers, use this option to determine their color
+                        Use this option to determine color for play/pause button and for slide buttons when the Slide Button Type is set to display numbers
                     </td>
                 </tr>
                 <tr>
                     <td class="settingField">
-                        <asp:Label runat="server" AssociatedControlID="tbSlideButtonsXoffset">Slide Buttons X Offset</asp:Label>
+                        <asp:Label runat="server" AssociatedControlID="tbSlideButtonsXoffset">Buttons Offset</asp:Label>
                     </td>
                     <td class="settingField">
-                         <asp:TextBox runat = "server" ID="tbSlideButtonsXoffset" class="tbNumber ctlSliderBtn" />
+                         X: <asp:TextBox runat = "server" ID="tbSlideButtonsXoffset" class="tbNumber" />
+                         Y: <asp:TextBox runat = "server" ID="tbSlideButtonsYoffset" class="tbNumber" />
                     </td>
                     <td class = "grayed_desc">
-                        Distance between left margin and the buttons
-                    </td>
-                </tr>
-                <tr>
-                    <td class="settingField">
-                        <asp:Label runat="server" AssociatedControlID="tbSlideButtonsYoffset">Slide Buttons Y Offset</asp:Label>
-                    </td>
-                    <td class="settingField">
-                         <asp:TextBox runat = "server" ID="tbSlideButtonsYoffset" class="tbNumber ctlSliderBtn" />
-                    </td>
-                    <td class = "grayed_desc">
-                        Distance between bottom margin and the buttons
+                        Distance between left and bottom margins and the buttons
                     </td>
                 </tr>
 
@@ -334,7 +327,7 @@
                             <div style="clear:both;"></div>
                         </div>
                         <div style = "height: 84px; margin: 8px 8px 2px 8px; overflow: auto; padding-left: 40px;" class="pnlSlideObjList_empty">
-                            <div style = "padding: 12px 0 0 30px; font-size: 18px; color: #b2b2b2;">
+                            <div style = "padding: 16px 0 0 30px; font-size: 16px; color: #b2b2b2;">
                                 No objects defined for this slide!<br />
                                 Use buttons below to add objects...
                             </div>
@@ -409,13 +402,13 @@
                     </div>
                     <div class = "objFieldRow ui-widget-content objFieldImgOnly" style="clear: left;">
                         <b>Resource URL: </b> 
-                        <select class = "ddUrl ddResUrl">
+                        <select class = "ddUrl ddObjectUrl">
                             <option>http://</option>
                             <option>https://</option>
                             <option>ftp://</option>
                             <option>other</option>
                         </select>
-                        <input type="text" class = "tbUrl tbLinkUrl" style = "width: 260px;" />
+                        <input type="text" class = "tbUrl tbObjectUrl tbRequired" style = "width: 260px;" />
                     </div>
                     <div class = "objFieldRow ui-widget-content" style="clear: left;">
                         <b>Link URL: </b> 
@@ -429,8 +422,8 @@
                     </div>
                     <div class = "objFieldRow ui-widget-content" style="clear: left;">
                         <b>Position: </b>
-                        <b>X</b> <input type="text" style = "width: 60px;" class="tbObjPosX" />
-                        <b>Y</b> <input type="text" style = "width: 60px;" class="tbObjPosY" />
+                        <b>X</b> <input type="text" style = "width: 40px;" class="tbObjPosX tbNumber" />
+                        <b>Y</b> <input type="text" style = "width: 40px;" class="tbObjPosY tbNumber" />
                     </div>
                     <div class = "objFieldRow ui-widget-content objFieldTextOnly">
                         <b>Text: </b> 
@@ -470,11 +463,13 @@
             <div id = "obj-settings-transition">
                 <div style = "margin: 8px;">
                     <div class = "objFieldRow ui-widget-content">
-                        <b>Delay: </b> 
-                        <input type="text" class = "tbObjDelay" style = "width: 60px;" /> seconds
-                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class ="objFieldImgOnly">
+                            <b>Delay: </b> 
+                            <input type="text" class = "tbObjDelay tbNumber" style = "width: 60px;" /> seconds
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                        </span>
                         <b>Duration: </b> 
-                        <input type="text" class = "tbObjDuration" style = "width: 60px;" /> seconds
+                        <input type="text" class = "tbObjDuration tbNumber" style = "width: 60px;" /> seconds
                     </div>
                     <div class = "objFieldRow ui-widget-content">
                         <b>Appear with: </b> 
@@ -676,18 +671,13 @@
                     if (isNaN(parseInt(jQuery(this).val()))) {
                         return;
                     }
-                    jQuery(this).next().find("div").slider("value", jQuery(this).val());
+                    try {
+                        jQuery(this).next().find("div").slider("value", jQuery(this).val());
+                    } catch (e) {}
                 });
             });
         });
 
-        function saveSlideObjectAsJson(dlg) {
-            return { 
-                id: dlg.find(".objectId").text(),
-                name: dlg.find(".tbObjName").val(),
-                itemType: dlg.find(".itemType").text()
-            };
-        }
 
         function appendSlideObject(slideObj, slideRoot) {
             if (!slideRoot) {
@@ -699,8 +689,12 @@
             if (slideObj.itemType.toLowerCase() == "text") {
                 _item.addClass("slideObjectText");
             } else if (slideObj.itemType.toLowerCase() == "image") {
-                // TODO: determine swf or image
-                _item.addClass("slideObjectImg");
+                var resUrl = jQuery.trim(slideObj.resUrl);
+                if (resUrl.indexOf(".swf") == resUrl.length - 4) {
+                    _item.addClass("slideObjectSwf");
+                } else {
+                    _item.addClass("slideObjectImg");
+                }
             }
 
            slideRoot.find(".pnlSlideObjList").append(_item);
@@ -737,24 +731,6 @@
                 slideRoot.find(".btnAddObjectText").addClass("ui-state-disabled");
                 slideRoot.find(".btnAddObjectText").attr("title", "Limitation with version 1: slides can only contain one text object.").bt(btOpts);
             }
-        }
-
-        function applyColorpicker(rootElement) {
-            rootElement.find(".tbColor").each(function() {
-                var _this = jQuery(this);
-                _this.ColorPicker({
-                    onSubmit: function(hsb, hex, rgb) {
-                        _this.val("#" + hex);
-                        _this.parent().css("background-color", "#"+hex);
-                        jQuery(".colorpicker").hide();
-                    },
-                    onBeforeShow: function () {
-                        jQuery(this).ColorPickerSetColor(this.value);
-                    }
-                });
-            });
-            
-            jQuery(".colorpicker").css("z-index", "1100");
         }
 
         function updateSlideIndexes() {
@@ -805,9 +781,18 @@
         function cloneSlide(slideRoot) {
             var _new = slideRoot.clone();
             _new.find(".tbSlideTitle").val(_new.find(".tbSlideTitle").val() + " - Copy");
+            _new.find(".slideId").text("-1");
             slideRoot.after(_new);
             _new.find(".slideOptsGroup:first").click();
             updateSlideIndexes();
+
+            // also clone all object data
+            var iobj = 0;
+            slideRoot.find(".slideObject").each(function() {
+                _new.find(".slideObject").eq(iobj)[0].objData = jQuery.extend({}, this.objData, {id:-1, name: this.objData.name + " - Copy"});
+                _new.find(".slideObject").text(_new.find(".slideObject").eq(iobj)[0].objData.name);
+                iobj++;
+            });
         }
 
         function deleteSlide(slideRoot) {
@@ -857,12 +842,32 @@
             if (slideObjItem) {
                 _dlg.find(".objectId").text(slideObjItem[0].objData.id);
                 _dlg.find(".tbObjName").val(slideObjItem[0].objData.name);
+                fillUrl(_dlg.find(".tbObjectUrl"), _dlg.find(".ddObjectUrl"), slideObjItem[0].objData.resUrl);
+                _dlg.find(".tbObjDelay").val(slideObjItem[0].objData.delay);
+                _dlg.find(".tbObjDuration").val(slideObjItem[0].objData.duration);
+                _dlg.find(".tbObjOpacity").val(slideObjItem[0].objData.opacity);
+                _dlg.find(".tbObjPosX").val(slideObjItem[0].objData.posx);
+                _dlg.find(".tbObjPosY").val(slideObjItem[0].objData.posy);
+                _dlg.find(".tbObjGlowSize").val(slideObjItem[0].objData.glowSize);
+                _dlg.find(".tbObjGlowColor").val(slideObjItem[0].objData.glowColor);
+                _dlg.find(".tbObjGlowStrength").val(slideObjItem[0].objData.glowStrength);
                 _dlg[0].slideObjItem = slideObjItem;
             } else {
                 // load defaults
                 _dlg.find(".objectId").text("-1");
                 _dlg.find(".tbObjName").val("<%= DefaultObject.Name %>");
+                fillUrl(_dlg.find(".tbObjectUrl"), _dlg.find(".ddObjectUrl"), "<%= DefaultObject.ObjectUrl %>");
+                _dlg.find(".tbObjDelay").val("<%= DefaultObject.TimeDelay %>");
+                _dlg.find(".tbObjDuration").val("<%= DefaultObject.TransitionDuration %>");
+                _dlg.find(".tbObjOpacity").val("<%= DefaultObject.Opacity %>");
+                _dlg.find(".tbObjPosX").val(<%= DefaultObject.Xposition %>);
+                _dlg.find(".tbObjPosY").val(<%= DefaultObject.Yposition %>);
+                _dlg.find(".tbObjGlowSize").val(<%= DefaultObject.GlowSize %>);
+                _dlg.find(".tbObjGlowColor").val("<%= avt.AllinOneRotator.Net.ColorExt.ColorToHexString(DefaultObject.GlowColor) %>");
+                _dlg.find(".tbObjGlowStrength").val(<%= DefaultObject.GlowStrength %>);
             }
+
+            _dlg.find(".tbObjOpacity").keyup();
 
             jQuery("#objSettingsTabs").tabs("select",0);
             _dlg.dialog("open");
@@ -870,6 +875,23 @@
             jQuery(".ui-button").removeClass("ui-state-focus");
             jQuery(".slideRoot").removeClass("slideRootActive");
             slideRoot.addClass("slideRootActive");
+        }
+
+        function saveSlideObjectAsJson(dlg) {
+            return { 
+                id: dlg.find(".objectId").text(),
+                name: dlg.find(".tbObjName").val(),
+                resUrl:formatUrl(dlg.find(".tbObjectUrl"), dlg.find(".ddObjectUrl")),
+                itemType: dlg.find(".itemType").text(),
+                delay: dlg.find(".tbObjDelay").val(),
+                duration: dlg.find(".tbObjDuration").val(),
+                opacity: dlg.find(".tbObjOpacity").val(),
+                posx: dlg.find(".tbObjPosX").val(),
+                posy: dlg.find(".tbObjPosY").val(),
+                glowSize: dlg.find(".tbObjGlowSize").val(),
+                glowColor: dlg.find(".tbObjGlowColor").val(),
+                glowStrength: dlg.find(".tbObjGlowStrength").val()
+            };
         }
 
 
@@ -906,7 +928,8 @@
         function saveSlideToXml(slideRoot) {
             var x = "<slide>";
             x += "<id>"+ slideRoot.find(".slideId").text() +"</id>";
-            
+            x += "<viewOrder>"+ jQuery(".slideRoot").index(slideRoot) +"</viewOrder>";
+
             x += "<title>"+ encodeXml(slideRoot.find(".tbSlideTitle").val()) +"</title>";
             x += "<duration>"+ slideRoot.find(".tbDuration").val() +"</duration>";
             x += "<bkGradFrom>"+ encodeXml(slideRoot.find(".tbColortbBkGradFrom").val()) +"</bkGradFrom>";
@@ -936,6 +959,9 @@
             return x;
         }
 
+
+        // utility functions
+
         function encodeXml(sXml) {
             if (!sXml)
                 return "";
@@ -943,10 +969,11 @@
             return sXml.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&apos;");
         }
 
-        function formatUrl(tb) {
+        function formatUrl(tb,dd) {
             if (jQuery.trim(tb.val()).length == 0)
                 return "";
-            var dd = tb.parents(".fieldRow.:first").find(".ddUrl");
+            if (!dd)
+                dd = tb.parents(".fieldRow.:first").find(".ddUrl");
             if (dd.val() == "other") {
                 return tb;
             }
@@ -956,22 +983,41 @@
 
         function fillUrl(tb, dd, url) {
             if (!url) {
+                tb.val("");
                 return;
             }
 
             if (url.indexOf("https://") == 0) {
                 dd.val("https://");
-                tb.val(url.substr("https://".length+1));
+                tb.val(url.substr("https://".length));
             } else if (url.indexOf("http://") == 0) {
                 dd.val("http://");
-                tb.val(url.substr("http://".length+1));
+                tb.val(url.substr("http://".length));
             } else if (url.indexOf("ftp://") == 0) {
                 dd.val("ftp://");
-                tb.val(url.substr("ftp://".length+1));
+                tb.val(url.substr("ftp://".length));
             } else {
                 dd.val("other");
                 tb.val(url);
             }
+        }
+
+        function applyColorpicker(rootElement) {
+            rootElement.find(".tbColor").each(function() {
+                var _this = jQuery(this);
+                _this.ColorPicker({
+                    onSubmit: function(hsb, hex, rgb) {
+                        _this.val("#" + hex);
+                        _this.parent().css("background-color", "#"+hex);
+                        jQuery(".colorpicker").hide();
+                    },
+                    onBeforeShow: function () {
+                        jQuery(this).ColorPickerSetColor(this.value);
+                    }
+                });
+            });
+            
+            jQuery(".colorpicker").css("z-index", "1100");
         }
 
     </script>

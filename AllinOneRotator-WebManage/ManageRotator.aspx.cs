@@ -162,6 +162,8 @@ namespace avt.AllinOneRotator.Net.WebManage
                     slide.ShowPlayer = xmlSlide["mp3ShowPlayer"].InnerText == "true";
                     slide.IconColor = Color.FromArgb(Convert.ToInt32(xmlSlide["mp3IconColor"].InnerText.Replace("#", "0x"), 16));
 
+                    slide.ViewOrder = Convert.ToInt32(xmlSlide["viewOrder"].InnerText);
+
                     slide.Save();
 
                     // save slide objects
@@ -187,7 +189,16 @@ namespace avt.AllinOneRotator.Net.WebManage
                             slideObj.SlideId = slide.Id;
                             slideObj.Name = xmlSlideObj["name"].InnerText;
                             slideObj.ObjectType = (eObjectType)Enum.Parse(typeof(eObjectType), xmlSlideObj["itemType"].InnerText, true);
-
+                            slideObj.ObjectUrl = xmlSlideObj["resUrl"].InnerText;
+                            slideObj.TimeDelay = Convert.ToInt32(xmlSlideObj["delay"].InnerText);
+                            slideObj.TransitionDuration = Convert.ToInt32(xmlSlideObj["duration"].InnerText);
+                            slideObj.Opacity = Convert.ToInt32(xmlSlideObj["opacity"].InnerText);
+                            slideObj.Xposition = Convert.ToInt32(xmlSlideObj["posx"].InnerText);
+                            slideObj.Yposition = Convert.ToInt32(xmlSlideObj["posy"].InnerText);
+                            // slideObj.VerticalAlign = Convert.ToInt32(xmlSlideObj["posy"].InnerText);
+                            slideObj.GlowSize = Convert.ToInt32(xmlSlideObj["glowSize"].InnerText);
+                            slideObj.GlowStrength = Convert.ToInt32(xmlSlideObj["glowStrength"].InnerText);
+                            slideObj.GlowColor = Color.FromArgb(Convert.ToInt32(xmlSlideObj["glowColor"].InnerText.Replace("#", "0x"), 16));
                             slideObj.Save();
                         }
                     }
