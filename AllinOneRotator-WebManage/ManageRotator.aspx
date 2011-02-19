@@ -38,6 +38,8 @@
             <li><a href="#tabs-main-settings">General Settings</a></li>
             <li><a href="#tabs-main-slides">Slides</a></li>
             <li><a href="#tabs-main-presets">Presets</a></li>
+            <li><a href="#tabs-main-library">Object Library</a></li>
+            <li><a href="#tabs-main-customize">Order Customization</a></li>
             <li><a href="#tabs-main-activate">Activate</a></li>
         </ul>
 
@@ -375,6 +377,14 @@
             test
         </div>
 
+        <div id = "tabs-main-library">
+            test
+        </div>
+
+        <div id = "tabs-main-customize">
+            test
+        </div>
+
         <div id = "tabs-main-activate">
             test
         </div>
@@ -423,7 +433,9 @@
                     <div class = "objFieldRow ui-widget-content" style="clear: left;">
                         <b>Position: </b>
                         <b>X</b> <input type="text" style = "width: 40px;" class="tbObjPosX tbNumber" />
-                        <b>Y</b> <input type="text" style = "width: 40px;" class="tbObjPosY tbNumber" />
+                        <b>Y</b> <input type="text" style = "width: 40px;" class="tbObjPosY tbNumber objFieldImgOnly" />
+                        <asp:DropDownList runat="server" ID = "ddVerticalAlgin" class = "ddVerticalAlgin objFieldTextOnly">
+                        </asp:DropDownList>
                     </div>
                     <div class = "objFieldRow ui-widget-content objFieldTextOnly">
                         <b>Text: </b> 
@@ -448,6 +460,7 @@
                         <b>Glow Size: </b> 
                         <input type="text" class = "tbObjGlowSize" style = "width: 60px;" />
                     </div>
+                    
                     <div class = "objFieldRow ui-widget-content" style="clear: left;">
                         <b>Glow Color: </b> 
                         <input type="text" style = "width: 60px;" class="tbColor tbObjGlowColor" />
@@ -457,6 +470,28 @@
                         <input type="text" class = "tbObjGlowStrength" style = "width: 60px;" />
                     </div>
                     <div style ="clear:both;"></div>
+
+                    <div class = "objFieldRow ui-widget-content objFieldTextOnly" style ="margin-top:8px;">
+                        <b>Text Color: </b> 
+                        <input type="text" style = "width: 60px;" class="tbColor tbTextColor" />
+                    </div>
+                    <div class = "objFieldRow ui-widget-content objFieldTextOnly">
+                        <b>Text Background Color: </b> 
+                        <input type="text" style = "width: 60px;" class="tbColor tbBgTextColor" />
+                    </div>
+                    <div class = "objFieldRow ui-widget-content objFieldTextOnly">
+                        <div style = "float: left"><b>Text Background Opacity: </b> </div>
+                        <div style="width: 300px; margin-left: 100px;">
+                            <input type="text" class = "tbTextBgOpacity tbNumber tbRange" style = "width: 60px;" />
+                        </div>
+                        <div style="clear:both;"></div>
+                    </div>
+                    <div class = "objFieldRow ui-widget-content objFieldTextOnly" style ="margin-top:8px;">
+                        <b>Text Padding: </b> 
+                        <input type="text" class = "tbTextPadding tbNumber" style = "width: 60px;" />
+                    </div>
+                    <div style ="clear:both;"></div>
+
                 </div>
             </div>
 
@@ -473,19 +508,17 @@
                     </div>
                     <div class = "objFieldRow ui-widget-content">
                         <b>Appear with: </b> 
-                        <select class = "ddObjAppearWith" onchange="jQuery(this).val() == 'slideIn' ? jQuery('#pnlObjSlideParams').show() : jQuery('#pnlObjSlideParams').hide()" >
-                            <option value="fadeIn">Fade In</option>
-                            <option value="slideIn">Slide In</option>
-                        </select>
+                        <asp:DropDownList runat="server" ID = "ddAppearMode" class = "ddAppearMode" onchange="jQuery(this).val() == 'Slide' ? jQuery('#pnlObjSlideParams').show() : jQuery('#pnlObjSlideParams').hide()" >
+                        </asp:DropDownList>
                     </div>
 
                     <div id = "pnlObjSlideParams" style="display:none; margin-top: 8px;">
                         <div class = "objFieldRow ui-widget-content">
                             <b>Appear from: </b> 
-                            <asp:DropDownList runat="server" ID = "ddObjAppearFromText" class = "ddObjAppearFromText">
+                            <asp:DropDownList runat="server" ID = "ddObjAppearFromText" class = "ddObjAppearFrom ddObjAppearFromText">
                             </asp:DropDownList>
 
-                            <asp:DropDownList runat="server" ID = "ddObjAppearFromImage" class = "ddObjAppearFromImage">
+                            <asp:DropDownList runat="server" ID = "ddObjAppearFromImage" class = "ddObjAppearFrom ddObjAppearFromImage">
                             </asp:DropDownList>
                         </div>
                         <div class = "objFieldRow ui-widget-content">
@@ -588,7 +621,7 @@
                     _root.find(".pnlSlideOpts").eq(_root.find(".slideOptsGroup").index(jQuery(this))).show();
                 });
 
-            var slides = eval('<%= hdnSlideXml.Value %>');
+            var slides = <%= hdnSlideXml.Value %>;
             for (var i  = 0; i < slides.length; i++) {
                 loadSlide(slides[i]);
             }
@@ -831,9 +864,10 @@
             var _dlg = jQuery("#dlgObjectSettings");
             _dlg.find(".itemType").text(itemType);
 
-            _dlg.find(".objFieldImgOnly, .objFieldTextOnly").show();
+            _dlg.find(".objFieldImgOnly, .objFieldTextOnly, .ddObjAppearFrom").show();
             if (itemType.toLowerCase() =="text") {
                 _dlg.find(".objFieldImgOnly").hide();
+                
             } else {
                 _dlg.find(".objFieldTextOnly").hide();
             }
@@ -842,29 +876,72 @@
             if (slideObjItem) {
                 _dlg.find(".objectId").text(slideObjItem[0].objData.id);
                 _dlg.find(".tbObjName").val(slideObjItem[0].objData.name);
+                _dlg.find(".tbObjText").val(slideObjItem[0].objData.htmlContents);
                 fillUrl(_dlg.find(".tbObjectUrl"), _dlg.find(".ddObjectUrl"), slideObjItem[0].objData.resUrl);
                 _dlg.find(".tbObjDelay").val(slideObjItem[0].objData.delay);
                 _dlg.find(".tbObjDuration").val(slideObjItem[0].objData.duration);
                 _dlg.find(".tbObjOpacity").val(slideObjItem[0].objData.opacity);
                 _dlg.find(".tbObjPosX").val(slideObjItem[0].objData.posx);
                 _dlg.find(".tbObjPosY").val(slideObjItem[0].objData.posy);
+                _dlg.find(".ddVerticalAlgin").val(slideObjItem[0].objData.valign);
                 _dlg.find(".tbObjGlowSize").val(slideObjItem[0].objData.glowSize);
                 _dlg.find(".tbObjGlowColor").val(slideObjItem[0].objData.glowColor);
                 _dlg.find(".tbObjGlowStrength").val(slideObjItem[0].objData.glowStrength);
+
+                _dlg.find(".tbTextColor").val(slideObjItem[0].objData.textColor);
+                _dlg.find(".tbBgTextColor").val(slideObjItem[0].objData.textBackgroundColor);
+                _dlg.find(".tbTextBgOpacity").val(slideObjItem[0].objData.textBackgroundOpacity);
+                _dlg.find(".tbTextPadding").val(slideObjItem[0].objData.textBackgroundPadding);
+
+                _dlg.find(".ddAppearMode").val(slideObjItem[0].objData.appearMode).change();
+
+                if (itemType.toLowerCase() =="text") {
+                    _dlg.find(".ddObjAppearFromText").val(slideObjItem[0].objData.slideFrom);
+                    _dlg.find(".ddObjAppearFromImage").hide();
+                } else {
+                    _dlg.find(".ddObjAppearFromImage").val(slideObjItem[0].objData.slideFrom);
+                    _dlg.find(".ddObjAppearFromText").hide();
+                }
+                
+                _dlg.find(".ddObjMoveType").val(slideObjItem[0].objData.slideMoveType);
+                _dlg.find(".ddObjEasingType").val(slideObjItem[0].objData.slideEasingType);
+                _dlg.find(".ddObjEffect").val(slideObjItem[0].objData.effectAfterSlide);
+                
                 _dlg[0].slideObjItem = slideObjItem;
             } else {
                 // load defaults
                 _dlg.find(".objectId").text("-1");
                 _dlg.find(".tbObjName").val("<%= DefaultObject.Name %>");
+                _dlg.find(".tbObjText").val("<%= DefaultObject.Text %>");
                 fillUrl(_dlg.find(".tbObjectUrl"), _dlg.find(".ddObjectUrl"), "<%= DefaultObject.ObjectUrl %>");
                 _dlg.find(".tbObjDelay").val("<%= DefaultObject.TimeDelay %>");
                 _dlg.find(".tbObjDuration").val("<%= DefaultObject.TransitionDuration %>");
                 _dlg.find(".tbObjOpacity").val("<%= DefaultObject.Opacity %>");
                 _dlg.find(".tbObjPosX").val(<%= DefaultObject.Xposition %>);
                 _dlg.find(".tbObjPosY").val(<%= DefaultObject.Yposition %>);
+                _dlg.find(".ddVerticalAlgin").val("<%= DefaultObject.VerticalAlign.ToString() %>");
                 _dlg.find(".tbObjGlowSize").val(<%= DefaultObject.GlowSize %>);
                 _dlg.find(".tbObjGlowColor").val("<%= avt.AllinOneRotator.Net.ColorExt.ColorToHexString(DefaultObject.GlowColor) %>");
                 _dlg.find(".tbObjGlowStrength").val(<%= DefaultObject.GlowStrength %>);
+
+                _dlg.find(".tbTextColor").val("<%= avt.AllinOneRotator.Net.ColorExt.ColorToHexString(DefaultObject.TextColor) %>");
+                _dlg.find(".tbBgTextColor").val("<%= avt.AllinOneRotator.Net.ColorExt.ColorToHexString(DefaultObject.TextBackgroundColor) %>");
+                _dlg.find(".tbTextBgOpacity").val(<%= DefaultObject.TextBackgroundOpacity %>);
+                _dlg.find(".tbTextPadding").val(<%= DefaultObject.TextBackgroundPadding %>);
+
+                _dlg.find(".ddAppearMode").val("<%= DefaultObject.AppearMode.ToString() %>").change();
+
+                if (itemType.toLowerCase() =="text") {
+                    _dlg.find(".ddObjAppearFromText").val("<%= DefaultObject.SlideFrom.ToString() %>");
+                    _dlg.find(".ddObjAppearFromImage").hide();
+                } else {
+                    _dlg.find(".ddObjAppearFromImage").val("<%= DefaultObject.SlideFrom.ToString() %>");
+                    _dlg.find(".ddObjAppearFromText").hide();
+                }
+                
+                _dlg.find(".ddObjMoveType").val("<%= DefaultObject.SlideMoveType.ToString() %>");
+                _dlg.find(".ddObjEasingType").val("<%= DefaultObject.SlideEasingType.ToString() %>");
+                _dlg.find(".ddObjEffect").val("<%= DefaultObject.EffectAfterSlide.ToString() %>");
             }
 
             _dlg.find(".tbObjOpacity").keyup();
@@ -881,6 +958,7 @@
             return { 
                 id: dlg.find(".objectId").text(),
                 name: dlg.find(".tbObjName").val(),
+                htmlContents: dlg.find(".tbObjText").val(),
                 resUrl:formatUrl(dlg.find(".tbObjectUrl"), dlg.find(".ddObjectUrl")),
                 itemType: dlg.find(".itemType").text(),
                 delay: dlg.find(".tbObjDelay").val(),
@@ -888,9 +966,22 @@
                 opacity: dlg.find(".tbObjOpacity").val(),
                 posx: dlg.find(".tbObjPosX").val(),
                 posy: dlg.find(".tbObjPosY").val(),
+                valign: dlg.find(".ddVerticalAlgin").val(),
+                
                 glowSize: dlg.find(".tbObjGlowSize").val(),
                 glowColor: dlg.find(".tbObjGlowColor").val(),
-                glowStrength: dlg.find(".tbObjGlowStrength").val()
+                glowStrength: dlg.find(".tbObjGlowStrength").val(),
+
+                textColor: dlg.find(".tbTextColor").val(),
+                textBackgroundColor: dlg.find(".tbBgTextColor").val(),
+                textBackgroundOpacity: dlg.find(".tbTextBgOpacity").val(),
+                textBackgroundPadding: dlg.find(".tbTextPadding").val(),
+
+                appearMode: dlg.find(".ddAppearMode").val(),
+                slideFrom: dlg.find(".itemType").text() == "text" ? dlg.find(".ddObjAppearFromText").val() : dlg.find(".ddObjAppearFromImage").val(),
+                slideMoveType: dlg.find(".ddObjMoveType").val(),
+                slideEasingType: dlg.find(".ddObjEasingType").val(),
+                effectAfterSlide: dlg.find(".ddObjEffect").val()
             };
         }
 

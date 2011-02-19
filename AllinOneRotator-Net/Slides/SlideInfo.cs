@@ -39,11 +39,11 @@ namespace avt.AllinOneRotator.Net
         Right
     }
 
-    public enum eVerticalAlgin {
-        Top,
-        Middle,
-        Bottom
-    }
+    //public enum eVerticalAlgin {
+    //    Top,
+    //    Middle,
+    //    Bottom
+    //}
 
     public enum eLinkTarget {
         Self,
@@ -96,74 +96,74 @@ namespace avt.AllinOneRotator.Net
         #endregion
 
 
-        #region Text
+        //#region Text
 
-        Color _GlowColor = Color.White;
-        [TypeConverter(typeof(WebColorConverter))]
-        [Category("Text.Effects")]
-        public Color GlowColor { get { return _GlowColor; } set { _GlowColor = value; } }
+        //Color _GlowColor = Color.White;
+        //[TypeConverter(typeof(WebColorConverter))]
+        //[Category("Text.Effects")]
+        //public Color GlowColor { get { return _GlowColor; } set { _GlowColor = value; } }
 
-        int _GlowSize = 10;
-        [Category("Text.Effects")]
-        public int GlowSize { get { return _GlowSize; } set { _GlowSize = value; } }
+        //int _GlowSize = 10;
+        //[Category("Text.Effects")]
+        //public int GlowSize { get { return _GlowSize; } set { _GlowSize = value; } }
 
-        int _GlowStrength = 3;
-        [Category("Text.Effects")]
-        public int GlowStrength { get { return _GlowStrength; } set { _GlowStrength = value; } }
+        //int _GlowStrength = 3;
+        //[Category("Text.Effects")]
+        //public int GlowStrength { get { return _GlowStrength; } set { _GlowStrength = value; } }
 
-        int _TextTransparency = 10;
-        [Category("Text.Effects")]
-        public int TextTransparency { get { return _TextTransparency; } set { _TextTransparency = value; } }
+        //int _TextTransparency = 10;
+        //[Category("Text.Effects")]
+        //public int TextTransparency { get { return _TextTransparency; } set { _TextTransparency = value; } }
 
         
-        eMoveType _MoveType = eMoveType.Strong;
-        [Category("Text.Transition")]
-        public eMoveType MoveType { get { return _MoveType; } set { _MoveType = value; } }
+        //eMoveType _MoveType = eMoveType.Strong;
+        //[Category("Text.Transition")]
+        //public eMoveType MoveType { get { return _MoveType; } set { _MoveType = value; } }
 
-        eEasing _EasingType = eEasing.Out;
-        [Category("Text.Transition")]
-        public eEasing EasingType { get { return _EasingType; } set { _EasingType = value; } }
+        //eEasing _EasingType = eEasing.Out;
+        //[Category("Text.Transition")]
+        //public eEasing EasingType { get { return _EasingType; } set { _EasingType = value; } }
 
-        int _TransitionDuration = 2;
-        [Category("Text.Transition")]
-        public int TransitionDuration { get { return _TransitionDuration; } set { _TransitionDuration = value; } }
+        //int _TransitionDuration = 2;
+        //[Category("Text.Transition")]
+        //public int TransitionDuration { get { return _TransitionDuration; } set { _TransitionDuration = value; } }
 
-        bool _JustFade = false;
-        [Category("Text.Transition")]
-        public bool JustFade { get { return _JustFade; } set { _JustFade = value; } }
+        //bool _JustFade = false;
+        //[Category("Text.Transition")]
+        //public bool JustFade { get { return _JustFade; } set { _JustFade = value; } }
 
-        eHorizontadDirs _AppearFrom = eHorizontadDirs.Right;
-        [Category("Text.Transition")]
-        public eHorizontadDirs AppearFrom { get { return _AppearFrom; } set { _AppearFrom = value; } }
-
-
-        int _FinalXposition = 15;
-        [Category("Text.Position")]
-        public int FinalXposition { get { return _FinalXposition; } set { _FinalXposition = value; } }
-
-        eVerticalAlgin _VerticalAlign = eVerticalAlgin.Middle;
-        [Category("Text.Position")]
-        public eVerticalAlgin VerticalAlign { get { return _VerticalAlign; } set { _VerticalAlign = value; } }
-
-        int _TextPadding = 5;
-        [Category("Text.Position")]
-        public int TextPadding { get { return _TextPadding; } set { _TextPadding = value; } }
+        //eHorizontadDirs _AppearFrom = eHorizontadDirs.Right;
+        //[Category("Text.Transition")]
+        //public eHorizontadDirs AppearFrom { get { return _AppearFrom; } set { _AppearFrom = value; } }
 
 
-        bool _UseBackground = false;
-        [Category("Text.Background")]
-        public bool UseBackground { get { return _UseBackground; } set { _UseBackground = value; } }
+        //int _FinalXposition = 15;
+        //[Category("Text.Position")]
+        //public int FinalXposition { get { return _FinalXposition; } set { _FinalXposition = value; } }
 
-        Color _TextBackgroundColor = Color.White;
-        [TypeConverter(typeof(WebColorConverter))]
-        [Category("Text.Background")]
-        public Color TextBackgroundColor { get { return _TextBackgroundColor; } set { _TextBackgroundColor = value; } }
+        //eVerticalAlgin _VerticalAlign = eVerticalAlgin.Middle;
+        //[Category("Text.Position")]
+        //public eVerticalAlgin VerticalAlign { get { return _VerticalAlign; } set { _VerticalAlign = value; } }
 
-        int _TextBackgroundTransparency = 70;
-        [Category("Text.Background")]
-        public int TextBackgroundTransparency { get { return _TextBackgroundTransparency; } set { _TextBackgroundTransparency = value; } }
+        //int _TextPadding = 5;
+        //[Category("Text.Position")]
+        //public int TextPadding { get { return _TextPadding; } set { _TextPadding = value; } }
 
-        #endregion
+
+        //bool _UseBackground = false;
+        //[Category("Text.Background")]
+        //public bool UseBackground { get { return _UseBackground; } set { _UseBackground = value; } }
+
+        //Color _TextBackgroundColor = Color.White;
+        //[TypeConverter(typeof(WebColorConverter))]
+        //[Category("Text.Background")]
+        //public Color TextBackgroundColor { get { return _TextBackgroundColor; } set { _TextBackgroundColor = value; } }
+
+        //int _TextBackgroundTransparency = 70;
+        //[Category("Text.Background")]
+        //public int TextBackgroundTransparency { get { return _TextBackgroundTransparency; } set { _TextBackgroundTransparency = value; } }
+
+        //#endregion
 
 
         #region Objects
@@ -366,25 +366,38 @@ namespace avt.AllinOneRotator.Net
             Writer.WriteAttributeString("gradient2", ColorExt.ColorToHexString(BackgroundGradientTo).Replace("#", "0x"));
             Writer.WriteEndElement(); //  ("background");
 
-            // text node and attributes
-            Writer.WriteStartElement("theText");
-            Writer.WriteAttributeString("glowSize", GlowSize.ToString());
-            Writer.WriteAttributeString("glowColor", ColorExt.ColorToHexString(GlowColor).Replace("#", "0x"));
-            Writer.WriteAttributeString("glowStrength", GlowStrength.ToString());
-            Writer.WriteAttributeString("moveType", MoveType.ToString());
-            Writer.WriteAttributeString("easingType", EasingType.ToString());
-            Writer.WriteAttributeString("transitionDuration", TransitionDuration.ToString());
-            Writer.WriteAttributeString("justFade", JustFade ? "yes" : "no");
-            Writer.WriteAttributeString("appearFrom", AppearFrom.ToString().ToLower());
-            Writer.WriteAttributeString("finalXposition", FinalXposition.ToString());
-            Writer.WriteAttributeString("verticalAlign", VerticalAlign.ToString().ToLower());
-            Writer.WriteCData(TextContent);
-            Writer.WriteEndElement(); // ("theText");
+            //// text node and attributes
+            //Writer.WriteStartElement("theText");
+            //Writer.WriteAttributeString("glowSize", GlowSize.ToString());
+            //Writer.WriteAttributeString("glowColor", ColorExt.ColorToHexString(GlowColor).Replace("#", "0x"));
+            //Writer.WriteAttributeString("glowStrength", GlowStrength.ToString());
+            //Writer.WriteAttributeString("moveType", MoveType.ToString());
+            //Writer.WriteAttributeString("easingType", EasingType.ToString());
+            //Writer.WriteAttributeString("transitionDuration", TransitionDuration.ToString());
+            //Writer.WriteAttributeString("justFade", JustFade ? "yes" : "no");
+            //Writer.WriteAttributeString("appearFrom", AppearFrom.ToString().ToLower());
+            //Writer.WriteAttributeString("finalXposition", FinalXposition.ToString());
+            //Writer.WriteAttributeString("verticalAlign", VerticalAlign.ToString().ToLower());
+            //Writer.WriteCData(TextContent);
+            //Writer.WriteEndElement(); // ("theText");
+            bool bTextFound = false;
+            foreach (SlideObjectInfo slideObj in SlideObjects) {
+                if (slideObj.ObjectType == eObjectType.Text) {
+                    slideObj.ToXml(Writer);
+                    bTextFound = true;
+                    break;
+                }
+            }
+            if (!bTextFound) {
+                Writer.WriteElementString("theText", "");
+            }
 
             // slide objects
             Writer.WriteStartElement("pictures"); 
             foreach (SlideObjectInfo slideObj in SlideObjects) {
-                slideObj.ToXml(Writer);
+                if (slideObj.ObjectType != eObjectType.Text) {
+                    slideObj.ToXml(Writer);
+                }
             }
             Writer.WriteEndElement(); // ("pictures");
 

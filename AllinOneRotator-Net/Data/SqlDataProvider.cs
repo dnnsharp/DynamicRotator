@@ -51,11 +51,13 @@ namespace avt.AllinOneRotator.Net.Data
                 config.DbOwner + config.ObjQualifier + "avtRotator_SlideObjects",
                 true,
                 new string[] { "ObjectId" },
-                "SlideId", "ObjectType", "Name", "ResourceUrl",
+                "SlideId", "ObjectType", "Name", "Text", "ResourceUrl",
                 "DelaySeconds", "DurationSeconds",
                 "Opacity",
                 "PositionX", "PositionY", "VerticalAlign",
-                "GlowSize", "GlowStrength", "GlowColor"
+                "GlowSize", "GlowStrength", "GlowColor",
+                "AppearMode", "SlideFrom", "SlideMoveType", "SlideEasingType", "EffectAfterSlide",
+                "TextColor", "TextBackgroundColor", "TextBackgroundOpacity", "TextBackgroundPadding"
             );
         }
 
@@ -126,19 +128,23 @@ namespace avt.AllinOneRotator.Net.Data
 
 
         public override int UpdateSlideObject(
-            int slideObjectId, int slideId, string objectType, string name, string resUrl,
+            int slideObjectId, int slideId, string objectType, string name, string text, string resUrl,
             int delaySeconds, int durationSeconds,
             int opacity,
             int xPos, int yPos, string vAlign,
-            int glowSize, int glowStrength, string glowColor)
+            int glowSize, int glowStrength, string glowColor,
+            string appearMode, string slideFrom, string slideMoveType, string slideEasingType, string effectAfterSlide,
+            string textColor, string textBackgroundColor, int textBackgroundOpacity, int textBackgroundPadding)
         {
             return _TableSlideObjects.Update(
-                new object[] { slideObjectId }, 
-                slideId, objectType, name, resUrl,
+                new object[] { slideObjectId },
+                slideId, objectType, name, text, resUrl,
                 delaySeconds, durationSeconds,
                 opacity,
                 xPos, yPos, vAlign,
-                glowSize, glowStrength, glowColor
+                glowSize, glowStrength, glowColor,
+                appearMode, slideFrom, slideMoveType, slideEasingType, effectAfterSlide,
+                textColor, textBackgroundColor, textBackgroundOpacity, textBackgroundPadding
             );
         }
 
