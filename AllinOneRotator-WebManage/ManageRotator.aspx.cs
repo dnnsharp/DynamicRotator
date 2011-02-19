@@ -198,7 +198,7 @@ namespace avt.AllinOneRotator.Net.WebManage
                             slideObj.Text = xmlSlideObj["htmlContents"].InnerText;
                             slideObj.ObjectType = (eObjectType)Enum.Parse(typeof(eObjectType), xmlSlideObj["itemType"].InnerText, true);
                             slideObj.ObjectUrl = xmlSlideObj["resUrl"].InnerText;
-                            slideObj.TimeDelay = Convert.ToInt32(xmlSlideObj["delay"].InnerText);
+                            try { slideObj.TimeDelay = Convert.ToInt32(xmlSlideObj["delay"].InnerText); } catch { }
                             slideObj.TransitionDuration = Convert.ToInt32(xmlSlideObj["duration"].InnerText);
                             slideObj.Opacity = Convert.ToInt32(xmlSlideObj["opacity"].InnerText);
                             slideObj.Xposition = Convert.ToInt32(xmlSlideObj["posx"].InnerText);

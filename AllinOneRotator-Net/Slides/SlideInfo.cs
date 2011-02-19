@@ -366,20 +366,7 @@ namespace avt.AllinOneRotator.Net
             Writer.WriteAttributeString("gradient2", ColorExt.ColorToHexString(BackgroundGradientTo).Replace("#", "0x"));
             Writer.WriteEndElement(); //  ("background");
 
-            //// text node and attributes
-            //Writer.WriteStartElement("theText");
-            //Writer.WriteAttributeString("glowSize", GlowSize.ToString());
-            //Writer.WriteAttributeString("glowColor", ColorExt.ColorToHexString(GlowColor).Replace("#", "0x"));
-            //Writer.WriteAttributeString("glowStrength", GlowStrength.ToString());
-            //Writer.WriteAttributeString("moveType", MoveType.ToString());
-            //Writer.WriteAttributeString("easingType", EasingType.ToString());
-            //Writer.WriteAttributeString("transitionDuration", TransitionDuration.ToString());
-            //Writer.WriteAttributeString("justFade", JustFade ? "yes" : "no");
-            //Writer.WriteAttributeString("appearFrom", AppearFrom.ToString().ToLower());
-            //Writer.WriteAttributeString("finalXposition", FinalXposition.ToString());
-            //Writer.WriteAttributeString("verticalAlign", VerticalAlign.ToString().ToLower());
-            //Writer.WriteCData(TextContent);
-            //Writer.WriteEndElement(); // ("theText");
+            
             bool bTextFound = false;
             foreach (SlideObjectInfo slideObj in SlideObjects) {
                 if (slideObj.ObjectType == eObjectType.Text) {
@@ -389,7 +376,11 @@ namespace avt.AllinOneRotator.Net
                 }
             }
             if (!bTextFound) {
-                Writer.WriteElementString("theText", "");
+                // text default node and attributes so it doesn't crash
+                SlideObjectInfo emptyText = new SlideObjectInfo();
+                emptyText.ObjectType = eObjectType.Text;
+                emptyText.Text = "";
+                emptyText.ToXml(Writer);
             }
 
             // slide objects

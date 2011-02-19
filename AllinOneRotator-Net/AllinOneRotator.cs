@@ -275,7 +275,10 @@ namespace avt.AllinOneRotator.Net
                 manageUrl += "&dbOwner=" + DbOwner;
                 manageUrl += "&objQualifier=" + DbObjectQualifier;
                 manageUrl += "&rurl=" + HttpUtility.UrlEncode(HttpContext.Current.Request.RawUrl);
-                output.Write("<a href='" + manageUrl + "'>Modify Rotator Settings</a>");
+                output.Write("<br />");
+                output.Write("<a href='" + manageUrl + "#tabs-main-slides'>Manage Slides</a>");
+                output.Write("<br />");
+                output.Write("<a href='" + manageUrl + "'>Manage Rotator Settings</a>");
             }
         }
 

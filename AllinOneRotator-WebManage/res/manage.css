@@ -245,9 +245,13 @@
 }
 
 
-.objFieldRow {
+.objFieldRow td.hdr {
     margin: 1px 10px 1px 0;
     padding: 0 8px;
+    font-weight: bold;
+}
+
+.objFieldRow td {
     color: #1C94C4;
 }
 
@@ -293,6 +297,13 @@
     font-size: 1px;
     background-color: #FDF9E1;
     border:1px solid #c2c2c2;
+    padding: 0;
+}
+
+.rowSepGray td {
+    font-size: 1px;
+    background-color: #f6f6f6;
+    border:1px solid #dadada;
     padding: 0;
 }
 

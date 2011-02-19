@@ -272,9 +272,9 @@
                     </div>
 
                     <div class = "pnlSlideOptGroups">
-                        <a href = "#" class="slideOptsGroup ui-state-hover" style="margin-top: 10px" onclick="return false;">General</a>
+                        <a href = "#" class="slideOptsGroup ui-state-default" style="margin-top: 10px" onclick="return false;">General</a>
                         <a href = "#" class="slideOptsGroup ui-state-default" onclick="return false;">Slide Link</a>
-                        <a href = "#" class="slideOptsGroup ui-state-default" onclick="return false;">Graphics / Content</a>
+                        <a href = "#" class="slideOptsGroup ui-state-hover" onclick="return false;">Graphics / Content</a>
                         <a href = "#" class="slideOptsGroup ui-state-default" onclick="return false;">Music</a>
                     </div>
 
@@ -370,7 +370,7 @@
             <ul id = "slides">
                 
             </ul>
-            <a href = "#" onclick="addSlide(); return false;"><img src="<%= TemplateSourceDirectory %>/res/img/add.gif" border="0" /> Add Slide</a>
+            <a href = "#" onclick="addSlide(true); return false;"><img src="<%= TemplateSourceDirectory %>/res/img/add.gif" border="0" /> Add Slide</a>
         </div>
 
         <div id = "tabs-main-presets">
@@ -392,7 +392,7 @@
     </div>
 
 
-    <div id = "dlgObjectSettings">
+    <div id = "dlgObjectSettings" style="overflow:visible;">
 
         <div id = "objSettingsTabs">
             <ul>
@@ -406,148 +406,183 @@
                     <span class="objectId">-1</span>
                     <span class="itemType"></span>
                     
-                    <div class = "objFieldRow ui-widget-content">
-                        <b>Name: </b> 
-                        <input type="text" class = "tbObjName tbRequired" style = "width: 200px;" />
-                    </div>
-                    <div class = "objFieldRow ui-widget-content objFieldImgOnly" style="clear: left;">
-                        <b>Resource URL: </b> 
-                        <select class = "ddUrl ddObjectUrl">
-                            <option>http://</option>
-                            <option>https://</option>
-                            <option>ftp://</option>
-                            <option>other</option>
-                        </select>
-                        <input type="text" class = "tbUrl tbObjectUrl tbRequired" style = "width: 260px;" />
-                    </div>
-                    <div class = "objFieldRow ui-widget-content" style="clear: left;">
-                        <b>Link URL: </b> 
-                        <select class = "ddUrl ddLinkUrl">
-                            <option>http://</option>
-                            <option>https://</option>
-                            <option>ftp://</option>
-                            <option>other</option>
-                        </select>
-                        <input type="text" class = "tbUrl tbLinkUrl" style = "width: 260px;" />
-                    </div>
-                    <div class = "objFieldRow ui-widget-content" style="clear: left;">
-                        <b>Position: </b>
-                        <b>X</b> <input type="text" style = "width: 40px;" class="tbObjPosX tbNumber" />
-                        <b>Y</b> <input type="text" style = "width: 40px;" class="tbObjPosY tbNumber objFieldImgOnly" />
-                        <asp:DropDownList runat="server" ID = "ddVerticalAlgin" class = "ddVerticalAlgin objFieldTextOnly">
-                        </asp:DropDownList>
-                    </div>
-                    <div class = "objFieldRow ui-widget-content objFieldTextOnly">
-                        <b>Text: </b> 
-                        <textarea class = "tbObjText" style = "width: 360px; height: 60px;"></textarea>
-                    </div>
-                    <div style ="clear:both;"></div>
-                    <br /><br />
-                    <a href = "#" onclick="deleteSlideObject(); return false;" style="color:red;">Delete This Object</a>
+                    <table>
+                        <tr class="rowSepGray"><td colspan="2">&nbsp;</td></tr>
+
+                        <tr class = "objFieldRow ui-widget-content">
+                            <td class = "ui-widget-content hdr">Name:</td>
+                            <td class = "ui-widget-content"><input type="text" class = "tbObjName tbRequired" style = "width: 200px;" /></td>
+                        </tr>
+                        <tr class = "objFieldRow ui-widget-content">
+                            <td class = "ui-widget-content hdr">Position:</td>
+                            <td class = "ui-widget-content">
+                                <b>X</b> <input type="text" style = "width: 40px;" class="tbObjPosX tbNumber" />
+                                <b>Y</b> <input type="text" style = "width: 40px;" class="tbObjPosY tbNumber objFieldImgOnly" />
+                                <asp:DropDownList runat="server" ID = "ddVerticalAlgin" class = "ddVerticalAlgin objFieldTextOnly">
+                                </asp:DropDownList>
+                            </td>
+                        </tr>
+                        <tr class = "objFieldRow ui-widget-content">
+                            <td class = "ui-widget-content hdr">Link URL:</td>
+                            <td class = "ui-widget-content">
+                                <select class = "ddUrl ddLinkUrl">
+                                    <option>http://</option>
+                                    <option>https://</option>
+                                    <option>ftp://</option>
+                                    <option>other</option>
+                                </select>
+                                <input type="text" class = "tbUrl tbLinkUrl" style = "width: 300px;" />
+                            </td>
+                        </tr>
+                        
+                        <tr class=""><td colspan="3" style="font-size:5px;">&nbsp;</td></tr>
+                        <tr class="rowSepGray"><td colspan="2">&nbsp;</td></tr>
+                        
+                        <tr class = "objFieldRow ui-widget-content objFieldImgOnly">
+                            <td class = "ui-widget-content hdr">Resource URL:</td>
+                            <td class = "ui-widget-content">
+                                <select class = "ddUrl ddObjectUrl">
+                                    <option>http://</option>
+                                    <option>https://</option>
+                                    <option>ftp://</option>
+                                    <option>other</option>
+                                </select>
+                                <input type="text" class = "tbUrl tbObjectUrl tbRequired" style = "width: 300px;" />
+                            </td>
+                        </tr>
+                        <tr class = "objFieldRow ui-widget-content objFieldTextOnly">
+                            <td class = "ui-widget-content hdr">Text:</td>
+                            <td class = "ui-widget-content"><textarea class = "tbObjText" style = "width: 380px; height: 60px;"></textarea></td>
+                        </tr>
+                        
+                    </table>
+                    
+                    <br />
                 </div>
             </div>
 
             <div id = "obj-settings-effect">
                 <div style = "margin: 8px;">
-                    <div class = "objFieldRow ui-widget-content">
-                        <div style = "float: left"><b>Opacity: </b> </div>
-                        <div style="width: 300px; margin-left: 100px;">
-                            <input type="text" class = "tbObjOpacity tbNumber tbRange" style = "width: 60px;" />
-                        </div>
-                        <div style="clear:both;"></div>
-                    </div>
-                    <div class = "objFieldRow ui-widget-content" style ="margin-top:8px;">
-                        <b>Glow Size: </b> 
-                        <input type="text" class = "tbObjGlowSize" style = "width: 60px;" />
-                    </div>
-                    
-                    <div class = "objFieldRow ui-widget-content" style="clear: left;">
-                        <b>Glow Color: </b> 
-                        <input type="text" style = "width: 60px;" class="tbColor tbObjGlowColor" />
-                    </div>
-                    <div class = "objFieldRow ui-widget-content">
-                        <b>Glow Strength: </b> 
-                        <input type="text" class = "tbObjGlowStrength" style = "width: 60px;" />
-                    </div>
-                    <div style ="clear:both;"></div>
+                    <table width="480px" cellpadding="0" cellspacing="2" border="0">
+                        <tr class="rowSepGray"><td colspan="2">&nbsp;</td></tr>
+                        <tr class = "objFieldRow ui-widget-content">
+                            <td class = "ui-widget-content hdr">Opacity:</td>
+                            <td class = "ui-widget-content"><input type="text" class = "tbObjOpacity tbNumber tbRange" style = "width: 30px;" /></td>
+                        </tr>
+                        <tr class = "objFieldRow ui-widget-content">
+                            <td class = "ui-widget-content hdr">Glow:</td>
+                            <td class = "ui-widget-content" style="text-align: center">
+                                <b>Size:</b> <input type="text" class = "tbObjGlowSize" style = "width: 30px;" />
+                                <b>Color:</b> <input type="text" style = "width: 60px;" class="tbColor tbObjGlowColor" />
+                                <b>Strength:</b> <input type="text" class = "tbObjGlowStrength" style = "width: 30px;" />
+                            </td>
+                        </tr>
+                    </table>
 
-                    <div class = "objFieldRow ui-widget-content objFieldTextOnly" style ="margin-top:8px;">
-                        <b>Text Color: </b> 
-                        <input type="text" style = "width: 60px;" class="tbColor tbTextColor" />
-                    </div>
-                    <div class = "objFieldRow ui-widget-content objFieldTextOnly">
-                        <b>Text Background Color: </b> 
-                        <input type="text" style = "width: 60px;" class="tbColor tbBgTextColor" />
-                    </div>
-                    <div class = "objFieldRow ui-widget-content objFieldTextOnly">
-                        <div style = "float: left"><b>Text Background Opacity: </b> </div>
-                        <div style="width: 300px; margin-left: 100px;">
-                            <input type="text" class = "tbTextBgOpacity tbNumber tbRange" style = "width: 60px;" />
-                        </div>
-                        <div style="clear:both;"></div>
-                    </div>
-                    <div class = "objFieldRow ui-widget-content objFieldTextOnly" style ="margin-top:8px;">
-                        <b>Text Padding: </b> 
-                        <input type="text" class = "tbTextPadding tbNumber" style = "width: 60px;" />
-                    </div>
-                    <div style ="clear:both;"></div>
+                    <table width="480px" cellpadding="0" cellspacing="2" border="0" style = "margin-top:8px;" class = "objFieldTextOnly">
+                        <tr class="rowSepGray"><td colspan="2">&nbsp;</td></tr>
 
+                        <tr class = "objFieldRow ui-widget-content objFieldTextOnly">
+                            <td class = "ui-widget-content hdr">Text Color:</td>
+                            <td class = "ui-widget-content"><input type="text" style = "width: 60px;" class="tbColor tbTextColor" /></td>
+                        </tr>
+                        <tr class = "objFieldRow ui-widget-content objFieldTextOnly">
+                            <td class = "ui-widget-content hdr">Text Background:</td>
+                            <td class = "ui-widget-content" style="">
+                                <table style="width:300px;margin-left:20px;">
+                                    <tr>
+                                        <td>Color</td>
+                                        <td style="width:220px"><input type="text" style = "width: 60px;" class="tbColor tbBgTextColor" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Opacity</td>
+                                        <td><input type="text" class = "tbTextBgOpacity tbNumber tbRange" style = "width: 30px;" /></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr class = "objFieldRow ui-widget-content objFieldTextOnly">
+                            <td class = "ui-widget-content hdr">Text Padding:</td>
+                            <td class = "ui-widget-content"><input type="text" class = "tbTextPadding tbNumber" style = "width: 60px;" /></td>
+                        </tr>
+                    </table>
                 </div>
             </div>
 
             <div id = "obj-settings-transition">
                 <div style = "margin: 8px;">
-                    <div class = "objFieldRow ui-widget-content">
-                        <span class ="objFieldImgOnly">
-                            <b>Delay: </b> 
-                            <input type="text" class = "tbObjDelay tbNumber" style = "width: 60px;" /> seconds
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                        </span>
-                        <b>Duration: </b> 
-                        <input type="text" class = "tbObjDuration tbNumber" style = "width: 60px;" /> seconds
-                    </div>
-                    <div class = "objFieldRow ui-widget-content">
-                        <b>Appear with: </b> 
-                        <asp:DropDownList runat="server" ID = "ddAppearMode" class = "ddAppearMode" onchange="jQuery(this).val() == 'Slide' ? jQuery('#pnlObjSlideParams').show() : jQuery('#pnlObjSlideParams').hide()" >
-                        </asp:DropDownList>
-                    </div>
+                    <table width="480px" cellpadding="0" cellspacing="2" border="0">
+                        <tr class="rowSepGray"><td colspan="2">&nbsp;</td></tr>
+                        
+                        <tr class = "objFieldRow ui-widget-content">
+                            <td class = "ui-widget-content hdr" colspan="2">
+                                <table style="margin:0; width:100%;">
+                                    <tr>
+                                        <td>
+                                            <div class = "objFieldImgOnly" style="border-right: 1px solid #d2d2d2;">
+                                                <b>Delay: </b> 
+                                                <input type="text" class = "tbObjDelay tbNumber" style = "width: 60px;" /> seconds
+                                            </div>
+                                        </td>
+                                        <td style="padding-left: 10px;">
+                                            <b>Duration: </b> 
+                                            <input type="text" class = "tbObjDuration tbNumber" style = "width: 60px;" /> seconds
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
 
-                    <div id = "pnlObjSlideParams" style="display:none; margin-top: 8px;">
-                        <div class = "objFieldRow ui-widget-content">
-                            <b>Appear from: </b> 
-                            <asp:DropDownList runat="server" ID = "ddObjAppearFromText" class = "ddObjAppearFrom ddObjAppearFromText">
-                            </asp:DropDownList>
+                    <table width="480px" cellpadding="0" cellspacing="2" border="0" style="margin-top: 8px;">
+                        <tr class="rowSepGray"><td colspan="2">&nbsp;</td></tr>
+                        <tr class = "objFieldRow ui-widget-content">
+                            <td class = "ui-widget-content hdr">Appear with:</td>
+                            <td class = "ui-widget-content" style="width: 320px;"><asp:DropDownList runat="server" ID = "ddAppearMode" class = "ddAppearMode" onchange="jQuery(this).val() == 'Slide' ? jQuery('#pnlObjSlideParams').show() : jQuery('#pnlObjSlideParams').hide()" style="width:160px" ></asp:DropDownList></td>
+                        </tr>
+                    </table>
 
-                            <asp:DropDownList runat="server" ID = "ddObjAppearFromImage" class = "ddObjAppearFrom ddObjAppearFromImage">
-                            </asp:DropDownList>
-                        </div>
-                        <div class = "objFieldRow ui-widget-content">
-                            <b>Move Type: </b> 
-                            <asp:DropDownList runat="server" ID = "ddObjMoveType" class = "ddObjMoveType">
-                            </asp:DropDownList>
-                        </div>
-                        <div class = "objFieldRow ui-widget-content">
-                            <b>Easing Type: </b> 
-                            <asp:DropDownList runat="server" ID = "ddObjEasingType" class = "ddObjEasingType">
-                            </asp:DropDownList>
-                        </div>
+                    <table width="480px" cellpadding="0" cellspacing="2" border="0" id = "pnlObjSlideParams" style="display:none; margin-top: 8px;">
+                        <tr class="rowSepGray"><td colspan="2">&nbsp;</td></tr>
 
-                        <div class = "objFieldRow ui-widget-content">
-                            <b>Effect: </b> 
-                            <asp:DropDownList runat="server" ID = "ddObjEffect" class = "ddObjEffect">
-                            </asp:DropDownList>
-                        </div>
-                    </div>
+                        <tr class = "objFieldRow ui-widget-content">
+                            <td class = "ui-widget-content hdr">Appear from:</td>
+                            <td class = "ui-widget-content" style="width: 320px;">
+                                <asp:DropDownList runat="server" ID = "ddObjAppearFromText" class = "ddObjAppearFrom ddObjAppearFromText" style="width: 160px"></asp:DropDownList>
+                                <asp:DropDownList runat="server" ID = "ddObjAppearFromImage" class = "ddObjAppearFrom ddObjAppearFromImage" style="width: 160px"></asp:DropDownList>
+                            </td>
+                        </tr>
+                        <tr class = "objFieldRow ui-widget-content">
+                            <td class = "ui-widget-content hdr">Move Type:</td>
+                            <td class = "ui-widget-content" style="width: 320px;">
+                                <asp:DropDownList runat="server" ID = "ddObjMoveType" class = "ddObjMoveType" style="width: 160px"></asp:DropDownList>
+                            </td>
+                        </tr>
+                        <tr class = "objFieldRow ui-widget-content">
+                            <td class = "ui-widget-content hdr">Easing Type:</td>
+                            <td class = "ui-widget-content" style="width: 320px;">
+                                <asp:DropDownList runat="server" ID = "ddObjEasingType" class = "ddObjEasingType" style="width: 160px"></asp:DropDownList>
+                            </td>
+                        </tr>
+                        <tr class = "objFieldRow ui-widget-content">
+                            <td class = "ui-widget-content hdr">Effect:</td>
+                            <td class = "ui-widget-content" style="width: 320px;">
+                                <asp:DropDownList runat="server" ID = "ddObjEffect" class = "ddObjEffect" style="width: 160px"></asp:DropDownList>
+                            </td>
+                        </tr>
+                    </table>
 
                 </div>
             </div>
 
         </div>
 
-        <div id = "slideObjErr">
-            There are errors in your settings!<br />
-            Please correct them then click Save again...
+        <div id = "slideObjErr" style="position:absolute;margin-top:-12px;">
+            There are errors in your settings!
+            Correct them then click Save again...
         </div>
+
+        <a href = "#" onclick="deleteSlideObject(); return false;" id="btnDeleteObj" style="color:red;position:absolute;display:block;bottom: -45px;">Delete This Object</a>
 
     </div>
 
@@ -639,11 +674,12 @@
                     'Save': function() {
                         var _dlg = jQuery("#dlgObjectSettings");
 
-                        jQuery("#slideObjErr").hide();
+                        _dlg.find("#slideObjErr").hide();
+                        _dlg.find(".tbErr").removeClass("tbErr");
 
                         // validate
                         var isValid = true;
-                        _dlg.find(".tbRequired:visible").each(function() {
+                        _dlg.find(".tbRequired").not(_dlg.find(".itemType").text() == "text" ? "objFieldImgOnly" :"objFieldTextOnly").each(function() {
                             if (jQuery.trim(jQuery(this).val()).length == 0) {
                                 jQuery(this).addClass("tbErr");
                                 
@@ -686,7 +722,7 @@
             applyColorpicker(jQuery("#objSettingsTabs"));
 
             jQuery(".tbRange").each(function() {
-                var _s = jQuery("<div style='margin-right:"+(jQuery(this).width()+16)+"px;padding-top:5px;'><div></div></div>");
+                var _s = jQuery("<div style='margin-left: 10px; margin-right:"+(jQuery(this).width()+20)+"px;padding-top:5px;'><div></div></div>");
                 _s.find("div").slider({
                     value: jQuery(this).val(),
                     orientation: "horizontal",
@@ -773,17 +809,23 @@
             });
         }
 
-        function addSlide() {
+        function addSlide(bNew) {
             var _item = jQuery("#slideTpl").clone().removeAttr("id");
             _item.appendTo(jQuery("#slides"));
 
             _item.find(".slideExtraBtn,.btnAddObject").button();
-            _item.find(".pnlSlideOptsGeneral").show();
-            //_item.find(".pnlSlideOptsContent").show();
+            //_item.find(".pnlSlideOptsGeneral").show();
             
             applyColorpicker(_item);
 
             updateSlideIndexes();
+            
+            if (bNew) {
+                _item.find(".slideOptsGroup").eq(0).click();
+            } else {
+                _item.find(".pnlSlideOptsContent").show();
+            }
+
             return _item;
         }
 
@@ -862,14 +904,19 @@
 
         function openSlideObjectSettings(slideRoot, itemType, slideObjItem) {
             var _dlg = jQuery("#dlgObjectSettings");
+
+            _dlg.find("#slideObjErr").hide();
+            _dlg.find(".tbErr").removeClass("tbErr");
+
             _dlg.find(".itemType").text(itemType);
 
             _dlg.find(".objFieldImgOnly, .objFieldTextOnly, .ddObjAppearFrom").show();
             if (itemType.toLowerCase() =="text") {
                 _dlg.find(".objFieldImgOnly").hide();
-                
+                _dlg.dialog("option", "title", "Text Settings");
             } else {
                 _dlg.find(".objFieldTextOnly").hide();
+                _dlg.dialog("option", "title", "Image/Flash Settings");
             }
             
             _dlg[0].slideObjItem = null;
@@ -908,10 +955,17 @@
                 _dlg.find(".ddObjEffect").val(slideObjItem[0].objData.effectAfterSlide);
                 
                 _dlg[0].slideObjItem = slideObjItem;
+                jQuery("#btnDeleteObj").show();
             } else {
                 // load defaults
                 _dlg.find(".objectId").text("-1");
-                _dlg.find(".tbObjName").val("<%= DefaultObject.Name %>");
+                
+                if (itemType.toLowerCase() =="text") {
+                    _dlg.find(".tbObjName").val("New Text");
+                } else {
+                    _dlg.find(".tbObjName").val("New Graphic");
+                }
+
                 _dlg.find(".tbObjText").val("<%= DefaultObject.Text %>");
                 fillUrl(_dlg.find(".tbObjectUrl"), _dlg.find(".ddObjectUrl"), "<%= DefaultObject.ObjectUrl %>");
                 _dlg.find(".tbObjDelay").val("<%= DefaultObject.TimeDelay %>");
@@ -942,6 +996,7 @@
                 _dlg.find(".ddObjMoveType").val("<%= DefaultObject.SlideMoveType.ToString() %>");
                 _dlg.find(".ddObjEasingType").val("<%= DefaultObject.SlideEasingType.ToString() %>");
                 _dlg.find(".ddObjEffect").val("<%= DefaultObject.EffectAfterSlide.ToString() %>");
+                jQuery("#btnDeleteObj").hide();
             }
 
             _dlg.find(".tbObjOpacity").keyup();
