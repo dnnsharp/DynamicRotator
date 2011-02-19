@@ -673,6 +673,15 @@
                 resizable: false,
                 closeOnEscape: true,
 
+//                open: function(event, ui) {
+//                    var _dlg = jQuery("#dlgObjectSettings");
+//                    setTimeout(function() {
+//                    _dlg.find(".tbObjOpacity").next("div").children("div:first").slider("value", jQuery(".tbObjOpacity").val());
+//                    _dlg.find(".tbTextBgOpacity").next("div").children("div:first").slider("value", jQuery(".tbTextBgOpacity").val());
+//                    },2000);
+//                },
+
+
                 buttons: {
                     'Save': function() {
                         var _dlg = jQuery("#dlgObjectSettings");
@@ -682,7 +691,16 @@
 
                         // validate
                         var isValid = true;
-                        _dlg.find(".tbRequired").not(_dlg.find(".itemType").text() == "text" ? "objFieldImgOnly" :"objFieldTextOnly").each(function() {
+                        _dlg.find(".tbRequired").each(function() { // .not(_dlg.find(".itemType").text().toLowerCase() == "text" ? ".objFieldImgOnly" :".objFieldTextOnly")
+                            
+                            if (_dlg.find(".itemType").text().toLowerCase() == "text") {
+                                if (jQuery(this).parents(".objFieldImgOnly").size() > 0)
+                                    return;
+                            } else {
+                                if (jQuery(this).parents(".objFieldTextOnly").size() > 0)
+                                    return;
+                            }
+
                             if (jQuery.trim(jQuery(this).val()).length == 0) {
                                 jQuery(this).addClass("tbErr");
                                 
@@ -692,7 +710,6 @@
                                     jQuery(this).focus();
                                     isValid = false;
                                 }
-
                             }
                         });
 
@@ -721,7 +738,18 @@
 
             });
 
-            jQuery("#objSettingsTabs").tabs();
+            jQuery("#objSettingsTabs").tabs({
+                show: function(event, ui) { 
+                    if (ui.index == 1) {
+                        try {
+                            var _dlg = jQuery("#dlgObjectSettings");
+                            _dlg.find(".tbObjOpacity").next("div").children("div:first").slider("value", jQuery(".tbObjOpacity").val());
+                            _dlg.find(".tbTextBgOpacity").next("div").children("div:first").slider("value", jQuery(".tbTextBgOpacity").val());
+                        } catch (e) {}
+                    }
+                    
+                }
+            });
             applyColorpicker(jQuery("#objSettingsTabs"));
 
             jQuery(".tbRange").each(function() {
@@ -1009,8 +1037,6 @@
                 jQuery("#btnDeleteObj").hide();
             }
 
-            _dlg.find(".tbObjOpacity").keyup();
-
             jQuery("#objSettingsTabs").tabs("select",0);
             _dlg.dialog("open");
             
@@ -1043,7 +1069,7 @@
                 textBackgroundPadding: dlg.find(".tbTextPadding").val(),
 
                 appearMode: dlg.find(".ddAppearMode").find(":checked").val(),
-                slideFrom: dlg.find(".itemType").text() == "text" ? dlg.find(".ddObjAppearFromText").find(":checked").val() : dlg.find(".ddObjAppearFromImage").find(":checked").val(),
+                slideFrom: dlg.find(".itemType").text().toLowerCase() == "text" ? dlg.find(".ddObjAppearFromText").find(":checked").val() : dlg.find(".ddObjAppearFromImage").find(":checked").val(),
                 slideMoveType: dlg.find(".ddObjMoveType").find(":checked").val(),
                 slideEasingType: dlg.find(".ddObjEasingType").find(":checked").val(),
                 effectAfterSlide: dlg.find(".ddObjEffect").val()
