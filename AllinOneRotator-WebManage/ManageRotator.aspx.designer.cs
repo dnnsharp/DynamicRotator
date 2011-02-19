@@ -226,7 +226,7 @@ namespace avt.AllinOneRotator.Net.WebManage {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddAppearMode;
+        protected global::System.Web.UI.WebControls.RadioButtonList ddAppearMode;
         
         /// <summary>
         /// ddObjAppearFromText control.
@@ -235,7 +235,7 @@ namespace avt.AllinOneRotator.Net.WebManage {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddObjAppearFromText;
+        protected global::System.Web.UI.WebControls.RadioButtonList ddObjAppearFromText;
         
         /// <summary>
         /// ddObjAppearFromImage control.
@@ -244,7 +244,7 @@ namespace avt.AllinOneRotator.Net.WebManage {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddObjAppearFromImage;
+        protected global::System.Web.UI.WebControls.RadioButtonList ddObjAppearFromImage;
         
         /// <summary>
         /// ddObjMoveType control.
@@ -253,7 +253,7 @@ namespace avt.AllinOneRotator.Net.WebManage {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddObjMoveType;
+        protected global::System.Web.UI.WebControls.RadioButtonList ddObjMoveType;
         
         /// <summary>
         /// ddObjEasingType control.
@@ -262,7 +262,7 @@ namespace avt.AllinOneRotator.Net.WebManage {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddObjEasingType;
+        protected global::System.Web.UI.WebControls.RadioButtonList ddObjEasingType;
         
         /// <summary>
         /// ddObjEffect control.

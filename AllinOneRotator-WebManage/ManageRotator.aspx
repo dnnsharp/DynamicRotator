@@ -538,7 +538,10 @@
                         <tr class="rowSepGray"><td colspan="2">&nbsp;</td></tr>
                         <tr class = "objFieldRow ui-widget-content">
                             <td class = "ui-widget-content hdr">Appear with:</td>
-                            <td class = "ui-widget-content" style="width: 320px;"><asp:DropDownList runat="server" ID = "ddAppearMode" class = "ddAppearMode" onchange="jQuery(this).val() == 'Slide' ? jQuery('#pnlObjSlideParams').show() : jQuery('#pnlObjSlideParams').hide()" style="width:160px" ></asp:DropDownList></td>
+                            <td class = "ui-widget-content" style="width: 320px;">
+                                <%--<asp:DropDownList runat="server" ID = "ddAppearMode" class = "ddAppearMode" " style="width:160px" ></asp:DropDownList>--%>
+                                <asp:RadioButtonList runat="server" ID = "ddAppearMode" class = "ddAppearMode" RepeatDirection="Horizontal" CellSpacing="4"></asp:RadioButtonList>
+                            </td>
                         </tr>
                     </table>
 
@@ -548,20 +551,20 @@
                         <tr class = "objFieldRow ui-widget-content">
                             <td class = "ui-widget-content hdr">Appear from:</td>
                             <td class = "ui-widget-content" style="width: 320px;">
-                                <asp:DropDownList runat="server" ID = "ddObjAppearFromText" class = "ddObjAppearFrom ddObjAppearFromText" style="width: 160px"></asp:DropDownList>
-                                <asp:DropDownList runat="server" ID = "ddObjAppearFromImage" class = "ddObjAppearFrom ddObjAppearFromImage" style="width: 160px"></asp:DropDownList>
+                                <asp:RadioButtonList runat="server" ID = "ddObjAppearFromText" class = "ddObjAppearFrom ddObjAppearFromText" RepeatDirection="Horizontal" CellSpacing="4"></asp:RadioButtonList>
+                                <asp:RadioButtonList runat="server" ID = "ddObjAppearFromImage" class = "ddObjAppearFrom ddObjAppearFromImage" RepeatDirection="Horizontal" CellSpacing="4"></asp:RadioButtonList>
                             </td>
                         </tr>
                         <tr class = "objFieldRow ui-widget-content">
                             <td class = "ui-widget-content hdr">Move Type:</td>
                             <td class = "ui-widget-content" style="width: 320px;">
-                                <asp:DropDownList runat="server" ID = "ddObjMoveType" class = "ddObjMoveType" style="width: 160px"></asp:DropDownList>
+                                <asp:RadioButtonList runat="server" ID = "ddObjMoveType" class = "ddObjMoveType" RepeatDirection="Horizontal" CellSpacing="4"></asp:RadioButtonList>
                             </td>
                         </tr>
                         <tr class = "objFieldRow ui-widget-content">
                             <td class = "ui-widget-content hdr">Easing Type:</td>
                             <td class = "ui-widget-content" style="width: 320px;">
-                                <asp:DropDownList runat="server" ID = "ddObjEasingType" class = "ddObjEasingType" style="width: 160px"></asp:DropDownList>
+                                <asp:RadioButtonList runat="server" ID = "ddObjEasingType" class = "ddObjEasingType" RepeatDirection="Horizontal" CellSpacing="4"></asp:RadioButtonList>
                             </td>
                         </tr>
                         <tr class = "objFieldRow ui-widget-content">
@@ -745,6 +748,12 @@
                     } catch (e) {}
                 });
             });
+
+
+            jQuery(".ddAppearMode").find(":input").change(function() {
+                jQuery(this).val() == 'Slide' ? jQuery('#pnlObjSlideParams').show() : jQuery('#pnlObjSlideParams').hide();
+            });
+            
         });
 
 
@@ -940,18 +949,19 @@
                 _dlg.find(".tbTextBgOpacity").val(slideObjItem[0].objData.textBackgroundOpacity);
                 _dlg.find(".tbTextPadding").val(slideObjItem[0].objData.textBackgroundPadding);
 
-                _dlg.find(".ddAppearMode").val(slideObjItem[0].objData.appearMode).change();
+                //_dlg.find(".ddAppearMode").val(slideObjItem[0].objData.appearMode).change();
+                _dlg.find(".ddAppearMode").find("[value="+slideObjItem[0].objData.appearMode+"]").attr("checked", "checked").change();
 
                 if (itemType.toLowerCase() =="text") {
-                    _dlg.find(".ddObjAppearFromText").val(slideObjItem[0].objData.slideFrom);
+                    _dlg.find(".ddObjAppearFromText").find("[value="+slideObjItem[0].objData.slideFrom+"]").attr("checked", "checked");
                     _dlg.find(".ddObjAppearFromImage").hide();
                 } else {
-                    _dlg.find(".ddObjAppearFromImage").val(slideObjItem[0].objData.slideFrom);
+                    _dlg.find(".ddObjAppearFromImage").find("[value="+slideObjItem[0].objData.slideFrom+"]").attr("checked", "checked");
                     _dlg.find(".ddObjAppearFromText").hide();
                 }
                 
-                _dlg.find(".ddObjMoveType").val(slideObjItem[0].objData.slideMoveType);
-                _dlg.find(".ddObjEasingType").val(slideObjItem[0].objData.slideEasingType);
+                _dlg.find(".ddObjMoveType").find("[value="+slideObjItem[0].objData.slideMoveType+"]").attr("checked", "checked");
+                _dlg.find(".ddObjEasingType").find("[value="+slideObjItem[0].objData.slideEasingType+"]").attr("checked", "checked");
                 _dlg.find(".ddObjEffect").val(slideObjItem[0].objData.effectAfterSlide);
                 
                 _dlg[0].slideObjItem = slideObjItem;
@@ -983,18 +993,18 @@
                 _dlg.find(".tbTextBgOpacity").val(<%= DefaultObject.TextBackgroundOpacity %>);
                 _dlg.find(".tbTextPadding").val(<%= DefaultObject.TextBackgroundPadding %>);
 
-                _dlg.find(".ddAppearMode").val("<%= DefaultObject.AppearMode.ToString() %>").change();
+                _dlg.find(".ddAppearMode").find("[value=<%= DefaultObject.AppearMode.ToString() %>]").attr("checked", "checked").change();
 
                 if (itemType.toLowerCase() =="text") {
-                    _dlg.find(".ddObjAppearFromText").val("<%= DefaultObject.SlideFrom.ToString() %>");
+                    _dlg.find(".ddObjAppearFromText").find("[value=<%= DefaultObject.SlideFrom.ToString() %>]").attr("checked", "checked");
                     _dlg.find(".ddObjAppearFromImage").hide();
                 } else {
-                    _dlg.find(".ddObjAppearFromImage").val("<%= DefaultObject.SlideFrom.ToString() %>");
+                    _dlg.find(".ddObjAppearFromImage").find("[value=<%= DefaultObject.SlideFrom.ToString() %>]").attr("checked", "checked");
                     _dlg.find(".ddObjAppearFromText").hide();
                 }
                 
-                _dlg.find(".ddObjMoveType").val("<%= DefaultObject.SlideMoveType.ToString() %>");
-                _dlg.find(".ddObjEasingType").val("<%= DefaultObject.SlideEasingType.ToString() %>");
+                _dlg.find(".ddObjMoveType").find("[value=<%= DefaultObject.SlideMoveType.ToString() %>]").attr("checked", "checked");
+                _dlg.find(".ddObjEasingType").find("[value=<%= DefaultObject.SlideEasingType.ToString() %>]").attr("checked", "checked");
                 _dlg.find(".ddObjEffect").val("<%= DefaultObject.EffectAfterSlide.ToString() %>");
                 jQuery("#btnDeleteObj").hide();
             }
@@ -1032,10 +1042,10 @@
                 textBackgroundOpacity: dlg.find(".tbTextBgOpacity").val(),
                 textBackgroundPadding: dlg.find(".tbTextPadding").val(),
 
-                appearMode: dlg.find(".ddAppearMode").val(),
-                slideFrom: dlg.find(".itemType").text() == "text" ? dlg.find(".ddObjAppearFromText").val() : dlg.find(".ddObjAppearFromImage").val(),
-                slideMoveType: dlg.find(".ddObjMoveType").val(),
-                slideEasingType: dlg.find(".ddObjEasingType").val(),
+                appearMode: dlg.find(".ddAppearMode").find(":checked").val(),
+                slideFrom: dlg.find(".itemType").text() == "text" ? dlg.find(".ddObjAppearFromText").find(":checked").val() : dlg.find(".ddObjAppearFromImage").find(":checked").val(),
+                slideMoveType: dlg.find(".ddObjMoveType").find(":checked").val(),
+                slideEasingType: dlg.find(".ddObjEasingType").find(":checked").val(),
                 effectAfterSlide: dlg.find(".ddObjEffect").val()
             };
         }
