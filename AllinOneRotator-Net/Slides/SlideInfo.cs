@@ -46,8 +46,10 @@ namespace avt.AllinOneRotator.Net
     //}
 
     public enum eLinkTarget {
-        Self,
-        New
+        other,
+        _self,
+        _blank,
+        _parent
     }
 
 
@@ -192,13 +194,17 @@ namespace avt.AllinOneRotator.Net
         [Category("Slide.Link")]
         public string ButtonCaption { get { return _ButtonCaption; } set { _ButtonCaption = value; } }
 
-        eLinkTarget _Target = eLinkTarget.Self;
+        string _Target = "_self";
         [Category("Slide.Link")]
-        public eLinkTarget Target { get { return _Target; } set { _Target = value; } }
+        public string Target { get { return _Target; } set { _Target = value; } }
 
         bool _UseTextsBackground = true;
         [Category("Slide.Link")]
         public bool UseTextsBackground { get { return _UseTextsBackground; } set { _UseTextsBackground = value; } }
+
+        bool _ClickAnywhere = true;
+        [Category("Slide.Link")]
+        public bool ClickAnywhere { get { return _ClickAnywhere; } set { _ClickAnywhere = value; } }
 
         #endregion  
 
@@ -247,11 +253,12 @@ namespace avt.AllinOneRotator.Net
 
             try { SlideUrl = dr["Link_Url"].ToString(); } catch { }
             try { ButtonCaption = dr["Link_Caption"].ToString(); } catch { }
-            try { Target = (eLinkTarget) Enum.Parse(typeof(eLinkTarget), dr["Link_Target"].ToString(), true); } catch { }
-            try { UseTextsBackground = dr["Link_UseTextsBackground"].ToString() == "true"; } catch { }
+            try { Target = dr["Link_Target"].ToString(); } catch { }
+            try { UseTextsBackground = dr["Link_UseTextsBackground"].ToString() == "1"; } catch { }
+            try { ClickAnywhere = dr["Link_ClickAnywhere"].ToString() == "1"; } catch { }
 
             try { Mp3Url = dr["Mp3_Url"].ToString(); } catch { }
-            try { ShowPlayer = dr["Mp3_ShowPlayer"].ToString() == "true"; } catch { }
+            try { ShowPlayer = dr["Mp3_ShowPlayer"].ToString() == "1"; } catch { }
             try { IconColor = System.Drawing.Color.FromArgb(Convert.ToInt32(dr["Mp3_IconColor"].ToString().Replace("#", "0x"), 16)); } catch { }
 
             try { ViewOrder = Convert.ToInt32(dr["ViewOrder"].ToString()); } catch { }
@@ -300,8 +307,9 @@ namespace avt.AllinOneRotator.Net
 
                 SlideUrl,
                 ButtonCaption,
-                Target.ToString(),
+                Target,
                 UseTextsBackground,
+                ClickAnywhere,
 
                 Mp3Url,
                 ShowPlayer,
@@ -330,8 +338,9 @@ namespace avt.AllinOneRotator.Net
 
             sbJson.AppendFormat("linkUrl:\"{0}\",", SlideUrl);
             sbJson.AppendFormat("linkCaption:\"{0}\",", ButtonCaption);
-            sbJson.AppendFormat("linkTarget:\"{0}\",", Target.ToString());
+            sbJson.AppendFormat("linkTarget:\"{0}\",", Target);
             sbJson.AppendFormat("useTextsBk:{0},", UseTextsBackground ? "true" : "false");
+            sbJson.AppendFormat("linkClickAnywhere:{0},", ClickAnywhere ? "true" : "false");
 
             sbJson.AppendFormat("mp3Url:\"{0}\",", Mp3Url);
             sbJson.AppendFormat("mp3IconColor:\"{0}\",", ColorExt.ColorToHexString(IconColor));
@@ -395,11 +404,14 @@ namespace avt.AllinOneRotator.Net
             // link node and attributes
             Writer.WriteStartElement("link");
 
-            Writer.WriteAttributeString("useLink", string.IsNullOrEmpty(SlideUrl) ? "no" : "yes");
-            Writer.WriteAttributeString("theTarget", Target == eLinkTarget.New ? "_blank" : "_parent");
+            Writer.WriteAttributeString("useLink", string.IsNullOrEmpty(SlideUrl) || !ClickAnywhere ? "no" : "yes");
+            Writer.WriteAttributeString("theTarget", Target);
             if (!string.IsNullOrEmpty(ButtonCaption)) {
                 Writer.WriteAttributeString("showBtn", "yes");
                 Writer.WriteAttributeString("btnName", ButtonCaption);
+            } else {
+                Writer.WriteAttributeString("showBtn", "no");
+                Writer.WriteAttributeString("btnName", "");
             }
             Writer.WriteAttributeString("useTextsBackground", UseTextsBackground ? "yes" : "no");
 

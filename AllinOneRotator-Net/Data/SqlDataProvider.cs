@@ -41,7 +41,7 @@ namespace avt.AllinOneRotator.Net.Data
                 true,
                 new string[] { "SlideId" },
                 "ControlId", "Title", "DurationSeconds", "BackgroundGradientFrom", "BackgroundGradientTo",
-                "Link_Url", "Link_Caption", "Link_Target", "Link_UseTextsBackground",
+                "Link_Url", "Link_Caption", "Link_Target", "Link_UseTextsBackground", "Link_ClickAnywhere",
                 "Mp3_Url", "Mp3_ShowPlayer", "Mp3_IconColor",
                 "ViewOrder"
             );
@@ -51,7 +51,7 @@ namespace avt.AllinOneRotator.Net.Data
                 config.DbOwner + config.ObjQualifier + "avtRotator_SlideObjects",
                 true,
                 new string[] { "ObjectId" },
-                "SlideId", "ObjectType", "Name", "Text", "ResourceUrl",
+                "SlideId", "ObjectType", "Name", "LinkUrl", "Text", "ResourceUrl",
                 "DelaySeconds", "DurationSeconds",
                 "Opacity",
                 "PositionX", "PositionY", "VerticalAlign",
@@ -98,13 +98,13 @@ namespace avt.AllinOneRotator.Net.Data
 
         public override int UpdateSlide(
             int slideId, string controlId, string title, int durationSeconds, string backgroundGradientFrom, string backgroundGradientTo,
-            string linkUrl, string linkCaption, string linkTarget, bool useTextsBk,
+            string linkUrl, string linkCaption, string linkTarget, bool useTextsBk, bool clickAnywhere,
             string mp3LinkUrl, bool mp3ShowPlayer, string mp3IconColor,
             int viewOrder)
         {
             return _TableSlides.Update(
                 new object[] { slideId }, controlId, title, durationSeconds, backgroundGradientFrom, backgroundGradientTo,
-                linkUrl, linkCaption, linkTarget, useTextsBk,
+                linkUrl, linkCaption, linkTarget, useTextsBk, clickAnywhere,
                 mp3LinkUrl, mp3ShowPlayer, mp3IconColor,
                 viewOrder
             );
@@ -128,7 +128,7 @@ namespace avt.AllinOneRotator.Net.Data
 
 
         public override int UpdateSlideObject(
-            int slideObjectId, int slideId, string objectType, string name, string text, string resUrl,
+            int slideObjectId, int slideId, string objectType, string name, string linkUrl, string text, string resUrl,
             int delaySeconds, int durationSeconds,
             int opacity,
             int xPos, int yPos, string vAlign,
@@ -138,7 +138,7 @@ namespace avt.AllinOneRotator.Net.Data
         {
             return _TableSlideObjects.Update(
                 new object[] { slideObjectId },
-                slideId, objectType, name, text, resUrl,
+                slideId, objectType, name, linkUrl, text, resUrl,
                 delaySeconds, durationSeconds,
                 opacity,
                 xPos, yPos, vAlign,

@@ -26,8 +26,10 @@ namespace avt.AllinOneRotator.Net.WebManage
                 ddSlideButtonsType.DataBind();
 
                 // load enums for slides
-                ddLinkTarget.DataSource = Enum.GetNames(typeof(eLinkTarget));
-                ddLinkTarget.DataBind();
+                ddLinkTarget.Items.Add(new ListItem("Same Window", eLinkTarget._self.ToString()));
+                ddLinkTarget.Items.Add(new ListItem("New Window", eLinkTarget._blank.ToString()));
+                ddLinkTarget.Items.Add(new ListItem("Parent Window", eLinkTarget._parent.ToString()));
+                ddLinkTarget.Items.Add(new ListItem("Named Window...", "other"));
                 try { ddLinkTarget.SelectedValue = DefaultSlide.Target.ToString(); } catch { }
 
                 ddAppearMode.DataSource = Enum.GetNames(typeof(eAppearMode));
@@ -64,6 +66,7 @@ namespace avt.AllinOneRotator.Net.WebManage
                 settings.Init(Request.QueryString["controlId"], new AspNetConfiguration());
                 settings.LoadFromDB();
 
+                lblControlName.Text = Request.QueryString["controlId"];
                 tbWidth.Text = settings.Width.Value.ToString();
                 tbHeight.Text = settings.Height.Value.ToString();
                 cbAutoStartSlideShow.Checked = settings.AutoStartSlideShow;
@@ -162,8 +165,11 @@ namespace avt.AllinOneRotator.Net.WebManage
                     slide.BackgroundGradientTo = Color.FromArgb(Convert.ToInt32(xmlSlide["bkGradTo"].InnerText.Replace("#", "0x"), 16)); 
                     slide.SlideUrl = xmlSlide["linkUrl"].InnerText;
                     slide.ButtonCaption = xmlSlide["linkCaption"].InnerText;
-                    slide.Target = (eLinkTarget) Enum.Parse(typeof(eLinkTarget), xmlSlide["linkTarget"].InnerText);
-                    slide.UseTextsBackground = xmlSlide["useTextsBk"].InnerText == "true";
+                    slide.Target = xmlSlide["linkTarget"].InnerText;
+                    //slide.UseTextsBackground = xmlSlide["useTextsBk"].InnerText == "true";
+                    slide.UseTextsBackground = true;
+                    slide.ClickAnywhere = xmlSlide["linkClickAnywhere"].InnerText == "true";
+                    
 
                     slide.Mp3Url = xmlSlide["mp3Url"].InnerText;
                     slide.ShowPlayer = xmlSlide["mp3ShowPlayer"].InnerText == "true";
@@ -195,6 +201,7 @@ namespace avt.AllinOneRotator.Net.WebManage
 
                             slideObj.SlideId = slide.Id;
                             slideObj.Name = xmlSlideObj["name"].InnerText;
+                            slideObj.Link = xmlSlideObj["linkUrl"].InnerText;
                             slideObj.Text = xmlSlideObj["htmlContents"].InnerText;
                             slideObj.ObjectType = (eObjectType)Enum.Parse(typeof(eObjectType), xmlSlideObj["itemType"].InnerText, true);
                             slideObj.ObjectUrl = xmlSlideObj["resUrl"].InnerText;

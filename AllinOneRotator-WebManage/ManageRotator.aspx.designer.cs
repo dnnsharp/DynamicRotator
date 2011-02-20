@@ -31,6 +31,15 @@ namespace avt.AllinOneRotator.Net.WebManage {
         protected global::System.Web.UI.WebControls.HiddenField hdnSlideXml;
         
         /// <summary>
+        /// lblControlName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblControlName;
+        
+        /// <summary>
         /// tbWidth control.
         /// </summary>
         /// <remarks>

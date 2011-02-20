@@ -64,7 +64,7 @@ namespace avt.AllinOneRotator.Net
         [Category("General")]
         public string Name { get { return _Name; } set { _Name = value; } }
 
-        string _Text = "Slide text, supports <i>HTML</i>";
+        string _Text = "Slide text, supports <font color='#ff0000\'>HTML</font>";
         [Category("General")]
         public string Text { get { return _Text; } set { _Text = value; } }
 
@@ -118,7 +118,7 @@ namespace avt.AllinOneRotator.Net
         [Category("Transition")]
         public eAppearMode AppearMode { get { return _AppearMode; } set { _AppearMode = value; } }
 
-        eAllDirs _SlideFrom = eAllDirs.Top;
+        eAllDirs _SlideFrom = eAllDirs.Right;
         [Category("Transition")]
         public eAllDirs SlideFrom { get { return _SlideFrom; } set { _SlideFrom = value; } }
 
@@ -140,7 +140,7 @@ namespace avt.AllinOneRotator.Net
         public string Link { get { return _Link; } set { _Link = value; } }
 
 
-        Color _TextColor = Color.White;
+        Color _TextColor = Color.FromArgb(0x42, 0x42, 0x42);
         [TypeConverter(typeof(WebColorConverter))]
         [Category("Effects")]
         public Color TextColor { get { return _TextColor; } set { _TextColor = value; } }
@@ -162,7 +162,7 @@ namespace avt.AllinOneRotator.Net
         public void Save()
         {
             Id = DataProvider.Instance().UpdateSlideObject(
-                Id, SlideId, ObjectType.ToString(), Name, Text, ObjectUrl,
+                Id, SlideId, ObjectType.ToString(), Name, Link, Text, ObjectUrl,
                 TimeDelay, TransitionDuration,
                 Opacity,
                 Xposition, Yposition, VerticalAlign.ToString().ToLower(),
@@ -193,7 +193,9 @@ namespace avt.AllinOneRotator.Net
                 Writer.WriteAttributeString("Yposition", Yposition.ToString());
             }
 
-            Writer.WriteAttributeString("timeDelay", TimeDelay.ToString());
+            if (ObjectType != eObjectType.Text) {
+                Writer.WriteAttributeString("timeDelay", TimeDelay.ToString());
+            }
             Writer.WriteAttributeString("appearFrom", SlideFrom.ToString().ToLower());
             Writer.WriteAttributeString("justFade", AppearMode == eAppearMode.Fade ? "yes" : "no");
 
@@ -221,7 +223,8 @@ namespace avt.AllinOneRotator.Net
             }
 
             //if (!string.IsNullOrEmpty(Link))
-            Writer.WriteAttributeString("theLink", Link);
+            if (ObjectType != eObjectType.Text)
+                Writer.WriteAttributeString("theLink", Link);
 
             Writer.WriteAttributeString("glowSize", GlowSize.ToString());
             Writer.WriteAttributeString("glowColor", ColorExt.ColorToHexString(GlowColor).Replace("#", "0x"));
@@ -253,6 +256,7 @@ namespace avt.AllinOneRotator.Net
             sbJson.Append("{");
             sbJson.AppendFormat("id:{0},", Id.ToString());
             sbJson.AppendFormat("name:\"{0}\",", RotatorSettings.JsonEncode(Name));
+            sbJson.AppendFormat("linkUrl:\"{0}\",", RotatorSettings.JsonEncode(Link));
             sbJson.AppendFormat("htmlContents:\"{0}\",", RotatorSettings.JsonEncode(Text));
             sbJson.AppendFormat("itemType:\"{0}\",", ObjectType.ToString());
             sbJson.AppendFormat("resUrl:\"{0}\",", RotatorSettings.JsonEncode(ObjectUrl));
@@ -287,6 +291,7 @@ namespace avt.AllinOneRotator.Net
             slideObject.SlideId = Convert.ToInt32(dr["SlideId"].ToString());
             slideObject.ObjectType = (eObjectType)Enum.Parse(typeof(eObjectType), dr["ObjectType"].ToString(), true);
             slideObject.Name = dr["Name"].ToString();
+            try { slideObject.Link = dr["LinkUrl"].ToString(); } catch { }
             try { slideObject.Text = dr["Text"].ToString(); } catch { }
             try { slideObject.ObjectUrl = dr["ResourceUrl"].ToString(); } catch { }
             try { slideObject.TimeDelay = Convert.ToInt32(dr["DelaySeconds"].ToString()); } catch { }

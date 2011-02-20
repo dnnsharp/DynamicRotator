@@ -29,7 +29,7 @@
             <asp:Button runat="server" OnClick="SaveSettings" class="ui-state-default" style="padding: 4px 10px;" Text="Save" OnClientClick="return save();" />
         </div>
 
-        <h1 class="manageTitle">Settings for <i>Control1</i></h1>
+        <h1 class="manageTitle" style="font-weight:normal; color: #626262;">Settings for <asp:Label runat="server" ID = "lblControlName" style="color: #C77405; font-weight:bold;"></asp:Label></h1>
         <div style="clear: both;"></div>
     </div>
 
@@ -266,9 +266,7 @@
                     </div>
 
                     <div class="pnlSlideExtra">
-                        <a href = "#" class="slideExtraBtn" onclick="cloneSlide(jQuery(this).parents('.slideRoot:first')); return false;" style="margin-top: 70px">Clone</a>
-                        <br />
-                        <a href = "#" class="slideExtraBtn" onclick="deleteSlide(jQuery(this).parents('.slideRoot:first')); return false;">Delete</a>
+                        <a href = "#" class="slideExtraBtn" onclick="cloneSlide(jQuery(this).parents('.slideRoot:first')); return false;" style="margin-top: 70px">Clone</a><a href = "#" class="slideExtraBtn" onclick="deleteSlide(jQuery(this).parents('.slideRoot:first')); return false;">Delete</a>
                     </div>
 
                     <div class = "pnlSlideOptGroups">
@@ -300,27 +298,39 @@
                     <div class="pnlSlideOpts pnlSlideOptsLink">
                         <div style = "margin: 8px;">
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
-                                <b>Slide URL: </b> 
+                                <b>Open </b> 
                                 <select class = "ddUrl ddLinkUrl">
                                     <option>http://</option>
                                     <option>https://</option>
                                     <option>ftp://</option>
                                     <option>other</option>
                                 </select>
-                                <input type="text" class = "tbUrl tbLinkUrl" style = "width: 260px;" value="<%= DefaultSlide.SlideUrl %>" />
+                                <input type="text" class = "tbUrl tbLinkUrl" style = "width: 200px;" value="<%= DefaultSlide.SlideUrl %>" />
+                                <b>in </b> 
+                                <asp:DropDownList runat="server" id="ddLinkTarget" class="ddLinkTarget" style="width:130px" onchange="jQuery(this).toggle(jQuery(this).val() != 'other'); jQuery(this).parents('.fieldRow:first').find('.pnlLinkTarget').toggle(jQuery(this).val() == 'other').filter(':visible').find(':input').focus().select();"></asp:DropDownList>
+                                <span class = "pnlLinkTarget" style="display:none;">
+                                    <input type="text" class = "tbLinkTarget" style = "width: 116px; " value="<%= DefaultSlide.Target %>" />
+                                    <a href = "javascript: ;" onclick="jQuery(this).parents('.pnlLinkTarget:first').hide(); jQuery(this).parents('.fieldRow:first').find('.ddLinkTarget').show().val('_self');">^</a>
+                                </span>
                             </div>
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
-                                <b>Link Caption: </b> 
+                                <label style="font-weight:bold;">
+                                    <input type="checkbox" class="cbLinkAnywhere" style = "" <%= DefaultSlide.ClickAnywhere ? "checked=\"checked\"" : "" %> />
+                                    <b>Click Anywhere inside the Slide to open link</b> 
+                                </label>
+                            </div>
+                            <div class = "fieldRow ui-widget-content" style="clear: left;">
+                                <label style="font-weight:bold;">
+                                    <input type="checkbox" class="cbLinkCaption" style = "" onclick="checkLinkCaption(jQuery(this).parents('.pnlSlideOptsLink:first'), this.checked);" />
+                                    <b>Display link button under slide text</b> 
+                                </label>
+                            </div>
+                            
+                            <div class = "fieldRow ui-widget-content pnlLinkButtonCaption" style="clear: left; padding-left: 30px;">
+                                <b>Button Caption: </b> 
                                 <input type="text" class="tbLinkCaption" style = "width: 200px;" value="<%= DefaultSlide.ButtonCaption %>" />
                             </div>
-                            <div class = "fieldRow ui-widget-content" style="clear: left;">
-                                <b>Link Target: </b> 
-                                <asp:DropDownList runat="server" id="ddLinkTarget" class="ddLinkTarget"></asp:DropDownList>
-                            </div>
-                            <div class = "fieldRow ui-widget-content" style="clear: left;">
-                                <b>Use Texts Background: </b> 
-                                <input type="checkbox" class = "cbUseTextsBackground" style = "" <%= DefaultSlide.UseTextsBackground ? "checked='checked'" :"" %> />
-                            </div>
+
                         </div>
                     </div>
 
@@ -422,7 +432,7 @@
                                 </asp:DropDownList>
                             </td>
                         </tr>
-                        <tr class = "objFieldRow ui-widget-content">
+                        <tr class = "objFieldRow ui-widget-content objFieldImgOnly">
                             <td class = "ui-widget-content hdr">Link URL:</td>
                             <td class = "ui-widget-content">
                                 <select class = "ddUrl ddLinkUrl">
@@ -859,6 +869,7 @@
             
             if (bNew) {
                 _item.find(".slideOptsGroup").eq(0).click();
+                _item.find(".tbSlideTitle").focus().select();
             } else {
                 _item.find(".pnlSlideOptsContent").show();
             }
@@ -877,13 +888,28 @@
             slideRoot.find(".tbColortbBkGradTo").val(slide.bkGradTo);
 
             fillUrl(slideRoot.find(".tbLinkUrl"), slideRoot.find(".ddLinkUrl"), slide.linkUrl);
-            slideRoot.find(".tbLinkCaption").val(slide.linkCaption);
-            slideRoot.find(".ddLinkTarget").val(slide.linkTarget);
-            slide.useTextsBk == "true" ? slideRoot.find(".cbUseTextsBackground").attr("checked","checked") : slideRoot.find(".cbUseTextsBackground").removeAttr("checked");
+            if (slide.linkCaption.length > 0) {
+                slideRoot.find(".tbLinkCaption").val(slide.linkCaption);
+                slideRoot.find(".cbLinkCaption").attr("checked","checked");
+            } else {
+                checkLinkCaption(slideRoot.find('.pnlSlideOptsLink:first'), false);
+            }
+            
+            
+            if (slide.linkTarget != '_self' && slide.linkTarget != '_blank' && slide.linkTarget != '_parent') {
+                slideRoot.find(".tbLinkTarget").val(slide.linkTarget);
+                slideRoot.find(".ddLinkTarget").val("other").change();
+            } else {
+                slideRoot.find(".ddLinkTarget,.tbLinkTarget").val(slide.linkTarget);
+            }
+
+            slide.linkClickAnywhere ? slideRoot.find(".cbLinkAnywhere").attr("checked","checked") : slideRoot.find(".cbLinkAnywhere").removeAttr("checked");
+
+            //slide.useTextsBk == "true" ? slideRoot.find(".cbUseTextsBackground").attr("checked","checked") : slideRoot.find(".cbUseTextsBackground").removeAttr("checked");
 
             fillUrl(slideRoot.find(".tbMp3Url"), slideRoot.find(".ddMp3Url"), slide.mp3Url);
             slideRoot.find(".tbMp3IconColor").val(slide.mp3IconColor);
-            slide.mp3ShowPlayer == "true" ? slideRoot.find(".cbMp3ShowPlayer").attr("checked","checked") : slideRoot.find(".cbMp3ShowPlayer").removeAttr("checked");
+            slide.mp3ShowPlayer ? slideRoot.find(".cbMp3ShowPlayer").attr("checked","checked") : slideRoot.find(".cbMp3ShowPlayer").removeAttr("checked");
 
             for (var i =0; i < slide.slideObjects.length; i++) {
                 appendSlideObject(slide.slideObjects[i], slideRoot);
@@ -896,6 +922,7 @@
             _new.find(".slideId").text("-1");
             slideRoot.after(_new);
             _new.find(".slideOptsGroup:first").click();
+            _new.find(".tbSlideTitle").focus().select();
             updateSlideIndexes();
 
             // also clone all object data
@@ -960,6 +987,7 @@
             if (slideObjItem) {
                 _dlg.find(".objectId").text(slideObjItem[0].objData.id);
                 _dlg.find(".tbObjName").val(slideObjItem[0].objData.name);
+                fillUrl(_dlg.find(".tbLinkUrl"), _dlg.find(".ddLinkUrl"), slideObjItem[0].objData.linkUrl);
                 _dlg.find(".tbObjText").val(slideObjItem[0].objData.htmlContents);
                 fillUrl(_dlg.find(".tbObjectUrl"), _dlg.find(".ddObjectUrl"), slideObjItem[0].objData.resUrl);
                 _dlg.find(".tbObjDelay").val(slideObjItem[0].objData.delay);
@@ -1004,6 +1032,7 @@
                     _dlg.find(".tbObjName").val("New Graphic");
                 }
 
+                fillUrl(_dlg.find(".tbLinkUrl"), _dlg.find(".ddLinkUrl"), "<%= DefaultObject.Link %>");
                 _dlg.find(".tbObjText").val("<%= DefaultObject.Text %>");
                 fillUrl(_dlg.find(".tbObjectUrl"), _dlg.find(".ddObjectUrl"), "<%= DefaultObject.ObjectUrl %>");
                 _dlg.find(".tbObjDelay").val("<%= DefaultObject.TimeDelay %>");
@@ -1039,6 +1068,8 @@
 
             jQuery("#objSettingsTabs").tabs("select",0);
             _dlg.dialog("open");
+
+            _dlg.find(".tbObjName").focus().select();
             
             jQuery(".ui-button").removeClass("ui-state-focus");
             jQuery(".slideRoot").removeClass("slideRootActive");
@@ -1049,6 +1080,7 @@
             return { 
                 id: dlg.find(".objectId").text(),
                 name: dlg.find(".tbObjName").val(),
+                linkUrl:formatUrl(dlg.find(".tbLinkUrl"), dlg.find(".ddLinkUrl")),
                 htmlContents: dlg.find(".tbObjText").val(),
                 resUrl:formatUrl(dlg.find(".tbObjectUrl"), dlg.find(".ddObjectUrl")),
                 itemType: dlg.find(".itemType").text(),
@@ -1118,9 +1150,10 @@
             x += "<bkGradTo>"+ encodeXml(slideRoot.find(".tbColortbBkGradTo").val()) +"</bkGradTo>";
 
             x += "<linkUrl>"+ encodeXml(formatUrl(slideRoot.find(".tbLinkUrl"))) +"</linkUrl>";
-            x += "<linkCaption>"+ encodeXml(slideRoot.find(".tbLinkCaption").val()) +"</linkCaption>";
-            x += "<linkTarget>"+ encodeXml(slideRoot.find(".ddLinkTarget").val()) +"</linkTarget>";
-            x += "<useTextsBk>"+ (slideRoot.find(".cbUseTextsBackground").val() ? "true" : "false") +"</useTextsBk>";
+            x += "<linkCaption>"+ ( slideRoot.find(".cbLinkCaption:checked").size() == 0 ? "" : encodeXml(slideRoot.find(".tbLinkCaption").val()) ) +"</linkCaption>";
+            x += "<linkTarget>"+ encodeXml(slideRoot.find(".ddLinkTarget").val() == "other" ? slideRoot.find(".tbLinkTarget").val() : slideRoot.find(".ddLinkTarget").val()) +"</linkTarget>";
+            x += "<linkClickAnywhere>"+ (slideRoot.find(".cbLinkAnywhere:checked").size() > 0 ? "true" : "false") +"</linkClickAnywhere>";
+            //x += "<useTextsBk>"+ (slideRoot.find(".cbUseTextsBackground").val() ? "true" : "false") +"</useTextsBk>";
 
             x += "<mp3Url>"+ encodeXml(formatUrl(slideRoot.find(".tbMp3Url"))) +"</mp3Url>";
             x += "<mp3IconColor>"+ encodeXml(slideRoot.find(".tbMp3IconColor").val()) +"</mp3IconColor>";
@@ -1200,6 +1233,14 @@
             });
             
             jQuery(".colorpicker").css("z-index", "1100");
+        }
+
+        function checkLinkCaption(_pnlRoot, useIt) {
+            var pnl = _pnlRoot.find('.pnlLinkButtonCaption'); 
+            pnl.find('*').toggleClass('ui-state-disabled',!useIt); 
+            useIt ? pnl.find(':input').removeAttr('disabled') : pnl.find(':input').attr('disabled','disabled');
+            if (useIt)
+                pnl.find(':input').focus().select();
         }
 
     </script>
