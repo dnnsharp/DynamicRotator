@@ -403,16 +403,15 @@ namespace avt.AllinOneRotator.Net
 
             // link node and attributes
             Writer.WriteStartElement("link");
-
-            Writer.WriteAttributeString("useLink", string.IsNullOrEmpty(SlideUrl) || !ClickAnywhere ? "no" : "yes");
             Writer.WriteAttributeString("theTarget", Target);
             if (!string.IsNullOrEmpty(ButtonCaption)) {
-                Writer.WriteAttributeString("showBtn", "yes");
                 Writer.WriteAttributeString("btnName", ButtonCaption);
+                Writer.WriteAttributeString("showBtn", "yes");
             } else {
-                Writer.WriteAttributeString("showBtn", "no");
                 Writer.WriteAttributeString("btnName", "");
+                Writer.WriteAttributeString("showBtn", "no");
             }
+            Writer.WriteAttributeString("useLink", string.IsNullOrEmpty(SlideUrl) || !ClickAnywhere ? "no" : "yes");
             Writer.WriteAttributeString("useTextsBackground", UseTextsBackground ? "yes" : "no");
 
             Writer.WriteString(SlideUrl);
@@ -422,8 +421,8 @@ namespace avt.AllinOneRotator.Net
             // mp3 note and attributes
             Writer.WriteStartElement("mp3");
             //if (!string.IsNullOrEmpty(Mp3Url)) {
-                Writer.WriteAttributeString("file", Mp3Url);
-                Writer.WriteAttributeString("player", ShowPlayer ? "on" : "off");
+                Writer.WriteAttributeString("file", "");//Mp3Url);
+                Writer.WriteAttributeString("player", "off");//ShowPlayer ? "on" : "off");
                 Writer.WriteAttributeString("iconColor", ColorExt.ColorToHexString(IconColor));
             //}
             Writer.WriteEndElement(); // ("mp3");

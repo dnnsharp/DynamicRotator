@@ -29,5 +29,14 @@ namespace Test.WebApplication {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::avt.AllinOneRotator.Net.AllinOneRotator AllinOneRotator1;
+        
+        /// <summary>
+        /// AllinOneRotator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::avt.AllinOneRotator.Net.AllinOneRotator AllinOneRotator2;
     }
 }

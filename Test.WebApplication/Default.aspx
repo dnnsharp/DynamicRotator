@@ -17,10 +17,14 @@
         AutoStartSlideShow="True" RoundCornerMaskColor="#333399" ShowTopTitle="False" 
         SlideButtonsNumberColor="#6600CC" SlideButtonsType="RoundNoNumbers" 
         DbConnectionString="SiteSqlServer" EnableRuntimeConfiguration="True" 
-        ManageUrl="~/Controls/Rotator/ManageRotator.aspx" Width="800px">
-        <Slides>
-        </Slides>
-        
+        ManageUrl="~/Controls/Rotator/ManageRotator.aspx" Width="800px"> 
+    </cc1:AllinOneRotator>
+    <br /><br />
+    <cc1:AllinOneRotator ID="AllinOneRotator2" runat="server" 
+        AutoStartSlideShow="True" RoundCornerMaskColor="#333399" ShowTopTitle="False" 
+        SlideButtonsNumberColor="#6600CC" SlideButtonsType="RoundNoNumbers" 
+        DbConnectionString="SiteSqlServer" EnableRuntimeConfiguration="True" 
+        ManageUrl="~/Controls/Rotator/ManageRotator.aspx" Width="800px"> 
     </cc1:AllinOneRotator>
     </form>
 </body>

@@ -50,49 +50,50 @@ namespace avt.AllinOneRotator.Net
                 Settings.LoadFromDB();
             }
 
-            if (Page.Request.Params["avtadrot"] == "settings") {
-                Page.Response.Cache.SetCacheability(HttpCacheability.NoCache);
-                Page.Response.Cache.SetNoStore();
-                Page.Response.Write(Settings.ToXml());
-                //Page.Response.ContentType = "text/xml";
-                Page.Response.ContentType = "text/xml; charset=utf-8";
-                Page.Response.End();
-                return;
-            }
+            if (Page.Request.Params["controlId"] == this.ID) {
+                if (Page.Request.Params["avtadrot"] == "settings") {
+                    Page.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                    Page.Response.Cache.SetNoStore();
+                    Page.Response.Write(Settings.ToXml());
+                    //Page.Response.ContentType = "text/xml";
+                    Page.Response.ContentType = "text/xml; charset=utf-8";
+                    Page.Response.End();
+                    return;
+                }
 
-            if (Page.Request.Params["avtadrot"] == "content") {
-                Page.Response.Cache.SetCacheability(HttpCacheability.NoCache);
-                Page.Response.Cache.SetNoStore(); 
-                Page.Response.Write(GetSlidesXml());
-                Page.Response.ContentType = "text/xml; charset=utf-8"; 
-                //Page.Response.ContentType = "text/xml";
-                Page.Response.End();
-                return;
-            }
+                if (Page.Request.Params["avtadrot"] == "content") {
+                    Page.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                    Page.Response.Cache.SetNoStore(); 
+                    Page.Response.Write(GetSlidesXml());
+                    Page.Response.ContentType = "text/xml; charset=utf-8"; 
+                    //Page.Response.ContentType = "text/xml";
+                    Page.Response.End();
+                    return;
+                }
 
-            if (Page.Request.Params["avtadrot"] == "transitions") {
-                Page.Response.Cache.SetCacheability(HttpCacheability.NoCache);
-                Page.Response.Cache.SetNoStore(); 
-                Page.Response.Write(@"<?xml version=""1.0"" encoding=""utf-8""?>
-<picturesTransitions>
-    <transition theName=""Blinds"" theEasing=""Strong"" theStrips=""20"" theDimension=""1""/>
-    <trasition ></trasition>
-    <transition theName=""Fly"" theEasing=""Strong"" theStartPoint=""9""/>
-    <transition theName=""Iris"" theEasing=""Bounce"" theStartPoint=""1"" theShape=""CIRCLE""/>
-    <transition theName=""Photo"" theEasing=""Elastic""/>
-    <transition theName=""PixelDissolve"" theEasing=""Strong"" theXsections=""20"" theYsections=""20""/>
-    <transition theName=""Rotate"" theEasing=""Strong"" theDegrees=""720""/>
-    <transition theName=""Squeeze"" theEasing=""Strong"" theDimension=""1""/>
-    <transition theName=""Wipe"" theEasing=""Strong"" theStartPoint=""1""/>
-    <transition theName=""Zoom"" theEasing=""Back""/>
-</picturesTransitions>
-"
-                    );
-                Page.Response.ContentType = "text/xml";
-                Page.Response.End();
-                return;
+                if (Page.Request.Params["avtadrot"] == "transitions") {
+                    Page.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                    Page.Response.Cache.SetNoStore(); 
+                    Page.Response.Write(@"<?xml version=""1.0"" encoding=""utf-8""?>
+    <picturesTransitions>
+        <transition theName=""Blinds"" theEasing=""Strong"" theStrips=""20"" theDimension=""1""/>
+        <trasition ></trasition>
+        <transition theName=""Fly"" theEasing=""Strong"" theStartPoint=""9""/>
+        <transition theName=""Iris"" theEasing=""Bounce"" theStartPoint=""1"" theShape=""CIRCLE""/>
+        <transition theName=""Photo"" theEasing=""Elastic""/>
+        <transition theName=""PixelDissolve"" theEasing=""Strong"" theXsections=""20"" theYsections=""20""/>
+        <transition theName=""Rotate"" theEasing=""Strong"" theDegrees=""720""/>
+        <transition theName=""Squeeze"" theEasing=""Strong"" theDimension=""1""/>
+        <transition theName=""Wipe"" theEasing=""Strong"" theStartPoint=""1""/>
+        <transition theName=""Zoom"" theEasing=""Back""/>
+    </picturesTransitions>
+    "
+                        );
+                    Page.Response.ContentType = "text/xml";
+                    Page.Response.End();
+                    return;
+                }
             }
-            
         }
 
 
@@ -249,12 +250,18 @@ namespace avt.AllinOneRotator.Net
 
             string settingsUrl = Page.Request.RawUrl;
             settingsUrl += (settingsUrl.IndexOf('?') > 0 ? (settingsUrl.IndexOf('?') != settingsUrl.Length - 1 ? "&" : "") : "?") + "avtadrot=settings&t=" + timestamp;
+            settingsUrl += "&controlId=" + this.ID;
+            settingsUrl = HttpUtility.UrlEncode(settingsUrl);
 
             string contentUrl = Page.Request.RawUrl;
             contentUrl += (contentUrl.IndexOf('?') > 0 ? (contentUrl.IndexOf('?') != contentUrl.Length - 1 ? "&" : "") : "?") + "avtadrot=content&t=" + timestamp;
+            contentUrl += "&controlId=" + this.ID;
+            contentUrl = HttpUtility.UrlEncode(contentUrl);
 
             string transitionsUrl = Page.Request.RawUrl;
             transitionsUrl += (transitionsUrl.IndexOf('?') > 0 ? (transitionsUrl.IndexOf('?') != transitionsUrl.Length - 1 ? "&" : "") : "?") + "avtadrot=transitions&t=" + timestamp;
+            transitionsUrl += "&controlId=" + this.ID;
+            transitionsUrl = HttpUtility.UrlEncode(transitionsUrl);
 
             output.Write(
                 //"<script type=\"text/javascript\">AC_FL_RunContent( 'codebase','http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0','width','950','height','250','src','" + flashUrl + "?settingsxml=settings_v2_simple.xml&contentxml=content_v2_simple.xml&transitionsxml=transitions.xml','quality','high','pluginspage','http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash','movie','" + flashUrl + "?settingsxml=settings_v2_simple.xml&contentxml=content_v2_simple.xml&transitionsxml=transitions.xml' ); //end AC code</script>" +

@@ -427,8 +427,8 @@
                             <td class = "ui-widget-content hdr">Position:</td>
                             <td class = "ui-widget-content">
                                 <b>X</b> <input type="text" style = "width: 40px;" class="tbObjPosX tbNumber" />
-                                <b>Y</b> <input type="text" style = "width: 40px;" class="tbObjPosY tbNumber objFieldImgOnly" />
-                                <asp:DropDownList runat="server" ID = "ddVerticalAlgin" class = "ddVerticalAlgin objFieldTextOnly">
+                                <b>Y</b> <input type="text" style = "width: 40px;" class="tbObjPosY tbNumber" />
+                                <asp:DropDownList runat="server" ID = "ddVerticalAlgin" class = "ddVerticalAlgin" style="display:none;">
                                 </asp:DropDownList>
                             </td>
                         </tr>
@@ -1164,7 +1164,7 @@
             slideRoot.find(".slideObject").each(function() {
                 x += "<obj>";
                 for (var key in this.objData) {
-                    x += "<"+key+">"+ encodeXml(this.objData[key]) +"</"+key+">";
+                    x += "<"+key+">"+ encodeXml(this.objData[key].toString()) +"</"+key+">";
                 }
                 x += "</obj>";
             });
