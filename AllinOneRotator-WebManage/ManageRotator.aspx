@@ -335,15 +335,17 @@
                     </div>
 
                     <div class="pnlSlideOpts pnlSlideOptsContent">
-                        <div style = "height: 84px; margin: 8px 8px 2px 8px; overflow: auto; padding-left: 40px; display: none;" class="pnlSlideObjList">
-                            <div style="clear:both;"></div>
-                        </div>
-                        <div style = "height: 84px; margin: 8px 8px 2px 8px; overflow: auto; padding-left: 40px;" class="pnlSlideObjList_empty">
+                        
+                        <div style = "height: 84px; margin: 8px 8px 2px 120px; overflow: auto; padding-left: 40px; position: absolute;" class="pnlSlideObjList_empty">
                             <div style = "padding: 16px 0 0 30px; font-size: 16px; color: #b2b2b2;">
                                 No objects defined for this slide!<br />
                                 Use buttons below to add objects...
                             </div>
                         </div>
+
+                        <ul style = "height: 84px; margin: 8px 8px 2px 8px; overflow: auto; padding-left: 40px; " class="pnlSlideObjList">
+                        </ul>
+                        
                         <div style = "background-color: #F2F2FF; border-top: 1px solid #C2C2C2; padding: 3px 4px 2px 186px;">
                             <a href = "#" onclick="addSlideText(jQuery(this).parents('.slideRoot:first')); return false;" class="btnAddObject btnAddObjectText"><img src="<%= TemplateSourceDirectory %>/res/img/add.gif" border="0" /> Add Text</a>
                             <a href = "#" onclick="addSlideImage(jQuery(this).parents('.slideRoot:first')); return false;" class="btnAddObject btnAddObjectImage"><img src="<%= TemplateSourceDirectory %>/res/img/add.gif" border="0" /> Add Image/Flash</a>
@@ -623,6 +625,8 @@
             spikeGirth: 20
         }
 
+        var g_isDragging = false;
+
         jQuery(document).ready(function() {
             jQuery("#mainTabs").tabs();
 
@@ -731,7 +735,7 @@
                         var slideObj = saveSlideObjectAsJson(_dlg);
                         if (_dlg[0].slideObjItem) {
                             _dlg[0].slideObjItem[0].objData = slideObj;
-                            _dlg[0].slideObjItem.text(slideObj.name);
+                            _dlg[0].slideObjItem.find(".objTitle").text(slideObj.name);
                         } else {
                             appendSlideObject(slideObj);
                         }
@@ -800,7 +804,7 @@
                 slideRoot = jQuery(".slideRootActive");
             }
 
-            var _item = jQuery("<div class='slideObject'>"+slideObj.name+"</div>");
+            var _item = jQuery("<li class='slideObject'></li>");
             // determine type
             if (slideObj.itemType.toLowerCase() == "text") {
                 _item.addClass("slideObjectText");
@@ -813,6 +817,9 @@
                 }
             }
 
+            _item.append("<div class='dragObj'><img width='20' src='/Controls/Rotator/res/img/drag.png' /></div>");
+            _item.append("<div style='text-align: center;' class='objTitle'>" + slideObj.name + "</div>");
+
            slideRoot.find(".pnlSlideObjList").append(_item);
            _item[0].objData = slideObj;
 
@@ -824,6 +831,8 @@
                     jQuery(this).removeClass("slideObjectHover");
                 })
                 .click(function() {
+                    if (g_isDragging === true)
+                        return;
                     openSlideObjectSettings(jQuery(this).parents(".slideRoot:first"), this.objData.itemType, jQuery(this));
                 });
 
@@ -834,10 +843,8 @@
         function checkSlideObjects(slideRoot) {
             if (slideRoot.find(".slideObject").size() == 0) {
                 slideRoot.find(".pnlSlideObjList_empty").show();
-                slideRoot.find(".pnlSlideObjList").hide();
             } else {
                 slideRoot.find(".pnlSlideObjList_empty").hide();
-                slideRoot.find(".pnlSlideObjList").show();
             }
 
             if(slideRoot.find(".slideObjectText").size() == 0) {
@@ -845,7 +852,7 @@
                 slideRoot.find(".btnAddObjectText").removeAttr("bt-xtitle").btOff();
             } else {
                 slideRoot.find(".btnAddObjectText").addClass("ui-state-disabled");
-                slideRoot.find(".btnAddObjectText").attr("title", "Limitation with version 1: slides can only contain one text object.").bt(btOpts);
+                slideRoot.find(".btnAddObjectText").attr("title", "Limitation with version 1.0: slides can only contain one text object.").bt(btOpts);
             }
         }
 
@@ -914,6 +921,22 @@
             for (var i =0; i < slide.slideObjects.length; i++) {
                 appendSlideObject(slide.slideObjects[i], slideRoot);
             }
+            slideRoot.find(".pnlSlideObjList").sortable({
+                connectWith: ".pnlSlideObjList",
+                handle: ".dragObj",
+                placeholder: 'objPlaceholder',
+                cancel: ".slideObjectText",
+
+                start: function(event, ui) {
+                    g_isDragging = true;
+                },
+
+                stop: function(event, ui) {
+                    jQuery(".slideObjectHover").removeClass("slideObjectHover");
+                    setTimeout(function() { g_isDragging = false; }, 100);
+                }
+                 
+            }).disableSelection();
         }
 
         function cloneSlide(slideRoot) {

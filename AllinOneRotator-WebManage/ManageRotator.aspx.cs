@@ -186,17 +186,16 @@ namespace avt.AllinOneRotator.Net.WebManage
                     }
                     
                     if (xmlSlide["slideObjects"] != null) {
+                        int viewOrder = 0;
                         foreach (XmlElement xmlSlideObj in xmlSlide["slideObjects"].SelectNodes("obj")) {
                             int slideObjId = Convert.ToInt32(xmlSlideObj["id"].InnerText);
                             if (slideObjId > 0) {
                                 existingSlideObjects.Remove(slideObjId);
                             }
 
-                            SlideObjectInfo slideObj;
+                            SlideObjectInfo slideObj = new SlideObjectInfo();
                             if (slideObjId > 0) {
-                                slideObj = slide.GetObject(slideObjId);
-                            } else {
-                                slideObj = new SlideObjectInfo();
+                                slideObj.Id = slideObjId;
                             }
 
                             slideObj.SlideId = slide.Id;
@@ -226,7 +225,7 @@ namespace avt.AllinOneRotator.Net.WebManage
                             slideObj.SlideMoveType = (eMoveType)Enum.Parse(typeof(eMoveType), xmlSlideObj["slideMoveType"].InnerText, true);
                             slideObj.SlideEasingType = (eEasing)Enum.Parse(typeof(eEasing), xmlSlideObj["slideEasingType"].InnerText, true);
                             slideObj.EffectAfterSlide = (eEffect)Enum.Parse(typeof(eEffect), xmlSlideObj["effectAfterSlide"].InnerText, true);
-
+                            slideObj.ViewOrder = viewOrder++;
                             slideObj.Save();
                         }
                     }

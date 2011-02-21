@@ -158,6 +158,8 @@ namespace avt.AllinOneRotator.Net
         [Category("Transition")]
         public int TextBackgroundPadding { get { return _TextBackgroundPadding; } set { _TextBackgroundPadding = value; } }
 
+        int _ViewOrder = 0;
+        public int ViewOrder { get { return _ViewOrder; } set { _ViewOrder = value; } }
 
         public void Save()
         {
@@ -169,7 +171,8 @@ namespace avt.AllinOneRotator.Net
                 GlowSize, GlowStrength, ColorExt.ColorToHexString(GlowColor),
                 AppearMode.ToString().ToLower(), SlideFrom.ToString().ToLower(), SlideMoveType.ToString().ToLower(),
                 SlideEasingType.ToString().ToLower(), EffectAfterSlide.ToString().ToLower(),
-                 ColorExt.ColorToHexString(TextColor),  ColorExt.ColorToHexString(TextBackgroundColor), TextBackgroundOpacity, TextBackgroundPadding
+                 ColorExt.ColorToHexString(TextColor),  ColorExt.ColorToHexString(TextBackgroundColor), TextBackgroundOpacity, TextBackgroundPadding,
+                 ViewOrder
             );
         }
 
@@ -185,19 +188,25 @@ namespace avt.AllinOneRotator.Net
         {
             Writer.WriteStartElement(ObjectType == eObjectType.Text ? "theText" : "picture");
 
+            Writer.WriteAttributeString("x", Xposition.ToString());
+            Writer.WriteAttributeString("y", Yposition.ToString());
+
+            Writer.WriteAttributeString("opacity", Opacity.ToString());
+            Writer.WriteAttributeString("glowSize", GlowSize.ToString());
+            Writer.WriteAttributeString("glowColor", ColorExt.ColorToHexString(GlowColor).Replace("#", "0x"));
+            Writer.WriteAttributeString("glowStrength", GlowStrength.ToString());
+
+            Writer.WriteAttributeString("moveType", SlideMoveType.ToString());
+            Writer.WriteAttributeString("easingType", SlideEasingType.ToString());
+            Writer.WriteAttributeString("transitionDuration", TransitionDuration.ToString());
+
+            Writer.WriteAttributeString("appearFrom", SlideFrom.ToString().ToLower());
+            Writer.WriteAttributeString("justFade", AppearMode == eAppearMode.Fade ? "yes" : "no");
+
             if (ObjectType == eObjectType.Text) {
-                Writer.WriteAttributeString("textTransparency", Opacity.ToString());
-                Writer.WriteAttributeString("glowSize", GlowSize.ToString());
-                Writer.WriteAttributeString("glowColor", ColorExt.ColorToHexString(GlowColor).Replace("#", "0x"));
-                Writer.WriteAttributeString("glowStrength", GlowStrength.ToString());
+                
                 Writer.WriteAttributeString("textColor", ColorExt.ColorToHexString(TextColor).Replace("#", "0x"));
-                Writer.WriteAttributeString("moveType", SlideMoveType.ToString());
-                Writer.WriteAttributeString("easingType", SlideEasingType.ToString());
-                Writer.WriteAttributeString("transitionDuration", TransitionDuration.ToString());
-                Writer.WriteAttributeString("justFade", AppearMode == eAppearMode.Fade ? "yes" : "no");
-                Writer.WriteAttributeString("appearFrom", SlideFrom.ToString().ToLower());
-                Writer.WriteAttributeString("finalXposition", Xposition.ToString());
-                Writer.WriteAttributeString("finalYposition", Yposition.ToString());
+                
                 Writer.WriteAttributeString("verticalAlign", eVerticalAlign.Top.ToString().ToLower());// VerticalAlign.ToString().ToLower());
                 Writer.WriteAttributeString("useBackground", TextBackgroundOpacity == 0 ? "no" : "yes");
                 Writer.WriteAttributeString("backgroundColor", ColorExt.ColorToHexString(TextBackgroundColor).Replace("#", "0x"));
@@ -206,11 +215,8 @@ namespace avt.AllinOneRotator.Net
                 
                 Writer.WriteCData(Text);
             } else {
-                Writer.WriteAttributeString("Xposition", Xposition.ToString());
-                Writer.WriteAttributeString("Yposition", Yposition.ToString());
                 Writer.WriteAttributeString("timeDelay", TimeDelay.ToString());
-                Writer.WriteAttributeString("appearFrom", SlideFrom.ToString().ToLower());
-                Writer.WriteAttributeString("justFade", AppearMode == eAppearMode.Fade ? "yes" : "no");
+                
                 // add effect for images and swf only
                 if (EffectAfterSlide != eEffect.None) {
                     Writer.WriteAttributeString("useEffect", "yes");
@@ -221,15 +227,6 @@ namespace avt.AllinOneRotator.Net
                 }
                 Writer.WriteAttributeString("theLink", Link);
 
-                Writer.WriteAttributeString("glowSize", GlowSize.ToString());
-                Writer.WriteAttributeString("glowColor", ColorExt.ColorToHexString(GlowColor).Replace("#", "0x"));
-                Writer.WriteAttributeString("glowStrength", GlowStrength.ToString());
-
-                Writer.WriteAttributeString("moveType", SlideMoveType.ToString());
-                Writer.WriteAttributeString("easingType", SlideEasingType.ToString());
-                Writer.WriteAttributeString("transitionDuration", TransitionDuration.ToString());
-
-                Writer.WriteAttributeString("itemTransparency", Opacity.ToString());
                 Writer.WriteString(ObjectUrl);
             }
 

@@ -64,7 +64,8 @@ namespace avt.AllinOneRotator.Net.Data
             int xPos, int yPos, string vAlign,
             int glowSize, int glowStrength, string glowColor,
             string appearMode, string slideFrom, string slideMoveType, string slideEasingType, string effectAfterSlide,
-            string textColor, string textBackgroundColor, int textBackgroundOpacity, int textBackgroundPadding
+            string textColor, string textBackgroundColor, int textBackgroundOpacity, int textBackgroundPadding,
+            int viewOrder
         );
         public abstract IDataReader GetSlideObjects(int slideId);
         public abstract IDataReader GetSlideObject(int slideObjectId);

@@ -57,7 +57,8 @@ namespace avt.AllinOneRotator.Net.Data
                 "PositionX", "PositionY", "VerticalAlign",
                 "GlowSize", "GlowStrength", "GlowColor",
                 "AppearMode", "SlideFrom", "SlideMoveType", "SlideEasingType", "EffectAfterSlide",
-                "TextColor", "TextBackgroundColor", "TextBackgroundOpacity", "TextBackgroundPadding"
+                "TextColor", "TextBackgroundColor", "TextBackgroundOpacity", "TextBackgroundPadding",
+                "ViewOrder"
             );
         }
 
@@ -134,7 +135,8 @@ namespace avt.AllinOneRotator.Net.Data
             int xPos, int yPos, string vAlign,
             int glowSize, int glowStrength, string glowColor,
             string appearMode, string slideFrom, string slideMoveType, string slideEasingType, string effectAfterSlide,
-            string textColor, string textBackgroundColor, int textBackgroundOpacity, int textBackgroundPadding)
+            string textColor, string textBackgroundColor, int textBackgroundOpacity, int textBackgroundPadding,
+            int viewOrder)
         {
             return _TableSlideObjects.Update(
                 new object[] { slideObjectId },
@@ -144,13 +146,14 @@ namespace avt.AllinOneRotator.Net.Data
                 xPos, yPos, vAlign,
                 glowSize, glowStrength, glowColor,
                 appearMode, slideFrom, slideMoveType, slideEasingType, effectAfterSlide,
-                textColor, textBackgroundColor, textBackgroundOpacity, textBackgroundPadding
+                textColor, textBackgroundColor, textBackgroundOpacity, textBackgroundPadding,
+                viewOrder
             );
         }
 
         public override IDataReader GetSlideObjects(int slideId)
         {
-            return _TableSlideObjects.Get("Where SlideId=" + slideId);
+            return _TableSlideObjects.Get("Where SlideId=" + slideId + " Order by ViewOrder");
         }
 
         public override IDataReader GetSlideObject(int slideObjectId)
