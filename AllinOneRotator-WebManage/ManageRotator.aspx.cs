@@ -203,28 +203,28 @@ namespace avt.AllinOneRotator.Net.WebManage
                             slideObj.Link = xmlSlideObj["linkUrl"].InnerText;
                             slideObj.Text = xmlSlideObj["htmlContents"].InnerText;
                             slideObj.ObjectType = (eObjectType)Enum.Parse(typeof(eObjectType), xmlSlideObj["itemType"].InnerText, true);
-                            slideObj.ObjectUrl = xmlSlideObj["resUrl"].InnerText;
+                            try { slideObj.ObjectUrl = xmlSlideObj["resUrl"].InnerText; } catch { }
                             try { slideObj.TimeDelay = Convert.ToInt32(xmlSlideObj["delay"].InnerText); } catch { }
-                            slideObj.TransitionDuration = Convert.ToInt32(xmlSlideObj["duration"].InnerText);
-                            slideObj.Opacity = Convert.ToInt32(xmlSlideObj["opacity"].InnerText);
-                            slideObj.Xposition = Convert.ToInt32(xmlSlideObj["posx"].InnerText);
-                            slideObj.Yposition = Convert.ToInt32(xmlSlideObj["posy"].InnerText);
-                            slideObj.VerticalAlign = (eVerticalAlign)Enum.Parse(typeof(eVerticalAlign), xmlSlideObj["valign"].InnerText, true);
+                            try { slideObj.TransitionDuration = Convert.ToInt32(xmlSlideObj["duration"].InnerText); } catch { }
+                            try { slideObj.Opacity = Convert.ToInt32(xmlSlideObj["opacity"].InnerText); } catch { }
+                            try { slideObj.Xposition = Convert.ToInt32(xmlSlideObj["posx"].InnerText); } catch { }
+                            try { slideObj.Yposition = Convert.ToInt32(xmlSlideObj["posy"].InnerText); } catch { }
+                            try { slideObj.VerticalAlign = (eVerticalAlign)Enum.Parse(typeof(eVerticalAlign), xmlSlideObj["valign"].InnerText, true); } catch { }
                             
-                            slideObj.GlowSize = Convert.ToInt32(xmlSlideObj["glowSize"].InnerText);
-                            slideObj.GlowStrength = Convert.ToInt32(xmlSlideObj["glowStrength"].InnerText);
-                            slideObj.GlowColor = Color.FromArgb(Convert.ToInt32(xmlSlideObj["glowColor"].InnerText.Replace("#", "0x"), 16));
+                            try { slideObj.GlowSize = Convert.ToInt32(xmlSlideObj["glowSize"].InnerText); } catch { }
+                            try { slideObj.GlowStrength = Convert.ToInt32(xmlSlideObj["glowStrength"].InnerText); } catch { }
+                            try { slideObj.GlowColor = Color.FromArgb(Convert.ToInt32(xmlSlideObj["glowColor"].InnerText.Replace("#", "0x"), 16)); } catch { }
 
-                            slideObj.TextColor = Color.FromArgb(Convert.ToInt32(xmlSlideObj["textColor"].InnerText.Replace("#", "0x"), 16));
-                            slideObj.TextBackgroundColor = Color.FromArgb(Convert.ToInt32(xmlSlideObj["textBackgroundColor"].InnerText.Replace("#", "0x"), 16));
+                            try { slideObj.TextColor = Color.FromArgb(Convert.ToInt32(xmlSlideObj["textColor"].InnerText.Replace("#", "0x"), 16)); } catch { }
+                            try { slideObj.TextBackgroundColor = Color.FromArgb(Convert.ToInt32(xmlSlideObj["textBackgroundColor"].InnerText.Replace("#", "0x"), 16)); } catch { }
                             try { slideObj.TextBackgroundOpacity = Convert.ToInt32(xmlSlideObj["textBackgroundOpacity"].InnerText); } catch { }
-                            slideObj.TextBackgroundPadding = Convert.ToInt32(xmlSlideObj["textBackgroundPadding"].InnerText);
+                            try { slideObj.TextBackgroundPadding = Convert.ToInt32(xmlSlideObj["textBackgroundPadding"].InnerText); } catch { }
 
-                            slideObj.AppearMode = (eAppearMode)Enum.Parse(typeof(eAppearMode), xmlSlideObj["appearMode"].InnerText, true);
-                            slideObj.SlideFrom = (eAllDirs)Enum.Parse(typeof(eAllDirs), xmlSlideObj["slideFrom"].InnerText, true);
-                            slideObj.SlideMoveType = (eMoveType)Enum.Parse(typeof(eMoveType), xmlSlideObj["slideMoveType"].InnerText, true);
-                            slideObj.SlideEasingType = (eEasing)Enum.Parse(typeof(eEasing), xmlSlideObj["slideEasingType"].InnerText, true);
-                            slideObj.EffectAfterSlide = (eEffect)Enum.Parse(typeof(eEffect), xmlSlideObj["effectAfterSlide"].InnerText, true);
+                            try { slideObj.AppearMode = (eAppearMode)Enum.Parse(typeof(eAppearMode), xmlSlideObj["appearMode"].InnerText, true); } catch { }
+                            try { slideObj.SlideFrom = (eAllDirs)Enum.Parse(typeof(eAllDirs), xmlSlideObj["slideFrom"].InnerText, true); } catch { }
+                            try { slideObj.SlideMoveType = (eMoveType)Enum.Parse(typeof(eMoveType), xmlSlideObj["slideMoveType"].InnerText, true); } catch { }
+                            try { slideObj.SlideEasingType = (eEasing)Enum.Parse(typeof(eEasing), xmlSlideObj["slideEasingType"].InnerText, true); } catch { }
+                            try { slideObj.EffectAfterSlide = (eEffect)Enum.Parse(typeof(eEffect), xmlSlideObj["effectAfterSlide"].InnerText, true); } catch { }
                             slideObj.ViewOrder = viewOrder++;
                             slideObj.Save();
                         }

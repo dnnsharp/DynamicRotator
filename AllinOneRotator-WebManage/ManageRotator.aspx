@@ -285,8 +285,8 @@
                             </div>
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>Background Gradient: </b>
-                                from <input type="text" style = "width: 60px;" class="tbColor tbColortbBkGradFrom" value="<%= ColorToHex(DefaultSlide.BackgroundGradientFrom) %>" />
-                                to <input type="text" style = "width: 60px;" class="tbColor tbColortbBkGradTo" value="<%= ColorToHex(DefaultSlide.BackgroundGradientTo) %>" />
+                                from <span><input type="text" style = "width: 60px;" class="tbColor tbColortbBkGradFrom" value="<%= ColorToHex(DefaultSlide.BackgroundGradientFrom) %>" />&nbsp;&nbsp;&nbsp;</span>
+                                to <span><input type="text" style = "width: 60px;" class="tbColor tbColortbBkGradTo" value="<%= ColorToHex(DefaultSlide.BackgroundGradientTo) %>" />&nbsp;&nbsp;&nbsp;</span>
                             </div>
                              <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>Duration: </b>
@@ -366,7 +366,7 @@
                             </div>
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>Icon Color: </b> 
-                                <input type="text" style = "width: 60px;" class="tbColor tbMp3IconColor" value="<%= ColorToHex(DefaultSlide.IconColor) %>" />
+                                <span><input type="text" style = "width: 60px;" class="tbColor tbMp3IconColor" value="<%= ColorToHex(DefaultSlide.IconColor) %>" />&nbsp;&nbsp;&nbsp;</span>
                             </div>
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>Show Player: </b> 
@@ -485,7 +485,7 @@
                             <td class = "ui-widget-content hdr">Glow:</td>
                             <td class = "ui-widget-content" style="text-align: center">
                                 <b>Size:</b> <input type="text" class = "tbObjGlowSize" style = "width: 30px;" />
-                                <b>Color:</b> <input type="text" style = "width: 60px;" class="tbColor tbObjGlowColor" />
+                                <b>Color:</b> <span><input type="text" style = "width: 60px;" class="tbColor tbObjGlowColor" />&nbsp;&nbsp;&nbsp;</span>
                                 <b>Strength:</b> <input type="text" class = "tbObjGlowStrength" style = "width: 30px;" />
                             </td>
                         </tr>
@@ -496,7 +496,7 @@
 
                         <tr class = "objFieldRow ui-widget-content objFieldTextOnly">
                             <td class = "ui-widget-content hdr">Text Color:</td>
-                            <td class = "ui-widget-content"><input type="text" style = "width: 60px;" class="tbColor tbTextColor" /></td>
+                            <td class = "ui-widget-content"><span><input type="text" style = "width: 60px;" class="tbColor tbTextColor" />&nbsp;&nbsp;&nbsp;</span></td>
                         </tr>
                         <tr class = "objFieldRow ui-widget-content objFieldTextOnly">
                             <td class = "ui-widget-content hdr">Text Background:</td>
@@ -504,7 +504,7 @@
                                 <table style="width:300px;margin-left:20px;">
                                     <tr>
                                         <td>Color</td>
-                                        <td style="width:220px"><input type="text" style = "width: 60px;" class="tbColor tbBgTextColor" /></td>
+                                        <td style="width:220px"><span><input type="text" style = "width: 60px;" class="tbColor tbBgTextColor" />&nbsp;&nbsp;&nbsp;</span></td>
                                     </tr>
                                     <tr>
                                         <td>Opacity</td>
@@ -687,15 +687,6 @@
                 resizable: false,
                 closeOnEscape: true,
 
-//                open: function(event, ui) {
-//                    var _dlg = jQuery("#dlgObjectSettings");
-//                    setTimeout(function() {
-//                    _dlg.find(".tbObjOpacity").next("div").children("div:first").slider("value", jQuery(".tbObjOpacity").val());
-//                    _dlg.find(".tbTextBgOpacity").next("div").children("div:first").slider("value", jQuery(".tbTextBgOpacity").val());
-//                    },2000);
-//                },
-
-
                 buttons: {
                     'Save': function() {
                         var _dlg = jQuery("#dlgObjectSettings");
@@ -740,10 +731,15 @@
                             appendSlideObject(slideObj);
                         }
 
-                        jQuery("#dlgObjectSettings").dialog('close');
+                        // reset to first tab
+                        jQuery("#objSettingsTabs").tabs("select",0);
 
+                        jQuery("#dlgObjectSettings").dialog('close');
                     },
                     'Cancel': function() {
+                        // reset to first tab
+                        jQuery("#objSettingsTabs").tabs("select",0);
+
                         jQuery("#dlgObjectSettings").dialog('close');
                     }
                 },
@@ -795,7 +791,7 @@
             jQuery(".ddAppearMode").find(":input").change(function() {
                 jQuery(this).val() == 'Slide' ? jQuery('#pnlObjSlideParams').show() : jQuery('#pnlObjSlideParams').hide();
             });
-            
+
         });
 
 
@@ -1097,6 +1093,8 @@
             jQuery(".ui-button").removeClass("ui-state-focus");
             jQuery(".slideRoot").removeClass("slideRootActive");
             slideRoot.addClass("slideRootActive");
+
+            applyColorPreviews(_dlg);
         }
 
         function saveSlideObjectAsJson(dlg) {
@@ -1241,6 +1239,7 @@
         }
 
         function applyColorpicker(rootElement) {
+            applyColorPreviews(rootElement);
             rootElement.find(".tbColor").each(function() {
                 var _this = jQuery(this);
                 _this.ColorPicker({
@@ -1256,6 +1255,12 @@
             });
             
             jQuery(".colorpicker").css("z-index", "1100");
+        }
+
+        function applyColorPreviews(_root) {
+            _root.find(".tbColor").each(function() {
+                jQuery(this).parent().css("background-color", jQuery(this).val());
+            });
         }
 
         function checkLinkCaption(_pnlRoot, useIt) {
