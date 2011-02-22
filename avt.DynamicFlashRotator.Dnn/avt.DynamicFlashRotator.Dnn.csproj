@@ -57,17 +57,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AllinOneRotator-Net\AllinOneRotator-Net.csproj">
-      <Project>{2B3E1E9E-512B-4F18-BD29-2737504CA8F1}</Project>
-      <Name>AllinOneRotator-Net</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AllinOneRotator-WebManage\AllinOneRotator-WebManage.csproj">
-      <Project>{1E55C374-958F-4C9B-BE61-F207DD90ABA9}</Project>
-      <Name>AllinOneRotator-WebManage</Name>
-    </ProjectReference>
+    <Content Include="Rotator.ascx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Rotator.ascx" />
+    <ProjectReference Include="..\avt.DynamicFlashRotator.Net\avt.DynamicFlashRotator.Net.csproj">
+      <Project>{2B3E1E9E-512B-4F18-BD29-2737504CA8F1}</Project>
+      <Name>avt.DynamicFlashRotator.Net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\avt.DynamicFlashRotator.WebManage\avt.DynamicFlashRotator.WebManage.csproj">
+      <Project>{1E55C374-958F-4C9B-BE61-F207DD90ABA9}</Project>
+      <Name>avt.DynamicFlashRotator.WebManage</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

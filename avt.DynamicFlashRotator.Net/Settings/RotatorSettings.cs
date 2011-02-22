@@ -4,14 +4,14 @@ using System.Text;
 using System.Drawing;
 using System.Xml;
 using System.Data;
-using avt.AllinOneRotator.Net.Data;
+using avt.DynamicFlashRotator.Net.Data;
 using System.Configuration;
 using System.Web.UI.WebControls;
 using System.Xml.Xsl;
 using System.IO;
-using avt.AllinOneRotator.Net.Services;
+using avt.DynamicFlashRotator.Net.Services;
 
-namespace avt.AllinOneRotator.Net.Settings
+namespace avt.DynamicFlashRotator.Net.Settings
 {
     public class RotatorSettings
     {

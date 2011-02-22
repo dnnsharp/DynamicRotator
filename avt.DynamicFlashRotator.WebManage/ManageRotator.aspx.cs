@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using avt.AllinOneRotator.Net.Data;
+using avt.DynamicFlashRotator.Net.Data;
 using System.Configuration;
 using System.Data;
-using avt.AllinOneRotator.Net.Settings;
+using avt.DynamicFlashRotator.Net.Settings;
 using System.Drawing;
 using System.Xml;
-using avt.AllinOneRotator.Net.Services;
+using avt.DynamicFlashRotator.Net.Services;
 
-namespace avt.AllinOneRotator.Net.WebManage
+namespace avt.DynamicFlashRotator.Net.WebManage
 {
     public partial class ManageRotator : System.Web.UI.Page
     {
@@ -251,7 +251,7 @@ namespace avt.AllinOneRotator.Net.WebManage
 
         protected string ColorToHex(Color color)
         {
-            return avt.AllinOneRotator.Net.ColorExt.ColorToHexString(color);
+            return avt.DynamicFlashRotator.Net.ColorExt.ColorToHexString(color);
         }
 
         #endregion

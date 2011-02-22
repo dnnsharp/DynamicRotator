@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace avt.AllinOneRotator.Net.WebManage {
+namespace avt.DynamicFlashRotator.Net.WebManage {
     
     
     public partial class ManageRotator {

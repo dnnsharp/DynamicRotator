@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace avt.AllinOneRotator.Net.Services
+namespace avt.DynamicFlashRotator.Net.Services
 {
     public interface IConfiguration
     {

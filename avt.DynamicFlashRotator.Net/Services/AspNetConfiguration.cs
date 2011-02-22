@@ -4,7 +4,7 @@ using System.Text;
 using System.Web;
 using System.Configuration;
 
-namespace avt.AllinOneRotator.Net.Services
+namespace avt.DynamicFlashRotator.Net.Services
 {
     public class AspNetConfiguration : IConfiguration
     {

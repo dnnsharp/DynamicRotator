@@ -9,23 +9,23 @@ using System.Xml;
 using System.Drawing;
 using System.Drawing.Design;
 using System.Configuration;
-using avt.AllinOneRotator.Net.Data;
-using avt.AllinOneRotator.Net.Settings;
-using avt.AllinOneRotator.Net.Services;
+using avt.DynamicFlashRotator.Net.Data;
+using avt.DynamicFlashRotator.Net.Settings;
+using avt.DynamicFlashRotator.Net.Services;
 
-namespace avt.AllinOneRotator.Net
+namespace avt.DynamicFlashRotator.Net
 {
     public enum eSlideButtonsType {
         SquareWithNumbers = 1,
         RoundNoNumbers = 2
     }
 
-    [ToolboxData("<{0}:AllinOneRotator runat=server></{0}:AllinOneRotator>")]
-    public class AllinOneRotator : WebControl
+    [ToolboxData("<{0}:DynamicRotator runat=server></{0}:DynamicRotator>")]
+    public class DynamicRotator : WebControl
     {
         RotatorSettings Settings;
 
-        public AllinOneRotator()
+        public DynamicRotator()
         {
             Settings = new RotatorSettings();
 
@@ -100,29 +100,29 @@ namespace avt.AllinOneRotator.Net
         #region Runtime Configuration
 
         bool _EnableRuntimeConfiguration = false;
-        [Category("ALLinOne Rotator - Runtime Configuration")]
+        [Category("Dynamic Rotator - Runtime Configuration")]
         [Description("Enable runtime configuration using the Web Interface")]
         public bool EnableRuntimeConfiguration { get { return _EnableRuntimeConfiguration; } set { _EnableRuntimeConfiguration = value; } }
 
         string _DbConnectionString = null;
-        [Category("ALLinOne Rotator - Runtime Configuration")]
+        [Category("Dynamic Rotator - Runtime Configuration")]
         [Description("Specify the name of a connection string from web.config to allow runtime manipulation of Rotator Settings using the Web Interface.")]
         public string DbConnectionString { get { return _DbConnectionString; } set { _DbConnectionString = value; } }
 
         string _DbOwner = "dbo";
-        [Category("ALLinOne Rotator - Runtime Configuration")]
+        [Category("Dynamic Rotator - Runtime Configuration")]
         [Description("Database Owner")]
         public string DbOwner { get { return _DbOwner; } set { _DbOwner = value; } }
 
         string _DbObjectQualifier = null;
-        [Category("ALLinOne Rotator - Runtime Configuration")]
-        [Description("Object qualifier (prefix for ALLinONE Rotator tables)")]
+        [Category("Dynamic Rotator - Runtime Configuration")]
+        [Description("Object qualifier (prefix for Dynamic Rotator tables)")]
         public string DbObjectQualifier { get { return _DbObjectQualifier; } set { _DbObjectQualifier = value; } }
 
         string _ManageUrl = null;
-        [Category("ALLinOne Rotator - Runtime Configuration")]
+        [Category("Dynamic Rotator - Runtime Configuration")]
         [UrlProperty()]
-        [Description("Provide the URL to where you unpacked ManageRotator.aspx that cames with your ALLinONE Rotator copy.")]
+        [Description("Provide the URL to where you unpacked ManageRotator.aspx that cames with your Dynamic Rotator copy.")]
         [Editor("System.Web.UI.Design.UrlEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         public string ManageUrl { get { return _ManageUrl; } set { _ManageUrl = value; } }
 
@@ -137,61 +137,61 @@ namespace avt.AllinOneRotator.Net
         [Category("Layout")]
         public override Unit Height { get { return Settings.Height; } set { Settings.Height = value; } }
 
-        [Category("ALLinOne Rotator")]
+        [Category("Dynamic Rotator")]
         public bool AutoStartSlideShow { get { return Settings.AutoStartSlideShow; } set { Settings.AutoStartSlideShow = value; } }
 
-        [Category("ALLinOne Rotator")]
+        [Category("Dynamic Rotator")]
         public bool UseRoundCornersMask { get { return Settings.UseRoundCornersMask; } set { Settings.UseRoundCornersMask = value; } }
 
         [TypeConverter(typeof(WebColorConverter))]
-        [Category("ALLinOne Rotator")]
+        [Category("Dynamic Rotator")]
         public Color RoundCornerMaskColor { get { return Settings.RoundCornerMaskColor; } set { Settings.RoundCornerMaskColor = value; } }
 
-        [Category("ALLinOne Rotator")]
+        [Category("Dynamic Rotator")]
         public bool ShowBottomButtons { get { return Settings.ShowBottomButtons; } set { Settings.ShowBottomButtons = value; } }
 
-        [Category("ALLinOne Rotator")]
+        [Category("Dynamic Rotator")]
         public bool ShowPlayPauseControls { get { return Settings.ShowPlayPauseControls; } set { Settings.ShowPlayPauseControls = value; } }
 
         [TypeConverter(typeof(WebColorConverter))]
-        [Category("ALLinOne Rotator")]
+        [Category("Dynamic Rotator")]
         public Color FadeColor { get { return Settings.FadeColor; } set { Settings.FadeColor = value; } }
         
-        [Category("ALLinOne Rotator")]
+        [Category("Dynamic Rotator")]
         public bool ShowTopTitle { get { return Settings.ShowTopTitle; } set { Settings.ShowTopTitle = value; } }
 
         [TypeConverter(typeof(WebColorConverter))]
-        [Category("ALLinOne Rotator")]
+        [Category("Dynamic Rotator")]
         public Color TopTitleBackground { get { return Settings.TopTitleBackground; } set { Settings.TopTitleBackground = value; } }
 
-        [Category("ALLinOne Rotator")]
+        [Category("Dynamic Rotator")]
         public int TopTitleBgTransparency { get { return Settings.TopTitleBgTransparency; } set { Settings.TopTitleBgTransparency = value; } }
 
         [TypeConverter(typeof(WebColorConverter))]
-        [Category("ALLinOne Rotator")]
+        [Category("Dynamic Rotator")]
         public Color TopTitleTextColor { get { return Settings.TopTitleTextColor; } set { Settings.TopTitleTextColor = value; } }
 
-        [Category("ALLinOne Rotator")]
+        [Category("Dynamic Rotator")]
         public bool ShowTimerBar { get { return Settings.ShowTimerBar; } set { Settings.ShowTimerBar = value; } }
 
         [TypeConverter(typeof(WebColorConverter))]
-        [Category("ALLinOne Rotator")]
+        [Category("Dynamic Rotator")]
         public Color SlideButtonsColor { get { return Settings.SlideButtonsColor; } set { Settings.SlideButtonsColor = value; } }
 
         [TypeConverter(typeof(WebColorConverter))]
-        [Category("ALLinOne Rotator")]
+        [Category("Dynamic Rotator")]
         public Color SlideButtonsNumberColor { get { return Settings.SlideButtonsNumberColor; } set { Settings.SlideButtonsNumberColor = value; } }
 
-        [Category("ALLinOne Rotator")]
+        [Category("Dynamic Rotator")]
         public eSlideButtonsType SlideButtonsType { get { return Settings.SlideButtonsType; } set { Settings.SlideButtonsType = value; } }
 
-        [Category("ALLinOne Rotator")]
+        [Category("Dynamic Rotator")]
         public int SlideButtonsXoffset { get { return Settings.SlideButtonsXoffset; } set { Settings.SlideButtonsXoffset = value; } }
 
-        [Category("ALLinOne Rotator")]
+        [Category("Dynamic Rotator")]
         public int SlideButtonsYoffset { get { return Settings.SlideButtonsYoffset; } set { Settings.SlideButtonsYoffset = value; } }
 
-        [Category("ALLinOne Rotator")]
+        [Category("Dynamic Rotator")]
         public bool TransparentBackground { get { return Settings.TransparentBackground; } set { Settings.TransparentBackground = value; } }
 
         #endregion
@@ -201,8 +201,8 @@ namespace avt.AllinOneRotator.Net
 
         [DefaultValue("")]
         [PersistenceMode(PersistenceMode.InnerProperty)]
-        [Category("ALLinOne Rotator - Slides")]
-        [Editor("avt.AllinOneRotator.Net.SlideCollectionEditor,avt.AllinOneRotator.Net", typeof(UITypeEditor))]
+        [Category("Dynamic Rotator - Slides")]
+        [Editor("avt.DynamicRotator.Net.SlideCollectionEditor,avt.DynamicRotator.Net", typeof(UITypeEditor))]
         [MergableProperty(false)]
         public SlideCollection Slides { get { return Settings.Slides; } }
 
@@ -232,7 +232,7 @@ namespace avt.AllinOneRotator.Net
         protected override void RenderContents(HtmlTextWriter output)
         {
             if (base.DesignMode) {
-                output.Write("<div style = 'width: " + base.Width + "; height: " + base.Height + "; border: 1px solid #929292; background-color: #c2c2c2;'>ALLinOneRotator.NET</div>");
+                output.Write("<div style = 'width: " + base.Width + "; height: " + base.Height + "; border: 1px solid #929292; background-color: #c2c2c2;'>DynamicRotator.NET</div>");
             } else {
                 RenderFrontEnd(output);
             }
@@ -245,7 +245,7 @@ namespace avt.AllinOneRotator.Net
             //Page.ClientScript.RegisterClientScriptBlock(GetType(), "AC_FL_RunContent", "AC_FL_RunContent = 0;", true);
 
             // render the flash
-            string flashUrl = Page.ClientScript.GetWebResourceUrl(GetType(), "avt.AllinOneRotator.Net.flash.rotator-v2-5.swf");
+            string flashUrl = Page.ClientScript.GetWebResourceUrl(GetType(), "avt.DynamicFlashRotator.Net.flash.rotator-v2-5.swf");
             string timestamp = Settings.LastUpdate.ToFileTime().ToString();
 
             string settingsUrl = Page.Request.RawUrl;
@@ -292,7 +292,7 @@ namespace avt.AllinOneRotator.Net
         //protected override void OnPreRender(EventArgs e)
         //{
         //    base.OnPreRender(e);
-        //    string resourceName = "avt.AllinOneRotator.Net.flash.AC_RunActiveContent.js";
+        //    string resourceName = "avt.DynamicRotator.Net.flash.AC_RunActiveContent.js";
 
         //    ClientScriptManager cs = this.Page.ClientScript;
         //    cs.RegisterClientScriptResource(GetType(), resourceName);

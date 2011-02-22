@@ -8,11 +8,11 @@ using System.Web.UI;
 using System.Drawing.Design;
 using System.Xml;
 using System.Data;
-using avt.AllinOneRotator.Net.Settings;
-using avt.AllinOneRotator.Net.Services;
-using avt.AllinOneRotator.Net.Data;
+using avt.DynamicFlashRotator.Net.Settings;
+using avt.DynamicFlashRotator.Net.Services;
+using avt.DynamicFlashRotator.Net.Data;
 
-namespace avt.AllinOneRotator.Net
+namespace avt.DynamicFlashRotator.Net
 {
     public enum eMoveType {
         Strong, 

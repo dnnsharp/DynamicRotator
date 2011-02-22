@@ -28,7 +28,7 @@ namespace Test.WebApplication {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::avt.AllinOneRotator.Net.AllinOneRotator AllinOneRotator1;
+        protected global::avt.DynamicFlashRotator.Net.DynamicRotator AllinOneRotator1;
         
         /// <summary>
         /// AllinOneRotator2 control.
@@ -37,6 +37,6 @@ namespace Test.WebApplication {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::avt.AllinOneRotator.Net.AllinOneRotator AllinOneRotator2;
+        protected global::avt.DynamicFlashRotator.Net.DynamicRotator AllinOneRotator2;
     }
 }

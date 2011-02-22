@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AllinOneRotator_WebManage")]
+[assembly: AssemblyTitle("avt.DynamicFlashRotator.WebManage")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("AllinOneRotator_WebManage")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2011")]
+[assembly: AssemblyCompany("Avatar Software")]
+[assembly: AssemblyProduct("avt.DynamicFlashRotator.WebManage")]
+[assembly: AssemblyCopyright("Copyright © Avatar Software 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

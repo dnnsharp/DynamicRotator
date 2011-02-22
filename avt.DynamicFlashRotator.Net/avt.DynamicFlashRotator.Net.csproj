@@ -9,8 +9,8 @@
     <ProjectGuid>{2B3E1E9E-512B-4F18-BD29-2737504CA8F1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>avt.AllinOneRotator.Net</RootNamespace>
-    <AssemblyName>avt.AllinOneRotator.Net</AssemblyName>
+    <RootNamespace>avt.DynamicFlashRotator.Net</RootNamespace>
+    <AssemblyName>avt.DynamicFlashRotator.Net</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Nonshipping>true</Nonshipping>
@@ -46,11 +46,11 @@
     <Compile Include="Data\AvtSqlHelper.cs" />
     <Compile Include="Data\DataProvider.cs" />
     <Compile Include="Data\SqlDataProvider.cs" />
+    <Compile Include="DynamicRotator.cs" />
     <Compile Include="Services\AspNetConfiguration.cs" />
     <Compile Include="Services\IConfiguration.cs" />
     <Compile Include="Settings\RotatorSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AllinOneRotator.cs" />
     <Compile Include="Slides\SlideCollection.cs" />
     <Compile Include="Slides\SlideCollectionEditor.cs" />
     <Compile Include="Slides\SlideInfo.cs" />

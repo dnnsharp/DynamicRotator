@@ -10,8 +10,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AllinOneRotator_WebManage</RootNamespace>
-    <AssemblyName>AllinOneRotator-WebManage</AssemblyName>
+    <RootNamespace>avt.DynamicFlashRotator.WebManage</RootNamespace>
+    <AssemblyName>avt.DynamicFlashRotator.WebManage</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -81,9 +81,9 @@
     <None Include="deploy.cmd" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AllinOneRotator-Net\AllinOneRotator-Net.csproj">
+    <ProjectReference Include="..\avt.DynamicFlashRotator.Net\avt.DynamicFlashRotator.Net.csproj">
       <Project>{2B3E1E9E-512B-4F18-BD29-2737504CA8F1}</Project>
-      <Name>AllinOneRotator-Net</Name>
+      <Name>avt.DynamicFlashRotator.Net</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

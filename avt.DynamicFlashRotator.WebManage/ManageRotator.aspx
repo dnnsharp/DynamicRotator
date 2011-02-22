@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="True" CodeBehind="ManageRotator.aspx.cs" Inherits="avt.AllinOneRotator.Net.WebManage.ManageRotator" ValidateRequest="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="True" CodeBehind="ManageRotator.aspx.cs" Inherits="avt.DynamicFlashRotator.Net.WebManage.ManageRotator" ValidateRequest="false" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -1061,11 +1061,11 @@
                 _dlg.find(".tbObjPosY").val(<%= DefaultObject.Yposition %>);
                 _dlg.find(".ddVerticalAlgin").val("<%= DefaultObject.VerticalAlign.ToString() %>");
                 _dlg.find(".tbObjGlowSize").val(<%= DefaultObject.GlowSize %>);
-                _dlg.find(".tbObjGlowColor").val("<%= avt.AllinOneRotator.Net.ColorExt.ColorToHexString(DefaultObject.GlowColor) %>");
+                _dlg.find(".tbObjGlowColor").val("<%= avt.DynamicFlashRotator.Net.ColorExt.ColorToHexString(DefaultObject.GlowColor) %>");
                 _dlg.find(".tbObjGlowStrength").val(<%= DefaultObject.GlowStrength %>);
 
-                _dlg.find(".tbTextColor").val("<%= avt.AllinOneRotator.Net.ColorExt.ColorToHexString(DefaultObject.TextColor) %>");
-                _dlg.find(".tbBgTextColor").val("<%= avt.AllinOneRotator.Net.ColorExt.ColorToHexString(DefaultObject.TextBackgroundColor) %>");
+                _dlg.find(".tbTextColor").val("<%= avt.DynamicFlashRotator.Net.ColorExt.ColorToHexString(DefaultObject.TextColor) %>");
+                _dlg.find(".tbBgTextColor").val("<%= avt.DynamicFlashRotator.Net.ColorExt.ColorToHexString(DefaultObject.TextBackgroundColor) %>");
                 _dlg.find(".tbTextBgOpacity").val(<%= DefaultObject.TextBackgroundOpacity %>);
                 _dlg.find(".tbTextPadding").val(<%= DefaultObject.TextBackgroundPadding %>);
 

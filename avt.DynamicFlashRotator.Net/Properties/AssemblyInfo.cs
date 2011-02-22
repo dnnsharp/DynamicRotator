@@ -6,11 +6,11 @@ using System.Web.UI;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("avt.AllinOneRotator.Net")]
+[assembly: AssemblyTitle("avt.DynamicFlashRotator.Net")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Avatar Software")]
-[assembly: AssemblyProduct("avt.AllinOneRotator.Net")]
+[assembly: AssemblyProduct("avt.DynamicFlashRotator.Net")]
 [assembly: AssemblyCopyright("Copyright © Avatar Software 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -37,5 +37,5 @@ using System.Web.UI;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
 //[assembly: WebResource("avt.AllinOneRotator.Net.flash.AC_RunActiveContent.js", "text/javascript")]
-[assembly: WebResource("avt.AllinOneRotator.Net.flash.rotator-v2-5.swf", "application/x-shockwave-flash")]
+[assembly: WebResource("avt.DynamicFlashRotator.Net.flash.rotator-v2-5.swf", "application/x-shockwave-flash")]
 

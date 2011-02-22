@@ -2,9 +2,9 @@
 using System.Data;
 using System.Data.SqlTypes;
 using System.Data.SqlClient;
-using avt.AllinOneRotator.Net.Services;
+using avt.DynamicFlashRotator.Net.Services;
 
-namespace avt.AllinOneRotator.Net.Data
+namespace avt.DynamicFlashRotator.Net.Data
 {
 
     public class SqlDataProvider : DataProvider

@@ -9,10 +9,10 @@ using System.Web.UI;
 using System.Drawing.Design;
 using System.Xml;
 using System.Data;
-using avt.AllinOneRotator.Net.Data;
-using avt.AllinOneRotator.Net.Settings;
+using avt.DynamicFlashRotator.Net.Data;
+using avt.DynamicFlashRotator.Net.Settings;
 
-namespace avt.AllinOneRotator.Net
+namespace avt.DynamicFlashRotator.Net
 {
     public enum eEffect
     {

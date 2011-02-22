@@ -6,7 +6,7 @@ using System.Data;
 using System.Collections.Generic;
 
 
-namespace avt.AllinOneRotator.Net.Data
+namespace avt.DynamicFlashRotator.Net.Data
 {
     public class AvtSqlHelper_Table
     {
