@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.WebApplication", "Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllinOneRotator-WebManage", "AllinOneRotator-WebManage\AllinOneRotator-WebManage.csproj", "{1E55C374-958F-4C9B-BE61-F207DD90ABA9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5D2A3A1C-E669-4942-9EF1-6024C6637D17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "avt.DynamicFlashRotator.Dnn", "avt.DynamicFlashRotator.DotNetNuke\avt.DynamicFlashRotator.Dnn.csproj", "{E226216B-4F33-400F-92FA-2899F7FC9BE4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +29,10 @@ Global
 		{1E55C374-958F-4C9B-BE61-F207DD90ABA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E55C374-958F-4C9B-BE61-F207DD90ABA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E55C374-958F-4C9B-BE61-F207DD90ABA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E226216B-4F33-400F-92FA-2899F7FC9BE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E226216B-4F33-400F-92FA-2899F7FC9BE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E226216B-4F33-400F-92FA-2899F7FC9BE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E226216B-4F33-400F-92FA-2899F7FC9BE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
