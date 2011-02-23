@@ -20,7 +20,11 @@ namespace avt.DynamicFlashRotator.Net.Services
                 }
             }
 
-            if (!string.IsNullOrEmpty(_DbOwner) && _DbOwner.IndexOf('.') != _DbOwner.Length - 1) {
+            if (!string.IsNullOrEmpty(_ObjQualifier) && _ObjQualifier.EndsWith("_") == false) {
+                _ObjQualifier += "_";
+            }
+
+            if (!string.IsNullOrEmpty(_DbOwner) && _DbOwner.EndsWith(".") == false) {
                 _DbOwner += ".";
             }
         }
@@ -47,6 +51,23 @@ namespace avt.DynamicFlashRotator.Net.Services
 
         string _ObjQualifier = "";
         public string ObjQualifier { get { return _ObjQualifier; } }
+
+        public bool ShowManageLinks()
+        {
+            return true;
+        }
+
+        public bool HasAccess(string controlId)
+        {
+            // TODO: implement somethign
+            return true;
+        }
+
+        public string FormatTitle(string controlId)
+        {
+            return controlId;
+        }
+
 
         #endregion
     }

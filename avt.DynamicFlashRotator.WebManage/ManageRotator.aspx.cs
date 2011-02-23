@@ -20,6 +20,31 @@ namespace avt.DynamicFlashRotator.Net.WebManage
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // check settings
+            if (RotatorSettings.Configuration == null) {
+                if (!string.IsNullOrEmpty(Request.QueryString["connStr"])) {
+                    RotatorSettings.Init(new AspNetConfiguration());
+                } else {
+                    // don't have it in the query string, let's go back to previous page
+                    if (!string.IsNullOrEmpty(Request.QueryString["rurl"])) {
+                        Response.Redirect(HttpUtility.UrlDecode(Request.QueryString["rurl"]));
+                    } else {
+                        Response.Redirect("~/");
+                    }
+                    return;
+                }
+            }
+
+            if (!RotatorSettings.Configuration.HasAccess(Request.QueryString["controlId"])) {
+                if (!string.IsNullOrEmpty(Request.QueryString["rurl"])) {
+                    Response.Redirect(HttpUtility.UrlDecode(Request.QueryString["rurl"]));
+                } else {
+                    Response.Redirect("~/");
+                }
+                return;
+            }
+
+
             if (!Page.IsPostBack) {
 
                 ddSlideButtonsType.DataSource = Enum.GetNames(typeof(eSlideButtonsType));
@@ -61,12 +86,11 @@ namespace avt.DynamicFlashRotator.Net.WebManage
                 //try { ddObjEffect.SelectedValue = DefaultObject.EffectAfterSlide.ToString(); } catch { }
 
                 // load settings
-
                 RotatorSettings settings = new RotatorSettings();
-                settings.Init(Request.QueryString["controlId"], new AspNetConfiguration());
-                settings.LoadFromDB();
+                // settings.Init(Request.QueryString["controlId"], new AspNetConfiguration());
+                settings.LoadFromDB(Request.QueryString["controlId"]);
 
-                lblControlName.Text = Request.QueryString["controlId"];
+                lblControlName.Text = RotatorSettings.Configuration.FormatTitle(Request.QueryString["controlId"]);
                 tbWidth.Text = settings.Width.Value.ToString();
                 tbHeight.Text = settings.Height.Value.ToString();
                 cbAutoStartSlideShow.Checked = settings.AutoStartSlideShow;
@@ -95,19 +119,9 @@ namespace avt.DynamicFlashRotator.Net.WebManage
         protected void SaveSettings(object sender, EventArgs e)
         {
             RotatorSettings settings = new RotatorSettings();
-            settings.Init(Request.QueryString["controlId"], new AspNetConfiguration());
-            settings.LoadFromDB();
+            settings.LoadFromDB(Request.QueryString["controlId"]);
 
-            string connStr = Request.QueryString["connStr"];
-            if (connStr.IndexOf(';') == -1) {
-                // this is a name from web.config connnections
-                if (ConfigurationManager.ConnectionStrings[connStr] == null) {
-                    throw new ArgumentException("Runtime Configuration is enabled but the connection string name is invalid!");
-                }
-                connStr = ConfigurationManager.ConnectionStrings[connStr].ConnectionString;
-            }
-
-            DataProvider.Instance().Init(new AspNetConfiguration());
+            DataProvider.Instance().Init(RotatorSettings.Configuration);
 
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "Width", tbWidth.Text);
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "Height", tbHeight.Text);
@@ -136,6 +150,8 @@ namespace avt.DynamicFlashRotator.Net.WebManage
             foreach (SlideInfo slide in settings.Slides) {
                 existingSlides.Add(slide.Id);
             }
+
+            List<int> existingSlideObjects = new List<int>();
 
             XmlDocument xmlDocSlides = null;
             //try {
@@ -180,7 +196,6 @@ namespace avt.DynamicFlashRotator.Net.WebManage
                     slide.Save();
 
                     // save slide objects
-                    List<int> existingSlideObjects = new List<int>();
                     foreach (SlideObjectInfo slideObj in slide.SlideObjects) {
                         existingSlideObjects.Add(slideObj.Id);
                     }
@@ -229,15 +244,15 @@ namespace avt.DynamicFlashRotator.Net.WebManage
                             slideObj.Save();
                         }
                     }
-
-                    // delete the rest
-                    foreach (int slideObjectId in existingSlideObjects) {
-                        DataProvider.Instance().RemoveSlideObject(slideObjectId);
-                    }
                 }
             }
 
-            // delete the rest
+            // delete the rest of slide objects
+            foreach (int slideObjectId in existingSlideObjects) {
+                DataProvider.Instance().RemoveSlideObject(slideObjectId);
+            }
+
+            // delete the rest of slides
             foreach (int slideId in existingSlides) {
                 DataProvider.Instance().RemoveSlide(slideId);
             }

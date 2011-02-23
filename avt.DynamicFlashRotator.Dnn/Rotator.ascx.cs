@@ -1,18 +1,7 @@
-using DotNetNuke;
+using System.Web;
 using System.Web.UI;
+using avt.DynamicFlashRotator.Net.Settings;
 using DotNetNuke.Entities.Modules;
-using System.IO;
-using System.Collections.Generic;
-using System;
-using System.Threading;
-using System.Diagnostics;
-using DotNetNuke.Security;
-using System.Web.UI.WebControls;
-using System.Xml.Xsl;
-using System.Xml;
-using System.Text;
-using DotNetNuke.Framework;
-using System.Web.UI.HtmlControls;
 using DotNetNuke.Entities.Modules.Actions;
 
 namespace avt.DynamicFlashRotator.Dnn
@@ -22,7 +11,8 @@ namespace avt.DynamicFlashRotator.Dnn
     {
         private void Page_Init(object sender, System.EventArgs e)
         {
-            
+            RotatorSettings.Init(new DnnConfiguration());
+            DynamicRotator.OverrideId = ModuleId.ToString();
         }
 
         private void Page_Load(object sender, System.EventArgs e)
@@ -31,28 +21,25 @@ namespace avt.DynamicFlashRotator.Dnn
                 
             }
         }
+        //private bool HasAdminRights()
+        //{
+        //    if (PortalSettings.UserMode == DotNetNuke.Entities.Portals.PortalSettings.Mode.Edit &&
+        //            ((ModuleId != -1 && PortalSecurity.HasNecessaryPermission(SecurityAccessLevel.Edit, PortalSettings, ModuleConfiguration)) ||
+        //            (PortalSecurity.IsInRole(PortalSettings.AdministratorRoleName)))) {
+        //        return true;
+        //    }
 
-
-        private bool HasAdminRights()
-        {
-            if (PortalSettings.UserMode == DotNetNuke.Entities.Portals.PortalSettings.Mode.Edit &&
-                    ((ModuleId != -1 && PortalSecurity.HasNecessaryPermission(SecurityAccessLevel.Edit, PortalSettings, ModuleConfiguration)) ||
-                    (PortalSecurity.IsInRole(PortalSettings.AdministratorRoleName)))) {
-                return true;
-            }
-
-            return false;
-        }
-
-       
+        //    return false;
+        //}
 
         public ModuleActionCollection ModuleActions
         {
-            get
-            {
+            get {
+                string managePath = TemplateSourceDirectory + "/ManageRotator.aspx?controlId=" + ModuleId.ToString() + "&rurl=" + HttpUtility.UrlEncode(Request.RawUrl);
+
                 ModuleActionCollection Actions = new ModuleActionCollection();
-                Actions.Add(GetNextActionID(), "Manage Slides", DotNetNuke.Entities.Modules.Actions.ModuleActionType.AddContent, "", "icon_hostsettings_16px.gif", EditUrl("Edit"), false, DotNetNuke.Security.SecurityAccessLevel.Edit, true, false);
-                Actions.Add(GetNextActionID(), "Rotator Settings", DotNetNuke.Entities.Modules.Actions.ModuleActionType.AddContent, "", "icon_sitesettings_16px.gif", EditUrl("Manage"), false, DotNetNuke.Security.SecurityAccessLevel.Edit, true, false);
+                Actions.Add(GetNextActionID(), "Manage Slides", DotNetNuke.Entities.Modules.Actions.ModuleActionType.AddContent, "", "icon_hostsettings_16px.gif", managePath + "#tabs-main-slides", false, DotNetNuke.Security.SecurityAccessLevel.Edit, true, false);
+                Actions.Add(GetNextActionID(), "Rotator Settings", DotNetNuke.Entities.Modules.Actions.ModuleActionType.AddContent, "", "icon_sitesettings_16px.gif", managePath, false, DotNetNuke.Security.SecurityAccessLevel.Edit, true, false);
                 return Actions;
             }
         }

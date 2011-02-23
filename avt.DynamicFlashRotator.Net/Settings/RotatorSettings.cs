@@ -15,20 +15,35 @@ namespace avt.DynamicFlashRotator.Net.Settings
 {
     public class RotatorSettings
     {
-        string RotatorId;
+        //string RotatorId;
 
         public RotatorSettings()
         {
             
         }
 
-        IConfiguration Config;
-
-        public void Init(string rotatorId, IConfiguration config)
-        {
-            RotatorId = rotatorId;
-            Config = config;
+        static IConfiguration _ConfigurationProvider = null;
+        public static IConfiguration Configuration {
+            get {
+                lock (typeof(RotatorSettings)) {
+                    return _ConfigurationProvider;
+                }
+            }
         }
+
+        public static void Init(IConfiguration config)
+        {
+            lock (typeof(RotatorSettings)) {
+                _ConfigurationProvider = config;
+            }
+        }
+
+
+        //public void Init(string rotatorId, IConfiguration config)
+        //{
+        //    RotatorId = rotatorId;
+        //    Config = config;
+        //}
 
         #region Custom Properties
 
@@ -106,9 +121,9 @@ namespace avt.DynamicFlashRotator.Net.Settings
         #endregion
 
 
-        public void LoadFromDB() // string connStr, string dbOwner, string objQualifier)
+        public void LoadFromDB(string RotatorId) // string connStr, string dbOwner, string objQualifier)
         {
-            DataProvider.Instance().Init(Config);
+            DataProvider.Instance().Init(Configuration);
 
             using (IDataReader dr = DataProvider.Instance().GetSettings(RotatorId)) {
                 while (dr.Read()) {

@@ -42,15 +42,24 @@ namespace avt.DynamicFlashRotator.Net
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-
-            Settings.Init(ID, new AspNetConfiguration(DbConnectionString, DbOwner, DbObjectQualifier));
+           
+            // check settings
+            if (RotatorSettings.Configuration == null) {
+                if (!string.IsNullOrEmpty(DbConnectionString)) {
+                    RotatorSettings.Init(new AspNetConfiguration());
+                    RotatorSettings.Init(new AspNetConfiguration(DbConnectionString, DbOwner, DbObjectQualifier));
+                } else {
+                    // don't have DbConnectionString
+                }
+            }
+            
 
             // merge dynamic settings
             if (EnableRuntimeConfiguration) {
-                Settings.LoadFromDB();
+                Settings.LoadFromDB(RealId);
             }
 
-            if (Page.Request.Params["controlId"] == this.ID) {
+            if (Page.Request.Params["controlId"] == RealId) {
                 if (Page.Request.Params["avtadrot"] == "settings") {
                     Page.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                     Page.Response.Cache.SetNoStore();
@@ -96,6 +105,9 @@ namespace avt.DynamicFlashRotator.Net
             }
         }
 
+        string _OverrideId = null;
+        public string OverrideId { get { return _OverrideId; } set { _OverrideId = value; } }
+        public string RealId { get { return string.IsNullOrEmpty(OverrideId) ? this.ID : OverrideId; } }
 
         #region Runtime Configuration
 
@@ -250,17 +262,17 @@ namespace avt.DynamicFlashRotator.Net
 
             string settingsUrl = Page.Request.RawUrl;
             settingsUrl += (settingsUrl.IndexOf('?') > 0 ? (settingsUrl.IndexOf('?') != settingsUrl.Length - 1 ? "&" : "") : "?") + "avtadrot=settings&t=" + timestamp;
-            settingsUrl += "&controlId=" + this.ID;
+            settingsUrl += "&controlId=" + RealId;
             settingsUrl = HttpUtility.UrlEncode(settingsUrl);
 
             string contentUrl = Page.Request.RawUrl;
             contentUrl += (contentUrl.IndexOf('?') > 0 ? (contentUrl.IndexOf('?') != contentUrl.Length - 1 ? "&" : "") : "?") + "avtadrot=content&t=" + timestamp;
-            contentUrl += "&controlId=" + this.ID;
+            contentUrl += "&controlId=" + RealId;
             contentUrl = HttpUtility.UrlEncode(contentUrl);
 
             string transitionsUrl = Page.Request.RawUrl;
             transitionsUrl += (transitionsUrl.IndexOf('?') > 0 ? (transitionsUrl.IndexOf('?') != transitionsUrl.Length - 1 ? "&" : "") : "?") + "avtadrot=transitions&t=" + timestamp;
-            transitionsUrl += "&controlId=" + this.ID;
+            transitionsUrl += "&controlId=" + RealId;
             transitionsUrl = HttpUtility.UrlEncode(transitionsUrl);
 
             output.Write(
@@ -275,7 +287,7 @@ namespace avt.DynamicFlashRotator.Net
                 // + "</noscript>"
             );
 
-            if (EnableRuntimeConfiguration) {
+            if (EnableRuntimeConfiguration && RotatorSettings.Configuration.ShowManageLinks()) {
                 string manageUrl = Page.ResolveUrl(ManageUrl);
                 manageUrl += "?controlId=" + ID;
                 manageUrl += "&connStr=" + DbConnectionString;
