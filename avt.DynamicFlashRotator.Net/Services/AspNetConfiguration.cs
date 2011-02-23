@@ -60,7 +60,10 @@ namespace avt.DynamicFlashRotator.Net.Services
         public bool HasAccess(string controlId)
         {
             // TODO: implement somethign
-            return true;
+            if (HttpContext.Current.Request.Url.Host == "localhost" || HttpContext.Current.Request.Url.Host == "193.254.62.222" || HttpContext.Current.Request.Url.Host == "192.168.0.199")
+                return true;
+
+            return false;
         }
 
         public string FormatTitle(string controlId)
@@ -68,7 +71,12 @@ namespace avt.DynamicFlashRotator.Net.Services
             return controlId;
         }
 
+        public string Tokenize(string controlId, string content)
+        {
+            return content;
+        }
 
         #endregion
+
     }
 }

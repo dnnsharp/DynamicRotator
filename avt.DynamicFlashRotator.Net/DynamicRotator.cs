@@ -287,9 +287,9 @@ namespace avt.DynamicFlashRotator.Net
                 // + "</noscript>"
             );
 
-            if (EnableRuntimeConfiguration && RotatorSettings.Configuration.ShowManageLinks()) {
+            if (EnableRuntimeConfiguration && RotatorSettings.Configuration.ShowManageLinks() && RotatorSettings.Configuration.HasAccess(RealId)) {
                 string manageUrl = Page.ResolveUrl(ManageUrl);
-                manageUrl += "?controlId=" + ID;
+                manageUrl += "?controlId=" + RealId;
                 manageUrl += "&connStr=" + DbConnectionString;
                 manageUrl += "&dbOwner=" + DbOwner;
                 manageUrl += "&objQualifier=" + DbObjectQualifier;

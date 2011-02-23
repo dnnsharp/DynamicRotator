@@ -14,5 +14,6 @@ namespace avt.DynamicFlashRotator.Net.Services
         bool HasAccess(string controlId);
 
         string FormatTitle(string controlId);
+        string Tokenize(string controlId, string content);
     }
 }

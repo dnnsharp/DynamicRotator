@@ -367,7 +367,7 @@ namespace avt.DynamicFlashRotator.Net
 
             // slide node attributes
             Writer.WriteAttributeString("theTime", DurationSeconds.ToString());
-            Writer.WriteAttributeString("theTitle", Title.ToString());
+            Writer.WriteAttributeString("theTitle", RotatorSettings.Configuration.Tokenize(ControlId, Title));
 
             // background node and attributes
             Writer.WriteStartElement("background");
@@ -379,7 +379,7 @@ namespace avt.DynamicFlashRotator.Net
             bool bTextFound = false;
             foreach (SlideObjectInfo slideObj in SlideObjects) {
                 if (slideObj.ObjectType == eObjectType.Text) {
-                    slideObj.ToXml(Writer);
+                    slideObj.ToXml(ControlId, Writer);
                     bTextFound = true;
                     break;
                 }
@@ -389,14 +389,14 @@ namespace avt.DynamicFlashRotator.Net
                 SlideObjectInfo emptyText = new SlideObjectInfo();
                 emptyText.ObjectType = eObjectType.Text;
                 emptyText.Text = "";
-                emptyText.ToXml(Writer);
+                emptyText.ToXml(ControlId, Writer);
             }
 
             // slide objects
             Writer.WriteStartElement("pictures"); 
             foreach (SlideObjectInfo slideObj in SlideObjects) {
                 if (slideObj.ObjectType != eObjectType.Text) {
-                    slideObj.ToXml(Writer);
+                    slideObj.ToXml(ControlId, Writer);
                 }
             }
             Writer.WriteEndElement(); // ("pictures");
@@ -405,7 +405,7 @@ namespace avt.DynamicFlashRotator.Net
             Writer.WriteStartElement("link");
             Writer.WriteAttributeString("theTarget", Target);
             if (!string.IsNullOrEmpty(ButtonCaption)) {
-                Writer.WriteAttributeString("btnName", ButtonCaption);
+                Writer.WriteAttributeString("btnName", RotatorSettings.Configuration.Tokenize(ControlId, ButtonCaption));
                 Writer.WriteAttributeString("showBtn", "yes");
             } else {
                 Writer.WriteAttributeString("btnName", "");
@@ -414,7 +414,7 @@ namespace avt.DynamicFlashRotator.Net
             Writer.WriteAttributeString("useLink", string.IsNullOrEmpty(SlideUrl) || !ClickAnywhere ? "no" : "yes");
             Writer.WriteAttributeString("useTextsBackground", UseTextsBackground ? "yes" : "no");
 
-            Writer.WriteString(SlideUrl);
+            Writer.WriteString(RotatorSettings.Configuration.Tokenize(ControlId, SlideUrl));
 
             Writer.WriteEndElement(); // ("link");
 

@@ -184,7 +184,7 @@ namespace avt.DynamicFlashRotator.Net
             return Path.GetFileName(ObjectUrl);
         }
 
-        public void ToXml(XmlWriter Writer)
+        public void ToXml(string controlId, XmlWriter Writer)
         {
             Writer.WriteStartElement(ObjectType == eObjectType.Text ? "theText" : "picture");
 
@@ -212,8 +212,8 @@ namespace avt.DynamicFlashRotator.Net
                 Writer.WriteAttributeString("backgroundColor", ColorExt.ColorToHexString(TextBackgroundColor).Replace("#", "0x"));
                 Writer.WriteAttributeString("backgroundTransparency", TextBackgroundOpacity.ToString());
                 Writer.WriteAttributeString("backgroundPadding", TextBackgroundPadding.ToString());
-                
-                Writer.WriteCData(Text);
+
+                Writer.WriteCData(RotatorSettings.Configuration.Tokenize(controlId, Text));
             } else {
                 Writer.WriteAttributeString("timeDelay", TimeDelay.ToString());
                 
@@ -225,7 +225,7 @@ namespace avt.DynamicFlashRotator.Net
                     Writer.WriteAttributeString("useEffect", "no");
                     Writer.WriteAttributeString("effect", "");
                 }
-                Writer.WriteAttributeString("theLink", Link);
+                Writer.WriteAttributeString("theLink", RotatorSettings.Configuration.Tokenize(controlId, Link));
 
                 Writer.WriteString(ObjectUrl);
             }

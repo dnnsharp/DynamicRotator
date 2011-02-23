@@ -281,16 +281,16 @@
                             <span class="slideId">-1</span>
                             <div class = "fieldRow ui-widget-content">
                                 <b>Slide Title: </b> 
-                                <input type="text" class = "tbSlideTitle" style = "width: 320px;" value="<%= DefaultSlide.Title %>" />
+                                <input type="text" class = "tbSlideTitle tooltip_hover" style = "width: 320px;" value="<%= DefaultSlide.Title %>" title="The slide title is displayed when hovering the navigation buttons.<br />This field can contain My Tokens." />
                             </div>
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>Background Gradient: </b>
-                                from <span><input type="text" style = "width: 60px;" class="tbColor tbColortbBkGradFrom" value="<%= ColorToHex(DefaultSlide.BackgroundGradientFrom) %>" />&nbsp;&nbsp;&nbsp;</span>
-                                to <span><input type="text" style = "width: 60px;" class="tbColor tbColortbBkGradTo" value="<%= ColorToHex(DefaultSlide.BackgroundGradientTo) %>" />&nbsp;&nbsp;&nbsp;</span>
+                                from <span><input type="text" style = "width: 60px;" class="tbColor tbColortbBkGradFrom tooltip_hover" value="<%= ColorToHex(DefaultSlide.BackgroundGradientFrom) %>" title="This option can be used to specify the slide background as a vertical gradient or a solid color (by setting the two fieds to same value)." />&nbsp;&nbsp;&nbsp;</span>
+                                to <span><input type="text" style = "width: 60px;" class="tbColor tbColortbBkGradTo tooltip_hover" value="<%= ColorToHex(DefaultSlide.BackgroundGradientTo) %>" title="This option can be used to specify the slide background as a vertical gradient or a solid color (by setting the two fieds to same value)." />&nbsp;&nbsp;&nbsp;</span>
                             </div>
                              <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>Duration: </b>
-                                <input type="text" style = "width: 24px;" class="tbDuration" value="<%= DefaultSlide.DurationSeconds %>" /> seconds
+                                <input type="text" style = "width: 24px;" class="tbDuration tooltip_hover" value="<%= DefaultSlide.DurationSeconds %>" title="Duration determines the number of seconds the slide will be displayed." /> seconds
                             </div>
                         </div>
                     </div>
@@ -299,28 +299,28 @@
                         <div style = "margin: 8px;">
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>Open </b> 
-                                <select class = "ddUrl ddLinkUrl">
+                                <select class = "ddUrl ddLinkUrl tooltip_hover" title="Use <i>other</i> when the protocol for your link is not in the dropdown or when you're specifying a relative URL.">
                                     <option>http://</option>
                                     <option>https://</option>
                                     <option>ftp://</option>
                                     <option>other</option>
                                 </select>
-                                <input type="text" class = "tbUrl tbLinkUrl" style = "width: 200px;" value="<%= DefaultSlide.SlideUrl %>" />
+                                <input type="text" class = "tbUrl tbLinkUrl tooltip_hover" style = "width: 200px;" value="<%= DefaultSlide.SlideUrl %>" title="This fields determines the page to redirect to when the user clicks the slide link. Use <i>Named Window...</i> option to specify your own window name." />
                                 <b>in </b> 
-                                <asp:DropDownList runat="server" id="ddLinkTarget" class="ddLinkTarget" style="width:130px" onchange="jQuery(this).toggle(jQuery(this).val() != 'other'); jQuery(this).parents('.fieldRow:first').find('.pnlLinkTarget').toggle(jQuery(this).val() == 'other').filter(':visible').find(':input').focus().select();"></asp:DropDownList>
+                                <asp:DropDownList runat="server" id="ddLinkTarget" class="ddLinkTarget tooltip_hover" style="width:130px" onchange="jQuery(this).toggle(jQuery(this).val() != 'other'); jQuery(this).parents('.fieldRow:first').find('.pnlLinkTarget').toggle(jQuery(this).val() == 'other').filter(':visible').find(':input').focus().select();" title="Use this option to determine the browser window where the link will be opened."></asp:DropDownList>
                                 <span class = "pnlLinkTarget" style="display:none;">
-                                    <input type="text" class = "tbLinkTarget" style = "width: 116px; " value="<%= DefaultSlide.Target %>" />
+                                    <input type="text" class = "tbLinkTarget tooltip_hover" style = "width: 116px; " value="<%= DefaultSlide.Target %>" title="This fields determines the page to redirect to when the user clicks the slide link. Click link next to this field to go back to standard targets drop down." />
                                     <a href = "javascript: ;" onclick="jQuery(this).parents('.pnlLinkTarget:first').hide(); jQuery(this).parents('.fieldRow:first').find('.ddLinkTarget').show().val('_self');">^</a>
                                 </span>
                             </div>
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
-                                <label style="font-weight:bold;">
+                                <label style="font-weight:bold;" class = "tooltip_hover" title="When this option is checked the entire slide becomes a link. Otherwise, use the Link Button option below.">
                                     <input type="checkbox" class="cbLinkAnywhere" style = "" <%= DefaultSlide.ClickAnywhere ? "checked=\"checked\"" : "" %> />
                                     <b>Click Anywhere inside the Slide to open link</b> 
                                 </label>
                             </div>
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
-                                <label style="font-weight:bold;">
+                                <label style="font-weight:bold;" class = "tooltip_hover" title="When this option is on, a Link Button is added below the slide text that when clicked activates the URL specified above.">
                                     <input type="checkbox" class="cbLinkCaption" style = "" onclick="checkLinkCaption(jQuery(this).parents('.pnlSlideOptsLink:first'), this.checked);" />
                                     <b>Display link button under slide text</b> 
                                 </label>
@@ -328,7 +328,7 @@
                             
                             <div class = "fieldRow ui-widget-content pnlLinkButtonCaption" style="clear: left; padding-left: 30px;">
                                 <b>Button Caption: </b> 
-                                <input type="text" class="tbLinkCaption" style = "width: 200px;" value="<%= DefaultSlide.ButtonCaption %>" />
+                                <input type="text" class="tbLinkCaption tooltip_hover" style = "width: 200px;" value="<%= DefaultSlide.ButtonCaption %>" title="This fields determines the label of the Link Button." />
                             </div>
 
                         </div>
@@ -423,11 +423,13 @@
 
                         <tr class = "objFieldRow ui-widget-content">
                             <td class = "ui-widget-content hdr">Name:</td>
-                            <td class = "ui-widget-content"><input type="text" class = "tbObjName tbRequired" style = "width: 200px;" /></td>
+                            <td class = "ui-widget-content tooltip_hover" title="The name is used only in administration screen to quickly identify objects.">
+                                <input type="text" class = "tbObjName tbRequired" style = "width: 200px;" />
+                            </td>
                         </tr>
                         <tr class = "objFieldRow ui-widget-content">
                             <td class = "ui-widget-content hdr">Position:</td>
-                            <td class = "ui-widget-content">
+                            <td class = "ui-widget-content tooltip_hover" title="These coordinates determines the final position of the object, after the effects and transitions have completed.">
                                 <b>X</b> <input type="text" style = "width: 40px;" class="tbObjPosX tbNumber" />
                                 <b>Y</b> <input type="text" style = "width: 40px;" class="tbObjPosY tbNumber" />
                                 <asp:DropDownList runat="server" ID = "ddVerticalAlgin" class = "ddVerticalAlgin" style="display:none;">
@@ -437,13 +439,13 @@
                         <tr class = "objFieldRow ui-widget-content objFieldImgOnly">
                             <td class = "ui-widget-content hdr">Link URL:</td>
                             <td class = "ui-widget-content">
-                                <select class = "ddUrl ddLinkUrl">
+                                <select class = "ddUrl ddLinkUrl tooltip_hover" title="Use <i>other</i> when the protocol for your link is not in the dropdown or when you're specifying a relative URL.">
                                     <option>http://</option>
                                     <option>https://</option>
                                     <option>ftp://</option>
                                     <option>other</option>
                                 </select>
-                                <input type="text" class = "tbUrl tbLinkUrl" style = "width: 300px;" />
+                                <input type="text" class = "tbUrl tbLinkUrl tooltip_hover" style = "width: 270px;" title="When specified, Dynamic Rotator will open this link when the user clicks inside this object's area." />
                             </td>
                         </tr>
                         
@@ -453,18 +455,18 @@
                         <tr class = "objFieldRow ui-widget-content objFieldImgOnly">
                             <td class = "ui-widget-content hdr">Resource URL:</td>
                             <td class = "ui-widget-content">
-                                <select class = "ddUrl ddObjectUrl">
+                                <select class = "ddUrl ddObjectUrl tooltip_hover" title="Use <i>other</i> when the protocol for your link is not in the dropdown or when you're specifying a relative URL.">
                                     <option>http://</option>
                                     <option>https://</option>
                                     <option>ftp://</option>
                                     <option>other</option>
                                 </select>
-                                <input type="text" class = "tbUrl tbObjectUrl tbRequired" style = "width: 300px;" />
+                                <input type="text" class = "tbUrl tbObjectUrl tbRequired tooltip_hover" style = "width: 270px;" title="Instruct Dynamic Rotator where to find this resource." />
                             </td>
                         </tr>
                         <tr class = "objFieldRow ui-widget-content objFieldTextOnly">
                             <td class = "ui-widget-content hdr">Text:</td>
-                            <td class = "ui-widget-content"><textarea class = "tbObjText" style = "width: 380px; height: 60px;"></textarea></td>
+                            <td class = "ui-widget-content"><textarea class = "tbObjText tooltip_hover" style = "width: 380px; height: 60px;" title="Note that you can use html tags (such as <i>i,b,u,a,font,etc</i>) to format the text.<br />This field can contain My Tokens."></textarea></td>
                         </tr>
                         
                     </table>
@@ -479,14 +481,16 @@
                         <tr class="rowSepGray"><td colspan="2">&nbsp;</td></tr>
                         <tr class = "objFieldRow ui-widget-content">
                             <td class = "ui-widget-content hdr">Opacity:</td>
-                            <td class = "ui-widget-content"><input type="text" class = "tbObjOpacity tbNumber tbRange" style = "width: 30px;" /></td>
+                            <td class = "ui-widget-content tooltip_hover" title="Use this option to have the object fade into the bakground.<br/>You can also use this option to hide objects you're not ready to delete by setting it to 0.">
+                                <input type="text" class = "tbObjOpacity tbNumber tbRange" style = "width: 30px;" />
+                            </td>
                         </tr>
                         <tr class = "objFieldRow ui-widget-content">
                             <td class = "ui-widget-content hdr">Glow:</td>
-                            <td class = "ui-widget-content" style="text-align: center">
-                                <b>Size:</b> <input type="text" class = "tbObjGlowSize" style = "width: 30px;" />
+                            <td class = "ui-widget-content tooltip_hover" style="text-align: center;" title="The glow is a border displayed around the object. If you put a dark color you'll obtain a shandow effect. <br/> To disable this option, setthe size and strength to 0.">
+                                <b>Size:</b> <input type="text" class = "tbNumber tbObjGlowSize" style = "width: 30px;"  />
                                 <b>Color:</b> <span><input type="text" style = "width: 60px;" class="tbColor tbObjGlowColor" />&nbsp;&nbsp;&nbsp;</span>
-                                <b>Strength:</b> <input type="text" class = "tbObjGlowStrength" style = "width: 30px;" />
+                                <b>Strength:</b> <input type="text" class = "tbNumber tbObjGlowStrength" style = "width: 30px;" />
                             </td>
                         </tr>
                     </table>
@@ -496,11 +500,13 @@
 
                         <tr class = "objFieldRow ui-widget-content objFieldTextOnly">
                             <td class = "ui-widget-content hdr">Text Color:</td>
-                            <td class = "ui-widget-content"><span><input type="text" style = "width: 60px;" class="tbColor tbTextColor" />&nbsp;&nbsp;&nbsp;</span></td>
+                            <td class = "ui-widget-content tooltip_hover" title="Remember that you can override this color for parts of the content by using html tags in the content (for example put <i>This is &amp;lt;font color=&quot;#ff0000;&quot;&amp;gt;red&amp;lt;font&amp;gt;</i>).">
+                                <span><input type="text" style = "width: 60px;" class="tbColor tbTextColor" />&nbsp;&nbsp;&nbsp;</span>
+                            </td>
                         </tr>
                         <tr class = "objFieldRow ui-widget-content objFieldTextOnly">
                             <td class = "ui-widget-content hdr">Text Background:</td>
-                            <td class = "ui-widget-content" style="">
+                            <td class = "ui-widget-content tooltip_hover" style="" title="Optionally, you can display the text inside a colored rectangle. Use these field to determine the background color and opacity.<br/>To disable this option, set opacity to 0.">
                                 <table style="width:300px;margin-left:20px;">
                                     <tr>
                                         <td>Color</td>
@@ -515,7 +521,8 @@
                         </tr>
                         <tr class = "objFieldRow ui-widget-content objFieldTextOnly">
                             <td class = "ui-widget-content hdr">Text Padding:</td>
-                            <td class = "ui-widget-content"><input type="text" class = "tbTextPadding tbNumber" style = "width: 60px;" /></td>
+                            <td class = "ui-widget-content tooltip_hover" title="When the text background is specified, use the option to determine how much space exists between the background border and the text inside.">
+                                <input type="text" class = "tbTextPadding tbNumber" style = "width: 60px;" /></td>
                         </tr>
                     </table>
                 </div>
@@ -533,12 +540,12 @@
                                         <td>
                                             <div class = "objFieldImgOnly" style="border-right: 1px solid #d2d2d2;">
                                                 <b>Delay: </b> 
-                                                <input type="text" class = "tbObjDelay tbNumber" style = "width: 60px;" /> seconds
+                                                <input type="text" class = "tbObjDelay tbNumber tooltip_hover" style = "width: 60px;" title="This option determined how many seconds to wait before the object enters the scene." /> seconds
                                             </div>
                                         </td>
                                         <td style="padding-left: 10px;">
                                             <b>Duration: </b> 
-                                            <input type="text" class = "tbObjDuration tbNumber" style = "width: 60px;" /> seconds
+                                            <input type="text" class = "tbObjDuration tbNumber tooltip_hover" style = "width: 60px;" title="Use this option to specify the duration of transition effects." /> seconds
                                         </td>
                                     </tr>
                                 </table>
@@ -550,7 +557,7 @@
                         <tr class="rowSepGray"><td colspan="2">&nbsp;</td></tr>
                         <tr class = "objFieldRow ui-widget-content">
                             <td class = "ui-widget-content hdr">Appear with:</td>
-                            <td class = "ui-widget-content" style="width: 320px;">
+                            <td class = "ui-widget-content tooltip_hover" style="width: 320px;" title="Use this option to determined how the object enters the scene.">
                                 <%--<asp:DropDownList runat="server" ID = "ddAppearMode" class = "ddAppearMode" " style="width:160px" ></asp:DropDownList>--%>
                                 <asp:RadioButtonList runat="server" ID = "ddAppearMode" class = "ddAppearMode" RepeatDirection="Horizontal" CellSpacing="4"></asp:RadioButtonList>
                             </td>
@@ -562,26 +569,26 @@
 
                         <tr class = "objFieldRow ui-widget-content">
                             <td class = "ui-widget-content hdr">Appear from:</td>
-                            <td class = "ui-widget-content" style="width: 320px;">
+                            <td class = "ui-widget-content tooltip_hover" style="width: 320px;" title="When object enter the scene with the slide effect, use this option to determine the direction it slides from.">
                                 <asp:RadioButtonList runat="server" ID = "ddObjAppearFromText" class = "ddObjAppearFrom ddObjAppearFromText" RepeatDirection="Horizontal" CellSpacing="4"></asp:RadioButtonList>
                                 <asp:RadioButtonList runat="server" ID = "ddObjAppearFromImage" class = "ddObjAppearFrom ddObjAppearFromImage" RepeatDirection="Horizontal" CellSpacing="4"></asp:RadioButtonList>
                             </td>
                         </tr>
                         <tr class = "objFieldRow ui-widget-content">
                             <td class = "ui-widget-content hdr">Move Type:</td>
-                            <td class = "ui-widget-content" style="width: 320px;">
+                            <td class = "ui-widget-content tooltip_hover" style="width: 320px;" title="Specify initial movement type when object enters the scene with slide effect.">
                                 <asp:RadioButtonList runat="server" ID = "ddObjMoveType" class = "ddObjMoveType" RepeatDirection="Horizontal" CellSpacing="4"></asp:RadioButtonList>
                             </td>
                         </tr>
                         <tr class = "objFieldRow ui-widget-content">
                             <td class = "ui-widget-content hdr">Easing Type:</td>
-                            <td class = "ui-widget-content" style="width: 320px;">
+                            <td class = "ui-widget-content tooltip_hover" style="width: 320px;" title="Easing determines how the movement of the object varies after it enters the scene.">
                                 <asp:RadioButtonList runat="server" ID = "ddObjEasingType" class = "ddObjEasingType" RepeatDirection="Horizontal" CellSpacing="4"></asp:RadioButtonList>
                             </td>
                         </tr>
                         <tr class = "objFieldRow ui-widget-content">
                             <td class = "ui-widget-content hdr">Effect:</td>
-                            <td class = "ui-widget-content" style="width: 320px;">
+                            <td class = "ui-widget-content tooltip_hover" style="width: 320px;" title="Optionally, specify an effect to apply to the object.">
                                 <asp:DropDownList runat="server" ID = "ddObjEffect" class = "ddObjEffect" style="width: 160px"></asp:DropDownList>
                             </td>
                         </tr>
@@ -617,12 +624,15 @@
     <script type="text/javascript">
     
         var btOpts = {
-            fill: "#FDF9E1",
-            cssStyles: {"color":"#C77405","font-weight":"bold"},
+            fill: 'rgba(0, 0, 0, .8)',
+            cssStyles: {"color":"#ffb465","font-weight":"normal", "font-size":"11px"},
             strokeStyle: "#FBCB09",
             strokeWidth: 1,
             spikeLength: 10,
-            spikeGirth: 20
+            spikeGirth: 20,
+            padding: 16,
+            cornerRadius: 10,
+            width: 300
         }
 
         var g_isDragging = false;
@@ -791,6 +801,8 @@
             jQuery(".ddAppearMode").find(":input").change(function() {
                 jQuery(this).val() == 'Slide' ? jQuery('#pnlObjSlideParams').show() : jQuery('#pnlObjSlideParams').hide();
             });
+            
+            initAllTooltips();
 
         });
 
@@ -863,6 +875,8 @@
             var _item = jQuery("#slideTpl").clone().removeAttr("id");
             _item.appendTo(jQuery("#slides"));
 
+            initAllTooltips(_item);
+
             _item.find(".slideExtraBtn,.btnAddObject").button();
             //_item.find(".pnlSlideOptsGeneral").show();
             
@@ -872,7 +886,7 @@
             
             if (bNew) {
                 _item.find(".slideOptsGroup").eq(0).click();
-                _item.find(".tbSlideTitle").focus().select();
+                _item.find(".tbSlideTitle").focus().select().btOff().btOn();
             } else {
                 _item.find(".pnlSlideOptsContent").show();
             }
@@ -1269,6 +1283,33 @@
             useIt ? pnl.find(':input').removeAttr('disabled') : pnl.find(':input').attr('disabled','disabled');
             if (useIt)
                 pnl.find(':input').focus().select();
+        }
+
+        function initAllTooltips(parent) {
+            initTooltips(parent, "hover", "hover", "right");
+            initTooltips(parent, "click","click","right");
+            initTooltips(parent, ['focus', 'blur']);
+            initTooltips(parent, "hover", "hover_v", ["bottom", "top"]);
+            initTooltips(parent, ['focus', 'blur'], "focus_v", ["bottom", "top"]);
+        }
+
+        function initTooltips(parent, action, cssClass, pos) {
+    
+            if (!cssClass)
+                cssClass = action;
+        
+            if (!pos)
+                pos = ["most"];
+        
+            if (!parent)
+                parent = jQuery("body");
+            
+            parent.find('.tooltip_' + cssClass).bt(jQuery.extend({}, btOpts, {
+                    offsetParent: jQuery("body"),
+                    trigger: action,
+                    positions: pos
+                })
+            );
         }
 
     </script>

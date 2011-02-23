@@ -347,3 +347,18 @@
 .slideObjectText .dragObj {
     display: none !important;
 }
+
+
+td.tooltip_hover,
+textarea.tooltip_hover,
+label.tooltip_hover,
+input.tooltip_hover {
+    background-image: url(img/help.png);
+    background-repeat: no-repeat;
+    background-position: right center;
+    padding-right: 20px;
+}
+
+textarea.tooltip_hover {
+    background-position: right top;
+}
