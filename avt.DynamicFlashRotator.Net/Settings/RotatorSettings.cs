@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 using System.Xml.Xsl;
 using System.IO;
 using avt.DynamicFlashRotator.Net.Services;
+using System.Web;
 
 namespace avt.DynamicFlashRotator.Net.Settings
 {
@@ -337,5 +338,56 @@ namespace avt.DynamicFlashRotator.Net.Settings
             return sb.ToString();
         }
 
+
+        #region RegCore
+
+        static public string RegSrv = "http://www.avatar-soft.ro/DesktopModules/avt.RegCore4/Api.aspx";
+
+        static public string ProductCode = "ADROT";
+        static public string Version = "1.0";
+        static public string VersionAll = "1.0.0";
+        static public string ActivateMinorVersion = "1.0.0";
+        static public string Build = VersionAll + "_001";
+
+        static public string DocSrv = RegSrv + "?cmd=doc&product=" + ProductCode + "&version=" + Version;
+        static public string BuyLink = RegSrv + "?cmd=buy&product=" + ProductCode + "&version=" + Version;
+
+        static public string ProductKey = "<RSAKeyValue><Modulus>xjeQuuf4zC2gbVI0ZJJnKagUgmeFH8klB27NK80DhxcBaJkw/naUJl1N9195kxUyznRf8uwSkjt9sZfmGQplu3gYz+X3GFCcVhABZsXyO+vNAdkyU+F6KkX5wL4/AAfmpKbqhsYt/z3abPInaRWG1Mk6uoUSv0bkAXsvLWOjUZs=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
+
+
+        internal static AvtActivationDataSource GetActivationSrc()
+        {
+            return new AvtActivationDataSourceFile();
+        }
+
+        internal static AvtRegCoreClient GetRegCoreClient()
+        {
+            return AvtRegCoreClient.Get(RegSrv, ProductCode, GetActivationSrc(), false);
+        }
+
+        public static bool IsActivated()
+        {
+            //return true;
+            bool isTrial = false;
+            return GetRegCoreClient().IsActivated(ProductCode, Version, ActivateMinorVersion, HttpContext.Current.Request.Url.Host, ref isTrial);
+        }
+
+        public static bool IsTrial()
+        {
+            bool isTrial = false;
+            GetRegCoreClient().IsActivated(ProductCode, Version, ActivateMinorVersion, HttpContext.Current.Request.Url.Host, ref isTrial);
+            return isTrial;
+        }
+
+        public static void Activate(string regCode, string host, string actCode)
+        {
+            if (string.IsNullOrEmpty(actCode)) {
+                GetRegCoreClient().Activate(regCode, ProductCode, Version, ActivateMinorVersion, host, ProductKey);
+            } else {
+                GetRegCoreClient().Activate(regCode, ProductCode, Version, ActivateMinorVersion, host, ProductKey, actCode);
+            }
+        }
+
+        #endregion
     }
 }

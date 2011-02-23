@@ -1,0 +1,147 @@
+body, form {
+    font-family: Verdana;
+    font-size: 13px;
+    margin: 0px;
+    padding-top: 30px;
+}
+
+.act_wnd a:link, .act_wnd a:visited {
+    text-decoration: none;
+    color: #4b7ba1;
+    font-size: 12px;
+}
+
+.act_wnd a:hover, .act_wnd a:active {
+    color: #4b7ba1;
+    text-decoration: underline;
+}
+
+
+.act_wnd {
+    width: 520px;
+    height: 520px;
+    background-image: url(bk.png);
+    background-repeat: no-repeat;
+    margin: auto;
+    padding: 25px 80px 0 100px;
+}
+
+.act_wnd .title {
+    float: left;
+    font-size: 22px;
+    font-weight: bold;
+    font-family: Arial;
+    color: #e17f1c;
+    margin: 5px 0 0 0;
+}
+
+
+.act_wnd .help {
+    float: right;
+    text-align: center;
+}
+
+.act_wnd .help .help_link {
+    display: block;
+    background-image: url(icon_help.png);
+    background-repeat: no-repeat;
+    background-position: top center;
+    padding-top: 20px;
+    color: #b2b2b2;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.act_wnd .help .help_link:hover {
+    background-image: url(icon_help_over.png);
+    color: #178899;
+}
+
+.act_wnd .instructions {
+    margin-top: 10px;
+    color: #727272;
+    font-weight: bold;
+    line-height: 200%;
+}
+
+.act_wnd .field_title {
+    font-family: Arial;
+    font-size: 14px;
+    color: #a3580c;
+    font-weight: bold;
+}
+
+
+.act_wnd .reg_code {
+    margin-top: 30px;
+}
+
+.act_wnd .input_field {
+    margin-top: 4px;
+    border: 1px solid #d7d3d3;
+    font-size: 13px;
+    padding: 4px;
+    color: #566475;
+    font-weight: normal;
+    width: 380px;
+}
+
+.act_wnd .lblerr {
+    font-size: 12px;
+    color: #e20000 !important;
+    font-weight: bold;
+}
+
+.act_wnd .small_desc {
+    color: #828282;
+    font-weight: normal;
+    font-size: 12px;
+}
+
+.act_wnd .btn_next {
+    display: block;
+    float: right;
+    margin-top: 2px;
+    background-image: url(btn_next.png);
+    background-repeat: no-repeat;
+    width: 96px;
+    height: 27px;
+    padding-top: 7px;
+    padding-left: 14px;
+    color: #854403 !important;
+    outline: 0;
+}
+
+.act_wnd .btns {
+    
+}
+
+.act_wnd .btn_cancel {
+    display: block;
+    float: right;
+    margin-top: 2px;
+    background-image: url(btn_cancel.png);
+    background-repeat: no-repeat;
+    width: 58px;
+    height: 27px;
+    padding-top: 7px;
+    padding-left: 28px;
+    color: #854403 !important;
+    margin-right: 8px;
+    outline: 0;
+}
+
+.act_wnd .btn_purchase {
+    display: block;
+    float: right;
+    margin-top: 2px;
+    background-image: url(btn_purchase.png);
+    background-repeat: no-repeat;
+    width: 68px;
+    height: 27px;
+    padding-top: 7px;
+    padding-left: 28px;
+    color: #854403 !important;
+    outline: 0;
+}
+

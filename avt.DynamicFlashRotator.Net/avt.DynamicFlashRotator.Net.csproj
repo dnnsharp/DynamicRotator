@@ -47,6 +47,9 @@
     <Compile Include="Data\DataProvider.cs" />
     <Compile Include="Data\SqlDataProvider.cs" />
     <Compile Include="DynamicRotator.cs" />
+    <Compile Include="RegCore\AvtRegCoreClient.cs" />
+    <Compile Include="RegCore\BigInteger.cs" />
+    <Compile Include="RegCore\ezrsa.cs" />
     <Compile Include="Services\AspNetConfiguration.cs" />
     <Compile Include="Services\IConfiguration.cs" />
     <Compile Include="Settings\RotatorSettings.cs" />
@@ -61,7 +64,6 @@
     <EmbeddedResource Include="flash\rotator-v2-5.swf" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="RegCore\" />
     <Folder Include="Serialization\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

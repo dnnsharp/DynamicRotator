@@ -26,7 +26,7 @@
     <div>
         <div class="btnPane">
             <a href = "<%= System.Web.HttpUtility.UrlDecode(Request.QueryString["rurl"]) %>" style="color: #525252; padding: 1px 10px; margin-right: 10px; font-weight: normal;" >Cancel</a>
-            <asp:Button runat="server" OnClick="SaveSettings" class="ui-state-default" style="padding: 4px 10px;" Text="Save" OnClientClick="return save();" />
+            <asp:Button runat="server" OnClick="SaveSettings" class="ui-state-default" style="padding: 4px 10px;" Text="Save" OnClientClick="if (!save()) return false;" UseSubmitBehavior="false" />
         </div>
 
         <h1 class="manageTitle" style="font-weight:normal; color: #626262;">Settings for <asp:Label runat="server" ID = "lblControlName" style="color: #C77405; font-weight:bold;"></asp:Label></h1>
@@ -37,10 +37,12 @@
         <ul>
             <li><a href="#tabs-main-settings">General Settings</a></li>
             <li><a href="#tabs-main-slides">Slides</a></li>
-            <li><a href="#tabs-main-presets">Presets</a></li>
+            <%--<li><a href="#tabs-main-presets">Presets</a></li>
             <li><a href="#tabs-main-library">Object Library</a></li>
-            <li><a href="#tabs-main-customize">Order Customization</a></li>
-            <li><a href="#tabs-main-activate">Activate</a></li>
+            <li><a href="#tabs-main-customize">Order Customization</a></li>--%>
+            <asp:Literal runat="server" ID = "lblTabActivate">
+                <li><a href="#tabs-main-activate">Activate</a></li>
+            </asp:Literal>
         </ul>
 
         <div id = "tabs-main-settings">
@@ -273,7 +275,7 @@
                         <a href = "#" class="slideOptsGroup ui-state-default" style="margin-top: 10px" onclick="return false;">General</a>
                         <a href = "#" class="slideOptsGroup ui-state-default" onclick="return false;">Slide Link</a>
                         <a href = "#" class="slideOptsGroup ui-state-hover" onclick="return false;">Graphics / Content</a>
-                        <a href = "#" class="slideOptsGroup ui-state-default" onclick="return false;">Music</a>
+                        <%--<a href = "#" class="slideOptsGroup ui-state-default" onclick="return false;">Music</a>--%>
                     </div>
 
                     <div class="pnlSlideOpts pnlSlideOptsGeneral">
@@ -283,10 +285,10 @@
                                 <b>Slide Title: </b> 
                                 <input type="text" class = "tbSlideTitle tooltip_hover" style = "width: 320px;" value="<%= DefaultSlide.Title %>" title="The slide title is displayed when hovering the navigation buttons.<br />This field can contain My Tokens." />
                             </div>
-                            <div class = "fieldRow ui-widget-content" style="clear: left;">
+                            <div class = "fieldRow ui-widget-content tooltip_hover" style="clear: left;" title="This option can be used to specify the slide background as a vertical gradient or a solid color (by setting the two fieds to same value).">
                                 <b>Background Gradient: </b>
-                                from <span><input type="text" style = "width: 60px;" class="tbColor tbColortbBkGradFrom tooltip_hover" value="<%= ColorToHex(DefaultSlide.BackgroundGradientFrom) %>" title="This option can be used to specify the slide background as a vertical gradient or a solid color (by setting the two fieds to same value)." />&nbsp;&nbsp;&nbsp;</span>
-                                to <span><input type="text" style = "width: 60px;" class="tbColor tbColortbBkGradTo tooltip_hover" value="<%= ColorToHex(DefaultSlide.BackgroundGradientTo) %>" title="This option can be used to specify the slide background as a vertical gradient or a solid color (by setting the two fieds to same value)." />&nbsp;&nbsp;&nbsp;</span>
+                                from <span><input type="text" style = "width: 60px;" class="tbColor tbColortbBkGradFrom" value="<%= ColorToHex(DefaultSlide.BackgroundGradientFrom) %>" />&nbsp;&nbsp;&nbsp;</span>
+                                to <span><input type="text" style = "width: 60px;" class="tbColor tbColortbBkGradTo" value="<%= ColorToHex(DefaultSlide.BackgroundGradientTo) %>" />&nbsp;&nbsp;&nbsp;</span>
                             </div>
                              <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>Duration: </b>
@@ -352,7 +354,7 @@
                         </div>
                     </div>
 
-                    <div class="pnlSlideOpts pnlSlideOptsMp3">
+                    <%--<div class="pnlSlideOpts pnlSlideOptsMp3">
                         <div style = "margin: 8px;">
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
                                 <b>MP3 URL: </b> 
@@ -373,7 +375,7 @@
                                 <input type="checkbox" class="cbMp3ShowPlayer" <%= DefaultSlide.ShowPlayer ? "checked='checked'" :"" %> />
                             </div>
                         </div>
-                    </div>
+                    </div>--%>
 
                     <div style = "clear: both;"></div>
                 </li>
@@ -385,7 +387,7 @@
             <a href = "#" onclick="addSlide(true); return false;"><img src="<%= TemplateSourceDirectory %>/res/img/add.gif" border="0" /> Add Slide</a>
         </div>
 
-        <div id = "tabs-main-presets">
+        <%--<div id = "tabs-main-presets">
             test
         </div>
 
@@ -395,12 +397,24 @@
 
         <div id = "tabs-main-customize">
             test
-        </div>
+        </div>--%>
 
-        <div id = "tabs-main-activate">
-            test
-        </div>
+        <asp:Label runat="server" ID = "lblTabActivateContents">
+            <div id = "tabs-main-activate">
+                <h2 style="color: #C77405;">This copy of Dynamic Rotator .NET is not activated!</h2>
+                <div>
+                    This means that when you're not accessing this website on localhost you will get random trial notifications.
+                </div>
 
+                <br /><br />
+                <div>
+                    To activate this package you need a License Key. If you don't have one yet you can <a style="color: #1C94C4;" href = "<%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.BuyLink %>">Purchase a License from Snowcovered</a>.
+
+                    <br /><br />
+                    If you already have a license, proceed to <a href = "<%= TemplateSourceDirectory %>/Activation.aspx?rurl=<%= Server.UrlEncode(Request.RawUrl) %>" style="color: #1C94C4; font-weight: bold;">Activation Wizard</a>.
+                </div>
+            </div>
+        </asp:Label>
     </div>
 
 
@@ -429,7 +443,7 @@
                         </tr>
                         <tr class = "objFieldRow ui-widget-content">
                             <td class = "ui-widget-content hdr">Position:</td>
-                            <td class = "ui-widget-content tooltip_hover" title="These coordinates determines the final position of the object, after the effects and transitions have completed.">
+                            <td class = "ui-widget-content tooltip_hover" title="These coordinates determine the final position of the object, after the effects and transitions have completed.">
                                 <b>X</b> <input type="text" style = "width: 40px;" class="tbObjPosX tbNumber" />
                                 <b>Y</b> <input type="text" style = "width: 40px;" class="tbObjPosY tbNumber" />
                                 <asp:DropDownList runat="server" ID = "ddVerticalAlgin" class = "ddVerticalAlgin" style="display:none;">
@@ -612,7 +626,7 @@
     <div class="footer">
         <div class="btnPane">
             <a href = "<%= System.Web.HttpUtility.UrlDecode(Request.QueryString["rurl"]) %>" style="color: #525252; padding: 1px 10px; margin-right: 10px; font-weight: normal;" >Cancel</a>
-            <asp:Button runat="server" OnClick="SaveSettings" class="ui-state-default" style="padding: 4px 10px;" Text="Save" OnClientClick="return save();" />
+            <asp:Button runat="server" OnClick="SaveSettings" class="ui-state-default" style="padding: 4px 10px;" Text="Save" OnClientClick="if (!save()) return false;" UseSubmitBehavior="false" />
         </div>
         <div style="clear:both;"></div>
     </div>
@@ -833,9 +847,13 @@
 
             _item
                 .mouseover(function() {
+                    if (g_isDragging)
+                        return;
                     jQuery(this).addClass("slideObjectHover");
                 })
                 .mouseout(function() {
+                    if (g_isDragging)
+                        return;
                     jQuery(this).removeClass("slideObjectHover");
                 })
                 .click(function() {
@@ -939,6 +957,7 @@
 
                 start: function(event, ui) {
                     g_isDragging = true;
+                    jQuery(ui.item).addClass("slideObjectHover");
                 },
 
                 stop: function(event, ui) {
@@ -965,6 +984,8 @@
                 _new.find(".slideObject").text(_new.find(".slideObject").eq(iobj)[0].objData.name);
                 iobj++;
             });
+
+            initAllTooltips(_new);
         }
 
         function deleteSlide(slideRoot) {

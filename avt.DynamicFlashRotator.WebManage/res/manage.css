@@ -348,7 +348,7 @@
     display: none !important;
 }
 
-
+div.tooltip_hover,
 td.tooltip_hover,
 textarea.tooltip_hover,
 label.tooltip_hover,

@@ -47,6 +47,9 @@ namespace avt.DynamicFlashRotator.Net.WebManage
 
             if (!Page.IsPostBack) {
 
+                // check activation
+                lblTabActivateContents.Visible = lblTabActivate.Visible = !avt.DynamicFlashRotator.Net.Settings.RotatorSettings.IsActivated();
+
                 ddSlideButtonsType.DataSource = Enum.GetNames(typeof(eSlideButtonsType));
                 ddSlideButtonsType.DataBind();
 
@@ -187,9 +190,9 @@ namespace avt.DynamicFlashRotator.Net.WebManage
                     slide.ClickAnywhere = xmlSlide["linkClickAnywhere"].InnerText == "true";
                     
 
-                    slide.Mp3Url = xmlSlide["mp3Url"].InnerText;
-                    slide.ShowPlayer = xmlSlide["mp3ShowPlayer"].InnerText == "true";
-                    slide.IconColor = Color.FromArgb(Convert.ToInt32(xmlSlide["mp3IconColor"].InnerText.Replace("#", "0x"), 16));
+                    //slide.Mp3Url = xmlSlide["mp3Url"].InnerText;
+                    //slide.ShowPlayer = xmlSlide["mp3ShowPlayer"].InnerText == "true";
+                    //slide.IconColor = Color.FromArgb(Convert.ToInt32(xmlSlide["mp3IconColor"].InnerText.Replace("#", "0x"), 16));
 
                     slide.ViewOrder = Convert.ToInt32(xmlSlide["viewOrder"].InnerText);
 
