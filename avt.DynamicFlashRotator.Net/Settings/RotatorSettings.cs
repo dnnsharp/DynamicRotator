@@ -105,8 +105,7 @@ namespace avt.DynamicFlashRotator.Net.Settings
         bool _TransparentBackground = false;
         public bool TransparentBackground { get { return _TransparentBackground; } set { _TransparentBackground = value; } }
 
-        bool _DebugMode = false;
-        public bool DebugMode { get { return _DebugMode; } set { _DebugMode = value; } }
+        public bool DebugMode { get { return RotatorSettings.Configuration.IsDebug(); } }
 
         DateTime _LastUpdate = DateTime.Now;
         public DateTime LastUpdate { get { return _LastUpdate; } set { _LastUpdate = value; } }
@@ -286,7 +285,6 @@ namespace avt.DynamicFlashRotator.Net.Settings
             Writer.WriteElementString("smallButtonsYoffset", SlideButtonsYoffset.ToString());
             Writer.WriteElementString("transparentBackground", TransparentBackground ? "yes" : "no");
 
-            DebugMode = true;
             Writer.WriteElementString("DebugMode", DebugMode ? "on" : "off");
             Writer.WriteEndElement(); // "settings";
 

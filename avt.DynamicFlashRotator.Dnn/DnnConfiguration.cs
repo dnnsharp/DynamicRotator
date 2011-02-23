@@ -74,6 +74,12 @@ namespace avt.DynamicFlashRotator.Dnn
             return PortalSecurity.HasNecessaryPermission(SecurityAccessLevel.Edit, PortalController.GetCurrentPortalSettings(), modInfo);
         }
 
+        public bool IsDebug()
+        {
+            return PortalController.GetCurrentPortalSettings().UserMode == DotNetNuke.Entities.Portals.PortalSettings.Mode.Edit;
+        }
+
+
         public string FormatTitle(string controlId)
         {
             int moduleId = 1;

@@ -401,7 +401,7 @@
 
         <asp:Label runat="server" ID = "lblTabActivateContents">
             <div id = "tabs-main-activate">
-                <h2 style="color: #C77405;">This copy of Dynamic Rotator .NET is not activated!</h2>
+                <h2 style="color: #C77405;">This copy of Dynamic Rotator .NET is Not Activated!</h2>
                 <div>
                     This means that when you're not accessing this website on localhost you will get random trial notifications.
                 </div>

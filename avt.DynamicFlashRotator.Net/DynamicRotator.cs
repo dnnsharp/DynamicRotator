@@ -227,6 +227,36 @@ namespace avt.DynamicFlashRotator.Net
             settings.Encoding = Encoding.UTF8;
             XmlWriter Writer = XmlWriter.Create(strXML, settings);
 
+            if (!RotatorSettings.IsActivated()) {
+                Random r = new Random();
+                if (r.Next(20) == 1) {
+                    
+                    SlideObjectInfo trialText = new SlideObjectInfo();
+                    trialText.ObjectType = eObjectType.Text;
+                    trialText.Text = "<font size='20px' color='#C77405'>Powered by <font size='30px'><i>Dynamic Rotator .NET</i></font> from Avatar Software</font><br/><font color='#525252;' size='14px'><i>This slide is randomly displayed to inform you that this copy is not yet licensed.</i></font>";
+                    trialText.Yposition = 70;
+                    trialText.Xposition = 240;
+
+                    SlideObjectInfo logoObj = new SlideObjectInfo();
+                    logoObj.ObjectType = eObjectType.Image;
+                    logoObj.ObjectUrl = "http://www.avatar-soft.ro/Portals/0/product_logo/Dynamic-Rotator.png";
+                    logoObj.Yposition = 30;
+                    logoObj.Xposition = 20;
+                    logoObj.SlideFrom = eAllDirs.Left;
+                    logoObj.EffectAfterSlide = eEffect.Zoom;
+                    logoObj.TransitionDuration = 1;
+                    
+                    SlideInfo trialSlide = new SlideInfo();
+                    trialSlide.SlideObjects.Add(trialText);
+                    trialSlide.SlideObjects.Add(logoObj);
+                    trialSlide.SlideUrl = "http://www.avatar-soft.ro/dotnetnuke/modules/flash/dynamic-rotator.aspx";
+                    trialSlide.ButtonCaption = "Read More...";
+
+                    Slides.Clear();
+                    Slides.Add(trialSlide);
+                }
+            }
+
             Writer.WriteStartElement("ads");
             foreach (SlideInfo slide in Slides) {
                 slide.ToXml(Writer);

@@ -66,6 +66,12 @@ namespace avt.DynamicFlashRotator.Net.Services
             return false;
         }
 
+        public bool IsDebug()
+        {
+            return true;
+        }
+
+
         public string FormatTitle(string controlId)
         {
             return controlId;
