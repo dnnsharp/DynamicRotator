@@ -323,7 +323,7 @@ namespace avt.DynamicFlashRotator.Net
 
             if (!RotatorSettings.IsActivated() && HttpContext.Current.Request.Url.Host != "localhost") {
                 Random r = new Random();
-                if (r.Next(20) == 0) {
+                if (r.Next(20) == 1) {
                     // put some trial notifications
 
                     string pageUrl = "http://www.avatar-soft.ro/dotnetnuke/modules/flash/dynamic-rotator.aspx";
@@ -360,6 +360,7 @@ namespace avt.DynamicFlashRotator.Net
 
         void LoadMiniTutorial()
         {
+            Width = 800;
             SlideButtonsType = eSlideButtonsType.SquareWithNumbers;
             Slides.Clear();
 
@@ -431,14 +432,14 @@ namespace avt.DynamicFlashRotator.Net
             slide3Text.ObjectType = eObjectType.Text;
             slide3Text.Text = "<font size='20px' color='#C77405'><font size='30px'><i>Dynamic Rotator .NET</i></font> from Avatar Software</font><br/>";
             slide3Text.Text += "<font color='#525252;' size='14px'><i>Explore thousands of possibilities easily achieveable with our <br />simple and powerful Administration Console...</i></font>";
-            slide3Text.Yposition = 70;
-            slide3Text.Xposition = 300;
+            slide3Text.Yposition = 60;
+            slide3Text.Xposition = 50;
 
             SlideObjectInfo slide3Img = new SlideObjectInfo();
             slide3Img.ObjectType = eObjectType.Image;
             slide3Img.ObjectUrl = "http://www.avatar-soft.ro/Portals/0/product_logo/Dynamic-Rotator.png";
             slide3Img.Yposition = 30;
-            slide3Img.Xposition = 60;
+            slide3Img.Xposition = 550;
             slide3Img.SlideFrom = eAllDirs.Left;
             slide3Img.EffectAfterSlide = eEffect.Zoom;
             slide3Img.TransitionDuration = 1;
