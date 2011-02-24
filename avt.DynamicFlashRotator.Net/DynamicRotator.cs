@@ -12,6 +12,7 @@ using System.Configuration;
 using avt.DynamicFlashRotator.Net.Data;
 using avt.DynamicFlashRotator.Net.Settings;
 using avt.DynamicFlashRotator.Net.Services;
+using System.Web.UI.HtmlControls;
 
 namespace avt.DynamicFlashRotator.Net
 {
@@ -56,7 +57,9 @@ namespace avt.DynamicFlashRotator.Net
 
             // merge dynamic settings
             if (EnableRuntimeConfiguration) {
-                Settings.LoadFromDB(RealId);
+                if (!Settings.LoadFromDB(RealId)) {
+                    LoadMiniTutorial();
+                }
             }
 
             if (Page.Request.Params["controlId"] == RealId) {
@@ -227,13 +230,13 @@ namespace avt.DynamicFlashRotator.Net
             settings.Encoding = Encoding.UTF8;
             XmlWriter Writer = XmlWriter.Create(strXML, settings);
 
-            if (!RotatorSettings.IsActivated()) {
+            if (!RotatorSettings.IsActivated() && HttpContext.Current.Request.Url.Host != "localhost") {
                 Random r = new Random();
                 if (r.Next(20) == 1) {
                     
                     SlideObjectInfo trialText = new SlideObjectInfo();
                     trialText.ObjectType = eObjectType.Text;
-                    trialText.Text = "<font size='20px' color='#C77405'>Powered by <font size='30px'><i>Dynamic Rotator .NET</i></font> from Avatar Software</font><br/><font color='#525252;' size='14px'><i>This slide is randomly displayed to inform you that this copy is not yet licensed.</i></font>";
+                    trialText.Text = "<font size='20px' color='#C77405'>Powered by <font size='30px'><i>Dynamic Rotator .NET</i></font> from Avatar Software</font><br/><font color='#525252;' size='14px'><i>This slide is randomly displayed to inform you that this copy is not yet licensed. <br />Refresh page for actual content...</i></font>";
                     trialText.Yposition = 70;
                     trialText.Xposition = 240;
 
@@ -317,6 +320,30 @@ namespace avt.DynamicFlashRotator.Net
                 // + "</noscript>"
             );
 
+
+            if (!RotatorSettings.IsActivated() && HttpContext.Current.Request.Url.Host != "localhost") {
+                Random r = new Random();
+                if (r.Next(20) == 0) {
+                    // put some trial notifications
+
+                    string pageUrl = "http://www.avatar-soft.ro/dotnetnuke/modules/flash/dynamic-rotator.aspx";
+
+                    string[] keywords = new string[] {
+                        "Trial Notification: Powered by <i>Dynamic Rotator.NET</i> - a <a href = '{0}'>DNN Banner Module</a> from <a href = '{1}'>Avatar Software</a>",
+                        "Trial Notification: <a href = '{0}'>DNN Banner</a> built with <i>Dynamic Rotator.NET</i> from <a href = '{1}'>Avatar Software</a>",
+                        "Trial Notification: Powered by <i>Dynamic Rotator.NET</i> - a <a href = '{0}'>DNN Banner Module</a> from <a href = '{1}'>Avatar Software</a>",
+                        "Trial Notification: <a href = '{0}'>DNN Banner</a> built with <i>Dynamic Rotator.NET</i> from <a href = '{1}'>Avatar Software</a>",
+
+                        "Trial Notification: <a href = '{0}'>DNN Banners</a> built with <i>Dynamic Rotator.NET</i> from <a href = '{1}'>Avatar Software</a>",
+                        "Trial Notification: <a href = '{0}'>DotNetNuke Banner</a> built with <i>Dynamic Rotator.NET</i> from <a href = '{1}'>Avatar Software</a>",
+                        "Trial Notification: Powered by <i>Dynamic Rotator.NET</i> - a <a href = '{0}'>DNN Flash</a> module from <a href = '{1}'>Avatar Software</a>",
+                        "Trial Notification: Powered by <i>Dynamic Rotator.NET</i> - a <a href = '{0}'>DotNetNuke Flash</a> from <a href = '{1}'>Avatar Software</a>"
+                    };
+
+                    output.Write("<div>"+ string.Format(keywords[Math.Abs((HttpContext.Current.Request.Url.Host + HttpContext.Current.Request.RawUrl).GetHashCode() % keywords.Length)], pageUrl, "http://www.avatar-soft.ro") +".</div>");
+                }
+            }
+
             if (EnableRuntimeConfiguration && RotatorSettings.Configuration.ShowManageLinks() && RotatorSettings.Configuration.HasAccess(RealId)) {
                 string manageUrl = Page.ResolveUrl(ManageUrl);
                 manageUrl += "?controlId=" + RealId;
@@ -330,6 +357,102 @@ namespace avt.DynamicFlashRotator.Net
                 output.Write("<a href='" + manageUrl + "'>Manage Rotator Settings</a>");
             }
         }
+
+        void LoadMiniTutorial()
+        {
+            SlideButtonsType = eSlideButtonsType.SquareWithNumbers;
+            Slides.Clear();
+
+            // First Slide
+            // --------------------------------------------------------------------------------------------
+
+            SlideObjectInfo slide1Text = new SlideObjectInfo();
+            slide1Text.ObjectType = eObjectType.Text;
+            slide1Text.Text = "<font size='20px' color='#e24242'>This <i>Dynamic Rotator</i> has not been configured yet!<font size='30px'></font><br/>";
+            slide1Text.Text += "<font size='14px' color='#C77405'>Start by locating the Manage links in module actions...</font>";
+            slide1Text.Yposition = 140;
+            slide1Text.Xposition = 280;
+            slide1Text.TextBackgroundColor = Color.FromArgb(0xC77405);
+            slide1Text.TextBackgroundOpacity = 20;
+            slide1Text.SlideFrom = eAllDirs.Left;
+
+            SlideObjectInfo slide1Img = new SlideObjectInfo();
+            slide1Img.ObjectType = eObjectType.Image;
+            slide1Img.ObjectUrl = "http://www.avatar-soft.ro/Portals/0/banner-tutorial/banner-tutorial-manage.png";
+            slide1Img.Yposition = 30;
+            slide1Img.Xposition = 20;
+            slide1Img.SlideFrom = eAllDirs.Right;
+            slide1Img.TransitionDuration = 1;
+            slide1Img.Opacity = 40;
+            slide1Img.GlowColor = Color.FromArgb(0xC77405);
+            slide1Img.GlowSize = 2;
+
+            SlideInfo slide1 = new SlideInfo();
+            slide1.SlideObjects.Add(slide1Text);
+            slide1.SlideObjects.Add(slide1Img);
+            Slides.Add(slide1);
+
+            // Second Slide
+            // --------------------------------------------------------------------------------------------
+
+            SlideObjectInfo slide2Text = new SlideObjectInfo();
+            slide2Text.ObjectType = eObjectType.Text;
+            slide2Text.Text = "<font size='20px' color='#e24242'>Add Slides and Content!</font><br/><br/>";
+            slide2Text.Text += "<font size='14px' color='#C77405'>Use the Administration Console to add <br/>as many slides as you need which can contain <br/>text, images and other flash movies.</font><br /><br />";
+            //slide2Text.Text += "<font size='14px' color='#C77405'>Explore lots of options available for .<span>";
+            slide2Text.Yposition = 40;
+            slide2Text.Xposition = 20;
+            slide2Text.TextBackgroundColor = Color.FromArgb(0xC77405);
+            slide2Text.TextBackgroundOpacity = 20;
+            slide2Text.SlideFrom = eAllDirs.Left;
+
+            SlideObjectInfo slide2Img = new SlideObjectInfo();
+            slide2Img.ObjectType = eObjectType.Image;
+            slide2Img.ObjectUrl = "http://www.avatar-soft.ro/Portals/0/banner-tutorial/banner-tutorial-slides.png";
+            slide2Img.Yposition = 10;
+            slide2Img.Xposition = 300;
+            slide2Img.SlideFrom = eAllDirs.Right;
+            slide2Img.TransitionDuration = 1;
+            slide2Img.Opacity = 40;
+            slide2Img.GlowColor = Color.FromArgb(0xC77405);
+            slide2Img.GlowSize = 2;
+
+            SlideInfo slide2 = new SlideInfo();
+            slide2.SlideObjects.Add(slide2Text);
+            slide2.SlideObjects.Add(slide2Img);
+
+            Slides.Add(slide2);
+
+
+            // Third Slide
+            // --------------------------------------------------------------------------------------------
+
+            SlideObjectInfo slide3Text = new SlideObjectInfo();
+            slide3Text.ObjectType = eObjectType.Text;
+            slide3Text.Text = "<font size='20px' color='#C77405'><font size='30px'><i>Dynamic Rotator .NET</i></font> from Avatar Software</font><br/>";
+            slide3Text.Text += "<font color='#525252;' size='14px'><i>Explore thousands of possibilities easily achieveable with our <br />simple and powerful Administration Console...</i></font>";
+            slide3Text.Yposition = 70;
+            slide3Text.Xposition = 300;
+
+            SlideObjectInfo slide3Img = new SlideObjectInfo();
+            slide3Img.ObjectType = eObjectType.Image;
+            slide3Img.ObjectUrl = "http://www.avatar-soft.ro/Portals/0/product_logo/Dynamic-Rotator.png";
+            slide3Img.Yposition = 30;
+            slide3Img.Xposition = 60;
+            slide3Img.SlideFrom = eAllDirs.Left;
+            slide3Img.EffectAfterSlide = eEffect.Zoom;
+            slide3Img.TransitionDuration = 1;
+
+
+            SlideInfo slide3 = new SlideInfo();
+            slide3.SlideObjects.Add(slide3Text);
+            slide3.SlideObjects.Add(slide3Img);
+            slide3.SlideUrl = "http://www.avatar-soft.ro/dotnetnuke/modules/flash/dynamic-rotator.aspx";
+            slide3.ButtonCaption = "Visit Dynamic Rotator .NET Homepage";
+
+            Slides.Add(slide3);
+        }
+
 
         //protected override void OnPreRender(EventArgs e)
         //{

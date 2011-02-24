@@ -404,7 +404,7 @@ namespace avt.DynamicFlashRotator.Net
             // link node and attributes
             Writer.WriteStartElement("link");
             Writer.WriteAttributeString("theTarget", Target);
-            if (!string.IsNullOrEmpty(ButtonCaption)) {
+            if (!string.IsNullOrEmpty(ButtonCaption) && !string.IsNullOrEmpty(SlideUrl)) {
                 Writer.WriteAttributeString("btnName", RotatorSettings.Configuration.Tokenize(ControlId, ButtonCaption));
                 Writer.WriteAttributeString("showBtn", "yes");
             } else {

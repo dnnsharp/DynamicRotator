@@ -695,6 +695,8 @@
                     var _root = jQuery(this).parents(".slideRoot:first");
                     _root.find(".pnlSlideOpts").hide();
                     _root.find(".pnlSlideOpts").eq(_root.find(".slideOptsGroup").index(jQuery(this))).show();
+                    
+                    applyColorpicker(jQuery(this));
                 });
 
             var slides = <%= hdnSlideXml.Value %>;
@@ -899,7 +901,6 @@
             //_item.find(".pnlSlideOptsGeneral").show();
             
             applyColorpicker(_item);
-
             updateSlideIndexes();
             
             if (bNew) {
@@ -949,6 +950,7 @@
             for (var i =0; i < slide.slideObjects.length; i++) {
                 appendSlideObject(slide.slideObjects[i], slideRoot);
             }
+
             slideRoot.find(".pnlSlideObjList").sortable({
                 connectWith: ".pnlSlideObjList",
                 handle: ".dragObj",
@@ -966,6 +968,9 @@
                 }
                  
             }).disableSelection();
+
+            // update color previews
+            applyColorPreviews(slideRoot);
         }
 
         function cloneSlide(slideRoot) {

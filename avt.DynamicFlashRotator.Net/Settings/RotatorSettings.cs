@@ -57,7 +57,7 @@ namespace avt.DynamicFlashRotator.Net.Settings
         bool _AutoStartSlideShow = true;
         public bool AutoStartSlideShow { get { return _AutoStartSlideShow; } set { _AutoStartSlideShow = value; } }
 
-        bool _UseRoundCornersMask = true;
+        bool _UseRoundCornersMask = false;
         public bool UseRoundCornersMask { get { return _UseRoundCornersMask; } set { _UseRoundCornersMask = value; } }
 
         Color _RoundCornerMaskColor = Color.White;
@@ -121,12 +121,15 @@ namespace avt.DynamicFlashRotator.Net.Settings
         #endregion
 
 
-        public void LoadFromDB(string RotatorId) // string connStr, string dbOwner, string objQualifier)
+        public bool LoadFromDB(string RotatorId) // string connStr, string dbOwner, string objQualifier)
         {
             DataProvider.Instance().Init(Configuration);
-
+            bool hasValues = false;
             using (IDataReader dr = DataProvider.Instance().GetSettings(RotatorId)) {
+                
                 while (dr.Read()) {
+                    
+                    hasValues = true;
 
                     string val = "";
                     try { val = dr["SettingValue"].ToString(); } catch { }
@@ -236,6 +239,8 @@ namespace avt.DynamicFlashRotator.Net.Settings
                 }
                 dr.Close();
             }
+
+            return hasValues;
         }
 
         public string SlidesToDesignerJson()

@@ -26,6 +26,12 @@
         DbConnectionString="SiteSqlServer" EnableRuntimeConfiguration="True" 
         ManageUrl="~/Controls/Rotator/ManageRotator.aspx" Width="800px"> 
     </cc1:DynamicRotator>
+     <cc1:DynamicRotator ID="AllinOneRotator3" runat="server" 
+        AutoStartSlideShow="True" RoundCornerMaskColor="#333399" ShowTopTitle="False" 
+        SlideButtonsNumberColor="#6600CC" SlideButtonsType="RoundNoNumbers" 
+        DbConnectionString="SiteSqlServer" EnableRuntimeConfiguration="True" 
+        ManageUrl="~/Controls/Rotator/ManageRotator.aspx" Width="800px"> 
+    </cc1:DynamicRotator>
     </form>
 </body>
 </html>
