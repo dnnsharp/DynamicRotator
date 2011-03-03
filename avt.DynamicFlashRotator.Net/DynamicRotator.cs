@@ -13,6 +13,7 @@ using avt.DynamicFlashRotator.Net.Data;
 using avt.DynamicFlashRotator.Net.Settings;
 using avt.DynamicFlashRotator.Net.Services;
 using System.Web.UI.HtmlControls;
+using System.Text.RegularExpressions;
 
 namespace avt.DynamicFlashRotator.Net
 {
@@ -252,7 +253,7 @@ namespace avt.DynamicFlashRotator.Net
                     SlideInfo trialSlide = new SlideInfo();
                     trialSlide.SlideObjects.Add(trialText);
                     trialSlide.SlideObjects.Add(logoObj);
-                    trialSlide.SlideUrl = "http://www.avatar-soft.ro/dotnetnuke/modules/flash/dynamic-rotator.aspx";
+                    trialSlide.SlideUrl = "http://www.avatar-soft.ro/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx";
                     trialSlide.ButtonCaption = "Read More...";
 
                     Slides.Clear();
@@ -314,8 +315,9 @@ namespace avt.DynamicFlashRotator.Net
                 "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0\" width=\"" + Width.Value + "\" height=\"" + Height.Value + "\">" +
                     "<param name=\"movie\" value=\"" + flashUrl + "&settingsxml=" + settingsUrl + "&contentxml=" + contentUrl + "&transitionsxml=" + transitionsUrl + "\">" +
                     "<param name=\"quality\" value=\"high\">" +
+                    "<param name=\"wmode\" value=\"transparent\">" +
                     (Settings.TransparentBackground ? "<param name=\"wmode\" value=\"transparent\">" : "") +
-                    "<embed src=\"" + flashUrl + "&settingsxml=" + settingsUrl + "&contentxml=" + contentUrl + "&transitionsxml=" + transitionsUrl + "\" quality=\"high\" pluginspage=\"http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash\" type=\"application/x-shockwave-flash\" width=\"" + Width.Value + "\" height=\"" + Height.Value + "\""+ (Settings.TransparentBackground ? " wmode=\"transparent\"" : "") +"></embed>" +
+                    "<embed src=\"" + flashUrl + "&settingsxml=" + settingsUrl + "&contentxml=" + contentUrl + "&transitionsxml=" + transitionsUrl + "\" quality=\"high\" pluginspage=\"http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash\" type=\"application/x-shockwave-flash\" width=\"" + Width.Value + "\" height=\"" + Height.Value + "\" wmode=\"transparent\"" +"></embed>" +
                 "</object>"
                 // + "</noscript>"
             );
@@ -326,21 +328,22 @@ namespace avt.DynamicFlashRotator.Net
                 if (r.Next(20) == 1) {
                     // put some trial notifications
 
-                    string pageUrl = "http://www.avatar-soft.ro/dotnetnuke/modules/flash/dynamic-rotator.aspx";
+                    string pageUrl = "http://www.avatar-soft.ro/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx";
 
                     string[] keywords = new string[] {
-                        "Trial Notification: Powered by <i>Dynamic Rotator.NET</i> - a <a href = '{0}'>DNN Banner Module</a> from <a href = '{1}'>Avatar Software</a>",
-                        "Trial Notification: <a href = '{0}'>DNN Banner</a> built with <i>Dynamic Rotator.NET</i> from <a href = '{1}'>Avatar Software</a>",
-                        "Trial Notification: Powered by <i>Dynamic Rotator.NET</i> - a <a href = '{0}'>DNN Banner Module</a> from <a href = '{1}'>Avatar Software</a>",
-                        "Trial Notification: <a href = '{0}'>DNN Banner</a> built with <i>Dynamic Rotator.NET</i> from <a href = '{1}'>Avatar Software</a>",
+                        "Trial Notification: Powered by <i>Dynamic Rotator.NET</i> - a <a href = '{0}'{2}>DNN Banner Module</a> from <a href = '{1}'{2}>Avatar Software</a>",
+                        "Trial Notification: <a href = '{0}'{2}>DNN Banner</a> built with <i>Dynamic Rotator.NET</i> from <a href = '{1}'{2}>Avatar Software</a>",
+                        "Trial Notification: Powered by <i>Dynamic Rotator.NET</i> - a <a href = '{0}'{2}>DNN Banner Module</a> from <a href = '{1}'{2}>Avatar Software</a>",
+                        "Trial Notification: <a href = '{0}'{2}>DNN Banner</a> built with <i>Dynamic Rotator.NET</i> from <a href = '{1}'{2}>Avatar Software</a>",
 
-                        "Trial Notification: <a href = '{0}'>DNN Banners</a> built with <i>Dynamic Rotator.NET</i> from <a href = '{1}'>Avatar Software</a>",
-                        "Trial Notification: <a href = '{0}'>DotNetNuke Banner</a> built with <i>Dynamic Rotator.NET</i> from <a href = '{1}'>Avatar Software</a>",
-                        "Trial Notification: Powered by <i>Dynamic Rotator.NET</i> - a <a href = '{0}'>DNN Flash</a> module from <a href = '{1}'>Avatar Software</a>",
-                        "Trial Notification: Powered by <i>Dynamic Rotator.NET</i> - a <a href = '{0}'>DotNetNuke Flash</a> from <a href = '{1}'>Avatar Software</a>"
+                        "Trial Notification: <a href = '{0}'{2}>DNN Banners</a> built with <i>Dynamic Rotator.NET</i> from <a href = '{1}'{2}>Avatar Software</a>",
+                        "Trial Notification: <a href = '{0}'{2}>DotNetNuke Banner</a> built with <i>Dynamic Rotator.NET</i> from <a href = '{1}'{2}>Avatar Software</a>",
+                        "Trial Notification: Powered by <i>Dynamic Rotator.NET</i> - a <a href = '{0}'{2}>DNN Flash</a> module from <a href = '{1}'{2}>Avatar Software</a>",
+                        "Trial Notification: Powered by <i>Dynamic Rotator.NET</i> - a <a href = '{0}'{2}>DotNetNuke Flash</a> from <a href = '{1}'{2}>Avatar Software</a>"
                     };
+                    bool isIp = Regex.Match(HttpContext.Current.Request.Url.Host, ".*\\d+\\.\\d+\\.\\d+\\.\\d+.*").Length > 0;
 
-                    output.Write("<div>"+ string.Format(keywords[Math.Abs((HttpContext.Current.Request.Url.Host + HttpContext.Current.Request.RawUrl).GetHashCode() % keywords.Length)], pageUrl, "http://www.avatar-soft.ro") +".</div>");
+                    output.Write("<div>" + string.Format(keywords[Math.Abs((HttpContext.Current.Request.Url.Host + HttpContext.Current.Request.RawUrl).GetHashCode() % keywords.Length)], pageUrl, "http://www.avatar-soft.ro", isIp ? " rel=\"nofollow\"" : "") + ".</div>");
                 }
             }
 
@@ -448,7 +451,7 @@ namespace avt.DynamicFlashRotator.Net
             SlideInfo slide3 = new SlideInfo();
             slide3.SlideObjects.Add(slide3Text);
             slide3.SlideObjects.Add(slide3Img);
-            slide3.SlideUrl = "http://www.avatar-soft.ro/dotnetnuke/modules/flash/dynamic-rotator.aspx";
+            slide3.SlideUrl = "http://www.avatar-soft.ro/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx";
             slide3.ButtonCaption = "Visit Dynamic Rotator .NET Homepage";
 
             Slides.Add(slide3);

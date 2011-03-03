@@ -986,7 +986,7 @@
             var iobj = 0;
             slideRoot.find(".slideObject").each(function() {
                 _new.find(".slideObject").eq(iobj)[0].objData = jQuery.extend({}, this.objData, {id:-1, name: this.objData.name + " - Copy"});
-                _new.find(".slideObject").text(_new.find(".slideObject").eq(iobj)[0].objData.name);
+                _new.find(".slideObject").eq(iobj).find(".objTitle").text(_new.find(".slideObject").eq(iobj)[0].objData.name);
                 iobj++;
             });
 
