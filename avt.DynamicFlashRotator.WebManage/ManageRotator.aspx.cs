@@ -50,8 +50,8 @@ namespace avt.DynamicFlashRotator.Net.WebManage
                 // check activation
                 lblTabActivateContents.Visible = lblTabActivate.Visible = !avt.DynamicFlashRotator.Net.Settings.RotatorSettings.IsActivated();
 
-                ddSlideButtonsType.DataSource = Enum.GetNames(typeof(eSlideButtonsType));
-                ddSlideButtonsType.DataBind();
+                ddSlideButtonsType.Items.Add(new ListItem("Square (with numbers)", eSlideButtonsType.SquareWithNumbers.ToString()));
+                ddSlideButtonsType.Items.Add(new ListItem("Round (no numbers)", eSlideButtonsType.RoundNoNumbers.ToString()));
 
                 // load enums for slides
                 ddLinkTarget.Items.Add(new ListItem("Same Window", eLinkTarget._self.ToString()));

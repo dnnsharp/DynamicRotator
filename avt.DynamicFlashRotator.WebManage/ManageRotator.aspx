@@ -29,7 +29,9 @@
             <asp:Button runat="server" OnClick="SaveSettings" class="ui-state-default" style="padding: 4px 10px;" Text="Save" OnClientClick="if (!save()) return false;" UseSubmitBehavior="false" />
         </div>
 
-        <h1 class="manageTitle" style="font-weight:normal; color: #626262;">Settings for <asp:Label runat="server" ID = "lblControlName" style="color: #C77405; font-weight:bold;"></asp:Label></h1>
+        <h1 class="manageTitle" style="font-weight:normal; color: #626262; font-family: georgia; font-size: 22px; font-weight: normal; letter-spacing: 2px;">
+            <i>Settings for</i> <asp:Label runat="server" ID = "lblControlName" style="color: #C77405; font-weight:bold;"></asp:Label>
+        </h1>
         <div style="clear: both;"></div>
     </div>
 
@@ -49,24 +51,15 @@
             <table style="">
                 <tr>
                     <td class="settingField">
-                        <asp:Label runat="server" AssociatedControlID="tbWidth">Width</asp:Label>
+                        <asp:Label runat="server" AssociatedControlID="tbWidth">Size (width x height)</asp:Label>
                     </td>
                     <td class="settingField">
-                         <asp:TextBox runat = "server" ID="tbWidth" class="tbNumber" /> px
+                         <asp:TextBox runat = "server" ID="tbWidth" class="tbNumber" /> X
+                         <asp:TextBox runat = "server" ID="tbHeight" class="tbNumber" />
+                         pixels
                     </td>
                     <td class = "grayed_desc">
-                        Determines width of the flash rotator
-                    </td>
-                </tr>
-                <tr>
-                    <td class="settingField">
-                        <asp:Label runat="server" AssociatedControlID="tbHeight">Height</asp:Label>
-                    </td>
-                    <td class="settingField">
-                         <asp:TextBox runat = "server" ID="tbHeight" class="tbNumber" /> px
-                    </td>
-                    <td class = "grayed_desc">
-                        Determines height of the flash rotator
+                        Determines width and height of the flash rotator in pixels
                     </td>
                 </tr>
                 <tr>
@@ -124,7 +117,7 @@
                         <asp:CheckBox runat = "server" ID="cbShowTimerBar" />
                     </td>
                     <td class = "grayed_desc">
-                        The Timer Bar appears above the slider buttton; it's a visual indicator of Slide Duration option
+                        The Timer Bar appears above the slide butttons; it's a visual indicator of Slide Duration option
                     </td>
                 </tr>
 
@@ -142,7 +135,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="settingField">
+                    <td class="settingField ctlSliderBtnLbl">
                         <asp:Label runat="server" AssociatedControlID="ddSlideButtonsType">Slide Buttons Type</asp:Label>
                     </td>
                     <td class="settingField">
@@ -205,7 +198,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="settingField">
+                    <td class="settingField ctlRoundCornderLbl">
                         <asp:Label runat="server" AssociatedControlID="tbRoundCornerMaskColor">Round Corner Mask Color</asp:Label>
                     </td>
                     <td class="settingField">
@@ -229,7 +222,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="settingField">
+                    <td class="settingField ctlTopTitleLbl">
                         <asp:Label runat="server" AssociatedControlID="tbTopTitleBackground">Top Title Background</asp:Label>
                     </td>
                     <td class="settingField">
@@ -237,15 +230,15 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="settingField">
+                    <td class="settingField ctlTopTitleLbl">
                         <asp:Label runat="server" AssociatedControlID="tbTopTitleBgTransparency">Top Title Bg Transparency</asp:Label>
                     </td>
-                    <td class="settingField">
+                    <td class="settingField ctlTopTitleWidget">
                          <asp:TextBox runat = "server" ID="tbTopTitleBgTransparency" style="width:30px;" class="tbNumber tbRange ctlTopTitle" />
                     </td>
                 </tr>
                 <tr>
-                    <td class="settingField">
+                    <td class="settingField ctlTopTitleLbl">
                         <asp:Label runat="server" AssociatedControlID="tbTopTitleTextColor">Top Title Text Color</asp:Label>
                     </td>
                     <td class="settingField">
@@ -656,17 +649,7 @@
 
             applyColorpicker(jQuery("#tabs-main-settings"));
 
-            jQuery("#<%= cbShowBottomButtons.ClientID %>").change(function() {
-                this.checked ? jQuery('.ctlSliderBtn').removeAttr('disabled'):jQuery('.ctlSliderBtn').attr('disabled','disabled');
-            }).change();
-
-            jQuery("#<%= cbUseRoundCornersMask.ClientID %>").change(function() {
-                this.checked ? jQuery('.ctlRoundCornder').removeAttr('disabled'):jQuery('.ctlRoundCornder').attr('disabled','disabled');
-            }).change();
-
-            jQuery("#<%= cbShowTopTitle.ClientID %>").change(function() {
-                this.checked ? jQuery('.ctlTopTitle').removeAttr('disabled'):jQuery('.ctlTopTitle').attr('disabled','disabled');
-            }).change();
+            
 
             // init slides
             jQuery("#slides").sortable({
@@ -819,6 +802,38 @@
             });
             
             initAllTooltips();
+
+            jQuery("#<%= cbShowBottomButtons.ClientID %>").change(function() {
+                if (this.checked) {
+                    jQuery('.ctlSliderBtn').removeAttr('disabled');
+                    jQuery(".ctlSliderBtnLbl").removeClass("ui-state-disabled");
+                } else {
+                    jQuery('.ctlSliderBtn').attr('disabled','disabled');
+                    jQuery(".ctlSliderBtnLbl").addClass("ui-state-disabled");
+                }
+            }).change();
+
+            jQuery("#<%= cbUseRoundCornersMask.ClientID %>").change(function() {
+                if (this.checked) { 
+                    jQuery('.ctlRoundCornder').removeAttr('disabled'); 
+                    jQuery(".ctlRoundCornderLbl").removeClass("ui-state-disabled");
+                } else {
+                    jQuery('.ctlRoundCornder').attr('disabled','disabled');
+                    jQuery(".ctlRoundCornderLbl").addClass("ui-state-disabled");
+                }
+            }).change();
+
+            jQuery("#<%= cbShowTopTitle.ClientID %>").change(function() {
+                if (this.checked) {
+                    jQuery('.ctlTopTitle').removeAttr('disabled');
+                    jQuery(".ctlTopTitleWidget .ui-state-disabled").removeClass("ui-state-disabled");
+                    jQuery(".ctlTopTitleLbl").removeClass("ui-state-disabled");
+                } else {
+                    jQuery('.ctlTopTitle').attr('disabled','disabled');
+                    jQuery(".ctlTopTitleWidget .ui-widget").addClass("ui-state-disabled");
+                    jQuery(".ctlTopTitleLbl").addClass("ui-state-disabled");
+                }
+            }).change();
 
         });
 
