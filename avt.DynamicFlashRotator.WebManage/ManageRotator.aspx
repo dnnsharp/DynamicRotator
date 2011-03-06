@@ -23,19 +23,22 @@
     
     <asp:HiddenField runat="server" ID ="hdnSlideXml" />
 
-    <div>
-        <div class="btnPane">
-            <a href = "<%= System.Web.HttpUtility.UrlDecode(Request.QueryString["rurl"]) %>" style="color: #525252; padding: 1px 10px; margin-right: 10px; font-weight: normal;" >Cancel</a>
-            <asp:Button runat="server" OnClick="SaveSettings" class="ui-state-default" style="padding: 4px 10px;" Text="Save" OnClientClick="if (!save()) return false;" UseSubmitBehavior="false" />
-        </div>
+    <div style= "border-bottom: 2px solid #D2D2FF;">
+        <div style="width: 1000px; margin: auto;">
+            <div class="btnPane">
+                <a href = "<%= System.Web.HttpUtility.UrlDecode(Request.QueryString["rurl"]) %>" style="color: #525252; padding: 1px 10px; margin-right: 10px; font-weight: normal;" >Cancel</a>
+                <asp:Button runat="server" OnClick="SaveSettings" class="ui-state-default" style="padding: 4px 10px;" Text="Save" OnClientClick="if (!save()) return false;" UseSubmitBehavior="false" />
+            </div>
 
-        <h1 class="manageTitle" style="font-weight:normal; color: #626262; font-family: georgia; font-size: 22px; font-weight: normal; letter-spacing: 2px;">
-            <i>Settings for</i> <asp:Label runat="server" ID = "lblControlName" style="color: #C77405; font-weight:bold;"></asp:Label>
-        </h1>
-        <div style="clear: both;"></div>
+            <h1 class="manageTitle" style="font-weight:normal; color: #626262; font-family: georgia; font-size: 22px; font-weight: normal; letter-spacing: 2px;">
+                <i>Settings for</i> <asp:Label runat="server" ID = "lblControlName" style="color: #C77405; font-weight:bold;"></asp:Label>
+            </h1>
+            <div style="clear: both;"></div>
+        </div>
     </div>
 
-    <div id = "mainTabs">
+    <div style="background-color: #fafafa;">
+        <div id = "mainTabs" style = "width: 1000px; margin: auto; background: none repeat scroll 0 0 white;">
         <ul>
             <li><a href="#tabs-main-settings">General Settings</a></li>
             <li><a href="#tabs-main-slides">Slides</a></li>
@@ -50,7 +53,7 @@
         <div id = "tabs-main-settings">
             <table style="">
                 <tr>
-                    <td class="settingField">
+                    <td class="settingField" style="width: 200px;">
                         <asp:Label runat="server" AssociatedControlID="tbWidth">Size (width x height)</asp:Label>
                     </td>
                     <td class="settingField">
@@ -409,7 +412,7 @@
             </div>
         </asp:Label>
     </div>
-
+    </div>
 
     <div id = "dlgObjectSettings" style="overflow:visible;">
 
@@ -617,11 +620,13 @@
 
 
     <div class="footer">
-        <div class="btnPane">
-            <a href = "<%= System.Web.HttpUtility.UrlDecode(Request.QueryString["rurl"]) %>" style="color: #525252; padding: 1px 10px; margin-right: 10px; font-weight: normal;" >Cancel</a>
-            <asp:Button runat="server" OnClick="SaveSettings" class="ui-state-default" style="padding: 4px 10px;" Text="Save" OnClientClick="if (!save()) return false;" UseSubmitBehavior="false" />
+        <div style="width: 1000px; margin: auto;">
+            <div class="btnPane">
+                <a href = "<%= System.Web.HttpUtility.UrlDecode(Request.QueryString["rurl"]) %>" style="color: #525252; padding: 1px 10px; margin-right: 10px; font-weight: normal;" >Cancel</a>
+                <asp:Button runat="server" OnClick="SaveSettings" class="ui-state-default" style="padding: 4px 10px;" Text="Save" OnClientClick="if (!save()) return false;" UseSubmitBehavior="false" />
+            </div>
+            <div style="clear:both;"></div>
         </div>
-        <div style="clear:both;"></div>
     </div>
 
     </form>
@@ -648,8 +653,7 @@
             jQuery("#mainTabs").tabs();
 
             applyColorpicker(jQuery("#tabs-main-settings"));
-
-            
+            applyUrlFormatters(jQuery("#objSettingsTabs"));
 
             // init slides
             jQuery("#slides").sortable({
@@ -680,6 +684,7 @@
                     _root.find(".pnlSlideOpts").eq(_root.find(".slideOptsGroup").index(jQuery(this))).show();
                     
                     applyColorpicker(jQuery(this));
+                    applyUrlFormatters(jQuery(this));
                 });
 
             var slides = <%= hdnSlideXml.Value %>;
@@ -916,6 +921,7 @@
             //_item.find(".pnlSlideOptsGeneral").show();
             
             applyColorpicker(_item);
+            applyUrlFormatters(_item);
             updateSlideIndexes();
             
             if (bNew) {
@@ -1291,6 +1297,38 @@
                 dd.val("other");
                 tb.val(url);
             }
+        }
+
+        function applyUrlFormatters(rootElement) {
+            
+            rootElement.find(".tbUrl").each(function() {
+                jQuery(this).bind('keyup', function(e) {
+                    var tb = jQuery(this);
+                    var dd = tb.prev();
+                    var url = tb.val();
+
+                    if (url.indexOf("https://") == 0) {
+                        dd.val("https://");
+                        tb.val(url.substr("https://".length));
+                    } else if (url.indexOf("http://") == 0) {
+                        dd.val("http://");
+                        tb.val(url.substr("http://".length));
+                    } else if (url.indexOf("ftp://") == 0) {
+                        dd.val("ftp://");
+                        tb.val(url.substr("ftp://".length));
+                    } else {
+                        if (url.indexOf("://") > 0) {
+                            dd.val("other");
+                            return;
+                        }
+
+                        // leave unchanged
+                        return;
+                    }
+
+                    fillUrl(tb, dd, url);
+                });
+            });
         }
 
         function applyColorpicker(rootElement) {

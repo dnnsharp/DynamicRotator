@@ -8,7 +8,6 @@
 
 .manageTitle {
     background-color: #F3F3FF;
-    border-bottom: 2px solid #D2D2FF;
     color: #424242;
     font-family: Arial;
     font-size: 24px;
@@ -20,10 +19,6 @@
     background-color: #F3F3FF;
     border-top: 2px solid #D2D2FF;
     padding: 10px 0;
-}
-
-#mainTabs {
-    background: none repeat scroll 0 0 white;
 }
 
 .settingField {
@@ -50,9 +45,9 @@
 }
 
 .btnPane {
-    margin: 6px 60px 0 0; 
-    padding: 5px 40px; 
-    float:right;
+    margin: 6px 0px 0 0; 
+    padding: 5px 30px; 
+    float: right;
 }
 
 .btnPane button {
@@ -362,3 +357,8 @@ input.tooltip_hover {
 textarea.tooltip_hover {
     background-position: right top;
 }
+
+#mainTabs .ui-tabs-panel {
+    padding: 0.5em 0.2em;
+}
+
