@@ -31,7 +31,7 @@
                 <asp:Button runat="server" OnClick="SaveSettings" class="ui-state-default" style="padding: 4px 10px;" Text="Save" OnClientClick="if (!save()) return false;" UseSubmitBehavior="false" />
             </div>
 
-            <h1 class="manageTitle" style="font-weight:normal; color: #626262; font-family: georgia; font-size: 22px; font-weight: normal; letter-spacing: 2px;">
+            <h1 class="manageTitle" style="font-weight:normal; color: #626262; font-family: georgia; font-size: 18px; font-weight: normal; letter-spacing: 1px;">
                 <i>Settings for</i> <asp:Label runat="server" ID = "lblControlName" style="color: #C77405; font-weight:bold;"></asp:Label>
             </h1>
             <div style="clear: both;"></div>
@@ -417,6 +417,11 @@
 
     <div class="footer">
         <div style="width: 1000px; margin: auto;">
+            <div style="float: left;">
+                Version <%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.VersionAll %> by <a href = "http://www.avatar-soft.ro">Avatar Software</a>
+                <br />
+                <a href = "http://www.avatar-soft.ro/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx">Read more about Dynamic Redirect .NET...</a>
+            </div>
             <div class="btnPane">
                 <a href = "<%= System.Web.HttpUtility.UrlDecode(Request.QueryString["rurl"]) %>" style="color: #525252; padding: 1px 10px; margin-right: 10px; font-weight: normal;" >Cancel</a>
                 <asp:Button runat="server" OnClick="SaveSettings" class="ui-state-default" style="padding: 4px 10px;" Text="Save" OnClientClick="if (!save()) return false;" UseSubmitBehavior="false" />
@@ -424,7 +429,6 @@
             <div style="clear:both;"></div>
         </div>
     </div>
-
 
     <div id = "dlgObjectSettings" style="overflow:visible;">
 
@@ -638,7 +642,7 @@
         <div class="fileLoader"></div>
         <div style="clear:both;"></div>
         <div class = "folderPane" style ="float: left; padding: 6px; width: 220px; height: 300px; overflow: auto; border: 1px solid #e2e2e2;">
-            <a href = "#" onclick="return false;" class="folderRoot"><%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.Configuration.BrowseServerForResources.RootName %></a>
+            <a href = "#" onclick="getFiles(jQuery(this).attr('')); generateBreads(jQuery(this)); return false;" class="folderRoot"><%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.Configuration.BrowseServerForResources.RootName %></a>
         </div>
         <div style ="height: 300px; padding: 6px; overflow: auto; border: 1px solid #e2e2e2;">
             <div style="padding: 4px; background-color: #f2f2f2; border: 1px solid #c2c2c2;" class="breadPane">
@@ -1344,7 +1348,7 @@
             var _dlg = jQuery("#dlgFileBrowserResource");
             _dlg.find(".fileLoader").show().css("opacity", 0.8);
 
-            jQuery.post("<%= TemplateSourceDirectory %>/AdminApi.aspx?controlId=<%= Request.QueryString["controlId"]%>&cmd=listfolders", { 
+            jQuery.post("<%= TemplateSourceDirectory %>/AdminApi.aspx?controlId=<%= Request.QueryString["controlId"]%>&cmd=listfolders&resPath=<%= Server.UrlEncode(Request.QueryString["resPath"]) %>", { 
                 relPath: parentFolder
             }, function(data) {
                 if (data.error) {
@@ -1385,7 +1389,7 @@
             _dlg.find(".fileLoader").show().css("opacity", 0.8);
             jQuery("#dlgFileBrowserResource").find(".filePane").empty();
 
-            jQuery.post("<%= TemplateSourceDirectory %>/AdminApi.aspx?controlId=<%= Request.QueryString["controlId"]%>&cmd=listfiles", { 
+            jQuery.post("<%= TemplateSourceDirectory %>/AdminApi.aspx?controlId=<%= Request.QueryString["controlId"]%>&cmd=listfiles&resPath=<%= Server.UrlEncode(Request.QueryString["resPath"]) %>", { 
                 //relPath: _folder.children(".folder").attr("relPath")
                 relPath: _folder
             }, function(data) {
@@ -1400,7 +1404,7 @@
                         var _lst = _filePane.children("ul");
                 
                         for (var i = 0; i<data.length; i++) {
-                            var _f = jQuery("<li><a href='"+ data[i].fullUrl +"' onclick='selectImage(jQuery(this)); return false;' onmouseover='previewImage(jQuery(this));' onmouseout='hidePreviewImage(jQuery(this));' class='file' relPath='"+ data[i].relPath +"'>"+ data[i].name +"</a></li>");
+                            var _f = jQuery("<li><a href='<%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.Configuration.BrowseServerForResources.RootFolder.Url %>"+ data[i].fullUrl +"' onclick='selectImage(jQuery(this)); return false;' onmouseover='previewImage(jQuery(this));' onmouseout='hidePreviewImage(jQuery(this));' class='file' relPath='"+ data[i].relPath +"'>"+ data[i].name +"</a></li>");
                             _lst.append(_f);
                         }
                     }

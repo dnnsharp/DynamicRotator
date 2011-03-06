@@ -82,9 +82,14 @@ namespace avt.DynamicFlashRotator.Net.Services
         }
 
         public FileBrowser BrowseServerForResources { 
-            get { 
-                // TODO: link this to smth
-                return new FileBrowser(HttpContext.Current.Server.MapPath("~/"), "Website Root", "png", "jpg", "swf"); 
+            get {
+                string resPath = "~/";
+                string pathName = "Website Root";
+                if (!string.IsNullOrEmpty(HttpContext.Current.Request.QueryString["resPath"])) {
+                    resPath = HttpContext.Current.Request.QueryString["resPath"];
+                    pathName = "Resources Folder";
+                }
+                return new FileBrowser(HttpContext.Current.Server.MapPath(resPath), pathName, "png", "jpg", "swf"); 
             }
         }
 

@@ -142,6 +142,11 @@ namespace avt.DynamicFlashRotator.Net
         [Editor("System.Web.UI.Design.UrlEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         public string ManageUrl { get { return _ManageUrl; } set { _ManageUrl = value; } }
 
+        string _ResourceUrl = null;
+        [Category("Dynamic Rotator - Runtime Configuration")]
+        [Description("Sepcify relative folder where resources should load from using the File Browser (for example /iamges)")]
+        public string ResourceUrl { get { return _ResourceUrl; } set { _ResourceUrl = value; } }
+
         #endregion
 
 
@@ -353,6 +358,8 @@ namespace avt.DynamicFlashRotator.Net
                 manageUrl += "&connStr=" + DbConnectionString;
                 manageUrl += "&dbOwner=" + DbOwner;
                 manageUrl += "&objQualifier=" + DbObjectQualifier;
+                if (!string.IsNullOrEmpty(ResourceUrl))
+                    manageUrl += "&resPath=" + ResourceUrl;
                 manageUrl += "&rurl=" + HttpUtility.UrlEncode(HttpContext.Current.Request.RawUrl);
                 output.Write("<br />");
                 output.Write("<a href='" + manageUrl + "#tabs-main-slides'>Manage Slides</a>");
