@@ -43,6 +43,7 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AdminApi.aspx" />
     <Content Include="ManageRotator.aspx" />
     <Content Include="res\js\jquery-ui.js" />
     <Content Include="res\js\jquery.js" />
@@ -64,6 +65,13 @@
     <Content Include="res\ui-lightness\jquery-ui.css" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminApi.aspx.cs">
+      <DependentUpon>AdminApi.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminApi.aspx.designer.cs">
+      <DependentUpon>AdminApi.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ManageRotator.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>ManageRotator.aspx</DependentUpon>

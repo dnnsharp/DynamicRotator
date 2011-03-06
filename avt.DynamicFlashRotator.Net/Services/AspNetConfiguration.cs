@@ -38,7 +38,6 @@ namespace avt.DynamicFlashRotator.Net.Services
             if (!string.IsNullOrEmpty(_DbOwner) && _DbOwner.IndexOf('.') != _DbOwner.Length - 1) {
                 _DbOwner += ".";
             }
-
         }
 
         #region IConfiguration Members
@@ -80,6 +79,13 @@ namespace avt.DynamicFlashRotator.Net.Services
         public string Tokenize(string controlId, string content)
         {
             return content;
+        }
+
+        public FileBrowser BrowseServerForResources { 
+            get { 
+                // TODO: link this to smth
+                return new FileBrowser(HttpContext.Current.Server.MapPath("~/"), "Website Root", "png", "jpg", "swf"); 
+            }
         }
 
         #endregion

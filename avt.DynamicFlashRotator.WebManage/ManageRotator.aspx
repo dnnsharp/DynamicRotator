@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Manage ALLinONE Rotator Settings</title>
+    <title>Manage Dynamic Rotator.NET Settings</title>
     <link type ="text/css" rel="stylesheet" href = "<%=TemplateSourceDirectory + "/res/ui-lightness/jquery-ui.css"%>" />
     <link type ="text/css" rel="stylesheet" href = "<%=TemplateSourceDirectory + "/res/js/colorpicker/css/colorpicker.css"%>" />
     <link type ="text/css" rel="stylesheet" href = "<%=TemplateSourceDirectory + "/res/jquery.bt.css"%>" />
@@ -18,6 +18,7 @@
     <script type = "text/javascript" src = "<%=TemplateSourceDirectory %>/res/js/colorpicker/js/eye.js"></script>
     <script type = "text/javascript" src = "<%=TemplateSourceDirectory %>/res/js/colorpicker/js/utils.js"></script>
 </head>
+
 <body>
     <form id="form1" runat="server">
     
@@ -43,8 +44,8 @@
             <li><a href="#tabs-main-settings">General Settings</a></li>
             <li><a href="#tabs-main-slides">Slides</a></li>
             <%--<li><a href="#tabs-main-presets">Presets</a></li>
-            <li><a href="#tabs-main-library">Object Library</a></li>
-            <li><a href="#tabs-main-customize">Order Customization</a></li>--%>
+            <li><a href="#tabs-main-library">Object Library</a></li>--%>
+            <li><a href="#tabs-main-customize">Order Customization</a></li>
             <asp:Literal runat="server" ID = "lblTabActivate">
                 <li><a href="#tabs-main-activate">Activate</a></li>
             </asp:Literal>
@@ -73,7 +74,7 @@
                         <asp:CheckBox runat = "server" ID="cbTransparentBackground" />
                     </td>
                     <td class = "grayed_desc">
-                        If this option is selected, the flash control background is transparent so it takes the color of the HTML page
+                        If this option is selected, the flash control is transparent so it takes the color of the HTML page
                     </td>
                 </tr>
                 <tr>
@@ -389,14 +390,14 @@
 
         <div id = "tabs-main-library">
             test
-        </div>
-
-        <div id = "tabs-main-customize">
-            test
         </div>--%>
 
+        <div id = "tabs-main-customize">
+            Customize
+        </div>
+
         <asp:Label runat="server" ID = "lblTabActivateContents">
-            <div id = "tabs-main-activate">
+            <div id = "tabs-main-activate" style="margin: 15px 25px;">
                 <h2 style="color: #C77405;">This copy of Dynamic Rotator .NET is Not Activated!</h2>
                 <div>
                     This means that when you're not accessing this website on localhost you will get random trial notifications.
@@ -413,6 +414,17 @@
         </asp:Label>
     </div>
     </div>
+
+    <div class="footer">
+        <div style="width: 1000px; margin: auto;">
+            <div class="btnPane">
+                <a href = "<%= System.Web.HttpUtility.UrlDecode(Request.QueryString["rurl"]) %>" style="color: #525252; padding: 1px 10px; margin-right: 10px; font-weight: normal;" >Cancel</a>
+                <asp:Button runat="server" OnClick="SaveSettings" class="ui-state-default" style="padding: 4px 10px;" Text="Save" OnClientClick="if (!save()) return false;" UseSubmitBehavior="false" />
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+
 
     <div id = "dlgObjectSettings" style="overflow:visible;">
 
@@ -472,6 +484,9 @@
                                     <option>other</option>
                                 </select>
                                 <input type="text" class = "tbUrl tbObjectUrl tbRequired tooltip_hover" style = "width: 270px;" title="Instruct Dynamic Rotator where to find this resource." />
+                                <div style="text-align: right; margin-right:6px;">
+                                    <a href = "#" onclick="browseServerForResources(jQuery(this).parents('.objFieldRow')); return false;" style="color: #EB8F00;">Browse Server &raquo;</a>
+                                </div>
                             </td>
                         </tr>
                         <tr class = "objFieldRow ui-widget-content objFieldTextOnly">
@@ -619,15 +634,27 @@
     </div>
 
 
-    <div class="footer">
-        <div style="width: 1000px; margin: auto;">
-            <div class="btnPane">
-                <a href = "<%= System.Web.HttpUtility.UrlDecode(Request.QueryString["rurl"]) %>" style="color: #525252; padding: 1px 10px; margin-right: 10px; font-weight: normal;" >Cancel</a>
-                <asp:Button runat="server" OnClick="SaveSettings" class="ui-state-default" style="padding: 4px 10px;" Text="Save" OnClientClick="if (!save()) return false;" UseSubmitBehavior="false" />
+    <div id = "dlgFileBrowserResource" style="overflow:visible;">
+        <div class="fileLoader"></div>
+        <div style="clear:both;"></div>
+        <div class = "folderPane" style ="float: left; padding: 6px; width: 220px; height: 300px; overflow: auto; border: 1px solid #e2e2e2;">
+            <a href = "#" onclick="return false;" class="folderRoot"><%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.Configuration.BrowseServerForResources.RootName %></a>
+        </div>
+        <div style ="height: 300px; padding: 6px; overflow: auto; border: 1px solid #e2e2e2;">
+            <div style="padding: 4px; background-color: #f2f2f2; border: 1px solid #c2c2c2;" class="breadPane">
+                
             </div>
-            <div style="clear:both;"></div>
+            <div style="margin: 10px 16px;" class="filePane">
+                
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+        <div style="font-style: italic; color: #626262;">
+            Hover file names for preview, click to select them...
         </div>
     </div>
+
+    
 
     </form>
 
@@ -635,17 +662,6 @@
 
     <script type="text/javascript">
     
-        var btOpts = {
-            fill: 'rgba(0, 0, 0, .8)',
-            cssStyles: {"color":"#ffb465","font-weight":"normal", "font-size":"11px"},
-            strokeStyle: "#FBCB09",
-            strokeWidth: 1,
-            spikeLength: 10,
-            spikeGirth: 20,
-            padding: 16,
-            cornerRadius: 10,
-            width: 300
-        }
 
         var g_isDragging = false;
 
@@ -691,6 +707,24 @@
             for (var i  = 0; i < slides.length; i++) {
                 loadSlide(slides[i]);
             }
+
+            jQuery("#dlgFileBrowserResource").dialog({
+                bgiframe: false,
+                autoOpen: false,
+                title: "Browse Server",
+                width: 800,
+                modal: true,
+                resizable: false,
+                closeOnEscape: true,
+
+                buttons: {
+//                    'Save': function() {
+//                    },
+                    'Close': function() {
+                        jQuery("#dlgFileBrowserResource").dialog('close');
+                    }
+                }
+            });
 
             jQuery("#dlgObjectSettings").dialog({
                 bgiframe: false,
@@ -1266,13 +1300,237 @@
             return sXml.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&apos;");
         }
 
+        
+
+        function checkLinkCaption(_pnlRoot, useIt) {
+            var pnl = _pnlRoot.find('.pnlLinkButtonCaption'); 
+            pnl.find('*').toggleClass('ui-state-disabled',!useIt); 
+            useIt ? pnl.find(':input').removeAttr('disabled') : pnl.find(':input').attr('disabled','disabled');
+            if (useIt)
+                pnl.find(':input').focus().select();
+        }
+
+        
+
+    </script>
+
+
+    <script type="text/javascript">
+        <%-- File Helpers -------------------------------------------------------------------------- --%>
+
+        function browseServerForResources(propRoot) {
+            var _dlg = jQuery("#dlgFileBrowserResource");
+            _dlg.dialog("open");
+
+            jQuery(".selFile").removeClass("selFile");
+            propRoot.addClass("selFile");
+
+            _dlg[0].select = function(url) {
+                var propRoot = jQuery(".selFile");
+                propRoot.find(".ddUrl").val("other");
+                propRoot.find(".tbUrl").val(url);
+                propRoot.removeClass("selFile");
+            };
+
+            if (_dlg.find(".folderPane ul").size() == 0) {
+                loadFolders("", jQuery("#dlgFileBrowserResource").find(".folderPane"));
+                getFiles("");
+                generateBreads(jQuery("#dlgFileBrowserResource").find(".folderRoot"));
+            }
+        }
+
+        function loadFolders(parentFolder, appendTo) {
+            
+            var _dlg = jQuery("#dlgFileBrowserResource");
+            _dlg.find(".fileLoader").show().css("opacity", 0.8);
+
+            jQuery.post("<%= TemplateSourceDirectory %>/AdminApi.aspx?controlId=<%= Request.QueryString["controlId"]%>&cmd=listfolders", { 
+                relPath: parentFolder
+            }, function(data) {
+                if (data.error) {
+                    alert("An error has occured: " + data.error);
+                } else {
+                    appendTo.append("<ul></ul>");
+                    var _lst = appendTo.children("ul");
+                
+                    for (var i = 0; i<data.length; i++) {
+                        var _f = jQuery("<li><a href='#' onclick='expandFolder(jQuery(this).parent()); return false;' class='expand'>&nbsp;+&nbsp;</a><a href='#' onclick='getFiles(jQuery(this).attr(\"relPath\")); generateBreads(jQuery(this)); return false;' class='folder' relPath='"+ data[i].relPath +"'>"+ data[i].name +"</a></li>");
+                        if (!data[i].hasChildren) {
+                            _f.find(".expand").css("visibility", "hidden");
+                        }
+                        _lst.append(_f);
+                    }
+                }
+                jQuery("#dlgFileBrowserResource").find(".fileLoader").fadeOut();
+            }, "json");
+        }
+
+        function expandFolder(_folder) {
+            if (_folder.children(".expand").hasClass("opened")) {
+                _folder.children("ul").slideUp("fast");
+                _folder.children(".expand").removeClass("opened").html("&nbsp;+&nbsp;");
+            } else {
+                _folder.children(".expand").addClass("opened").html("&nbsp;-&nbsp;");
+                if (_folder.children("ul").size() == 0) {
+                    loadFolders(_folder.children(".folder").attr("relPath"), _folder);
+                } else {
+                    _folder.children("ul").slideDown("fast");
+                }
+            }
+        }
+
+        function getFiles(_folder) {
+            
+            var _dlg = jQuery("#dlgFileBrowserResource");
+            _dlg.find(".fileLoader").show().css("opacity", 0.8);
+            jQuery("#dlgFileBrowserResource").find(".filePane").empty();
+
+            jQuery.post("<%= TemplateSourceDirectory %>/AdminApi.aspx?controlId=<%= Request.QueryString["controlId"]%>&cmd=listfiles", { 
+                //relPath: _folder.children(".folder").attr("relPath")
+                relPath: _folder
+            }, function(data) {
+                if (data.error) {
+                    alert("An error has occured: " + data.error);
+                } else {
+                    var _filePane = jQuery("#dlgFileBrowserResource").find(".filePane").empty();
+                    if (data.length == 0) {
+                        _filePane.append("<div style = 'margin: 40px; font-style: italic; color: #626262;'>No image or swf files in this folder...</div>");
+                    } else {
+                        _filePane.append("<ul></ul>");
+                        var _lst = _filePane.children("ul");
+                
+                        for (var i = 0; i<data.length; i++) {
+                            var _f = jQuery("<li><a href='"+ data[i].fullUrl +"' onclick='selectImage(jQuery(this)); return false;' onmouseover='previewImage(jQuery(this));' onmouseout='hidePreviewImage(jQuery(this));' class='file' relPath='"+ data[i].relPath +"'>"+ data[i].name +"</a></li>");
+                            _lst.append(_f);
+                        }
+                    }
+                }
+                jQuery("#dlgFileBrowserResource").find(".fileLoader").fadeOut();
+            }, "json");
+        }
+
+        function generateBreads(_folder) {
+            if (_folder.hasClass("bread")) { // click came from a bread
+                _folder.nextAll().remove();
+                return;
+            }
+
+            var _breadPane = jQuery("#dlgFileBrowserResource").find(".breadPane").empty();
+            _breadPane.append(_folder.clone().addClass("bread"));
+            _folder.parents("ul").prev("a").each(function() {
+                _breadPane.prepend("<span>&nbsp;/&nbsp;</span>");
+                _breadPane.prepend(jQuery(this).clone().addClass("bread"));
+            });
+        }
+
+        function previewImage(_img) {
+            if (_img.next(".imgPreview").size() > 0) {
+                _img.next(".imgPreview").show();
+            } else {
+                if (_img.attr("href").indexOf(".swf") == _img.attr("href").length-4) {
+                    // _img.after("<div class='imgPreview' style='margin-left: "+ (_img.outerWidth() + 60) +"px; margin-top: -40px;'><img src='"+ _img.attr("href") +"' /></div>");
+                    return;
+                } else {
+                    _img.after("<div class='imgPreview' style='margin-left: "+ (_img.outerWidth() + 60) +"px; margin-top: -40px;'><img src='"+ _img.attr("href") +"' /></div>");
+                }
+            }
+        }
+
+        function hidePreviewImage(_img) {
+            _img.next(".imgPreview").remove();
+        }
+
+        function selectImage(_img) {
+            jQuery("#dlgFileBrowserResource").dialog('close');
+            jQuery("#dlgFileBrowserResource")[0].select(_img.attr("href"));
+        }
+
+    </script>
+
+    <script type="text/javascript"> 
+        <%-- Tooltip Helpers -------------------------------------------------------------------------- --%>
+
+        var btOpts = {
+            fill: 'rgba(0, 0, 0, .8)',
+            cssStyles: {"color":"#ffb465","font-weight":"normal", "font-size":"11px"},
+            strokeStyle: "#FBCB09",
+            strokeWidth: 1,
+            spikeLength: 10,
+            spikeGirth: 20,
+            padding: 16,
+            cornerRadius: 10,
+            width: 300
+        }
+
+        function initAllTooltips(parent) {
+            initTooltips(parent, "hover", "hover", "right");
+            initTooltips(parent, "click","click","right");
+            initTooltips(parent, ['focus', 'blur']);
+            initTooltips(parent, "hover", "hover_v", ["bottom", "top"]);
+            initTooltips(parent, ['focus', 'blur'], "focus_v", ["bottom", "top"]);
+        }
+
+        function initTooltips(parent, action, cssClass, pos) {
+    
+            if (!cssClass)
+                cssClass = action;
+        
+            if (!pos)
+                pos = ["most"];
+        
+            if (!parent)
+                parent = jQuery("body");
+            
+            parent.find('.tooltip_' + cssClass).bt(jQuery.extend({}, btOpts, {
+                    offsetParent: jQuery("body"),
+                    trigger: action,
+                    positions: pos
+                })
+            );
+        }
+
+    </script>
+
+    <script type="text/javascript"> 
+        <%-- Color Pickers and Previews Helpers -------------------------------------------------------------------------- --%>
+
+        function applyColorpicker(rootElement) {
+            applyColorPreviews(rootElement);
+            rootElement.find(".tbColor").each(function() {
+                var _this = jQuery(this);
+                _this.ColorPicker({
+                    onSubmit: function(hsb, hex, rgb) {
+                        _this.val("#" + hex);
+                        _this.parent().css("background-color", "#"+hex);
+                        jQuery(".colorpicker").hide();
+                    },
+                    onBeforeShow: function () {
+                        jQuery(this).ColorPickerSetColor(this.value);
+                    }
+                });
+            });
+            
+            jQuery(".colorpicker").css("z-index", "1100");
+        }
+
+        function applyColorPreviews(_root) {
+            _root.find(".tbColor").each(function() {
+                jQuery(this).parent().css("background-color", jQuery(this).val());
+            });
+        }
+
+    </script>
+
+    <script type="text/javascript"> 
+        <%-- URL Helpers -------------------------------------------------------------------------- --%>
+
         function formatUrl(tb,dd) {
             if (jQuery.trim(tb.val()).length == 0)
                 return "";
             if (!dd)
                 dd = tb.parents(".fieldRow.:first").find(".ddUrl");
             if (dd.val() == "other") {
-                return tb;
+                return tb.val();
             }
             
             return dd.val() + tb.val();
@@ -1329,66 +1587,6 @@
                     fillUrl(tb, dd, url);
                 });
             });
-        }
-
-        function applyColorpicker(rootElement) {
-            applyColorPreviews(rootElement);
-            rootElement.find(".tbColor").each(function() {
-                var _this = jQuery(this);
-                _this.ColorPicker({
-                    onSubmit: function(hsb, hex, rgb) {
-                        _this.val("#" + hex);
-                        _this.parent().css("background-color", "#"+hex);
-                        jQuery(".colorpicker").hide();
-                    },
-                    onBeforeShow: function () {
-                        jQuery(this).ColorPickerSetColor(this.value);
-                    }
-                });
-            });
-            
-            jQuery(".colorpicker").css("z-index", "1100");
-        }
-
-        function applyColorPreviews(_root) {
-            _root.find(".tbColor").each(function() {
-                jQuery(this).parent().css("background-color", jQuery(this).val());
-            });
-        }
-
-        function checkLinkCaption(_pnlRoot, useIt) {
-            var pnl = _pnlRoot.find('.pnlLinkButtonCaption'); 
-            pnl.find('*').toggleClass('ui-state-disabled',!useIt); 
-            useIt ? pnl.find(':input').removeAttr('disabled') : pnl.find(':input').attr('disabled','disabled');
-            if (useIt)
-                pnl.find(':input').focus().select();
-        }
-
-        function initAllTooltips(parent) {
-            initTooltips(parent, "hover", "hover", "right");
-            initTooltips(parent, "click","click","right");
-            initTooltips(parent, ['focus', 'blur']);
-            initTooltips(parent, "hover", "hover_v", ["bottom", "top"]);
-            initTooltips(parent, ['focus', 'blur'], "focus_v", ["bottom", "top"]);
-        }
-
-        function initTooltips(parent, action, cssClass, pos) {
-    
-            if (!cssClass)
-                cssClass = action;
-        
-            if (!pos)
-                pos = ["most"];
-        
-            if (!parent)
-                parent = jQuery("body");
-            
-            parent.find('.tooltip_' + cssClass).bt(jQuery.extend({}, btOpts, {
-                    offsetParent: jQuery("body"),
-                    trigger: action,
-                    positions: pos
-                })
-            );
         }
 
     </script>

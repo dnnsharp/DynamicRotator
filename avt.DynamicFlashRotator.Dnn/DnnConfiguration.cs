@@ -110,6 +110,20 @@ namespace avt.DynamicFlashRotator.Dnn
             return Tokenize(content, modInfo, false, true);
         }
 
+        public FileBrowser BrowseServerForResources {
+            get {
+                string portalFolder;
+                try {
+                    PortalController portalCtrl = new PortalController();
+                    portalFolder = portalCtrl.GetPortal(Convert.ToInt32(HttpContext.Current.Request.QueryString["portalid"])).HomeDirectory;
+                } catch { 
+                    portalFolder = PortalController.GetCurrentPortalSettings().HomeDirectory;
+                }
+
+                return new FileBrowser(HttpContext.Current.Server.MapPath("~/" + portalFolder), "Website Root", "png", "jpg", "swf");
+            }
+        }
+
         #endregion
 
 

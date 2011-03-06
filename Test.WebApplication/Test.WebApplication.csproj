@@ -43,6 +43,7 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Controls\Rotator\AdminApi.aspx" />
     <Content Include="Controls\Rotator\ManageRotator.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Web.config" />

@@ -213,6 +213,8 @@ namespace avt.DynamicFlashRotator.Net
                 Writer.WriteAttributeString("backgroundTransparency", TextBackgroundOpacity.ToString());
                 Writer.WriteAttributeString("backgroundPadding", TextBackgroundPadding.ToString());
 
+                Writer.WriteAttributeString("theTextWidth", 100.ToString());
+
                 Writer.WriteCData(RotatorSettings.Configuration.Tokenize(controlId, Text));
             } else {
                 Writer.WriteAttributeString("timeDelay", TimeDelay.ToString());

@@ -51,6 +51,7 @@
     <Compile Include="RegCore\BigInteger.cs" />
     <Compile Include="RegCore\ezrsa.cs" />
     <Compile Include="Services\AspNetConfiguration.cs" />
+    <Compile Include="Services\FileBrowser.cs" />
     <Compile Include="Services\IConfiguration.cs" />
     <Compile Include="Settings\RotatorSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

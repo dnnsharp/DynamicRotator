@@ -16,5 +16,7 @@ namespace avt.DynamicFlashRotator.Net.Services
 
         string FormatTitle(string controlId);
         string Tokenize(string controlId, string content);
+
+        FileBrowser BrowseServerForResources { get; }
     }
 }

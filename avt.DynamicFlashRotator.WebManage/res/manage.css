@@ -363,3 +363,64 @@ textarea.tooltip_hover {
     padding: 0.5em 0.2em;
 }
 
+
+.fileLoader {
+    position: absolute;
+    width: 780px;
+    height: 320px;
+    background: #FFFFFF url(img/loader.gif) no-repeat scroll center center;
+}
+
+.folderPane ul, .filePane ul {
+    padding: 0;
+    margin: 0px 6px 0px 6px;
+}
+
+.folderPane ul ul {
+    margin-left: 22px;
+}
+
+.folderPane li, .filePane li {
+    list-style-type: none;
+    white-space: nowrap;
+}
+
+a.folderRoot, .folderPane a.folder, .filePane a.file, .breadPane a.folder {
+    background: transparent url(img/folder.gif) no-repeat scroll 0 center;
+    padding-left: 20px;
+    color: #1C94C4;
+}
+
+.breadPane a.folder {
+    background-image: none;
+    padding: 0px;
+}
+
+.filePane a.file {
+    background: transparent url(img/images-small.png) no-repeat scroll 0 center;
+    padding-left: 20px;
+    color: #1C94C4;
+}
+
+a.folderRoot {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.folderPane a.expand:link, .folderPane a.expand:visited {
+    color: #1C94C4;
+    text-decoration: none;
+    border-left: 1px solid white;
+    font-family: Monospace;
+    font-size: 12px;
+}
+
+.folderPane a.expand:active, .folderPane a.expand:hover {
+    border-color: #1C94C4;
+}
+
+
+.imgPreview {
+    position: absolute;
+}
+
