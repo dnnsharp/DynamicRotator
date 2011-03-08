@@ -227,6 +227,7 @@ namespace avt.DynamicFlashRotator.Net.WebManage
                             try { slideObj.Opacity = Convert.ToInt32(xmlSlideObj["opacity"].InnerText); } catch { }
                             try { slideObj.Xposition = Convert.ToInt32(xmlSlideObj["posx"].InnerText); } catch { }
                             try { slideObj.Yposition = Convert.ToInt32(xmlSlideObj["posy"].InnerText); } catch { }
+                            try { slideObj.Width = Convert.ToInt32(xmlSlideObj["width"].InnerText); } catch { }
                             try { slideObj.VerticalAlign = (eVerticalAlign)Enum.Parse(typeof(eVerticalAlign), xmlSlideObj["valign"].InnerText, true); } catch { }
                             
                             try { slideObj.GlowSize = Convert.ToInt32(xmlSlideObj["glowSize"].InnerText); } catch { }
@@ -243,6 +244,7 @@ namespace avt.DynamicFlashRotator.Net.WebManage
                             try { slideObj.SlideMoveType = (eMoveType)Enum.Parse(typeof(eMoveType), xmlSlideObj["slideMoveType"].InnerText, true); } catch { }
                             try { slideObj.SlideEasingType = (eEasing)Enum.Parse(typeof(eEasing), xmlSlideObj["slideEasingType"].InnerText, true); } catch { }
                             try { slideObj.EffectAfterSlide = (eEffect)Enum.Parse(typeof(eEffect), xmlSlideObj["effectAfterSlide"].InnerText, true); } catch { }
+
                             slideObj.ViewOrder = viewOrder++;
                             slideObj.Save();
                         }

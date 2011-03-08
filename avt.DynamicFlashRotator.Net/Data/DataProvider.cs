@@ -55,6 +55,7 @@ namespace avt.DynamicFlashRotator.Net.Data
         public abstract IDataReader GetSlides(string controlId);
         public abstract IDataReader GetSlide(int slideId);
         public abstract void RemoveSlide(int slideId);
+        public abstract void RemoveSlides(string controlId);
 
         // Slide Objects
         public abstract int UpdateSlideObject(
@@ -65,7 +66,7 @@ namespace avt.DynamicFlashRotator.Net.Data
             int glowSize, int glowStrength, string glowColor,
             string appearMode, string slideFrom, string slideMoveType, string slideEasingType, string effectAfterSlide,
             string textColor, string textBackgroundColor, int textBackgroundOpacity, int textBackgroundPadding,
-            int viewOrder
+            int viewOrder, int width
         );
         public abstract IDataReader GetSlideObjects(int slideId);
         public abstract IDataReader GetSlideObject(int slideObjectId);

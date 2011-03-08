@@ -58,7 +58,7 @@ namespace avt.DynamicFlashRotator.Net.Data
                 "GlowSize", "GlowStrength", "GlowColor",
                 "AppearMode", "SlideFrom", "SlideMoveType", "SlideEasingType", "EffectAfterSlide",
                 "TextColor", "TextBackgroundColor", "TextBackgroundOpacity", "TextBackgroundPadding",
-                "ViewOrder"
+                "ViewOrder", "Width"
             );
         }
 
@@ -126,7 +126,10 @@ namespace avt.DynamicFlashRotator.Net.Data
             _TableSlides.Delete(new object[] { slideId });
         }
 
-
+        public override void RemoveSlides(string controlId)
+        {
+            _TableSlides.Delete("ControlId=" + AvtSqlHelper_Table.EncodeSql(controlId));
+        }
 
         public override int UpdateSlideObject(
             int slideObjectId, int slideId, string objectType, string name, string linkUrl, string text, string resUrl,
@@ -136,7 +139,7 @@ namespace avt.DynamicFlashRotator.Net.Data
             int glowSize, int glowStrength, string glowColor,
             string appearMode, string slideFrom, string slideMoveType, string slideEasingType, string effectAfterSlide,
             string textColor, string textBackgroundColor, int textBackgroundOpacity, int textBackgroundPadding,
-            int viewOrder)
+            int viewOrder, int width)
         {
             return _TableSlideObjects.Update(
                 new object[] { slideObjectId },
@@ -147,7 +150,7 @@ namespace avt.DynamicFlashRotator.Net.Data
                 glowSize, glowStrength, glowColor,
                 appearMode, slideFrom, slideMoveType, slideEasingType, effectAfterSlide,
                 textColor, textBackgroundColor, textBackgroundOpacity, textBackgroundPadding,
-                viewOrder
+                viewOrder, width
             );
         }
 
