@@ -26,7 +26,7 @@
 
     <div style= "border-bottom: 2px solid #D2D2FF;">
         <div style="width: 1000px; margin: auto;">
-            <div class="btnPane">
+            <div class="btnPane" style="display: none;">
                 <a href = "<%= System.Web.HttpUtility.UrlDecode(Request.QueryString["rurl"]) %>" style="color: #525252; padding: 1px 10px; margin-right: 10px; font-weight: normal;" >Cancel</a>
                 <asp:Button runat="server" OnClick="SaveSettings" class="ui-state-default" style="padding: 4px 10px;" Text="Save" OnClientClick="if (!save()) return false;" UseSubmitBehavior="false" />
             </div>
@@ -39,7 +39,12 @@
     </div>
 
     <div style="background-color: #fafafa;">
-        <div id = "mainTabs" style = "width: 1000px; margin: auto; background: none repeat scroll 0 0 white;">
+        <div id = "mainLoading" style="width: 1000px; margin: auto; padding: 10xp; background: none repeat scroll 0 0 white; ">
+            <div style = "padding: 20px; font-style: italic;">
+                Loading... Please wait... 
+            </div>
+        </div>
+        <div id = "mainTabs" style = "width: 1000px; margin: auto; background: none repeat scroll 0 0 white; display: none;">
         <ul>
             <li><a href="#tabs-main-settings">General Settings</a></li>
             <li><a href="#tabs-main-slides">Slides</a></li>
@@ -487,7 +492,7 @@
                 <br />
                 <a href = "http://www.avatar-soft.ro/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx">Read more about Dynamic Redirect .NET...</a>
             </div>
-            <div class="btnPane">
+            <div class="btnPane" style="display: none;">
                 <a href = "<%= System.Web.HttpUtility.UrlDecode(Request.QueryString["rurl"]) %>" style="color: #525252; padding: 1px 10px; margin-right: 10px; font-weight: normal;" >Cancel</a>
                 <asp:Button runat="server" OnClick="SaveSettings" class="ui-state-default" style="padding: 4px 10px;" Text="Save" OnClientClick="if (!save()) return false;" UseSubmitBehavior="false" />
             </div>
@@ -495,7 +500,7 @@
         </div>
     </div>
 
-    <div id = "dlgObjectSettings" style="overflow:visible;">
+    <div id = "dlgObjectSettings" style="overflow:visible; display: none;">
 
         <div id = "objSettingsTabs">
             <ul>
@@ -525,6 +530,12 @@
                                 <b>Y</b> <input type="text" style = "width: 40px;" class="tbObjPosY tbNumber" />
                                 <asp:DropDownList runat="server" ID = "ddVerticalAlgin" class = "ddVerticalAlgin" style="display:none;">
                                 </asp:DropDownList>
+                            </td>
+                        </tr>
+                        <tr class = "objFieldRow ui-widget-content objFieldTextOnly">
+                            <td class = "ui-widget-content hdr">Width:</td>
+                            <td class = "ui-widget-content tooltip_hover" title="Use this option to specify the text width which determines where the text goes on next line.<br/> If not specified, the text takes full available width.">
+                                <input type="text" style = "width: 60px;" class="tbObjWidth tbNumber" /> pixels
                             </td>
                         </tr>
                         <tr class = "objFieldRow ui-widget-content objFieldImgOnly">
@@ -703,7 +714,7 @@
     </div>
 
 
-    <div id = "dlgFileBrowserResource" style="overflow:visible;">
+    <div id = "dlgFileBrowserResource" style="overflow:visible; display: none;">
         <div class="fileLoader"></div>
         <div style="clear:both;"></div>
         <div class = "folderPane" style ="float: left; padding: 6px; width: 220px; height: 300px; overflow: auto; border: 1px solid #e2e2e2;">
@@ -723,19 +734,19 @@
         </div>
     </div>
 
-    
-
     </form>
 
 
 
     <script type="text/javascript">
-    
+    <%-- Initialization -------------------------------------------------------------------------- --%>
 
         var g_isDragging = false;
 
         jQuery(document).ready(function() {
-            jQuery("#mainTabs").tabs();
+            jQuery("#mainLoading").hide();
+            jQuery("#mainTabs").tabs().show();
+            jQuery(".btnPane").show();
 
             applyColorpicker(jQuery("#tabs-main-settings"));
             applyUrlFormatters(jQuery("#objSettingsTabs"));
@@ -787,8 +798,6 @@
                 closeOnEscape: true,
 
                 buttons: {
-//                    'Save': function() {
-//                    },
                     'Close': function() {
                         jQuery("#dlgFileBrowserResource").dialog('close');
                     }
@@ -945,67 +954,11 @@
 
         });
 
+    </script>
 
-        function appendSlideObject(slideObj, slideRoot) {
-            if (!slideRoot) {
-                slideRoot = jQuery(".slideRootActive");
-            }
 
-            var _item = jQuery("<li class='slideObject'></li>");
-            // determine type
-            if (slideObj.itemType.toLowerCase() == "text") {
-                _item.addClass("slideObjectText");
-            } else if (slideObj.itemType.toLowerCase() == "image") {
-                var resUrl = jQuery.trim(slideObj.resUrl);
-                if (resUrl.indexOf(".swf") == resUrl.length - 4) {
-                    _item.addClass("slideObjectSwf");
-                } else {
-                    _item.addClass("slideObjectImg");
-                }
-            }
-
-            _item.append("<div class='dragObj'><img width='20' src='<%= TemplateSourceDirectory %>/res/img/drag.png' /></div>");
-            _item.append("<div style='text-align: center;' class='objTitle'>" + slideObj.name + "</div>");
-
-           slideRoot.find(".pnlSlideObjList").append(_item);
-           _item[0].objData = slideObj;
-
-            _item
-                .mouseover(function() {
-                    if (g_isDragging)
-                        return;
-                    jQuery(this).addClass("slideObjectHover");
-                })
-                .mouseout(function() {
-                    if (g_isDragging)
-                        return;
-                    jQuery(this).removeClass("slideObjectHover");
-                })
-                .click(function() {
-                    if (g_isDragging === true)
-                        return;
-                    openSlideObjectSettings(jQuery(this).parents(".slideRoot:first"), this.objData.itemType, jQuery(this));
-                });
-
-            checkSlideObjects(slideRoot);
-            
-        }
-
-        function checkSlideObjects(slideRoot) {
-            if (slideRoot.find(".slideObject").size() == 0) {
-                slideRoot.find(".pnlSlideObjList_empty").show();
-            } else {
-                slideRoot.find(".pnlSlideObjList_empty").hide();
-            }
-
-            if(slideRoot.find(".slideObjectText").size() == 0) {
-                slideRoot.find(".btnAddObjectText").removeClass("ui-state-disabled");
-                slideRoot.find(".btnAddObjectText").removeAttr("bt-xtitle").btOff();
-            } else {
-                slideRoot.find(".btnAddObjectText").addClass("ui-state-disabled");
-                slideRoot.find(".btnAddObjectText").attr("title", "Limitation with version 1.0: slides can only contain one text object.").bt(btOpts);
-            }
-        }
+    <script type="text/javascript">
+    <%-- Slide Functions -------------------------------------------------------------------------- --%>
 
         function updateSlideIndexes() {
             var index = 1;
@@ -1126,27 +1079,70 @@
             updateSlideIndexes();
         }
 
-        function deleteSlideObject(slideOjectRoot) {
-            if (!slideOjectRoot) {
-                slideOjectRoot = jQuery("#dlgObjectSettings")[0].slideObjItem;
+    </script>
+
+    <script type="text/javascript">
+    <%-- Slide Object Functions -------------------------------------------------------------------------- --%>
+        
+        function appendSlideObject(slideObj, slideRoot) {
+            if (!slideRoot) {
+                slideRoot = jQuery(".slideRootActive");
             }
-            if (confirm("Are you sure you want to delete this Slide Object?")) {
-                var slideRoot = slideOjectRoot.parents(".slideRoot:first");
-                slideOjectRoot.remove();
-                checkSlideObjects(slideRoot);
-                jQuery("#dlgObjectSettings").dialog('close');
+
+            var _item = jQuery("<li class='slideObject'></li>");
+            // determine type
+            if (slideObj.itemType.toLowerCase() == "text") {
+                _item.addClass("slideObjectText");
+            } else if (slideObj.itemType.toLowerCase() == "image") {
+                var resUrl = jQuery.trim(slideObj.resUrl);
+                if (resUrl.indexOf(".swf") == resUrl.length - 4) {
+                    _item.addClass("slideObjectSwf");
+                } else {
+                    _item.addClass("slideObjectImg");
+                }
             }
+
+            _item.append("<div class='dragObj'><img width='20' src='<%= TemplateSourceDirectory %>/res/img/drag.png' /></div>");
+            _item.append("<div style='text-align: center;' class='objTitle'>" + slideObj.name + "</div>");
+
+           slideRoot.find(".pnlSlideObjList").append(_item);
+           _item[0].objData = slideObj;
+
+            _item
+                .mouseover(function() {
+                    if (g_isDragging)
+                        return;
+                    jQuery(this).addClass("slideObjectHover");
+                })
+                .mouseout(function() {
+                    if (g_isDragging)
+                        return;
+                    jQuery(this).removeClass("slideObjectHover");
+                })
+                .click(function() {
+                    if (g_isDragging === true)
+                        return;
+                    openSlideObjectSettings(jQuery(this).parents(".slideRoot:first"), this.objData.itemType, jQuery(this));
+                });
+
+            checkSlideObjects(slideRoot);
             
         }
 
-        function addSlideText(slideRoot) {
-            if (slideRoot.find(".btnAddObjectText").hasClass("ui-state-disabled"))
-                return;
-            openSlideObjectSettings(slideRoot, "text");
-        }
+        function checkSlideObjects(slideRoot) {
+            if (slideRoot.find(".slideObject").size() == 0) {
+                slideRoot.find(".pnlSlideObjList_empty").show();
+            } else {
+                slideRoot.find(".pnlSlideObjList_empty").hide();
+            }
 
-        function addSlideImage(slideRoot) {
-            openSlideObjectSettings(slideRoot, "image");
+            if(slideRoot.find(".slideObjectText").size() == 0) {
+                slideRoot.find(".btnAddObjectText").removeClass("ui-state-disabled");
+                slideRoot.find(".btnAddObjectText").removeAttr("bt-xtitle").btOff();
+            } else {
+                slideRoot.find(".btnAddObjectText").addClass("ui-state-disabled");
+                slideRoot.find(".btnAddObjectText").attr("title", "Temporary Limitation: slides can only contain one text object.").bt(btOpts);
+            }
         }
 
         function openSlideObjectSettings(slideRoot, itemType, slideObjItem) {
@@ -1178,6 +1174,7 @@
                 _dlg.find(".tbObjOpacity").val(slideObjItem[0].objData.opacity);
                 _dlg.find(".tbObjPosX").val(slideObjItem[0].objData.posx);
                 _dlg.find(".tbObjPosY").val(slideObjItem[0].objData.posy);
+                _dlg.find(".tbObjWidth").val(slideObjItem[0].objData.width > 0 ? slideObjItem[0].objData.width : "");
                 _dlg.find(".ddVerticalAlgin").val(slideObjItem[0].objData.valign);
                 _dlg.find(".tbObjGlowSize").val(slideObjItem[0].objData.glowSize);
                 _dlg.find(".tbObjGlowColor").val(slideObjItem[0].objData.glowColor);
@@ -1223,6 +1220,7 @@
                 _dlg.find(".tbObjOpacity").val("<%= DefaultObject.Opacity %>");
                 _dlg.find(".tbObjPosX").val(<%= DefaultObject.Xposition %>);
                 _dlg.find(".tbObjPosY").val(<%= DefaultObject.Yposition %>);
+                _dlg.find(".tbObjWidth").val("");
                 _dlg.find(".ddVerticalAlgin").val("<%= DefaultObject.VerticalAlign.ToString() %>");
                 _dlg.find(".tbObjGlowSize").val(<%= DefaultObject.GlowSize %>);
                 _dlg.find(".tbObjGlowColor").val("<%= avt.DynamicFlashRotator.Net.ColorExt.ColorToHexString(DefaultObject.GlowColor) %>");
@@ -1261,6 +1259,34 @@
             applyColorPreviews(_dlg);
         }
 
+        function deleteSlideObject(slideOjectRoot) {
+            if (!slideOjectRoot) {
+                slideOjectRoot = jQuery("#dlgObjectSettings")[0].slideObjItem;
+            }
+            if (confirm("Are you sure you want to delete this Slide Object?")) {
+                var slideRoot = slideOjectRoot.parents(".slideRoot:first");
+                slideOjectRoot.remove();
+                checkSlideObjects(slideRoot);
+                jQuery("#dlgObjectSettings").dialog('close');
+            }
+            
+        }
+
+        function addSlideText(slideRoot) {
+            if (slideRoot.find(".btnAddObjectText").hasClass("ui-state-disabled"))
+                return;
+            openSlideObjectSettings(slideRoot, "text");
+        }
+
+        function addSlideImage(slideRoot) {
+            openSlideObjectSettings(slideRoot, "image");
+        }
+
+    </script>
+
+    <script type="text/javascript">
+    <%-- Save Routines -------------------------------------------------------------------------- --%>
+
         function saveSlideObjectAsJson(dlg) {
             return { 
                 id: dlg.find(".objectId").text(),
@@ -1274,6 +1300,7 @@
                 opacity: dlg.find(".tbObjOpacity").val(),
                 posx: dlg.find(".tbObjPosX").val(),
                 posy: dlg.find(".tbObjPosY").val(),
+                width: dlg.find(".tbObjWidth").val(),
                 valign: dlg.find(".ddVerticalAlgin").val(),
                 
                 glowSize: dlg.find(".tbObjGlowSize").val(),
@@ -1369,7 +1396,10 @@
             return sXml.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&apos;");
         }
 
-        
+    </script>
+
+    <script type="text/javascript">
+    <%-- Hide/Disabled Controls scripts -------------------------------------------------------------------------- --%>
 
         function checkLinkCaption(_pnlRoot, useIt) {
             var pnl = _pnlRoot.find('.pnlLinkButtonCaption'); 
@@ -1379,10 +1409,7 @@
                 pnl.find(':input').focus().select();
         }
 
-        
-
     </script>
-
 
     <script type="text/javascript">
         <%-- File Helpers -------------------------------------------------------------------------- --%>
