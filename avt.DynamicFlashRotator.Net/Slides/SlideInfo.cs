@@ -59,6 +59,8 @@ namespace avt.DynamicFlashRotator.Net
         {
         }
 
+        RotatorSettings _Settings;
+        public RotatorSettings Settings { get { return _Settings; } set { _Settings = value; } }
 
         int _Id = -1;
         public int Id { get { return _Id; } set { _Id = value; } }
@@ -265,7 +267,7 @@ namespace avt.DynamicFlashRotator.Net
 
             using (IDataReader drObj = DataProvider.Instance().GetSlideObjects(Id)) {
                 while (drObj.Read()) {
-                    SlideObjects.Add(SlideObjectInfo.FromDataReader(drObj));
+                    SlideObjects.Add(SlideObjectInfo.FromDataReader(drObj, this));
                 }
                 drObj.Close();
             }
@@ -317,6 +319,13 @@ namespace avt.DynamicFlashRotator.Net
 
                 ViewOrder
             );
+
+            //// also save all slide objects
+            //foreach (SlideObjectInfo obj in SlideObjects) {
+            //    obj.SlideId = Id;
+            //    obj.Slide = this;
+            //    obj.Save();
+            //}
         }
 
 
@@ -360,6 +369,68 @@ namespace avt.DynamicFlashRotator.Net
 
             return sbJson.ToString();
         }
+
+
+        public void LoadFromPortableXml(XmlNode rootNode, string controlId)
+        {
+            ControlId = controlId;
+
+            try { Title = rootNode["Title"].InnerText; } catch { }
+            try { DurationSeconds = Convert.ToInt32(rootNode["DurationSeconds"].InnerText); } catch { }
+            try { BackgroundGradientFrom = System.Drawing.Color.FromArgb(Convert.ToInt32(rootNode["BackgroundGradientFrom"].InnerText.Replace("#", "0x"), 16)); } catch { }
+            try { BackgroundGradientTo = System.Drawing.Color.FromArgb(Convert.ToInt32(rootNode["BackgroundGradientTo"].InnerText.Replace("#", "0x"), 16)); } catch { }
+
+            try { SlideUrl = rootNode["Link_Url"].InnerText; } catch { }
+            try { ButtonCaption = rootNode["Link_Caption"].InnerText; } catch { }
+            try { Target = rootNode["Link_Target"].InnerText; } catch { }
+            try { UseTextsBackground = rootNode["Link_UseTextsBackground"].InnerText == "true"; } catch { }
+            try { ClickAnywhere = rootNode["Link_ClickAnywhere"].InnerText == "true"; } catch { }
+
+            //try { Mp3Url = rootNode["Mp3_Url"].InnerText; } catch { }
+            //try { ShowPlayer = rootNode["Mp3_ShowPlayer"].InnerText == "true"; } catch { }
+            //try { IconColor = System.Drawing.Color.FromArgb(Convert.ToInt32(rootNode["Mp3_IconColor"].InnerText.Replace("#", "0x"), 16)); } catch { }
+
+            try { ViewOrder = Convert.ToInt32(rootNode["ViewOrder"].InnerText); } catch { }
+            Save();
+
+            foreach (XmlElement xmlSlideObj in rootNode["Objects"].SelectNodes("Object")) {
+                SlideObjectInfo obj = new SlideObjectInfo();
+                obj.LoadFromPortableXml(xmlSlideObj, controlId);
+                obj.SlideId = Id;
+                obj.Save();
+            }
+        }
+
+        public void SaveToPortableXml(XmlWriter Writer, string controlId)
+        {
+            Writer.WriteStartElement("Slide");
+
+            // slide node attributes
+            Writer.WriteElementString("DurationSeconds", DurationSeconds.ToString());
+            Writer.WriteElementString("Title", Title);
+
+            // background node and attributes
+            Writer.WriteElementString("BackgroundGradientFrom", ColorExt.ColorToHexString(BackgroundGradientFrom));
+            Writer.WriteElementString("BackgroundGradientTo", ColorExt.ColorToHexString(BackgroundGradientTo));
+
+            // link node and attributes
+            Writer.WriteElementString("Link_Url", SlideUrl);
+            Writer.WriteElementString("Link_Caption", ButtonCaption);
+            Writer.WriteElementString("Link_Target", Target);
+            Writer.WriteElementString("Link_UseTextsBackground", UseTextsBackground ? "true" : "false");
+            Writer.WriteElementString("Link_ClickAnywhere", ClickAnywhere ? "true" : "false");
+
+            Writer.WriteElementString("ViewOrder", ViewOrder.ToString());
+
+            Writer.WriteStartElement("Objects");
+            foreach (SlideObjectInfo slideObj in SlideObjects) {
+                slideObj.SaveToPortableXml(Writer, controlId);
+            }
+            Writer.WriteEndElement(); // ("Objects");
+
+            Writer.WriteEndElement(); // Slide
+        }
+
 
         public void ToXml(XmlWriter Writer)
         {

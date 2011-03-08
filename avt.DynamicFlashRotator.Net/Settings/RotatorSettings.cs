@@ -235,6 +235,7 @@ namespace avt.DynamicFlashRotator.Net.Settings
                 while (dr.Read()) {
                     SlideInfo slide = new SlideInfo();
                     slide.Load(dr);
+                    slide.Settings = this;
                     Slides.Add(slide);
                 }
                 dr.Close();
@@ -242,6 +243,79 @@ namespace avt.DynamicFlashRotator.Net.Settings
 
             return hasValues;
         }
+
+
+        public static void LoadFromPortableXml(XmlNode rootNode, string controlId)
+        {
+            DataProvider.Instance().Init(RotatorSettings.Configuration);
+
+            // load settings
+            try { DataProvider.Instance().UpdateSetting(controlId, "Width", rootNode["Width"].InnerText); } catch { }
+            try { DataProvider.Instance().UpdateSetting(controlId, "Height", rootNode["Height"].InnerText); } catch { }
+            try { DataProvider.Instance().UpdateSetting(controlId, "AutoStartSlideShow", rootNode["AutoStartSlideShow"].InnerText); } catch { }
+            try { DataProvider.Instance().UpdateSetting(controlId, "UseRoundCornersMask", rootNode["UseRoundCornersMask"].InnerText); } catch { }
+            try { DataProvider.Instance().UpdateSetting(controlId, "RoundCornerMaskColor", rootNode["RoundCornerMaskColor"].InnerText); } catch { }
+            try { DataProvider.Instance().UpdateSetting(controlId, "ShowBottomButtons", rootNode["ShowBottomButtons"].InnerText); } catch { }
+            try { DataProvider.Instance().UpdateSetting(controlId, "ShowPlayPauseControls", rootNode["ShowPlayPauseControls"].InnerText); } catch { }
+            try { DataProvider.Instance().UpdateSetting(controlId, "FadeColor", rootNode["FadeColor"].InnerText); } catch { }
+            try { DataProvider.Instance().UpdateSetting(controlId, "ShowTopTitle", rootNode["ShowTopTitle"].InnerText); } catch { }
+            try { DataProvider.Instance().UpdateSetting(controlId, "TopTitleBackground", rootNode["TopTitleBackground"].InnerText); } catch { }
+            try { DataProvider.Instance().UpdateSetting(controlId, "TopTitleBgTransparency", rootNode["TopTitleBgTransparency"].InnerText); } catch { }
+            try { DataProvider.Instance().UpdateSetting(controlId, "TopTitleTextColor", rootNode["TopTitleTextColor"].InnerText); } catch { }
+            try { DataProvider.Instance().UpdateSetting(controlId, "ShowTimerBar", rootNode["ShowTimerBar"].InnerText); } catch { }
+            try { DataProvider.Instance().UpdateSetting(controlId, "SlideButtonsColor", rootNode["SlideButtonsColor"].InnerText); } catch { }
+            try { DataProvider.Instance().UpdateSetting(controlId, "SlideButtonsNumberColor", rootNode["SlideButtonsNumberColor"].InnerText); } catch { }
+            try { DataProvider.Instance().UpdateSetting(controlId, "SlideButtonsType", rootNode["SlideButtonsType"].InnerText); } catch { }
+            try { DataProvider.Instance().UpdateSetting(controlId, "SlideButtonsXoffset", rootNode["SlideButtonsXoffset"].InnerText); } catch { }
+            try { DataProvider.Instance().UpdateSetting(controlId, "SlideButtonsYoffset", rootNode["SlideButtonsYoffset"].InnerText); } catch { }
+            try { DataProvider.Instance().UpdateSetting(controlId, "TransparentBackground", rootNode["TransparentBackground"].InnerText); } catch { }
+            try { DataProvider.Instance().UpdateSetting(controlId, "LastUpdate", rootNode["LastUpdate"].InnerText); } catch { }
+
+            // load slides
+            DataProvider.Instance().RemoveSlides(controlId);
+            foreach (XmlElement xmlSlide in rootNode["Slides"].SelectNodes("Slide")) {
+                SlideInfo slide = new SlideInfo();
+                slide.LoadFromPortableXml(xmlSlide, controlId);
+            }
+
+            // load slide objects
+        }
+
+        public void SaveToPortableXml(XmlWriter Writer, string controlId)
+        {
+            Writer.WriteStartElement("RotatorSettings");
+            
+            // save settings
+            Writer.WriteElementString("Width", Width.Value.ToString());
+            Writer.WriteElementString("Height", Height.Value.ToString());
+            Writer.WriteElementString("AutoStartSlideShow", AutoStartSlideShow ? "true" : "false");
+            Writer.WriteElementString("UseRoundCornersMask", UseRoundCornersMask ? "true" : "false");
+            Writer.WriteElementString("RoundCornerMaskColor", ColorExt.ColorToHexString(RoundCornerMaskColor));
+            Writer.WriteElementString("ShowBottomButtons", ShowBottomButtons ? "true" : "false");
+            Writer.WriteElementString("ShowPlayPauseControls", ShowPlayPauseControls ? "true" : "false");
+            Writer.WriteElementString("FadeColor", ColorExt.ColorToHexString(FadeColor));
+            Writer.WriteElementString("ShowTopTitle", ShowTopTitle ? "true" : "false");
+            Writer.WriteElementString("TopTitleBackground", TopTitleBackground.ToArgb().ToString());
+            Writer.WriteElementString("TopTitleBgTransparency", TopTitleBgTransparency.ToString());
+            Writer.WriteElementString("TopTitleTextColor", ColorExt.ColorToHexString(TopTitleTextColor));
+            Writer.WriteElementString("ShowTimerBar", ShowTimerBar ? "true" : "false");
+            Writer.WriteElementString("SlideButtonsColor", ColorExt.ColorToHexString(SlideButtonsColor));
+            Writer.WriteElementString("SlideButtonsNumberColor", ColorExt.ColorToHexString(SlideButtonsNumberColor));
+            Writer.WriteElementString("SlideButtonsType", ((int)SlideButtonsType).ToString());
+            Writer.WriteElementString("SlideButtonsXoffset", SlideButtonsXoffset.ToString());
+            Writer.WriteElementString("SlideButtonsYoffset", SlideButtonsYoffset.ToString());
+            Writer.WriteElementString("TransparentBackground", TransparentBackground ? "true" : "false");
+
+            // save slides
+            Writer.WriteStartElement("Slides");
+            foreach (SlideInfo slide in Slides) {
+                slide.SaveToPortableXml(Writer, controlId);
+            }
+            Writer.WriteEndElement(); // Slides
+
+            Writer.WriteEndElement(); // RotatorSettings
+        }
+
 
         public string SlidesToDesignerJson()
         {

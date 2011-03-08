@@ -111,6 +111,8 @@ namespace avt.DynamicFlashRotator.Net
 
         string _OverrideId = null;
         public string OverrideId { get { return _OverrideId; } set { _OverrideId = value; } }
+
+        // Real ID returns the control ID for Asp.NET or for DNN it return the ModuleId.ToString() - since the control ID would be id of the server control embeded in DNN module
         public string RealId { get { return string.IsNullOrEmpty(OverrideId) ? this.ID : OverrideId; } }
 
         #region Runtime Configuration
@@ -256,10 +258,13 @@ namespace avt.DynamicFlashRotator.Net
                     logoObj.TransitionDuration = 1;
                     
                     SlideInfo trialSlide = new SlideInfo();
+                    trialText.Slide = trialSlide;
+                    logoObj.Slide = trialSlide;
                     trialSlide.SlideObjects.Add(trialText);
                     trialSlide.SlideObjects.Add(logoObj);
                     trialSlide.SlideUrl = "http://www.avatar-soft.ro/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx";
                     trialSlide.ButtonCaption = "Read More...";
+                    trialSlide.Settings = Settings;
 
                     Slides.Clear();
                     Slides.Add(trialSlide);
@@ -399,6 +404,9 @@ namespace avt.DynamicFlashRotator.Net
             slide1Img.GlowSize = 2;
 
             SlideInfo slide1 = new SlideInfo();
+            slide1.Settings = Settings;
+            slide1Text.Slide = slide1;
+            slide1Img.Slide = slide1;
             slide1.SlideObjects.Add(slide1Text);
             slide1.SlideObjects.Add(slide1Img);
             Slides.Add(slide1);
@@ -429,6 +437,9 @@ namespace avt.DynamicFlashRotator.Net
             slide2Img.GlowSize = 2;
 
             SlideInfo slide2 = new SlideInfo();
+            slide2.Settings = Settings;
+            slide2Text.Slide = slide2;
+            slide2Img.Slide = slide2;
             slide2.SlideObjects.Add(slide2Text);
             slide2.SlideObjects.Add(slide2Img);
 
@@ -456,6 +467,9 @@ namespace avt.DynamicFlashRotator.Net
 
 
             SlideInfo slide3 = new SlideInfo();
+            slide3.Settings = Settings;
+            slide3Text.Slide = slide3;
+            slide3Img.Slide = slide3;
             slide3.SlideObjects.Add(slide3Text);
             slide3.SlideObjects.Add(slide3Img);
             slide3.SlideUrl = "http://www.avatar-soft.ro/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx";
