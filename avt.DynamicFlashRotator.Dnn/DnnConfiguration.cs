@@ -120,7 +120,7 @@ namespace avt.DynamicFlashRotator.Dnn
                     portalFolder = PortalController.GetCurrentPortalSettings().HomeDirectory;
                 }
 
-                return new FileBrowser(HttpContext.Current.Server.MapPath("~/" + portalFolder), "Website Root", "png", "jpg", "swf");
+                return new FileBrowser(HttpContext.Current.Server.MapPath("~/" + portalFolder), "Portal Root", "png", "jpg", "swf");
             }
         }
 

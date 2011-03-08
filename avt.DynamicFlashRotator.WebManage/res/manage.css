@@ -6,7 +6,7 @@
     background-color: #F3F3FF;
 }
 
-a {
+a:link, a:visited, a:active, a:hover {
     color: #1C94C4;
 }
 
@@ -426,5 +426,50 @@ a.folderRoot {
 
 .imgPreview {
     position: absolute;
+}
+
+.cstmOpt {
+    float: left;
+    width: 200px;
+}
+
+.cstmOptName {
+    color: #525252;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 6px 10px;
+    background-color: #F2F2FF;
+    border: 1px solid #C2C2C2;
+    text-align: center;
+}
+
+.cstmOptNameSub {
+    color: #525252;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 6px 10px;
+    text-align: center;
+    border-right: 1px solid #C2C2C2;
+    font-style: italic;
+}
+
+.cstmOptPrice {
+    color: #C77405;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 6px 10px;
+    text-align: center;
+    border-right: 1px solid #C2C2C2;
+}
+
+.cstOptBtn {
+    text-align: center;
+    padding: 16px;
+}
+
+.cstmOptDesc {
+    color: #424242;
+    font-style: italic;
+    font-size: 11px;
 }
 

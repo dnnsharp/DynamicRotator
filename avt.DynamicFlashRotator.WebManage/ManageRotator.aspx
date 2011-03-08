@@ -392,8 +392,73 @@
             test
         </div>--%>
 
-        <div id = "tabs-main-customize">
-            Customize
+        <div id = "tabs-main-customize" style="margin: 15px 25px;">
+            <h2 style="color: #C77405;">We can design your banner/rotator!</h2>
+            <div>
+                Please choose the option that best suits you requirement.
+                <br /><br />
+
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                        <td class="cstmOptName" colspan="3">3 Slides + editing for up to 6 images</td>
+                        <td class="cstmOptName" colspan="3">5 Slides + editing for up to 10 images</td>
+                        <td class="cstmOptName">More...</td>
+                    </tr>
+                    <tr>
+                        <td class="cstmOptNameSub">Your Graphics*</td>
+                        <td class="cstmOptNameSub">Research **</td>
+                        <td class="cstmOptNameSub">Full Dev***</td>
+                        <td class="cstmOptNameSub">Your Graphics*</td>
+                        <td class="cstmOptNameSub">Research **</td>
+                        <td class="cstmOptNameSub">Full Dev***</td>
+                        <td class="cstmOptNameSub" rowspan="2" style="font-weight:normal;">
+                            If your requirement is not covered by these options, please <a href ="http://www.avatar-soft.ro/Contact.aspx">Contact Us</a> for a quote.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="cstmOptPrice">$39.95</td>
+                        <td class="cstmOptPrice">$64.95</td>
+                        <td class="cstmOptPrice">$99.95</td>
+                        <td class="cstmOptPrice">$59.95</td>
+                        <td class="cstmOptPrice">$99.95</td>
+                        <td class="cstmOptPrice">$149.95</td>
+                    </tr>
+                    <tr>
+                        <td class="cstOptBtn"><a href = "https://www.plimus.com/jsp/buynow.jsp?contractId=2953628" class="ui-state-default" style="padding: 4px 10px;">Checkout</a></td>
+                        <td class="cstOptBtn"><a href = "https://www.plimus.com/jsp/buynow.jsp?contractId=2953668" class="ui-state-default" style="padding: 4px 10px;">Checkout</a></td>
+                        <td class="cstOptBtn"><a href = "https://www.plimus.com/jsp/buynow.jsp?contractId=2953670" class="ui-state-default" style="padding: 4px 10px;">Checkout</a></td>
+                        <td class="cstOptBtn"><a href = "https://www.plimus.com/jsp/buynow.jsp?contractId=2953672" class="ui-state-default" style="padding: 4px 10px;">Checkout</a></td>
+                        <td class="cstOptBtn"><a href = "https://www.plimus.com/jsp/buynow.jsp?contractId=2953674" class="ui-state-default" style="padding: 4px 10px;">Checkout</a></td>
+                        <td class="cstOptBtn"><a href = "https://www.plimus.com/jsp/buynow.jsp?contractId=2953676" class="ui-state-default" style="padding: 4px 10px;">Checkout</a></td>
+                        <td class="cstOptBtn"><a href="http://www.avatar-soft.ro/Contact.aspx" class="ui-state-default" style="padding: 4px 10px;">Contact Us</a></td>
+                    </tr>
+                </table>
+
+                <br />
+                
+                <div style = "margin: 6px;">
+                    <span style="color: #C77405;font-weight:bold;">*</span>
+                    Select this option if already have the graphics, you just need them edited and everything put together into the banner/rotator.
+                </div>
+
+                <div style = "margin: 6px;">
+                    <span style="color: #C77405;font-weight:bold;">**</span>
+                    We'll do the research for you to find the graphics that match your ideas. We will send links so you can license them.
+                </div>
+
+                <div style = "margin: 6px;">
+                    <span style="color: #C77405;font-weight:bold;">***</span>
+                    We will take care of everything, including licensing the graphics and create additional vectorial graphics such as icons or small flash animations.
+                </div>
+
+                <br /><br />
+                <b>
+                    Once you made your purchase, please send us the invoice number and your requirement at support@avatar-soft.ro and we'll reply back you within 24 hours.
+                    Make ure your requirement is structured (Slide 1: This text, this link, this pictures... Slide 2: ....). We will deliver the work as a zip package that can be imported into your copy. 
+                </b>
+                <br /><br />
+            </div>
+
         </div>
 
         <asp:Label runat="server" ID = "lblTabActivateContents">
@@ -418,7 +483,7 @@
     <div class="footer">
         <div style="width: 1000px; margin: auto;">
             <div style="float: left;">
-                Version <%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.VersionAll %> by <a href = "http://www.avatar-soft.ro">Avatar Software</a>
+                Version <%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.VersionAll %> by <a href = "http://www.avatar-soft.ro" style="color: #C77405;">Avatar Software</a>
                 <br />
                 <a href = "http://www.avatar-soft.ro/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx">Read more about Dynamic Redirect .NET...</a>
             </div>
