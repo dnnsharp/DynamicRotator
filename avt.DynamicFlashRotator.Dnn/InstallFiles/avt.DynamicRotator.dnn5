@@ -1,6 +1,6 @@
 ﻿<dotnetnuke version="5.0" type="Package" xmlns:fo="http://www.w3.org/1999/XSL/Format">
  <packages>
-  <package name="avt.Dynamic Rotator.NET" type="Module" version="01.00.00">
+  <package name="avt.Dynamic Rotator.NET" type="Module" version="01.01.00">
    <friendlyName>avt.Dynamic Rotator.NET</friendlyName>
    <description>Dynamic Rotator .NET is a powerfull tool which will help you create exactly the look and feel you've been searching for your website! You can use it in many different ways: a classic animated banner, products gallery, photo slide show, complex ads rotator, etc. Why waste time explaining your vision when you can shape it yourself in  minutes!</description>
    <owner>
@@ -26,7 +26,13 @@ This software is provided "AS IS," without a warranty of any kind. ALL EXPRESS O
 <br /><br />
 
    <releaseNotes><![CDATA[
-        <h2 style="color: #3C829F; border-bottom: 1px groove #A2A2A2; font-size: 16px; display: block; width: 680px; font-weight:bold;">Dynamic Rotator .NET Features</h2><br><ul style="color: #424242; padding-left: 0px; margin-left: 16px;"><li style="background: url(http://www.avatar-soft.ro/Portals/0/img/checked_red.gif) no-repeat left 4px; padding-left: 24px; margin-bottom: 10px; list-style: none;"><strong style="color: rgb(219, 0, 0);">Flash Banners</strong> - Dynamic Rotator .NET was tailored to deliver high quality banners for DotNetNuke portals.</li><li style="background: url(http://www.avatar-soft.ro/Portals/0/img/checked_red.gif) no-repeat left 4px; padding-left: 24px; margin-bottom: 10px; list-style: none;"><strong style="color: rgb(219, 0, 0);">Content Rotators</strong> - Dynamic Rotator actually has lots of purposes, it can be used as a classic banner rotator, a products gallery, a photo slide show, a complex ads rotator and so on.</li><li style="background: url(http://www.avatar-soft.ro/Portals/0/img/checked_red.gif) no-repeat left 4px; padding-left: 24px; margin-bottom: 10px; list-style: none;"><strong style="color: rgb(219, 0, 0);">Simple and Powerful Administration Console</strong> - The Administration Console uses the popular jQuery library to deliver seamless experience. This includes drag&drop, color pickers, sliders, dialogs and so on. No loading times apply.</li><li style="background: url(http://www.avatar-soft.ro/Portals/0/img/checked_red.gif) no-repeat left 4px; padding-left: 24px; margin-bottom: 10px; list-style: none;"><strong style="color: rgb(219, 0, 0);">Advanced UI Effects</strong> - Using the Flash front end Dynamic Rotator .NET delivers amazing effects for a smooth user experience.</li><li style="background: url(http://www.avatar-soft.ro/Portals/0/img/checked_red.gif) no-repeat left 4px; padding-left: 24px; margin-bottom: 10px; list-style: none;"><strong style="color: rgb(219, 0, 0);">Any Number of Slides</strong> - Slides are easily created with a click of a button. Or you can use the clone function to start from an existing slide.</li><li style="background: url(http://www.avatar-soft.ro/Portals/0/img/checked_red.gif) no-repeat left 4px; padding-left: 24px; margin-bottom: 10px; list-style: none;"><strong style="color: rgb(219, 0, 0);">Any Number of Graphics for Your Slides (images and flash movies)</strong> - A slide can hold a text and any number of graphics that are easily added through a simple jQuery Dialog.</li><li style="background: url(http://www.avatar-soft.ro/Portals/0/img/checked_red.gif) no-repeat left 4px; padding-left: 24px; margin-bottom: 10px; list-style: none;"><strong style="color: rgb(219, 0, 0);">Drag &amp; Drop Support</strong> - Slides can be easily organized using drag&drop operation. Also, you can drag slide graphics from on slide to another.</li><li style="background: url(http://www.avatar-soft.ro/Portals/0/img/checked_red.gif) no-repeat left 4px; padding-left: 24px; margin-bottom: 10px; list-style: none;"><strong style="color: rgb(219, 0, 0);">HTML Support for Slide Texts</strong> - This means it's possible to write rich text by applying tags such as b,i,u,font and so on.</li><li style="background: url(http://www.avatar-soft.ro/Portals/0/img/checked_red.gif) no-repeat left 4px; padding-left: 24px; margin-bottom: 10px; list-style: none;"><strong style="color: rgb(219, 0, 0);">My Tokens Support</strong> - Dynamic Rotator .NET integrates with My Tokens so it automatically replaces tokens inside slide titles and texts.</li><li style="background: url(http://www.avatar-soft.ro/Portals/0/img/checked_red.gif) no-repeat left 4px; padding-left: 24px; margin-bottom: 10px; list-style: none;"><strong style="color: rgb(219, 0, 0);">Timeline Approach</strong> - A slide is like a scene where you can configure the time objects pop in (as well as transitions and effects).</li><li style="background: url(http://www.avatar-soft.ro/Portals/0/img/checked_red.gif) no-repeat left 4px; padding-left: 24px; margin-bottom: 10px; list-style: none;"><strong style="color: rgb(219, 0, 0);">Create at Any Size</strong> - You can specify width and height in the Administration Console, so your banners/rotators can be of any shape.</li><li style="background: url(http://www.avatar-soft.ro/Portals/0/img/checked_red.gif) no-repeat left 4px; padding-left: 24px; margin-bottom: 10px; list-style: none;"><strong style="color: rgb(219, 0, 0);">Playback Controls</strong> - There are options to control if playback starts automatically, if there are play/pause buttons visible, if to display slide buttons and a few more.</li><li style="background: url(http://www.avatar-soft.ro/Portals/0/img/checked_red.gif) no-repeat left 4px; padding-left: 24px; margin-bottom: 10px; list-style: none;"><strong style="color: rgb(219, 0, 0);">Web Page Visual Integration</strong> - You can configure rotators to integrate with the background of your web page either by using opacity option or by specifying round corners and a color to blend to.</li><li style="background: url(http://www.avatar-soft.ro/Portals/0/img/checked_red.gif) no-repeat left 4px; padding-left: 24px; margin-bottom: 10px; list-style: none;"><strong style="color: rgb(219, 0, 0);">Transitions and Effects</strong> - Dynamic Rotator .NET comes with a wide range of transitions and effects that ca be applied to slide graphics and text.</li><li style="background: url(http://www.avatar-soft.ro/Portals/0/img/checked_red.gif) no-repeat left 4px; padding-left: 24px; margin-bottom: 10px; list-style: none;"><strong style="color: rgb(219, 0, 0);">Advanced Support for Links</strong> - Each slide can have a link associated with that opens in selected target window when user clicks the slide or a button on the slide. Further more, you can also specify a link for each graphic.</li><li style="background: url(http://www.avatar-soft.ro/Portals/0/img/checked_red.gif) no-repeat left 4px; padding-left: 24px; margin-bottom: 10px; list-style: none;"><strong style="color: rgb(219, 0, 0);">FREE Trial Avaliable</strong> - The trial version works full on localhost. On other hosts it randomly displays trial notifications on the front end.</li><li style="background: url(http://www.avatar-soft.ro/Portals/0/img/checked_red.gif) no-repeat left 4px; padding-left: 24px; margin-bottom: 10px; list-style: none;"><strong style="color: rgb(219, 0, 0);">Inline Help</strong> - You will find help labels attached to almost every control in the Administration Console.</li><li style="background: url(http://www.avatar-soft.ro/Portals/0/img/checked_red.gif) no-repeat left 4px; padding-left: 24px; margin-bottom: 10px; list-style: none;"><strong style="color: rgb(219, 0, 0);">Cross Browser Support</strong> - Both the Administration Console and the Flash front end have been tested in IE7 and IE8, Firefox, Safari, Chrome and Opera.</li><li style="background: url(http://www.avatar-soft.ro/Portals/0/img/checked_red.gif) no-repeat left 4px; padding-left: 24px; margin-bottom: 10px; list-style: none;"><strong style="color: rgb(219, 0, 0);">1 year of free updates </strong> - After the updates subscription ends, it's possible to extend it for another year at 25% of the cost of a new license. </li></ul>
+        <h2 style="color: #3C829F; border-bottom: 1px groove #A2A2A2; font-size: 16px; display: block; width: 680px; font-weight:bold;">
+            What's new?
+        </h2>
+        <br>
+        <div style="font-size: 11px; margin: 4px 0pt 0pt 10px;"><b>[1.1.0]</b><ul style="font-size: 12px; color: rgb(66, 66, 66);"><li style="margin: 5px;">Implemented IPortable, so slides can now be exported/imported</li><li style="margin: 5px;">Added Browse Server function to be able to select from available images in the portal home folder</li><li style="margin: 5px;">Implemented Text Width that will determine where the text wraps (by default, it takes all available space)</li><li style="margin: 5px;">Added Order Customization tab with 6 options</li><li style="margin: 5px;">Switched Manage Screen to fixed width</li><li style="margin: 5px;">Auto fill protocol dropdown for URL fields on copy/paste and when typing</li></ul>
+        [1.0.0]
+        <ul style="font-size: 12px; color: rgb(66, 66, 66);"><li style="margin: 5px;">Initial Version</li></ul>
         <br />
         <a href = "http://www.avatar-soft.ro/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx" target="_blank">Read more...<a/>
         <br /><br />
@@ -41,6 +47,10 @@ This software is provided "AS IS," without a warranty of any kind. ALL EXPRESS O
        <name>01.00.00.SqlDataProvider</name>
        <version>01.00.00</version>
       </script>
+      <script type="Install">
+       <name>01.01.00.SqlDataProvider</name>
+       <version>01.01.00</version>
+      </script>
       <script type="UnInstall">
        <name>Uninstall.SqlDataProvider</name>
        <version>01.00.00</version>
@@ -53,17 +63,17 @@ This software is provided "AS IS," without a warranty of any kind. ALL EXPRESS O
       <assembly>
        <name>avt.DynamicFlashRotator.Net.dll</name>
        <sourceFileName>avt.DynamicFlashRotator.Net.dll</sourceFileName>
-       <version>01.00.00</version>
+       <version>01.01.00</version>
       </assembly>
       <assembly>
        <name>avt.DynamicFlashRotator.WebManage.dll</name>
        <sourceFileName>avt.DynamicFlashRotator.WebManage.dll</sourceFileName>
-       <version>01.00.00</version>
+       <version>01.01.00</version>
       </assembly>
       <assembly>
        <name>avt.DynamicFlashRotator.Dnn.dll</name>
        <sourceFileName>avt.DynamicFlashRotator.Dnn.dll</sourceFileName>
-       <version>01.00.00</version>
+       <version>01.01.00</version>
       </assembly>
      </assemblies>
     </component>
@@ -79,10 +89,10 @@ This software is provided "AS IS," without a warranty of any kind. ALL EXPRESS O
     <component type="Module">
      <desktopModule>
       <moduleName>avt.Dynamic Rotator.NET</moduleName>
-      <foldername>avt.Dynamic Rotator.NET</foldername>
+      <foldername>AvatarSoft\DynamicRotator</foldername>
       <businessControllerClass>avt.DynamicFlashRotator.Dnn.DynamicRotatorController, avt.DynamicFlashRotator.Dnn</businessControllerClass>
       <supportedFeatures>
-       <!-- <supportedFeature type="Portable" /> -->
+        <supportedFeature type="Portable" />
       </supportedFeatures>
       <moduleDefinitions>
        <moduleDefinition>

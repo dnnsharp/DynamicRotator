@@ -386,7 +386,11 @@
             <ul id = "slides">
                 
             </ul>
-            <a href = "#" onclick="addSlide(true); return false;"><img src="<%= TemplateSourceDirectory %>/res/img/add.gif" border="0" /> Add Slide</a>
+            
+            <div style="margin: 16px 4px">
+                <a href = "#" onclick="addSlide(true); return false;" class="ui-state-default" style="padding: 6px 12px;"><img src="<%= TemplateSourceDirectory %>/res/img/add.gif" border="0" /> Add Slide</a>
+            </div>
+
         </div>
 
         <%--<div id = "tabs-main-presets">

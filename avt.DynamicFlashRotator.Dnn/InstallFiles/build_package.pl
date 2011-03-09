@@ -6,9 +6,8 @@ use File::Path;
 use Shell;
 
 my $src = "c:\\http_iis\\dnn\\DotNetNuke_05.06.01\\DesktopModules\\FlashRotator\\avt.DynamicFlashRotator.Dnn\\";
-my $dst = "c:\\work\\_releases\\DynamicRotator\\1.0.0\\";
-my $relDst = "1.0.0\\";
-my $packageName = "avt.DynamicRotator.DNN.1.0.0_";
+my $dst = "c:\\work\\_releases\\DynamicRotator\\1.1.0\\";
+my $packageName = "avt.DynamicRotator.DNN.1.1.0_";
 
 
 # 1. Copy ascx files and remove codefile attr if it exists
@@ -68,7 +67,7 @@ copy($src."bin/release/avt.DynamicFlashRotator.Dnn.dll", $dst."avt.DynamicFlashR
 # pack resources
 print("  > packing resources...");
 chdir($dst);
-system("\"c:\\tools\\infozip\\zip.exe\" -r Resources.zip act res Activation.aspx ManageRotator.aspx Rotator.ascx License.txt ManageRotator.aspx >>..\\log.txt");
+system("\"c:\\tools\\infozip\\zip.exe\" -r Resources.zip act res Activation.aspx ManageRotator.aspx AdminApi.aspx Rotator.ascx License.txt ManageRotator.aspx >>..\\log.txt");
 print("done\n");
 
 print("> packing install kit...");

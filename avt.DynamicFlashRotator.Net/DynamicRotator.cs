@@ -326,8 +326,8 @@ namespace avt.DynamicFlashRotator.Net
                     "<param name=\"movie\" value=\"" + flashUrl + "&settingsxml=" + settingsUrl + "&contentxml=" + contentUrl + "&transitionsxml=" + transitionsUrl + "\">" +
                     "<param name=\"quality\" value=\"high\">" +
                     "<param name=\"wmode\" value=\"transparent\">" +
-                    (Settings.TransparentBackground ? "<param name=\"wmode\" value=\"transparent\">" : "") +
-                    "<embed src=\"" + flashUrl + "&settingsxml=" + settingsUrl + "&contentxml=" + contentUrl + "&transitionsxml=" + transitionsUrl + "\" quality=\"high\" pluginspage=\"http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash\" type=\"application/x-shockwave-flash\" width=\"" + Width.Value + "\" height=\"" + Height.Value + "\" wmode=\"transparent\"" +"></embed>" +
+                    //(Settings.TransparentBackground ? "<param name=\"wmode\" value=\"transparent\">" : "") +
+                    "<embed src=\"" + flashUrl + "&settingsxml=" + settingsUrl + "&contentxml=" + contentUrl + "&transitionsxml=" + transitionsUrl + "\" quality=\"high\" pluginspage=\"http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash\" type=\"application/x-shockwave-flash\" width=\"" + Width.Value + "\" height=\"" + Height.Value + "\" wmode=\"transparent\"></embed>" +
                 "</object>"
                 // + "</noscript>"
             );

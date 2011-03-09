@@ -459,7 +459,8 @@ namespace avt.DynamicFlashRotator.Net
                 // text default node and attributes so it doesn't crash
                 SlideObjectInfo emptyText = new SlideObjectInfo();
                 emptyText.ObjectType = eObjectType.Text;
-                emptyText.Text = "";
+                emptyText.Text = " ";
+                emptyText.Slide = this;
                 emptyText.ToXml(ControlId, Writer);
             }
 
