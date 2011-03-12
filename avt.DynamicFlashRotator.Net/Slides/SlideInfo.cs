@@ -52,7 +52,7 @@ namespace avt.DynamicFlashRotator.Net
         _parent
     }
 
-
+    
     public class SlideInfo
     {
         public SlideInfo()
@@ -60,15 +60,27 @@ namespace avt.DynamicFlashRotator.Net
         }
 
         RotatorSettings _Settings;
+        [Browsable(false)]
+        [Bindable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public RotatorSettings Settings { get { return _Settings; } set { _Settings = value; } }
 
         int _Id = -1;
+        [Browsable(false)]
+        [Bindable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int Id { get { return _Id; } set { _Id = value; } }
 
         string _ControlId;
+        [Browsable(false)]
+        [Bindable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string ControlId { get { return _ControlId; } set { _ControlId = value; } }
 
         int _ViewOrder = 0;
+        [Browsable(false)]
+        [Bindable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int ViewOrder { get { return _ViewOrder; } set { _ViewOrder = value; } }
         
 
@@ -98,76 +110,6 @@ namespace avt.DynamicFlashRotator.Net
         public Color BackgroundGradientTo { get { return _BackgroundGradientTo; } set { _BackgroundGradientTo = value; } }
 
         #endregion
-
-
-        //#region Text
-
-        //Color _GlowColor = Color.White;
-        //[TypeConverter(typeof(WebColorConverter))]
-        //[Category("Text.Effects")]
-        //public Color GlowColor { get { return _GlowColor; } set { _GlowColor = value; } }
-
-        //int _GlowSize = 10;
-        //[Category("Text.Effects")]
-        //public int GlowSize { get { return _GlowSize; } set { _GlowSize = value; } }
-
-        //int _GlowStrength = 3;
-        //[Category("Text.Effects")]
-        //public int GlowStrength { get { return _GlowStrength; } set { _GlowStrength = value; } }
-
-        //int _TextTransparency = 10;
-        //[Category("Text.Effects")]
-        //public int TextTransparency { get { return _TextTransparency; } set { _TextTransparency = value; } }
-
-        
-        //eMoveType _MoveType = eMoveType.Strong;
-        //[Category("Text.Transition")]
-        //public eMoveType MoveType { get { return _MoveType; } set { _MoveType = value; } }
-
-        //eEasing _EasingType = eEasing.Out;
-        //[Category("Text.Transition")]
-        //public eEasing EasingType { get { return _EasingType; } set { _EasingType = value; } }
-
-        //int _TransitionDuration = 2;
-        //[Category("Text.Transition")]
-        //public int TransitionDuration { get { return _TransitionDuration; } set { _TransitionDuration = value; } }
-
-        //bool _JustFade = false;
-        //[Category("Text.Transition")]
-        //public bool JustFade { get { return _JustFade; } set { _JustFade = value; } }
-
-        //eHorizontadDirs _AppearFrom = eHorizontadDirs.Right;
-        //[Category("Text.Transition")]
-        //public eHorizontadDirs AppearFrom { get { return _AppearFrom; } set { _AppearFrom = value; } }
-
-
-        //int _FinalXposition = 15;
-        //[Category("Text.Position")]
-        //public int FinalXposition { get { return _FinalXposition; } set { _FinalXposition = value; } }
-
-        //eVerticalAlgin _VerticalAlign = eVerticalAlgin.Middle;
-        //[Category("Text.Position")]
-        //public eVerticalAlgin VerticalAlign { get { return _VerticalAlign; } set { _VerticalAlign = value; } }
-
-        //int _TextPadding = 5;
-        //[Category("Text.Position")]
-        //public int TextPadding { get { return _TextPadding; } set { _TextPadding = value; } }
-
-
-        //bool _UseBackground = false;
-        //[Category("Text.Background")]
-        //public bool UseBackground { get { return _UseBackground; } set { _UseBackground = value; } }
-
-        //Color _TextBackgroundColor = Color.White;
-        //[TypeConverter(typeof(WebColorConverter))]
-        //[Category("Text.Background")]
-        //public Color TextBackgroundColor { get { return _TextBackgroundColor; } set { _TextBackgroundColor = value; } }
-
-        //int _TextBackgroundTransparency = 70;
-        //[Category("Text.Background")]
-        //public int TextBackgroundTransparency { get { return _TextBackgroundTransparency; } set { _TextBackgroundTransparency = value; } }
-
-        //#endregion
 
 
         #region Objects
@@ -214,16 +156,25 @@ namespace avt.DynamicFlashRotator.Net
         #region MP3
 
         string _Mp3Url = null;
+        [Browsable(false)]
+        [Bindable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [UrlProperty()]
         [Editor("System.Web.UI.Design.UrlEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         [Category("Slide.MP3")]
         public string Mp3Url { get { return _Mp3Url; } set { _Mp3Url = value; } }
 
         bool _ShowPlayer = true;
+        [Browsable(false)]
+        [Bindable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Category("Slide.MP3")]
         public bool ShowPlayer { get { return _ShowPlayer; } set { _ShowPlayer = value; } }
 
         Color _IconColor = Color.Black;
+        [Browsable(false)]
+        [Bindable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [TypeConverter(typeof(WebColorConverter))]
         [Category("Slide.MP3")]
         public Color IconColor { get { return _IconColor; } set { _IconColor = value; } }
@@ -450,7 +401,7 @@ namespace avt.DynamicFlashRotator.Net
             bool bTextFound = false;
             foreach (SlideObjectInfo slideObj in SlideObjects) {
                 if (slideObj.ObjectType == eObjectType.Text) {
-                    slideObj.ToXml(ControlId, Writer);
+                    slideObj.ToXml(ControlId, Writer, this);
                     bTextFound = true;
                     break;
                 }
@@ -460,15 +411,14 @@ namespace avt.DynamicFlashRotator.Net
                 SlideObjectInfo emptyText = new SlideObjectInfo();
                 emptyText.ObjectType = eObjectType.Text;
                 emptyText.Text = " ";
-                emptyText.Slide = this;
-                emptyText.ToXml(ControlId, Writer);
+                emptyText.ToXml(ControlId, Writer, this);
             }
 
             // slide objects
             Writer.WriteStartElement("pictures"); 
             foreach (SlideObjectInfo slideObj in SlideObjects) {
                 if (slideObj.ObjectType != eObjectType.Text) {
-                    slideObj.ToXml(ControlId, Writer);
+                    slideObj.ToXml(ControlId, Writer, this);
                 }
             }
             Writer.WriteEndElement(); // ("pictures");

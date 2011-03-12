@@ -146,7 +146,8 @@ namespace avt.DynamicFlashRotator.Net.Services
 
         public static string ResolveUrl(string relativeUrl)
         {
-            if (relativeUrl == null) throw new ArgumentNullException("relativeUrl");
+            if (relativeUrl == null)
+                return ""; // throw new ArgumentNullException("relativeUrl");
 
             if (relativeUrl.Length == 0 || relativeUrl[0] == '/' || relativeUrl[0] == '\\')
                 return relativeUrl;

@@ -11,6 +11,7 @@ using System.Xml;
 using System.Data;
 using avt.DynamicFlashRotator.Net.Data;
 using avt.DynamicFlashRotator.Net.Settings;
+using avt.DynamicFlashRotator.Net.Services;
 
 namespace avt.DynamicFlashRotator.Net
 {
@@ -50,16 +51,19 @@ namespace avt.DynamicFlashRotator.Net
 
     public class SlideObjectInfo
     {
-        SlideInfo _Slide;
-        public SlideInfo Slide { get { return _Slide; } set { _Slide = value; } }
-
         eObjectType _ObjectType = eObjectType.Unknown;
         public eObjectType ObjectType { get { return _ObjectType; } set { _ObjectType = value; } }
 
         int _Id = -1;
+        [Browsable(false)]
+        [Bindable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int Id { get { return _Id; } set { _Id = value; } }
 
         int _SlideId = -1;
+        [Browsable(false)]
+        [Bindable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int SlideId { get { return _SlideId; } set { _SlideId = value; } }
 
 
@@ -255,7 +259,7 @@ namespace avt.DynamicFlashRotator.Net
         }
 
 
-        public void ToXml(string controlId, XmlWriter Writer)
+        public void ToXml(string controlId, XmlWriter Writer, SlideInfo Slide)
         {
             Writer.WriteStartElement(ObjectType == eObjectType.Text ? "theText" : "picture");
 
@@ -302,9 +306,9 @@ namespace avt.DynamicFlashRotator.Net
                     Writer.WriteAttributeString("useEffect", "no");
                     Writer.WriteAttributeString("effect", "");
                 }
-                Writer.WriteAttributeString("theLink", RotatorSettings.Configuration.Tokenize(controlId, Link));
+                Writer.WriteAttributeString("theLink", FileBrowser.ResolveUrl(RotatorSettings.Configuration.Tokenize(controlId, Link)));
 
-                Writer.WriteString(ObjectUrl);
+                Writer.WriteString(FileBrowser.ResolveUrl(RotatorSettings.Configuration.Tokenize(controlId, ObjectUrl)));
             }
 
             Writer.WriteEndElement(); // ("text/picture");
@@ -353,7 +357,6 @@ namespace avt.DynamicFlashRotator.Net
             slideObject.SlideId = Convert.ToInt32(dr["SlideId"].ToString());
             slideObject.ObjectType = (eObjectType)Enum.Parse(typeof(eObjectType), dr["ObjectType"].ToString(), true);
             slideObject.Name = dr["Name"].ToString();
-            slideObject.Slide = slide;
             try { slideObject.Link = dr["LinkUrl"].ToString(); } catch { }
             try { slideObject.Text = dr["Text"].ToString(); } catch { }
             try { slideObject.ObjectUrl = dr["ResourceUrl"].ToString(); } catch { }

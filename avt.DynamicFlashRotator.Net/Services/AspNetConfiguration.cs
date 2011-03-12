@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web;
 using System.Configuration;
+using avt.DynamicFlashRotator.Net.Settings;
+using avt.DynamicFlashRotator.Net.Services.Authentication;
 
 namespace avt.DynamicFlashRotator.Net.Services
 {
@@ -10,13 +12,19 @@ namespace avt.DynamicFlashRotator.Net.Services
     {
         public AspNetConfiguration()
         {
-            if (!string.IsNullOrEmpty(HttpContext.Current.Request.QueryString["connStr"])) {
-                _ConnStr = ConfigurationManager.ConnectionStrings[HttpContext.Current.Request.QueryString["connStr"]].ConnectionString;
-                if (!string.IsNullOrEmpty(HttpContext.Current.Request.QueryString["dbOwner"])) {
-                    _DbOwner = HttpContext.Current.Request.QueryString["dbOwner"];
-                }
-                if (!string.IsNullOrEmpty(HttpContext.Current.Request.QueryString["objQualifier"])) {
-                    _ObjQualifier = HttpContext.Current.Request.QueryString["objQualifier"];
+            if (HttpContext.Current != null) {
+                string sessionKey = "avt.DynamicRotator." + HttpContext.Current.Request.QueryString["controlId"];
+                if (HttpContext.Current.Session[sessionKey] != null) {
+
+                    Dictionary<string, string> settings = HttpContext.Current.Session[sessionKey] as Dictionary<string, string>;
+
+                    _ConnStr = ConfigurationManager.ConnectionStrings[settings["DbConnectionString"]].ConnectionString;
+                    if (settings.ContainsKey("DbOwner")) {
+                        _DbOwner = settings["DbOwner"];
+                    }
+                    if (settings.ContainsKey("DbObjectQualifier")) {
+                        _ObjQualifier = settings["DbObjectQualifier"];
+                    }
                 }
             }
 
@@ -58,11 +66,23 @@ namespace avt.DynamicFlashRotator.Net.Services
 
         public bool HasAccess(string controlId)
         {
-            // TODO: implement somethign
-            if (HttpContext.Current.Request.Url.Host == "localhost" || HttpContext.Current.Request.Url.Host == "193.254.62.222" || HttpContext.Current.Request.Url.Host == "192.168.0.199")
+            if (HttpContext.Current.Request.Url.Host == "localhost")
                 return true;
 
+            // check authentication providers
+
+
             return false;
+        }
+
+        public bool HasAccess(string controlId, IList<IAdminAuthentication> authLayers)
+        {
+            foreach (IAdminAuthentication auth in authLayers) {
+                if (!auth.HasAccess()) {
+                    return false;
+                }
+            }
+            return true;
         }
 
         public bool IsDebug()
@@ -85,9 +105,16 @@ namespace avt.DynamicFlashRotator.Net.Services
             get {
                 string resPath = "~/";
                 string pathName = "Website Root";
-                if (!string.IsNullOrEmpty(HttpContext.Current.Request.QueryString["resPath"])) {
-                    resPath = HttpContext.Current.Request.QueryString["resPath"];
-                    pathName = "Resources Folder";
+                string sessionKey = "avt.DynamicRotator." + HttpContext.Current.Request.QueryString["controlId"];
+
+                if (HttpContext.Current.Session[sessionKey] != null) {
+
+                    Dictionary<string, string> settings = HttpContext.Current.Session[sessionKey] as Dictionary<string, string>;
+
+                    if (settings.ContainsKey("ResourceUrl")) {
+                        resPath = settings["ResourceUrl"];
+                        pathName = "Resources Folder";
+                    }
                 }
                 return new FileBrowser(HttpContext.Current.Server.MapPath(resPath), pathName, "png", "jpg", "swf"); 
             }

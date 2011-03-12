@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using avt.DynamicFlashRotator.Net.Settings;
+using avt.DynamicFlashRotator.Net.Services.Authentication;
 
 namespace avt.DynamicFlashRotator.Net.Services
 {
@@ -12,6 +14,8 @@ namespace avt.DynamicFlashRotator.Net.Services
 
         bool ShowManageLinks();
         bool HasAccess(string controlId);
+        bool HasAccess(string controlId, IList<IAdminAuthentication> authLayers);
+         
         bool IsDebug();
 
         string FormatTitle(string controlId);

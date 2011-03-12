@@ -14,6 +14,7 @@ using avt.DynamicFlashRotator.Net.Settings;
 using avt.DynamicFlashRotator.Net.Services;
 using System.Web.UI.HtmlControls;
 using System.Text.RegularExpressions;
+using avt.DynamicFlashRotator.Net.Services.Authentication;
 
 namespace avt.DynamicFlashRotator.Net
 {
@@ -23,6 +24,7 @@ namespace avt.DynamicFlashRotator.Net
     }
 
     [ToolboxData("<{0}:DynamicRotator runat=server></{0}:DynamicRotator>")]
+    [Designer(typeof(avt.DynamicFlashRotator.Net.DynamicRotatorDesigner))]
     public class DynamicRotator : WebControl
     {
         RotatorSettings Settings;
@@ -57,9 +59,17 @@ namespace avt.DynamicFlashRotator.Net
             
 
             // merge dynamic settings
-            if (EnableRuntimeConfiguration) {
+            if (AllowRuntimeConfiguration) {
                 if (!Settings.LoadFromDB(RealId)) {
-                    LoadMiniTutorial();
+                    LoadMiniTutorialWebManage();
+                }
+            } else {
+                if (Slides.Count == 0) {
+                    ShowSlideMessage("There are no slides to display...");
+                } else {
+                    foreach (SlideInfo slide in Slides) {
+                        slide.Settings = Settings;
+                    }
                 }
             }
 
@@ -110,17 +120,20 @@ namespace avt.DynamicFlashRotator.Net
         }
 
         string _OverrideId = null;
+        [Browsable(false)]
         public string OverrideId { get { return _OverrideId; } set { _OverrideId = value; } }
 
         // Real ID returns the control ID for Asp.NET or for DNN it return the ModuleId.ToString() - since the control ID would be id of the server control embeded in DNN module
+        [Browsable(false)]
         public string RealId { get { return string.IsNullOrEmpty(OverrideId) ? this.ID : OverrideId; } }
+
 
         #region Runtime Configuration
 
-        bool _EnableRuntimeConfiguration = false;
+        bool _AllowRuntimeConfiguration = false;
         [Category("Dynamic Rotator - Runtime Configuration")]
         [Description("Enable runtime configuration using the Web Interface")]
-        public bool EnableRuntimeConfiguration { get { return _EnableRuntimeConfiguration; } set { _EnableRuntimeConfiguration = value; } }
+        public bool AllowRuntimeConfiguration { get { return _AllowRuntimeConfiguration; } set { _AllowRuntimeConfiguration = value; } }
 
         string _DbConnectionString = null;
         [Category("Dynamic Rotator - Runtime Configuration")]
@@ -146,8 +159,36 @@ namespace avt.DynamicFlashRotator.Net
 
         string _ResourceUrl = null;
         [Category("Dynamic Rotator - Runtime Configuration")]
-        [Description("Sepcify relative folder where resources should load from using the File Browser (for example /iamges)")]
+        [Description("Specify relative folder where resources should load from using the File Browser (for example /images)")]
         public string ResourceUrl { get { return _ResourceUrl; } set { _ResourceUrl = value; } }
+
+        string _SecurityAllowAspRole = null;
+        [Category("Dynamic Rotator - Runtime Configuration")]
+        [Description("Specify which Asp.NET role is authorized to edit rotator configuration at runtime. Note that if other authentication methods are present they all must matched.")]
+        public string SecurityAllowAspRole { get { return _SecurityAllowAspRole; } set { _SecurityAllowAspRole = value; } }
+
+        string _SecurityAllowIps = null;
+        [Category("Dynamic Rotator - Runtime Configuration")]
+        [Description("Specify a list of IP addresses separated by semicolor(;) from which users are authorized to edit rotator configuration at runtime. Note that if other authentication methods are present they all must matched.")]
+        public string SecurityAllowIps { get { return _SecurityAllowIps; } set { _SecurityAllowIps = value; } }
+
+        string _SecurityAllowInvokeType = null;
+        [Category("Dynamic Rotator - Runtime Configuration")]
+        [Description("If you implemented your own authentication handler from IAdminAuthentication, provide it's type here (the format is \"Fully.Qualified.ClassName,AssemblyName\"). Note that if other authentication methods are present they all must matched.")]
+        public string SecurityAllowInvokeType { get { return _SecurityAllowInvokeType; } set { _SecurityAllowInvokeType = value; } }
+
+
+        List<IAdminAuthentication> GetSecurityLayers()
+        {
+            List<IAdminAuthentication> security = new List<IAdminAuthentication>();
+            if (!string.IsNullOrEmpty(SecurityAllowAspRole))
+                security.Add(new AllowAspRole(SecurityAllowAspRole));
+            if (!string.IsNullOrEmpty(SecurityAllowIps))
+                security.Add(new AllowIps(SecurityAllowIps));
+            if (!string.IsNullOrEmpty(SecurityAllowInvokeType))
+                security.Add(new AllowInvokeType(SecurityAllowInvokeType));
+            return security;
+        }
 
         #endregion
 
@@ -222,15 +263,17 @@ namespace avt.DynamicFlashRotator.Net
 
         #region Slides
 
-        [DefaultValue("")]
+        [DefaultValue((string)null)]
         [PersistenceMode(PersistenceMode.InnerProperty)]
         [Category("Dynamic Rotator - Slides")]
-        [Editor("avt.DynamicRotator.Net.SlideCollectionEditor,avt.DynamicRotator.Net", typeof(UITypeEditor))]
+        [Editor(typeof(avt.DynamicFlashRotator.Net.SlideCollectionEditor), typeof(UITypeEditor))]
         [MergableProperty(false)]
         public SlideCollection Slides { get { return Settings.Slides; } }
 
+        
         string GetSlidesXml()
         {
+            
             StringBuilder strXML = new StringBuilder();
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
@@ -258,8 +301,6 @@ namespace avt.DynamicFlashRotator.Net
                     logoObj.TransitionDuration = 1;
                     
                     SlideInfo trialSlide = new SlideInfo();
-                    trialText.Slide = trialSlide;
-                    logoObj.Slide = trialSlide;
                     trialSlide.SlideObjects.Add(trialText);
                     trialSlide.SlideObjects.Add(logoObj);
                     trialSlide.SlideUrl = "http://www.avatar-soft.ro/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx";
@@ -288,7 +329,7 @@ namespace avt.DynamicFlashRotator.Net
         protected override void RenderContents(HtmlTextWriter output)
         {
             if (base.DesignMode) {
-                output.Write("<div style = 'width: " + base.Width + "; height: " + base.Height + "; border: 1px solid #929292; background-color: #c2c2c2;'>DynamicRotator.NET</div>");
+                output.Write("<div style = 'width: " + Width + "; height: " + Height + "; border: 1px solid #929292; background-color: #c2c2c2;'>DynamicRotator.NET</div>");
             } else {
                 RenderFrontEnd(output);
             }
@@ -357,23 +398,45 @@ namespace avt.DynamicFlashRotator.Net
                 }
             }
 
-            if (EnableRuntimeConfiguration && RotatorSettings.Configuration.ShowManageLinks() && RotatorSettings.Configuration.HasAccess(RealId)) {
+            IList<IAdminAuthentication> security = GetSecurityLayers();
+            if (AllowRuntimeConfiguration && RotatorSettings.Configuration.ShowManageLinks() && RotatorSettings.Configuration.HasAccess(RealId, security)) {
+                
+                // if (RotatorSettings.Configuration.ShowManageLinks()) { // this pretty much means it's a Asp.NET control for now
+
+                // save data in session
+                Dictionary<string, string> prvData = new Dictionary<string, string>();
+                prvData["DbConnectionString"] = DbConnectionString;
+                prvData["DbOwner"] = DbOwner;
+                prvData["DbObjectQualifier"] = DbObjectQualifier;
+                if (!string.IsNullOrEmpty(ResourceUrl))
+                    prvData["ResourceUrl"] = ResourceUrl;
+
+                prvData["SecurityAllowAspRole"] = SecurityAllowAspRole;
+                prvData["SecurityAllowIps"] = SecurityAllowIps;
+                prvData["SecurityAllowInvokeType"] = SecurityAllowInvokeType;
+
+                HttpContext.Current.Session["avt.DynamicRotator." + RealId] = prvData;
+
                 string manageUrl = Page.ResolveUrl(ManageUrl);
                 manageUrl += "?controlId=" + RealId;
-                manageUrl += "&connStr=" + DbConnectionString;
-                manageUrl += "&dbOwner=" + DbOwner;
-                manageUrl += "&objQualifier=" + DbObjectQualifier;
-                if (!string.IsNullOrEmpty(ResourceUrl))
-                    manageUrl += "&resPath=" + ResourceUrl;
+                //manageUrl += "&connStr=" + DbConnectionString;
+                //manageUrl += "&dbOwner=" + DbOwner;
+                //manageUrl += "&objQualifier=" + DbObjectQualifier;
+                //if (!string.IsNullOrEmpty(ResourceUrl))
+                //    manageUrl += "&resPath=" + ResourceUrl;
                 manageUrl += "&rurl=" + HttpUtility.UrlEncode(HttpContext.Current.Request.RawUrl);
                 output.Write("<br />");
                 output.Write("<a href='" + manageUrl + "#tabs-main-slides'>Manage Slides</a>");
                 output.Write("<br />");
                 output.Write("<a href='" + manageUrl + "'>Manage Rotator Settings</a>");
+
+                if (security.Count == 0) {
+                    output.Write("<div style='color:red;'>WARNING! Everybody can configure this rotator, setup security using <i>SecurityAllowAspRole, SecurityAllowIps or SecurityAllowInvokeType</i> attributes of the Dynamic Rotator control.</div>");
+                }
             }
         }
 
-        void LoadMiniTutorial()
+        void LoadMiniTutorialWebManage()
         {
             Width = 800;
             SlideButtonsType = eSlideButtonsType.SquareWithNumbers;
@@ -405,8 +468,6 @@ namespace avt.DynamicFlashRotator.Net
 
             SlideInfo slide1 = new SlideInfo();
             slide1.Settings = Settings;
-            slide1Text.Slide = slide1;
-            slide1Img.Slide = slide1;
             slide1.SlideObjects.Add(slide1Text);
             slide1.SlideObjects.Add(slide1Img);
             Slides.Add(slide1);
@@ -438,8 +499,6 @@ namespace avt.DynamicFlashRotator.Net
 
             SlideInfo slide2 = new SlideInfo();
             slide2.Settings = Settings;
-            slide2Text.Slide = slide2;
-            slide2Img.Slide = slide2;
             slide2.SlideObjects.Add(slide2Text);
             slide2.SlideObjects.Add(slide2Img);
 
@@ -468,14 +527,35 @@ namespace avt.DynamicFlashRotator.Net
 
             SlideInfo slide3 = new SlideInfo();
             slide3.Settings = Settings;
-            slide3Text.Slide = slide3;
-            slide3Img.Slide = slide3;
             slide3.SlideObjects.Add(slide3Text);
             slide3.SlideObjects.Add(slide3Img);
             slide3.SlideUrl = "http://www.avatar-soft.ro/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx";
             slide3.ButtonCaption = "Visit Dynamic Rotator .NET Homepage";
 
             Slides.Add(slide3);
+        }
+
+
+
+        void ShowSlideMessage(string message)
+        {
+            AutoStartSlideShow = false;
+            ShowBottomButtons = false;
+            ShowPlayPauseControls = false;
+
+            Slides.Clear();
+
+            SlideObjectInfo slide1Text = new SlideObjectInfo();
+            slide1Text.ObjectType = eObjectType.Text;
+            slide1Text.Text = "<font size='20px' color='#e24242'>" + message + "</font>";
+            slide1Text.Yposition = 20;
+            slide1Text.Xposition = 20;
+            slide1Text.SlideFrom = eAllDirs.Left;
+
+            SlideInfo slide1 = new SlideInfo();
+            slide1.Settings = Settings;
+            slide1.SlideObjects.Add(slide1Text);
+            Slides.Add(slide1);
         }
 
 
@@ -487,6 +567,8 @@ namespace avt.DynamicFlashRotator.Net
         //    ClientScriptManager cs = this.Page.ClientScript;
         //    cs.RegisterClientScriptResource(GetType(), resourceName);
         //}
+
+
 
     }
 }

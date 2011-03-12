@@ -22,7 +22,8 @@ namespace avt.DynamicFlashRotator.Net.WebManage
         {
             // check settings
             if (RotatorSettings.Configuration == null) {
-                if (!string.IsNullOrEmpty(Request.QueryString["connStr"])) {
+                string sessionKey = "avt.DynamicRotator." + Request.QueryString["controlId"];
+                if (Session[sessionKey] != null) {
                     RotatorSettings.Init(new AspNetConfiguration());
                 } else {
                     // don't have it in the query string, let's go back to previous page

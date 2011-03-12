@@ -46,6 +46,22 @@
     <Content Include="Controls\Rotator\AdminApi.aspx" />
     <Content Include="Controls\Rotator\ManageRotator.aspx" />
     <Content Include="Default.aspx" />
+    <Content Include="images\39d5fa473f2107f9c47426de5da7727c.jpg" />
+    <Content Include="images\bg1.jpg" />
+    <Content Include="images\bg2.jpg" />
+    <Content Include="images\globe_animation.swf" />
+    <Content Include="images\image1.png" />
+    <Content Include="images\large_img1.jpg" />
+    <Content Include="images\large_img2.jpg" />
+    <Content Include="images\large_img3.jpg" />
+    <Content Include="images\large_img4.jpg" />
+    <Content Include="images\logo.png" />
+    <Content Include="images\poll.swf" />
+    <Content Include="images\poll_img.png" />
+    <Content Include="images\product1.png" />
+    <Content Include="images\product2.png" />
+    <Content Include="images\product3.png" />
+    <Content Include="images\product4.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
