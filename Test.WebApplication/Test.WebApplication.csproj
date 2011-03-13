@@ -72,13 +72,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\Rotator\Activation.aspx.cs">
-      <DependentUpon>Activation.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\Rotator\Activation.aspx.designer.cs">
-      <DependentUpon>Activation.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Default.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Default.aspx</DependentUpon>
