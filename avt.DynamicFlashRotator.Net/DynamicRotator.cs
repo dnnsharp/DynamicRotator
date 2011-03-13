@@ -196,66 +196,85 @@ namespace avt.DynamicFlashRotator.Net
         #region Custom Properties
 
         [Category("Layout")]
+        [Description("Determines width of the flash rotator in pixels")]
         public override Unit Width { get { return Settings.Width; } set { Settings.Width = value; } }
 
         [Category("Layout")]
+        [Description("Determines height of the flash rotator in pixels")]
         public override Unit Height { get { return Settings.Height; } set { Settings.Height = value; } }
 
         [Category("Dynamic Rotator")]
+        [Description("Select this option if you want the slideshow to start automatically")]
         public bool AutoStartSlideShow { get { return Settings.AutoStartSlideShow; } set { Settings.AutoStartSlideShow = value; } }
 
         [Category("Dynamic Rotator")]
+        [Description("Use this option if you want the rotator to have rounded corners. Make sure to setup the color so it matches the background of your web page")]
         public bool UseRoundCornersMask { get { return Settings.UseRoundCornersMask; } set { Settings.UseRoundCornersMask = value; } }
 
         [TypeConverter(typeof(WebColorConverter))]
         [Category("Dynamic Rotator")]
+        [Description("Use this option if you want the rotator to have rounded corners. Make sure to setup the color so it matches the background of your web page")]
         public Color RoundCornerMaskColor { get { return Settings.RoundCornerMaskColor; } set { Settings.RoundCornerMaskColor = value; } }
 
         [Category("Dynamic Rotator")]
+        [Description("The Slide Buttons are used by the user to navigate to any slide")]
         public bool ShowBottomButtons { get { return Settings.ShowBottomButtons; } set { Settings.ShowBottomButtons = value; } }
 
         [Category("Dynamic Rotator")]
+        [Description("Use this option to determine if the user is able to control the slideshow")]
         public bool ShowPlayPauseControls { get { return Settings.ShowPlayPauseControls; } set { Settings.ShowPlayPauseControls = value; } }
 
         [TypeConverter(typeof(WebColorConverter))]
         [Category("Dynamic Rotator")]
+        [Description("When a slide is changing a nice fade effect is playing whose color is determined by this field")]
         public Color FadeColor { get { return Settings.FadeColor; } set { Settings.FadeColor = value; } }
         
         [Category("Dynamic Rotator")]
+        [Description("Show or hide the top part with the slide title when the mouse is over a slide button.")]
         public bool ShowTopTitle { get { return Settings.ShowTopTitle; } set { Settings.ShowTopTitle = value; } }
 
         [TypeConverter(typeof(WebColorConverter))]
         [Category("Dynamic Rotator")]
+        [Description("Background color for the top title text")]
         public Color TopTitleBackground { get { return Settings.TopTitleBackground; } set { Settings.TopTitleBackground = value; } }
 
         [Category("Dynamic Rotator")]
+        [Description("Transparecy of the background for the top title text")]
         public int TopTitleBgTransparency { get { return Settings.TopTitleBgTransparency; } set { Settings.TopTitleBgTransparency = value; } }
 
         [TypeConverter(typeof(WebColorConverter))]
         [Category("Dynamic Rotator")]
+        [Description("Color of the top title text")]
         public Color TopTitleTextColor { get { return Settings.TopTitleTextColor; } set { Settings.TopTitleTextColor = value; } }
 
         [Category("Dynamic Rotator")]
+        [Description("The Timer Bar appears above the slide butttons. It's a visual indicator of Slide Duration option")]
         public bool ShowTimerBar { get { return Settings.ShowTimerBar; } set { Settings.ShowTimerBar = value; } }
 
         [TypeConverter(typeof(WebColorConverter))]
         [Category("Dynamic Rotator")]
+        [Description("Customize color for slide buttons (and play/pause button too)")]
         public Color SlideButtonsColor { get { return Settings.SlideButtonsColor; } set { Settings.SlideButtonsColor = value; } }
 
         [TypeConverter(typeof(WebColorConverter))]
         [Category("Dynamic Rotator")]
+        [Description("Use this option to determine color for play/pause symbols and for slide button numbers when the Slide Button Type is set to display numbers")]
         public Color SlideButtonsNumberColor { get { return Settings.SlideButtonsNumberColor; } set { Settings.SlideButtonsNumberColor = value; } }
 
         [Category("Dynamic Rotator")]
+        [Description("This option determines how the slide buttons are rendered (they either are square and display numbers or are round buttons)")]
         public eSlideButtonsType SlideButtonsType { get { return Settings.SlideButtonsType; } set { Settings.SlideButtonsType = value; } }
 
         [Category("Dynamic Rotator")]
+        [Description("Distance between left and bottom margins and the buttons")]
         public int SlideButtonsXoffset { get { return Settings.SlideButtonsXoffset; } set { Settings.SlideButtonsXoffset = value; } }
 
         [Category("Dynamic Rotator")]
+        [Description("Distance between left and bottom margins and the buttons")]
         public int SlideButtonsYoffset { get { return Settings.SlideButtonsYoffset; } set { Settings.SlideButtonsYoffset = value; } }
 
         [Category("Dynamic Rotator")]
+        [Description("If this option is selected, the flash control is transparent so it takes the color of the HTML page")]
         public bool TransparentBackground { get { return Settings.TransparentBackground; } set { Settings.TransparentBackground = value; } }
 
         #endregion
@@ -448,7 +467,7 @@ namespace avt.DynamicFlashRotator.Net
             SlideObjectInfo slide1Text = new SlideObjectInfo();
             slide1Text.ObjectType = eObjectType.Text;
             slide1Text.Text = "<font size='20px' color='#e24242'>This <i>Dynamic Rotator</i> has not been configured yet!<font size='30px'></font><br/>";
-            slide1Text.Text += "<font size='14px' color='#C77405'>Start by locating the Manage links in module actions...</font>";
+            slide1Text.Text += "<font size='14px' color='#C77405'>Start by locating the Manage links below the rotator...</font>";
             slide1Text.Yposition = 140;
             slide1Text.Xposition = 280;
             slide1Text.TextBackgroundColor = Color.FromArgb(0xC77405);

@@ -10,7 +10,7 @@ namespace Test.WebApplication
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            AllinOneRotator8.Slides[0].Title = "asd";
         }
 
     }

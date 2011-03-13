@@ -22,13 +22,13 @@ namespace Test.WebApplication {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// AllinOneRotator1 control.
+        /// AllinOneRotator8 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::avt.DynamicFlashRotator.Net.DynamicRotator AllinOneRotator1;
+        protected global::avt.DynamicFlashRotator.Net.DynamicRotator AllinOneRotator8;
         
         /// <summary>
         /// AllinOneRotator2 control.

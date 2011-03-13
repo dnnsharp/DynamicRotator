@@ -13,6 +13,7 @@ namespace avt.DynamicFlashRotator.Net
         public SlideCollectionEditor(Type type)
             : base(type)
         {
+            
         }
 
         protected override bool CanSelectMultipleInstances()

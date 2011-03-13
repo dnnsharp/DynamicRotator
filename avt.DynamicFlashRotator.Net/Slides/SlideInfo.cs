@@ -88,6 +88,7 @@ namespace avt.DynamicFlashRotator.Net
 
         string _Title = "New Slide Title";
         [Category("General")]
+        [Description("Slide Title wad wae dwaed")]
         public string Title { get { return _Title; } set { _Title = value; } }
 
         int _DurationSeconds = 10;
