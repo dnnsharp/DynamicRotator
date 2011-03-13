@@ -10,6 +10,7 @@ using avt.DynamicFlashRotator.Net.Settings;
 using System.Drawing;
 using System.Xml;
 using avt.DynamicFlashRotator.Net.Services;
+using System.Text;
 
 namespace avt.DynamicFlashRotator.Net.WebManage
 {
@@ -17,6 +18,7 @@ namespace avt.DynamicFlashRotator.Net.WebManage
     {
         protected SlideInfo DefaultSlide = new SlideInfo();
         protected SlideObjectInfo DefaultObject = new SlideObjectInfo();
+        protected int _ActiveTab = 0;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -91,7 +93,6 @@ namespace avt.DynamicFlashRotator.Net.WebManage
 
                 // load settings
                 RotatorSettings settings = new RotatorSettings();
-                // settings.Init(Request.QueryString["controlId"], new AspNetConfiguration());
                 settings.LoadFromDB(Request.QueryString["controlId"]);
 
                 lblControlName.Text = RotatorSettings.Configuration.FormatTitle(Request.QueryString["controlId"]);
@@ -267,6 +268,42 @@ namespace avt.DynamicFlashRotator.Net.WebManage
             Response.Redirect(HttpUtility.UrlDecode(Request.QueryString["rurl"]));
         }
 
+
+        protected void ImportData(object sender, EventArgs e)
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            try {
+                xmlDoc.LoadXml(tbImportData.Text);
+                RotatorSettings.LoadFromPortableXml(xmlDoc.DocumentElement, Request.QueryString["controlId"]);
+            } catch (Exception ex) {
+                validImportXml.IsValid = false;
+                validImportXml.Text = "The XML is invalid (inner exception: " + ex.Message + "<be/>" + ex.StackTrace +")";
+                _ActiveTab = 2;
+                return;
+            }
+
+            Response.Redirect(Request.RawUrl);
+        }
+
+        protected void ExportData(object sender, EventArgs e)
+        {
+            RotatorSettings rotatorSettings = new RotatorSettings();
+            rotatorSettings.LoadFromDB(Request.QueryString["controlId"]);
+
+            StringBuilder strXML = new StringBuilder();
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Indent = true;
+            settings.OmitXmlDeclaration = true;
+            XmlWriter Writer = XmlWriter.Create(strXML, settings);
+
+            rotatorSettings.SaveToPortableXml(Writer, Request.QueryString["controlId"]);
+            Writer.Close();
+
+            tbExportData.Text = strXML.ToString();
+            tbExportData.Visible = true;
+
+            _ActiveTab = 2;
+        }
 
         #region Helpers
 

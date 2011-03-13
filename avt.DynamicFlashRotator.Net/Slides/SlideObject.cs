@@ -52,7 +52,24 @@ namespace avt.DynamicFlashRotator.Net
     public class SlideObjectInfo
     {
         eObjectType _ObjectType = eObjectType.Unknown;
-        public eObjectType ObjectType { get { return _ObjectType; } set { _ObjectType = value; } }
+        [Browsable(false)]
+        public eObjectType ObjectType { 
+            get {
+                if (_ObjectType == eObjectType.Unknown) {
+                    if (!string.IsNullOrEmpty(ObjectUrl)) {
+                        if (Path.GetExtension(ObjectUrl) == "swf") {
+                            _ObjectType = eObjectType.Flash;
+                        } else {
+                            _ObjectType = eObjectType.Image;
+                        }
+                    } else {
+                        _ObjectType = eObjectType.Text;
+                    }
+                }
+                return _ObjectType; 
+            }
+             set { _ObjectType = value; } 
+        }
 
         int _Id = -1;
         [Browsable(false)]

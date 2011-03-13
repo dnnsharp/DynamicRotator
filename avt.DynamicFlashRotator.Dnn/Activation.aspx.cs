@@ -15,12 +15,6 @@ namespace avt.DynamicFlashRotator.Dnn
 {
     public partial class ActivationWnd : System.Web.UI.Page // PageBase
     {
-        public event EventHandler OnActivateSuccess
-        {
-            add { Events.AddHandler("Activate", value); }
-            remove { Events.RemoveHandler("Activate", value); }
-        }
-
 
         protected void Page_Init(Object Sender, EventArgs args)
         {
@@ -31,8 +25,6 @@ namespace avt.DynamicFlashRotator.Dnn
                 Response.Write("Access denied!");
                 Response.End();
             }
-
-            AJAX.RegisterScriptManager();
         }
 
         protected void Page_Load(Object Sender, EventArgs args)

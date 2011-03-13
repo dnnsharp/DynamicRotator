@@ -28,7 +28,6 @@ namespace avt.DynamicFlashRotator.Dnn
             Settings.LoadFromDB(ModuleID.ToString());
 
             Settings.SaveToPortableXml(Writer, ModuleID.ToString());
-            
 
             Writer.Close();
 

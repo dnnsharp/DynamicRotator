@@ -229,6 +229,33 @@ namespace avt.DynamicFlashRotator.Net.WebManage {
         protected global::System.Web.UI.WebControls.DropDownList ddLinkTarget;
         
         /// <summary>
+        /// tbImportData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbImportData;
+        
+        /// <summary>
+        /// validImportXml control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator validImportXml;
+        
+        /// <summary>
+        /// tbExportData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbExportData;
+        
+        /// <summary>
         /// lblTabActivateContents control.
         /// </summary>
         /// <remarks>

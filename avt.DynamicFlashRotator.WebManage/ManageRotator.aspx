@@ -48,6 +48,7 @@
         <ul>
             <li><a href="#tabs-main-settings">General Settings</a></li>
             <li><a href="#tabs-main-slides">Slides</a></li>
+            <li><a href="#tabs-main-portable">Import/Export</a></li>
             <%--<li><a href="#tabs-main-presets">Presets</a></li>
             <li><a href="#tabs-main-library">Object Library</a></li>--%>
             <li><a href="#tabs-main-customize">Order Customization</a></li>
@@ -400,6 +401,23 @@
         <div id = "tabs-main-library">
             test
         </div>--%>
+        <div id = "tabs-main-portable" style="margin: 15px 25px;">
+            <h2 style="color: #C77405;">Import Data</h2>
+            <div style="color: #525252; font-style: italic;">Copy/paste the XML data you exported from another Dynamic Rotator control.</div>
+
+            <asp:TextBox runat = "server" ID = "tbImportData" TextMode="MultiLine" style="width: 600px; height: 200px;" ValidationGroup="vldImport"></asp:TextBox>
+            <asp:RequiredFieldValidator runat="server" ControlToValidate="tbImportData" Text="&laquo;required" ValidationGroup="vldImport"></asp:RequiredFieldValidator>
+            <asp:CustomValidator runat="server" ID = "validImportXml" ControlToValidate="tbImportData" Text="&laquo;required" ValidationGroup="vldImport"></asp:CustomValidator>
+            <br />
+            <asp:Button runat="server" OnClick="ImportData" class="ui-state-default" style="padding: 4px 10px;" Text="Import" UseSubmitBehavior="false" CausesValidation="true" ValidationGroup="vldImport" />
+            <br /><br />
+
+            <h2 style="color: #C77405;">Export Data</h2>
+            <div style="color: #525252; font-style: italic;">Use this function to export configuration in an XML structure that can be imported in other Dynamic Rotator controls.</div>
+            <asp:TextBox runat = "server" ID = "tbExportData" TextMode="MultiLine" style="width: 600px; height: 200px;" ReadOnly="true" Visible="false"></asp:TextBox>
+            <br />
+            <asp:Button runat="server" OnClick="ExportData" class="ui-state-default" style="padding: 4px 10px;" Text="Export" UseSubmitBehavior="false" CausesValidation="false" />
+        </div>
 
         <div id = "tabs-main-customize" style="margin: 15px 25px;">
             <h2 style="color: #C77405;">We can design your banner/rotator!</h2>
@@ -749,7 +767,7 @@
 
         jQuery(document).ready(function() {
             jQuery("#mainLoading").hide();
-            jQuery("#mainTabs").tabs().show();
+            jQuery("#mainTabs").tabs({selected: <%= _ActiveTab %>}).show();
             jQuery(".btnPane").show();
 
             applyColorpicker(jQuery("#tabs-main-settings"));

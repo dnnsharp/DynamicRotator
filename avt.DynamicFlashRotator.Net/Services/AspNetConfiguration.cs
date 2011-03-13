@@ -66,13 +66,21 @@ namespace avt.DynamicFlashRotator.Net.Services
 
         public bool HasAccess(string controlId)
         {
-            if (HttpContext.Current.Request.Url.Host == "localhost")
-                return true;
+            string sessionKey = "avt.DynamicRotator." + HttpContext.Current.Request.QueryString["controlId"];
+            if (HttpContext.Current.Session[sessionKey] == null)
+                return false;
 
-            // check authentication providers
+            Dictionary<string, string> settings = HttpContext.Current.Session[sessionKey] as Dictionary<string, string>;
 
+            List<IAdminAuthentication> security = new List<IAdminAuthentication>();
+            if (settings.ContainsKey("SecurityAllowAspRole") && !string.IsNullOrEmpty(settings["SecurityAllowAspRole"]))
+                security.Add(new AllowAspRole(settings["SecurityAllowAspRole"]));
+            if (settings.ContainsKey("SecurityAllowIps") && !string.IsNullOrEmpty(settings["SecurityAllowIps"]))
+                security.Add(new AllowIps(settings["SecurityAllowIps"]));
+            if (settings.ContainsKey("SecurityAllowInvokeType") && !string.IsNullOrEmpty(settings["SecurityAllowInvokeType"]))
+                security.Add(new AllowInvokeType(settings["SecurityAllowInvokeType"]));
 
-            return false;
+            return (HasAccess(controlId, security));
         }
 
         public bool HasAccess(string controlId, IList<IAdminAuthentication> authLayers)
