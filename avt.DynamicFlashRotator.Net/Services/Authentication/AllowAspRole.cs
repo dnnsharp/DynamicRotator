@@ -13,14 +13,14 @@ namespace avt.DynamicFlashRotator.Net.Services.Authentication
         {
         }
 
-        public AllowAspRole(string roleName)
+        public AllowAspRole(string roleName, string controlId)
         {
-            Init(roleName);
+            Init(roleName, controlId);
         }
 
         #region IAdminAuthentication Members
 
-        public void Init(string authToken)
+        public void Init(string authToken, string controlId)
         {
             _roleName = authToken;
         }

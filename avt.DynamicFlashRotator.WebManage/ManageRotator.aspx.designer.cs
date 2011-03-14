@@ -22,309 +22,66 @@ namespace avt.DynamicFlashRotator.Net.WebManage {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// hdnSlideXml control.
+        /// hdnDbConnectionString control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnSlideXml;
+        protected global::System.Web.UI.WebControls.HiddenField hdnDbConnectionString;
         
         /// <summary>
-        /// lblControlName control.
+        /// hdnDbOwner control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblControlName;
+        protected global::System.Web.UI.WebControls.HiddenField hdnDbOwner;
         
         /// <summary>
-        /// lblTabActivate control.
+        /// hdnDbObjectQualifier control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal lblTabActivate;
+        protected global::System.Web.UI.WebControls.HiddenField hdnDbObjectQualifier;
         
         /// <summary>
-        /// tbWidth control.
+        /// hdnSecurityAllowAspRole control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbWidth;
+        protected global::System.Web.UI.WebControls.HiddenField hdnSecurityAllowAspRole;
         
         /// <summary>
-        /// tbHeight control.
+        /// hdnSecurityAllowIps control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbHeight;
+        protected global::System.Web.UI.WebControls.HiddenField hdnSecurityAllowIps;
         
         /// <summary>
-        /// cbTransparentBackground control.
+        /// hdnSecurityAllowInvokeType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbTransparentBackground;
+        protected global::System.Web.UI.WebControls.HiddenField hdnSecurityAllowInvokeType;
         
         /// <summary>
-        /// tbFadeColor control.
+        /// ctlManageRotator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbFadeColor;
-        
-        /// <summary>
-        /// cbAutoStartSlideShow control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbAutoStartSlideShow;
-        
-        /// <summary>
-        /// cbShowPlayPauseControls control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbShowPlayPauseControls;
-        
-        /// <summary>
-        /// cbShowTimerBar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbShowTimerBar;
-        
-        /// <summary>
-        /// cbShowBottomButtons control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbShowBottomButtons;
-        
-        /// <summary>
-        /// ddSlideButtonsType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddSlideButtonsType;
-        
-        /// <summary>
-        /// tbSlideButtonsColor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbSlideButtonsColor;
-        
-        /// <summary>
-        /// tbSlideButtonsNumberColor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbSlideButtonsNumberColor;
-        
-        /// <summary>
-        /// tbSlideButtonsXoffset control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbSlideButtonsXoffset;
-        
-        /// <summary>
-        /// tbSlideButtonsYoffset control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbSlideButtonsYoffset;
-        
-        /// <summary>
-        /// cbUseRoundCornersMask control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbUseRoundCornersMask;
-        
-        /// <summary>
-        /// tbRoundCornerMaskColor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbRoundCornerMaskColor;
-        
-        /// <summary>
-        /// cbShowTopTitle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbShowTopTitle;
-        
-        /// <summary>
-        /// tbTopTitleBackground control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbTopTitleBackground;
-        
-        /// <summary>
-        /// tbTopTitleBgTransparency control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbTopTitleBgTransparency;
-        
-        /// <summary>
-        /// tbTopTitleTextColor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbTopTitleTextColor;
-        
-        /// <summary>
-        /// ddLinkTarget control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddLinkTarget;
-        
-        /// <summary>
-        /// tbImportData control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbImportData;
-        
-        /// <summary>
-        /// validImportXml control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator validImportXml;
-        
-        /// <summary>
-        /// tbExportData control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbExportData;
-        
-        /// <summary>
-        /// lblTabActivateContents control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTabActivateContents;
-        
-        /// <summary>
-        /// ddVerticalAlgin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddVerticalAlgin;
-        
-        /// <summary>
-        /// ddAppearMode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList ddAppearMode;
-        
-        /// <summary>
-        /// ddObjAppearFromText control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList ddObjAppearFromText;
-        
-        /// <summary>
-        /// ddObjAppearFromImage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList ddObjAppearFromImage;
-        
-        /// <summary>
-        /// ddObjMoveType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList ddObjMoveType;
-        
-        /// <summary>
-        /// ddObjEasingType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList ddObjEasingType;
-        
-        /// <summary>
-        /// ddObjEffect control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddObjEffect;
+        protected global::avt.DynamicFlashRotator.Net.WebManage.ManageRotatorBase ctlManageRotator;
     }
 }

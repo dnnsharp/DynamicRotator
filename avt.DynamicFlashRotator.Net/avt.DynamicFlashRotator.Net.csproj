@@ -55,6 +55,7 @@
     <Compile Include="Services\Authentication\AllowAspRole.cs" />
     <Compile Include="Services\Authentication\AllowIps.cs" />
     <Compile Include="Services\Authentication\AllowInvokeType.cs" />
+    <Compile Include="Services\Authentication\IAuthenticationProxy.cs" />
     <Compile Include="Services\FileBrowser.cs" />
     <Compile Include="Services\Authentication\IAdminAuthentication.cs" />
     <Compile Include="Services\IConfiguration.cs" />

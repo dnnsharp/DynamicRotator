@@ -9,12 +9,12 @@
     <title></title>
 </head>
 <body style="background-color: #f2f2ff;">
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" submitdisabledcontrols="True">
     <div>
     
     </div>
 
-    <cc1:DynamicRotator ID="AllinOneRotator8" runat="server" 
+    <cc1:DynamicRotator ID="ctlRotator" runat="server" 
         AutoStartSlideShow="True" RoundCornerMaskColor="#333399" ShowTopTitle="False" 
         SlideButtonsNumberColor="#6600CC" SlideButtonsType="RoundNoNumbers" 
         DbConnectionString="SiteSqlServer" EnableRuntimeConfiguration="True" 
@@ -25,7 +25,8 @@
         TopTitleBgTransparency="70" TopTitleTextColor="White" 
         TransparentBackground="False" UseRoundCornersMask="False" 
         AllowRuntimeConfiguration="True" SecurityAllowAspRole="" 
-        SecurityAllowIps="193.254.62.222;192.168..0.199;127.0.0.1" >
+        SecurityAllowIps="" 
+         >
         <Slides>
             <cc1:SlideInfo Title ="New Slide Title" 
                 TextContent="Content of new slide, supports &lt;i&gt;HTML&lt;/i&gt;."></cc1:SlideInfo>
@@ -36,7 +37,27 @@
             </cc1:SlideInfo>
         </Slides>
     </cc1:DynamicRotator>
-    <br /><br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
     <cc1:DynamicRotator ID="AllinOneRotator2" runat="server" 
         AutoStartSlideShow="True" RoundCornerMaskColor="#333399" ShowTopTitle="False" 
         SlideButtonsNumberColor="#6600CC" SlideButtonsType="RoundNoNumbers" 

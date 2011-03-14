@@ -45,6 +45,7 @@
   <ItemGroup>
     <Content Include="Activation.aspx" />
     <Content Include="AdminApi.aspx" />
+    <Content Include="ManageRotatorBase.ascx" />
     <Content Include="ManageRotator.aspx" />
     <Content Include="res\js\jquery-ui.js" />
     <Content Include="res\js\jquery.js" />
@@ -68,6 +69,7 @@
   <ItemGroup>
     <Compile Include="Activation.aspx.cs">
       <DependentUpon>Activation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Activation.aspx.designer.cs">
       <DependentUpon>Activation.aspx</DependentUpon>
@@ -79,12 +81,19 @@
     <Compile Include="AdminApi.aspx.designer.cs">
       <DependentUpon>AdminApi.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ManageRotatorBase.ascx.cs">
+      <DependentUpon>ManageRotatorBase.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="ManageRotator.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>ManageRotator.aspx</DependentUpon>
     </Compile>
     <Compile Include="ManageRotator.aspx.designer.cs">
       <DependentUpon>ManageRotator.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageRotatorBase.ascx.designer.cs">
+      <DependentUpon>ManageRotatorBase.ascx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

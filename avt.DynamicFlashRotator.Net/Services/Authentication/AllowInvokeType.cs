@@ -8,21 +8,23 @@ namespace avt.DynamicFlashRotator.Net.Services.Authentication
     public class AllowInvokeType : IAdminAuthentication
     {
         string _type;
+        string _controlId;
 
         public AllowInvokeType()
         {
         }
 
-        public AllowInvokeType(string invokeType)
+        public AllowInvokeType(string invokeType, string controlId)
         {
-            Init(invokeType);
+            Init(invokeType, controlId);
         }
 
         #region IAdminAuthentication Members
 
-        public void Init(string authToken)
+        public void Init(string authToken, string controlId)
         {
             _type = authToken;
+            _controlId = controlId;
         }
 
         public bool HasAccess()
@@ -31,19 +33,19 @@ namespace avt.DynamicFlashRotator.Net.Services.Authentication
                 return true; // bypass this method
             }
 
-            return CreateInstance(_type).HasAccess();
+            return CreateInstance(_type).HasAccess(_controlId);
         }
 
         #endregion
 
-        public IAdminAuthentication CreateInstance(string strDataType)
+        public IAuthenticationProxy CreateInstance(string strDataType)
         {
             Type dataType = Type.GetType(strDataType);
             if (dataType == null) {
-                dataType = Type.GetType(strDataType.Substring(0, strDataType.IndexOf(",") + 1) + typeof(IAdminAuthentication).Assembly.ToString());
+                dataType = Type.GetType(strDataType.Substring(0, strDataType.IndexOf(",") + 1) + typeof(IAuthenticationProxy).Assembly.ToString());
             }
 
-            return Activator.CreateInstance(dataType) as IAdminAuthentication;
+            return Activator.CreateInstance(dataType) as IAuthenticationProxy;
         }
     }
 }

@@ -5,43 +5,33 @@ using System.Web;
 using System.Configuration;
 using avt.DynamicFlashRotator.Net.Settings;
 using avt.DynamicFlashRotator.Net.Services.Authentication;
+using System.Web.UI;
+using System.Collections.Specialized;
 
 namespace avt.DynamicFlashRotator.Net.Services
 {
     public class AspNetConfiguration : IConfiguration
     {
-        public AspNetConfiguration()
+        List<IAdminAuthentication> _Security = new List<IAdminAuthentication>();
+
+        public AspNetConfiguration(string connStr, string dbOwner, string objQualifier, string allowRole, string allowIp, string allowInvokeType)
         {
-            if (HttpContext.Current != null) {
-                string sessionKey = "avt.DynamicRotator." + HttpContext.Current.Request.QueryString["controlId"];
-                if (HttpContext.Current.Session[sessionKey] != null) {
+            string controlId = HttpContext.Current.Request.QueryString["controlId"];
 
-                    Dictionary<string, string> settings = HttpContext.Current.Session[sessionKey] as Dictionary<string, string>;
-
-                    _ConnStr = ConfigurationManager.ConnectionStrings[settings["DbConnectionString"]].ConnectionString;
-                    if (settings.ContainsKey("DbOwner")) {
-                        _DbOwner = settings["DbOwner"];
-                    }
-                    if (settings.ContainsKey("DbObjectQualifier")) {
-                        _ObjQualifier = settings["DbObjectQualifier"];
-                    }
-                }
+            if (ConfigurationManager.ConnectionStrings[connStr] == null) {
+                throw new ArgumentException("Dynamic Rotator .NET could not find a connection string named "+ connStr +" in web.config!");
             }
-
-            if (!string.IsNullOrEmpty(_ObjQualifier) && _ObjQualifier.EndsWith("_") == false) {
-                _ObjQualifier += "_";
-            }
-
-            if (!string.IsNullOrEmpty(_DbOwner) && _DbOwner.EndsWith(".") == false) {
-                _DbOwner += ".";
-            }
-        }
-
-        public AspNetConfiguration(string connStr, string dbOwner, string objQualifier)
-        {
+                
             _ConnStr = ConfigurationManager.ConnectionStrings[connStr].ConnectionString;
             _DbOwner = dbOwner;
             _ObjQualifier = objQualifier;
+
+            if (!string.IsNullOrEmpty(allowRole))
+                _Security.Add(new AllowAspRole(allowRole, controlId));
+            if (!string.IsNullOrEmpty(allowIp))
+                _Security.Add(new AllowIps(allowIp, controlId));
+            if (!string.IsNullOrEmpty(allowInvokeType))
+                _Security.Add(new AllowInvokeType(allowInvokeType, controlId));
             
             if (!string.IsNullOrEmpty(_DbOwner) && _DbOwner.IndexOf('.') != _DbOwner.Length - 1) {
                 _DbOwner += ".";
@@ -66,21 +56,7 @@ namespace avt.DynamicFlashRotator.Net.Services
 
         public bool HasAccess(string controlId)
         {
-            string sessionKey = "avt.DynamicRotator." + HttpContext.Current.Request.QueryString["controlId"];
-            if (HttpContext.Current.Session[sessionKey] == null)
-                return false;
-
-            Dictionary<string, string> settings = HttpContext.Current.Session[sessionKey] as Dictionary<string, string>;
-
-            List<IAdminAuthentication> security = new List<IAdminAuthentication>();
-            if (settings.ContainsKey("SecurityAllowAspRole") && !string.IsNullOrEmpty(settings["SecurityAllowAspRole"]))
-                security.Add(new AllowAspRole(settings["SecurityAllowAspRole"]));
-            if (settings.ContainsKey("SecurityAllowIps") && !string.IsNullOrEmpty(settings["SecurityAllowIps"]))
-                security.Add(new AllowIps(settings["SecurityAllowIps"]));
-            if (settings.ContainsKey("SecurityAllowInvokeType") && !string.IsNullOrEmpty(settings["SecurityAllowInvokeType"]))
-                security.Add(new AllowInvokeType(settings["SecurityAllowInvokeType"]));
-
-            return (HasAccess(controlId, security));
+            return (HasAccess(controlId, _Security));
         }
 
         public bool HasAccess(string controlId, IList<IAdminAuthentication> authLayers)

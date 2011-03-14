@@ -4,9 +4,8 @@ using System.Text;
 
 namespace avt.DynamicFlashRotator.Net.Services.Authentication
 {
-    public interface IAdminAuthentication
+    public interface IAuthenticationProxy
     {
-        void Init(string authToken, string controlId);
-        bool HasAccess();
+        bool HasAccess(string controlId);
     }
 }

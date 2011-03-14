@@ -13,14 +13,14 @@ namespace avt.DynamicFlashRotator.Net.Services.Authentication
         {
         }
 
-        public AllowIps(string ips)
+        public AllowIps(string ips, string controlId)
         {
-            Init(ips);
+            Init(ips, controlId);
         }
 
         #region IAdminAuthentication Members
 
-        public void Init(string authToken)
+        public void Init(string authToken, string controlId)
         {
             _ips = authToken;
         }

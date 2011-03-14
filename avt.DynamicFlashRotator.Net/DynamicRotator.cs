@@ -50,8 +50,7 @@ namespace avt.DynamicFlashRotator.Net
             // check settings
             if (RotatorSettings.Configuration == null) {
                 if (!string.IsNullOrEmpty(DbConnectionString)) {
-                    RotatorSettings.Init(new AspNetConfiguration());
-                    RotatorSettings.Init(new AspNetConfiguration(DbConnectionString, DbOwner, DbObjectQualifier));
+                    RotatorSettings.Init(new AspNetConfiguration(DbConnectionString, DbOwner, DbObjectQualifier, SecurityAllowAspRole, SecurityAllowIps, SecurityAllowInvokeType));
                 } else {
                     // don't have DbConnectionString
                 }
@@ -133,21 +132,25 @@ namespace avt.DynamicFlashRotator.Net
         bool _AllowRuntimeConfiguration = false;
         [Category("Dynamic Rotator - Runtime Configuration")]
         [Description("Enable runtime configuration using the Web Interface")]
+        [DisplayName("Allow Runtime Configuration")]
         public bool AllowRuntimeConfiguration { get { return _AllowRuntimeConfiguration; } set { _AllowRuntimeConfiguration = value; } }
 
         string _DbConnectionString = null;
         [Category("Dynamic Rotator - Runtime Configuration")]
         [Description("Specify the name of a connection string from web.config to allow runtime manipulation of Rotator Settings using the Web Interface.")]
+        [DisplayName("Database Connection String")]
         public string DbConnectionString { get { return _DbConnectionString; } set { _DbConnectionString = value; } }
 
         string _DbOwner = "dbo";
         [Category("Dynamic Rotator - Runtime Configuration")]
         [Description("Database Owner")]
+        [DisplayName("Database Owner")]
         public string DbOwner { get { return _DbOwner; } set { _DbOwner = value; } }
 
         string _DbObjectQualifier = null;
         [Category("Dynamic Rotator - Runtime Configuration")]
         [Description("Object qualifier (prefix for Dynamic Rotator tables)")]
+        [DisplayName("Object qualifier")]
         public string DbObjectQualifier { get { return _DbObjectQualifier; } set { _DbObjectQualifier = value; } }
 
         string _ManageUrl = null;
@@ -155,38 +158,43 @@ namespace avt.DynamicFlashRotator.Net
         [UrlProperty()]
         [Description("Provide the URL to where you unpacked ManageRotator.aspx that cames with your Dynamic Rotator copy.")]
         [Editor("System.Web.UI.Design.UrlEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
+        [DisplayName("Manage URL")]
         public string ManageUrl { get { return _ManageUrl; } set { _ManageUrl = value; } }
 
         string _ResourceUrl = null;
         [Category("Dynamic Rotator - Runtime Configuration")]
         [Description("Specify relative folder where resources should load from using the File Browser (for example /images)")]
+        [DisplayName("Resource URL")]
         public string ResourceUrl { get { return _ResourceUrl; } set { _ResourceUrl = value; } }
 
         string _SecurityAllowAspRole = null;
         [Category("Dynamic Rotator - Runtime Configuration")]
         [Description("Specify which Asp.NET role is authorized to edit rotator configuration at runtime. Note that if other authentication methods are present they all must matched.")]
+        [DisplayName("Security: Allow Asp.NET Role")]
         public string SecurityAllowAspRole { get { return _SecurityAllowAspRole; } set { _SecurityAllowAspRole = value; } }
 
         string _SecurityAllowIps = null;
         [Category("Dynamic Rotator - Runtime Configuration")]
         [Description("Specify a list of IP addresses separated by semicolor(;) from which users are authorized to edit rotator configuration at runtime. Note that if other authentication methods are present they all must matched.")]
+        [DisplayName("Security: Allow IP Addresses")]
         public string SecurityAllowIps { get { return _SecurityAllowIps; } set { _SecurityAllowIps = value; } }
 
         string _SecurityAllowInvokeType = null;
         [Category("Dynamic Rotator - Runtime Configuration")]
-        [Description("If you implemented your own authentication handler from IAdminAuthentication, provide it's type here (the format is \"Fully.Qualified.ClassName,AssemblyName\"). Note that if other authentication methods are present they all must matched.")]
+        [Description("If you implemented your own authentication handler from IAuthenticationProxy, provide it's type here (the format is \"Fully.Qualified.ClassName,AssemblyName\"). Note that if other authentication methods are present they all must matched.")]
+        [DisplayName("Security: Invoke Custom Type")]
         public string SecurityAllowInvokeType { get { return _SecurityAllowInvokeType; } set { _SecurityAllowInvokeType = value; } }
 
 
-        List<IAdminAuthentication> GetSecurityLayers()
+        List<IAdminAuthentication> GetSecurityLayers(string controlId)
         {
             List<IAdminAuthentication> security = new List<IAdminAuthentication>();
             if (!string.IsNullOrEmpty(SecurityAllowAspRole))
-                security.Add(new AllowAspRole(SecurityAllowAspRole));
+                security.Add(new AllowAspRole(SecurityAllowAspRole, controlId));
             if (!string.IsNullOrEmpty(SecurityAllowIps))
-                security.Add(new AllowIps(SecurityAllowIps));
+                security.Add(new AllowIps(SecurityAllowIps, controlId));
             if (!string.IsNullOrEmpty(SecurityAllowInvokeType))
-                security.Add(new AllowInvokeType(SecurityAllowInvokeType));
+                security.Add(new AllowInvokeType(SecurityAllowInvokeType, controlId));
             return security;
         }
 
@@ -205,76 +213,93 @@ namespace avt.DynamicFlashRotator.Net
 
         [Category("Dynamic Rotator")]
         [Description("Select this option if you want the slideshow to start automatically")]
+        [DisplayName("Auto Start Slideshow")]
         public bool AutoStartSlideShow { get { return Settings.AutoStartSlideShow; } set { Settings.AutoStartSlideShow = value; } }
 
         [Category("Dynamic Rotator")]
         [Description("Use this option if you want the rotator to have rounded corners. Make sure to setup the color so it matches the background of your web page")]
+        [DisplayName("Use Round Corners Mask")]
         public bool UseRoundCornersMask { get { return Settings.UseRoundCornersMask; } set { Settings.UseRoundCornersMask = value; } }
 
         [TypeConverter(typeof(WebColorConverter))]
         [Category("Dynamic Rotator")]
         [Description("Use this option if you want the rotator to have rounded corners. Make sure to setup the color so it matches the background of your web page")]
+        [DisplayName("Round Corner Mask Color")]
         public Color RoundCornerMaskColor { get { return Settings.RoundCornerMaskColor; } set { Settings.RoundCornerMaskColor = value; } }
 
         [Category("Dynamic Rotator")]
         [Description("The Slide Buttons are used by the user to navigate to any slide")]
+        [DisplayName("Show Bottom Buttons")]
         public bool ShowBottomButtons { get { return Settings.ShowBottomButtons; } set { Settings.ShowBottomButtons = value; } }
 
         [Category("Dynamic Rotator")]
         [Description("Use this option to determine if the user is able to control the slideshow")]
+        [DisplayName("Show Play Pause Controls")]
         public bool ShowPlayPauseControls { get { return Settings.ShowPlayPauseControls; } set { Settings.ShowPlayPauseControls = value; } }
 
         [TypeConverter(typeof(WebColorConverter))]
         [Category("Dynamic Rotator")]
         [Description("When a slide is changing a nice fade effect is playing whose color is determined by this field")]
+        [DisplayName("Fade Color")]
         public Color FadeColor { get { return Settings.FadeColor; } set { Settings.FadeColor = value; } }
         
         [Category("Dynamic Rotator")]
         [Description("Show or hide the top part with the slide title when the mouse is over a slide button.")]
+        [DisplayName("Show Top Title")]
         public bool ShowTopTitle { get { return Settings.ShowTopTitle; } set { Settings.ShowTopTitle = value; } }
 
         [TypeConverter(typeof(WebColorConverter))]
         [Category("Dynamic Rotator")]
         [Description("Background color for the top title text")]
+        [DisplayName("Top Title Background")]
         public Color TopTitleBackground { get { return Settings.TopTitleBackground; } set { Settings.TopTitleBackground = value; } }
 
         [Category("Dynamic Rotator")]
         [Description("Transparecy of the background for the top title text")]
+        [DisplayName("Top Title Text Color")]
         public int TopTitleBgTransparency { get { return Settings.TopTitleBgTransparency; } set { Settings.TopTitleBgTransparency = value; } }
 
         [TypeConverter(typeof(WebColorConverter))]
         [Category("Dynamic Rotator")]
         [Description("Color of the top title text")]
+        [DisplayName("Top Title Text Color")]
         public Color TopTitleTextColor { get { return Settings.TopTitleTextColor; } set { Settings.TopTitleTextColor = value; } }
 
         [Category("Dynamic Rotator")]
         [Description("The Timer Bar appears above the slide butttons. It's a visual indicator of Slide Duration option")]
+        [DisplayName("Show Timer Bar")]
         public bool ShowTimerBar { get { return Settings.ShowTimerBar; } set { Settings.ShowTimerBar = value; } }
 
         [TypeConverter(typeof(WebColorConverter))]
         [Category("Dynamic Rotator")]
         [Description("Customize color for slide buttons (and play/pause button too)")]
+        [DisplayName("Slide Buttons Color")]
         public Color SlideButtonsColor { get { return Settings.SlideButtonsColor; } set { Settings.SlideButtonsColor = value; } }
 
         [TypeConverter(typeof(WebColorConverter))]
         [Category("Dynamic Rotator")]
         [Description("Use this option to determine color for play/pause symbols and for slide button numbers when the Slide Button Type is set to display numbers")]
+        [DisplayName("Slide Buttons Text Color")]
         public Color SlideButtonsNumberColor { get { return Settings.SlideButtonsNumberColor; } set { Settings.SlideButtonsNumberColor = value; } }
 
         [Category("Dynamic Rotator")]
         [Description("This option determines how the slide buttons are rendered (they either are square and display numbers or are round buttons)")]
+        [DisplayName("Slide Buttons Type")]
         public eSlideButtonsType SlideButtonsType { get { return Settings.SlideButtonsType; } set { Settings.SlideButtonsType = value; } }
 
         [Category("Dynamic Rotator")]
         [Description("Distance between left and bottom margins and the buttons")]
+        [DisplayName("Slide Buttons X offset")]
         public int SlideButtonsXoffset { get { return Settings.SlideButtonsXoffset; } set { Settings.SlideButtonsXoffset = value; } }
 
         [Category("Dynamic Rotator")]
         [Description("Distance between left and bottom margins and the buttons")]
+        [DisplayName("Slide Buttons Y offset")]
         public int SlideButtonsYoffset { get { return Settings.SlideButtonsYoffset; } set { Settings.SlideButtonsYoffset = value; } }
 
         [Category("Dynamic Rotator")]
         [Description("If this option is selected, the flash control is transparent so it takes the color of the HTML page")]
+        [DisplayName("Transparent Background")]
         public bool TransparentBackground { get { return Settings.TransparentBackground; } set { Settings.TransparentBackground = value; } }
 
         #endregion
@@ -417,7 +442,7 @@ namespace avt.DynamicFlashRotator.Net
                 }
             }
 
-            IList<IAdminAuthentication> security = GetSecurityLayers();
+            IList<IAdminAuthentication> security = GetSecurityLayers(RealId);
             if (AllowRuntimeConfiguration && RotatorSettings.Configuration.ShowManageLinks() && RotatorSettings.Configuration.HasAccess(RealId, security)) {
                 
                 // if (RotatorSettings.Configuration.ShowManageLinks()) { // this pretty much means it's a Asp.NET control for now

@@ -26,13 +26,38 @@ namespace avt.DynamicFlashRotator.Net.WebManage
 
             // check settings
             if (RotatorSettings.Configuration == null) {
-                if (!string.IsNullOrEmpty(Request.QueryString["connStr"])) {
-                    RotatorSettings.Init(new AspNetConfiguration());
-                } else {
-                    // don't have it in the query string, let's go back to previous page
-                    Response.Write("{\"error\":\"Access Denied!\"}");
-                    return;
+
+                string connStr = "";
+                string dbOwner = "";
+                string objQualifier = "";
+                string allowRole = "";
+                string allowIp = "";
+                string allowInvokeType = "";
+
+                string controlId = Request.QueryString["controlId"];
+                string sessionKey = "avt.DynamicRotator." + controlId;
+                if (HttpContext.Current.Session[sessionKey] != null) {
+
+                    Dictionary<string, string> settings = Session[sessionKey] as Dictionary<string, string>;
+
+                    connStr = settings["DbConnectionString"];
+                    dbOwner = settings["DbOwner"];
+                    objQualifier = settings["DbObjectQualifier"];
+                    allowRole = settings["SecurityAllowAspRole"];
+                    allowIp = settings["SecurityAllowIps"];
+                    allowInvokeType = settings["SecurityAllowInvokeType"];
+
                 }
+
+                RotatorSettings.Init(new AspNetConfiguration(connStr, dbOwner, objQualifier, allowRole, allowIp, allowInvokeType));
+
+                //if (!string.IsNullOrEmpty(Request.QueryString["connStr"])) {
+                //    // TODO: RotatorSettings.Init(new AspNetConfiguration());
+                //} else {
+                //    // don't have it in the query string, let's go back to previous page
+                //    Response.Write("{\"error\":\"Access Denied!\"}");
+                //    return;
+                //}
             }
 
             if (!RotatorSettings.Configuration.HasAccess(Request.QueryString["controlId"])) {
@@ -52,6 +77,9 @@ namespace avt.DynamicFlashRotator.Net.WebManage
                     break;
                 case "listfiles":
                     ListFilesJson();
+                    break;
+                case "checkupdate":
+                    CheckUpdate();
                     break;
             }
 
@@ -89,6 +117,24 @@ namespace avt.DynamicFlashRotator.Net.WebManage
             sbJson.Append(']');
 
             Response.Write(sbJson.ToString());
+        }
+
+        void CheckUpdate()
+        {
+            RotatorSettings settings = new RotatorSettings();
+            if (settings.LoadFromDB(Request.Params["controlId"])) {
+                Response.Write("{\"lastUpdate\":" + TotalMiliseconds(settings.LastUpdate) + "}");
+            } else {
+                Response.Write("{\"lastUpdate\":-1}");
+            }
+        }
+
+        double TotalMiliseconds(DateTime date)
+        {
+            DateTime d1 = new DateTime(1970, 1, 1);
+            TimeSpan ts = new TimeSpan(date.Ticks - d1.Ticks);
+
+            return ts.TotalMilliseconds;
         }
 
         #region Helpers
