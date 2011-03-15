@@ -24,9 +24,11 @@ namespace avt.DynamicFlashRotator.Net.WebManage
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
             Response.Cache.SetNoStore();
 
+            // TODO: fix this for DNN !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
             // check settings
             if (RotatorSettings.Configuration == null) {
-
+            
                 string connStr = "";
                 string dbOwner = "";
                 string objQualifier = "";

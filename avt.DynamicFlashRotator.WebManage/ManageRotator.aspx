@@ -23,14 +23,6 @@
 <body>
     <form id="form1" runat="server">
     
-        <asp:HiddenField runat="server" ID = "hdnDbConnectionString" />
-        <asp:HiddenField runat="server" ID = "hdnDbOwner" />
-        <asp:HiddenField runat="server" ID = "hdnDbObjectQualifier" />
-        <asp:HiddenField runat="server" ID = "hdnSecurityAllowAspRole" />
-        <asp:HiddenField runat="server" ID = "hdnSecurityAllowIps" />
-        <asp:HiddenField runat="server" ID = "hdnSecurityAllowInvokeType" />
-
-
         <avt:ManageDynamicRototator runat="server" id = "ctlManageRotator"></avt:ManageDynamicRototator>
 
     </form>

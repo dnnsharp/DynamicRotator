@@ -29,23 +29,5 @@ namespace Test.WebApplication {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::avt.DynamicFlashRotator.Net.DynamicRotator ctlRotator;
-        
-        /// <summary>
-        /// AllinOneRotator2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::avt.DynamicFlashRotator.Net.DynamicRotator AllinOneRotator2;
-        
-        /// <summary>
-        /// AllinOneRotator3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::avt.DynamicFlashRotator.Net.DynamicRotator AllinOneRotator3;
     }
 }

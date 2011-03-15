@@ -18,7 +18,7 @@ namespace avt.DynamicFlashRotator.Net.WebManage
     public partial class ManageRotator : System.Web.UI.Page
     {
 
-        protected void Page_Load(object sender, EventArgs e)
+        protected void Page_Init(object sender, EventArgs e)
         {
             string connStr = "";
             string dbOwner = "";
@@ -48,7 +48,9 @@ namespace avt.DynamicFlashRotator.Net.WebManage
             }
 
             ctlManageRotator.Configuration = new AspNetConfiguration(connStr, dbOwner, objQualifier, allowRole, allowIp, allowInvokeType);
+            RotatorSettings.Init(ctlManageRotator.Configuration);
             ctlManageRotator.ReturnUrl = Server.UrlDecode(Request.QueryString["rurl"]);
+            ctlManageRotator.BuyUrl = RotatorSettings.BuyLink + "&aspnet=true";
         }
 
     }

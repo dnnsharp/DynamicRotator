@@ -1,0 +1,16 @@
+What's new in Dynamic Rotator .NET?
+--------------------------------------------------------------------------
+
+1.1.0
+
+    * Implemented IPortable, so slides can now be exported/imported
+    * Add Browse Server function to be able to select from available images in the portal home folder
+    * Implemented Text Width that will determine where the text wraps (by default, it takes all available space)
+    * Add Order Customization tab with 6 options
+    * Switched Manage Screen to fixed width
+    * Auto fill protocol dropdown for URL fields on copy/paste and when typing
+
+1.0.0
+
+    * Initial Version
+

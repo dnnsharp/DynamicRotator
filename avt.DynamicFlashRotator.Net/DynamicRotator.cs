@@ -59,6 +59,9 @@ namespace avt.DynamicFlashRotator.Net
 
             // merge dynamic settings
             if (AllowRuntimeConfiguration) {
+                if (RotatorSettings.Configuration == null) {
+                    throw new ArgumentException("AllowRuntimeConfiguration is enabled but you haven't specified the name of the database connection string to use!"); ;
+                }
                 if (!Settings.LoadFromDB(RealId)) {
                     LoadMiniTutorialWebManage();
                 }
@@ -470,12 +473,12 @@ namespace avt.DynamicFlashRotator.Net
                 //    manageUrl += "&resPath=" + ResourceUrl;
                 manageUrl += "&rurl=" + HttpUtility.UrlEncode(HttpContext.Current.Request.RawUrl);
                 output.Write("<br />");
-                output.Write("<a href='" + manageUrl + "#tabs-main-slides'>Manage Slides</a>");
-                output.Write("<br />");
-                output.Write("<a href='" + manageUrl + "'>Manage Rotator Settings</a>");
+                output.Write("<a href='" + manageUrl + "#tabs-main-slides' style='color: #CB2027;font-weight: bold;text-decoration: none;'>Manage Slides</a>");
+                output.Write("&nbsp;&nbsp;|&nbsp;&nbsp;");
+                output.Write("<a href='" + manageUrl + "' style='color: #CB2027;font-weight: bold;text-decoration: none;'>Rotator Settings</a>");
 
                 if (security.Count == 0) {
-                    output.Write("<div style='color:red;'>WARNING! Everybody can configure this rotator, setup security using <i>SecurityAllowAspRole, SecurityAllowIps or SecurityAllowInvokeType</i> attributes of the Dynamic Rotator control.</div>");
+                    output.Write("<div style='color:red;'>WARNING! Everybody can configure this rotator, setup security using <i>SecurityAllowAspRole, SecurityAllowIps or SecurityAllowInvokeType</i> attributes of the Dynamic Rotator control.<br/>Read <a href='http://rotator.avatar-soft.ro'>Security Layers for Asp.NET Control</a> articles for more information.</div>");
                 }
             }
         }

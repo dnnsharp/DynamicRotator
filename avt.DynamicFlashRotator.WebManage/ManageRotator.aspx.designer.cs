@@ -22,60 +22,6 @@ namespace avt.DynamicFlashRotator.Net.WebManage {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// hdnDbConnectionString control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnDbConnectionString;
-        
-        /// <summary>
-        /// hdnDbOwner control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnDbOwner;
-        
-        /// <summary>
-        /// hdnDbObjectQualifier control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnDbObjectQualifier;
-        
-        /// <summary>
-        /// hdnSecurityAllowAspRole control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnSecurityAllowAspRole;
-        
-        /// <summary>
-        /// hdnSecurityAllowIps control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnSecurityAllowIps;
-        
-        /// <summary>
-        /// hdnSecurityAllowInvokeType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnSecurityAllowInvokeType;
-        
-        /// <summary>
         /// ctlManageRotator control.
         /// </summary>
         /// <remarks>

@@ -26,6 +26,9 @@ namespace avt.DynamicFlashRotator.Net.WebManage
         string _ReturnUrl;
         public string ReturnUrl { get { return _ReturnUrl; } set { _ReturnUrl = value; } }
 
+        string _BuyUrl;
+        public string BuyUrl { get { return _BuyUrl; } set { _BuyUrl = value; } }
+
         protected int LastUpdate;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -127,7 +130,19 @@ namespace avt.DynamicFlashRotator.Net.WebManage
             return ts.TotalMilliseconds;
         }
 
-        protected void SaveSettings(object sender, EventArgs e)
+        protected void SaveSettingsAndClose(object sender, EventArgs e)
+        {
+            SaveSettings();
+            Response.Redirect(ReturnUrl);
+        }
+
+        protected void SaveSettingsAndRefresh(object sender, EventArgs e)
+        {
+            SaveSettings();
+            Response.Redirect(Request.RawUrl);
+        }
+
+        void SaveSettings()
         {
             RotatorSettings settings = new RotatorSettings();
             settings.LoadFromDB(Request.QueryString["controlId"]);
@@ -269,8 +284,6 @@ namespace avt.DynamicFlashRotator.Net.WebManage
             foreach (int slideId in existingSlides) {
                 DataProvider.Instance().RemoveSlide(slideId);
             }
-            
-            Response.Redirect(ReturnUrl);
         }
 
 

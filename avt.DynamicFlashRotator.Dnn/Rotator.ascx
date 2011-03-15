@@ -2,6 +2,6 @@
 
 <%@ Register assembly="avt.DynamicFlashRotator.Net" namespace="avt.DynamicFlashRotator.Net" tagprefix="avt" %>
 
-<avt:DynamicRotator ID="DynamicRotator" runat="server" EnableRuntimeConfiguration="True"> 
+<avt:DynamicRotator ID="DynamicRotator" runat="server" AllowRuntimeConfiguration="True"> 
 </avt:DynamicRotator>
 

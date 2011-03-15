@@ -7,7 +7,8 @@
     <div style="width: 1000px; margin: auto;">
         <div class="btnPane" style="display: none;">
             <a href = "<%= ReturnUrl %>" style="color: #525252; padding: 1px 10px; margin-right: 10px; font-weight: normal;" >Cancel</a>
-            <asp:Button runat="server" ID="btnSaveTop" OnClick="SaveSettings" class="ui-state-default" style="padding: 4px 10px;" Text="Save" OnClientClick="if (!save()) return false;" UseSubmitBehavior="false" />
+            <asp:Button runat="server" OnClick="SaveSettingsAndRefresh" class="ui-state-default" style="padding: 4px 10px;" Text="Save" OnClientClick="if (!save()) return false;" UseSubmitBehavior="false" />
+            <asp:Button runat="server" OnClick="SaveSettingsAndClose" class="ui-state-default" style="padding: 4px 10px;" Text="Save &amp; Close" OnClientClick="if (!save()) return false;" UseSubmitBehavior="false" />
         </div>
 
         <h1 class="manageTitle" style="font-weight:normal; color: #626262; font-family: georgia; font-size: 18px; font-weight: normal; letter-spacing: 1px;">
@@ -476,7 +477,7 @@
 
             <br /><br />
             <div>
-                To activate this package you need a License Key. If you don't have one yet you can <a style="color: #1C94C4;" href = "<%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.BuyLink %>">Purchase a License from Snowcovered</a>.
+                To activate this package you need a License Key. If you don't have one yet you can <a style="color: #1C94C4;" href = "<%= BuyUrl %>">Purchase a License here</a>.
 
                 <br /><br />
                 If you already have a license, proceed to <a href = "<%= TemplateSourceDirectory %>/Activation.aspx?rurl=<%= Server.UrlEncode(Request.RawUrl) %>" style="color: #1C94C4; font-weight: bold;">Activation Wizard</a>.
@@ -489,13 +490,15 @@
 <div class="footer">
     <div style="width: 1000px; margin: auto;">
         <div style="float: left;">
+            <a href = "http://www.avatar-soft.ro/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx">Read more about Dynamic Redirect .NET</a> |
+            <a href ="<%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.DocSrv %>">Browse Documentation</a>
+            <br /><br />
             Version <%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.VersionAll %> by <a href = "http://www.avatar-soft.ro" style="color: #C77405;">Avatar Software</a>
-            <br />
-            <a href = "http://www.avatar-soft.ro/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx">Read more about Dynamic Redirect .NET...</a>
         </div>
         <div class="btnPane" style="display: none;">
             <a href = "<%= ReturnUrl %>" style="color: #525252; padding: 1px 10px; margin-right: 10px; font-weight: normal;" >Cancel</a>
-            <asp:Button runat="server" ID="btnSaveBottom" OnClick="SaveSettings" class="ui-state-default" style="padding: 4px 10px;" Text="Save" OnClientClick="if (!save()) return false;" UseSubmitBehavior="false" />
+            <asp:Button runat="server" OnClick="SaveSettingsAndRefresh" class="ui-state-default" style="padding: 4px 10px;" Text="Save" OnClientClick="if (!save()) return false;" UseSubmitBehavior="false" />
+            <asp:Button runat="server" OnClick="SaveSettingsAndClose" class="ui-state-default" style="padding: 4px 10px;" Text="Save &amp; Close" OnClientClick="if (!save()) return false;" UseSubmitBehavior="false" />
         </div>
         <div style="clear:both;"></div>
     </div>
@@ -1375,6 +1378,9 @@ jQuery(document).ready(function() {
         });
         x += "</slides>";
         jQuery("#<%=hdnSlideXml.ClientID %>").val(encodeXml(x));
+
+        // stop timers
+        clearInterval(g_checkUpdateTimer);
 
         return true;
     }

@@ -44,7 +44,7 @@
         
         <div class = "instructions">
             Please input the registration code you've received on email.<br />
-            If you don't have one yet, <a href = "<%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.BuyLink %>">click here</a> to purchase a new license.
+            If you don't have one yet, <a href = "<%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.BuyLink %>&aspnet=true">click here</a> to purchase a new license.
         </div>
         
         <div class = "reg_code" runat = "server" id = "pnlRegCode" style = "margin-top: 20px;">
