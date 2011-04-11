@@ -312,8 +312,10 @@
                         </div>
                             
                         <div class = "fieldRow ui-widget-content pnlLinkButtonCaption" style="clear: left; padding-left: 30px;">
-                            <b>Button Caption: </b> 
-                            <input type="text" class="tbLinkCaption tooltip_hover" style = "width: 200px;" value="<%= DefaultSlide.ButtonCaption %>" title="This fields determines the label of the Link Button." />
+                            <b>Caption: </b> 
+                            <input type="text" class="tbLinkCaption tooltip_hover" style = "width: 80px;" value="<%= DefaultSlide.ButtonCaption %>" title="This fields determines the label of the Link Button." />
+                            <b>Color:</b> <span><input type="text" style = "width: 60px;" class="tbColor tbBtnTextColor" value="<%= avt.DynamicFlashRotator.Net.ColorExt.ColorToHexString(DefaultSlide.BtnTextColor) %>" />&nbsp;&nbsp;&nbsp;</span>
+                            <b>Background:</b> <span><input type="text" style = "width: 60px;" class="tbColor tbBtnBackColor" value="<%= avt.DynamicFlashRotator.Net.ColorExt.ColorToHexString(DefaultSlide.BtnBackColor) %>" />&nbsp;&nbsp;&nbsp;</span>
                         </div>
 
                     </div>
@@ -1026,6 +1028,8 @@ jQuery(document).ready(function() {
             _item.find(".pnlSlideOptsContent").show();
         }
 
+        checkLinkCaption(_item.find('.pnlSlideOptsLink:first'), false);
+
         return _item;
     }
 
@@ -1042,6 +1046,8 @@ jQuery(document).ready(function() {
         fillUrl(slideRoot.find(".tbLinkUrl"), slideRoot.find(".ddLinkUrl"), slide.linkUrl);
         if (slide.linkCaption.length > 0) {
             slideRoot.find(".tbLinkCaption").val(slide.linkCaption);
+            slideRoot.find(".tbBtnTextColor").val(slide.btnTextColor);
+            slideRoot.find(".tbBtnBackColor").val(slide.btnBackColor);
             slideRoot.find(".cbLinkCaption").attr("checked","checked");
         } else {
             checkLinkCaption(slideRoot.find('.pnlSlideOptsLink:first'), false);
@@ -1405,6 +1411,9 @@ jQuery(document).ready(function() {
 
         x += "<linkUrl>"+ encodeXml(formatUrl(slideRoot.find(".tbLinkUrl"))) +"</linkUrl>";
         x += "<linkCaption>"+ ( slideRoot.find(".cbLinkCaption:checked").size() == 0 ? "" : encodeXml(slideRoot.find(".tbLinkCaption").val()) ) +"</linkCaption>";
+        x += "<btnTextColor>"+ encodeXml(slideRoot.find(".tbBtnTextColor").val()) +"</btnTextColor>";
+        x += "<btnBackColor>"+ encodeXml(slideRoot.find(".tbBtnBackColor").val()) +"</btnBackColor>";
+        
         x += "<linkTarget>"+ encodeXml(slideRoot.find(".ddLinkTarget").val() == "other" ? slideRoot.find(".tbLinkTarget").val() : slideRoot.find(".ddLinkTarget").val()) +"</linkTarget>";
         x += "<linkClickAnywhere>"+ (slideRoot.find(".cbLinkAnywhere:checked").size() > 0 ? "true" : "false") +"</linkClickAnywhere>";
         //x += "<useTextsBk>"+ (slideRoot.find(".cbUseTextsBackground").val() ? "true" : "false") +"</useTextsBk>";

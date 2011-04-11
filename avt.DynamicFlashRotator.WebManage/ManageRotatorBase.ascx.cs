@@ -207,6 +207,9 @@ namespace avt.DynamicFlashRotator.Net.WebManage
                     slide.BackgroundGradientTo = Color.FromArgb(Convert.ToInt32(xmlSlide["bkGradTo"].InnerText.Replace("#", "0x"), 16)); 
                     slide.SlideUrl = xmlSlide["linkUrl"].InnerText;
                     slide.ButtonCaption = xmlSlide["linkCaption"].InnerText;
+                    slide.BtnTextColor = Color.FromArgb(Convert.ToInt32(xmlSlide["btnTextColor"].InnerText.Replace("#", "0x"), 16));
+                    slide.BtnBackColor = Color.FromArgb(Convert.ToInt32(xmlSlide["btnBackColor"].InnerText.Replace("#", "0x"), 16));
+
                     slide.Target = xmlSlide["linkTarget"].InnerText;
                     //slide.UseTextsBackground = xmlSlide["useTextsBk"].InnerText == "true";
                     slide.UseTextsBackground = true;

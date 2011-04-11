@@ -139,6 +139,14 @@ namespace avt.DynamicFlashRotator.Net
         [Category("Slide.Link")]
         public string ButtonCaption { get { return _ButtonCaption; } set { _ButtonCaption = value; } }
 
+        Color _BtnTextColor = Color.White;
+        [Category("Slide.Link")]
+        public Color BtnTextColor { get { return _BtnTextColor; } set { _BtnTextColor = value; } }
+
+        Color _BtnBackColor = Color.FromArgb(0xFF, 0x21, 0x21, 0x82);
+        [Category("Slide.Link")]
+        public Color BtnBackColor { get { return _BtnBackColor; } set { _BtnBackColor = value; } }
+
         string _Target = "_self";
         [Category("Slide.Link")]
         public string Target { get { return _Target; } set { _Target = value; } }
@@ -207,6 +215,8 @@ namespace avt.DynamicFlashRotator.Net
 
             try { SlideUrl = dr["Link_Url"].ToString(); } catch { }
             try { ButtonCaption = dr["Link_Caption"].ToString(); } catch { }
+            try { BtnTextColor = System.Drawing.Color.FromArgb(Convert.ToInt32(dr["BtnTextColor"].ToString().Replace("#", "0x"), 16)); } catch { }
+            try { BtnBackColor = System.Drawing.Color.FromArgb(Convert.ToInt32(dr["BtnBackColor"].ToString().Replace("#", "0x"), 16)); } catch { }
             try { Target = dr["Link_Target"].ToString(); } catch { }
             try { UseTextsBackground = dr["Link_UseTextsBackground"].ToString() == "1"; } catch { }
             try { ClickAnywhere = dr["Link_ClickAnywhere"].ToString() == "1"; } catch { }
@@ -261,6 +271,8 @@ namespace avt.DynamicFlashRotator.Net
 
                 SlideUrl,
                 ButtonCaption,
+                ColorExt.ColorToHexString(BtnTextColor),
+                ColorExt.ColorToHexString(BtnBackColor),
                 Target,
                 UseTextsBackground,
                 ClickAnywhere,
@@ -299,6 +311,8 @@ namespace avt.DynamicFlashRotator.Net
 
             sbJson.AppendFormat("linkUrl:\"{0}\",", SlideUrl);
             sbJson.AppendFormat("linkCaption:\"{0}\",", ButtonCaption);
+            sbJson.AppendFormat("btnTextColor:\"{0}\",", ColorExt.ColorToHexString(BtnTextColor));
+            sbJson.AppendFormat("btnBackColor:\"{0}\",", ColorExt.ColorToHexString(BtnBackColor));
             sbJson.AppendFormat("linkTarget:\"{0}\",", Target);
             sbJson.AppendFormat("useTextsBk:{0},", UseTextsBackground ? "true" : "false");
             sbJson.AppendFormat("linkClickAnywhere:{0},", ClickAnywhere ? "true" : "false");
@@ -334,6 +348,8 @@ namespace avt.DynamicFlashRotator.Net
 
             try { SlideUrl = rootNode["Link_Url"].InnerText; } catch { }
             try { ButtonCaption = rootNode["Link_Caption"].InnerText; } catch { }
+            try { BtnTextColor = System.Drawing.Color.FromArgb(Convert.ToInt32(rootNode["BtnTextColor"].InnerText.Replace("#", "0x"), 16)); } catch { }
+            try { BtnBackColor = System.Drawing.Color.FromArgb(Convert.ToInt32(rootNode["BtnBackColor"].InnerText.Replace("#", "0x"), 16)); } catch { }
             try { Target = rootNode["Link_Target"].InnerText; } catch { }
             try { UseTextsBackground = rootNode["Link_UseTextsBackground"].InnerText == "true"; } catch { }
             try { ClickAnywhere = rootNode["Link_ClickAnywhere"].InnerText == "true"; } catch { }
@@ -368,6 +384,8 @@ namespace avt.DynamicFlashRotator.Net
             // link node and attributes
             Writer.WriteElementString("Link_Url", SlideUrl);
             Writer.WriteElementString("Link_Caption", ButtonCaption);
+            Writer.WriteElementString("BtnTextColor", ColorExt.ColorToHexString(BtnTextColor));
+            Writer.WriteElementString("BtnBackColor", ColorExt.ColorToHexString(BtnBackColor));
             Writer.WriteElementString("Link_Target", Target);
             Writer.WriteElementString("Link_UseTextsBackground", UseTextsBackground ? "true" : "false");
             Writer.WriteElementString("Link_ClickAnywhere", ClickAnywhere ? "true" : "false");
@@ -430,6 +448,8 @@ namespace avt.DynamicFlashRotator.Net
             if (!string.IsNullOrEmpty(ButtonCaption) && !string.IsNullOrEmpty(SlideUrl)) {
                 Writer.WriteAttributeString("btnName", RotatorSettings.Configuration.Tokenize(ControlId, ButtonCaption));
                 Writer.WriteAttributeString("showBtn", "yes");
+                Writer.WriteAttributeString("btnTextColor", ColorExt.ColorToHexString(BtnTextColor).Replace("#", "0x"));
+                Writer.WriteAttributeString("btnBackColor", ColorExt.ColorToHexString(BtnBackColor).Replace("#", "0x"));
             } else {
                 Writer.WriteAttributeString("btnName", "");
                 Writer.WriteAttributeString("showBtn", "no");

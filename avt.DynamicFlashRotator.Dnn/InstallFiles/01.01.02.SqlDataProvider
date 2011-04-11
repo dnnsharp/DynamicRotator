@@ -1,0 +1,19 @@
+﻿
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+ALTER TABLE {databaseOwner}[{objectQualifier}avtRotator_Slides] ADD BtnTextColor nvarchar(30) NULL
+GO
+
+ALTER TABLE {databaseOwner}[{objectQualifier}avtRotator_Slides] ADD BtnBackColor nvarchar(30) NULL
+GO
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
