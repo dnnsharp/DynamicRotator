@@ -53,6 +53,40 @@
                 </td>
             </tr>
             <tr>
+                <td class="settingField" style="width: 200px;">
+                    <asp:Label runat="server" AssociatedControlID="ddRenderEngine">Render Engine</asp:Label>
+                </td>
+                <td class="settingField">
+                    <asp:DropDownList runat="server" ID="ddRenderEngine"></asp:DropDownList>
+                </td>
+                <td class = "grayed_desc">
+                    Configure what technology to use to render the rotator. If you're not sure, leave Flash which is the most popular method for displaying rotators. 
+                    Please note that not all engines support all options.
+                </td>
+            </tr>
+            <tr>
+                <td class="settingField" style="width: 200px;">
+                    <asp:Label ID="lblFallBackImage" runat="server" AssociatedControlID="tbFallBackImage">Fallback Image</asp:Label>
+                </td>
+                <td class="settingField">
+                    <asp:TextBox runat = "server" ID="tbFallBackImage" class="tbLarge" />
+                </td>
+                <td class = "grayed_desc">
+                    Specify an image to fallback to when the engine selected above (Flash, jQuery) is not available.
+                </td>
+            </tr>
+                    <div class = "fieldRow ui-widget-content" style="clear: left;">
+                            <b>Open </b> 
+                            
+                            <b>in </b> 
+                            <asp:DropDownList runat="server" id="DropDownList1" class="ddLinkTarget tooltip_hover" style="width:130px" onchange="jQuery(this).toggle(jQuery(this).val() != 'other'); jQuery(this).parents('.fieldRow:first').find('.pnlLinkTarget').toggle(jQuery(this).val() == 'other').filter(':visible').find(':input').focus().select();" title="Use this option to determine the browser window where the link will be opened."></asp:DropDownList>
+                            <span class = "pnlLinkTarget" style="display:none;">
+                                <input type="text" class = "tbLinkTarget tooltip_hover" style = "width: 116px; " value="<%= DefaultSlide.Target %>" title="This fields determines the page to redirect to when the user clicks the slide link. Click link next to this field to go back to standard targets drop down." />
+                                <a href = "javascript: ;" onclick="jQuery(this).parents('.pnlLinkTarget:first').hide(); jQuery(this).parents('.fieldRow:first').find('.ddLinkTarget').show().val('_self');">^</a>
+                            </span>
+                        </div>
+
+            <tr>
                 <td class="settingField">
                     <asp:Label runat="server" AssociatedControlID="cbTransparentBackground">Transparent Background</asp:Label>
                 </td>

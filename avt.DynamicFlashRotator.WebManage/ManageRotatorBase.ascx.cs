@@ -72,23 +72,21 @@ namespace avt.DynamicFlashRotator.Net.WebManage
 
                 ddObjAppearFromText.DataSource = Enum.GetNames(typeof(eHorizontadDirs));
                 ddObjAppearFromText.DataBind();
-                //try { ddObjAppearFromText.SelectedValue = DefaultObject.SlideFrom.ToString(); } catch { }
 
                 ddObjAppearFromImage.DataSource = Enum.GetNames(typeof(eAllDirs));
                 ddObjAppearFromImage.DataBind();
-                //try { ddObjAppearFromImage.SelectedValue = DefaultObject.SlideFrom.ToString(); } catch { }
 
                 ddObjMoveType.DataSource = Enum.GetNames(typeof(eMoveType));
                 ddObjMoveType.DataBind();
-                //try { ddObjMoveType.SelectedValue = DefaultObject.SlideMoveType.ToString(); } catch { }
 
                 ddObjEasingType.DataSource = Enum.GetNames(typeof(eEasing));
                 ddObjEasingType.DataBind();
-                //try { ddObjEasingType.SelectedValue = DefaultObject.SlideEasingType.ToString(); } catch { }
 
                 ddObjEffect.DataSource = Enum.GetNames(typeof(eEffect));
                 ddObjEffect.DataBind();
-                //try { ddObjEffect.SelectedValue = DefaultObject.EffectAfterSlide.ToString(); } catch { }
+                
+                ddRenderEngine.DataSource = Enum.GetNames(typeof(eRenderEngine));
+                ddRenderEngine.DataBind();
 
                 // load settings
                 RotatorSettings settings = new RotatorSettings();
@@ -97,6 +95,8 @@ namespace avt.DynamicFlashRotator.Net.WebManage
                 lblControlName.Text = Configuration.FormatTitle(Request.QueryString["controlId"]);
                 tbWidth.Text = settings.Width.Value.ToString();
                 tbHeight.Text = settings.Height.Value.ToString();
+                ddRenderEngine.SelectedValue = settings.RenderEngine.ToString();
+                tbFallBackImage.Text = settings.FallbackImage;
                 cbAutoStartSlideShow.Checked = settings.AutoStartSlideShow;
                 cbUseRoundCornersMask.Checked = settings.UseRoundCornersMask;
                 tbRoundCornerMaskColor.Text = ColorExt.ColorToHexString(settings.RoundCornerMaskColor);
@@ -151,6 +151,8 @@ namespace avt.DynamicFlashRotator.Net.WebManage
 
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "Width", tbWidth.Text);
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "Height", tbHeight.Text);
+            DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "RenderEngine", ddRenderEngine.SelectedValue);
+            DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "FallbackImage", tbFallBackImage.Text);
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "AutoStartSlideShow", cbAutoStartSlideShow.Checked ? "true" : "false");
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "UseRoundCornersMask", cbUseRoundCornersMask.Checked ? "true" : "false");
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "RoundCornerMaskColor", tbRoundCornerMaskColor.Text);

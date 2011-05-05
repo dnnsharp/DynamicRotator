@@ -99,11 +99,11 @@ namespace avt.DynamicFlashRotator.Net
         [Category("General")]
         public string ObjectUrl { get { return _ObjectUrl; } set { _ObjectUrl = value; } }
 
-        int _Xposition = 15;
+        int _Xposition = 0;
         [Category("Position")]
         public int Xposition { get { return _Xposition; } set { _Xposition = value; } }
 
-        int _Yposition = 15;
+        int _Yposition = 0;
         [Category("Position")]
         public int Yposition { get { return _Yposition; } set { _Yposition = value; } }
 

@@ -97,9 +97,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>6119</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://192.168.0.199:50601/DynamicRotator</IISUrl>
+          <IISUrl>http://localhost:50601/DynamicRotator</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://192.168.0.199:50601/Home.aspx</IISAppRootUrl>
+          <IISAppRootUrl>http://localhost:50601/Home.aspx</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

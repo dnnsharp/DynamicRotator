@@ -15,6 +15,7 @@ using avt.DynamicFlashRotator.Net.Services;
 using System.Web.UI.HtmlControls;
 using System.Text.RegularExpressions;
 using avt.DynamicFlashRotator.Net.Services.Authentication;
+using avt.DynamicFlashRotator.Net.RenderEngine;
 
 namespace avt.DynamicFlashRotator.Net
 {
@@ -27,7 +28,7 @@ namespace avt.DynamicFlashRotator.Net
     [Designer(typeof(avt.DynamicFlashRotator.Net.DynamicRotatorDesigner))]
     public class DynamicRotator : WebControl
     {
-        RotatorSettings Settings;
+        public RotatorSettings Settings;
 
         public DynamicRotator()
         {
@@ -46,7 +47,7 @@ namespace avt.DynamicFlashRotator.Net
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-           
+
             // check settings
             if (RotatorSettings.Configuration == null) {
                 if (!string.IsNullOrEmpty(DbConnectionString)) {
@@ -74,6 +75,8 @@ namespace avt.DynamicFlashRotator.Net
                     }
                 }
             }
+
+            Settings.FrontEndRenderEngine.OnLoad(this);
 
             if (Page.Request.Params["controlId"] == RealId) {
                 if (Page.Request.Params["avtadrot"] == "settings") {
@@ -334,7 +337,7 @@ namespace avt.DynamicFlashRotator.Net
                     
                     SlideObjectInfo trialText = new SlideObjectInfo();
                     trialText.ObjectType = eObjectType.Text;
-                    trialText.Text = "<font size='20px' color='#C77405'>Powered by <font size='30px'><i>Dynamic Rotator .NET</i></font> from Avatar Software</font><br/><font color='#525252;' size='14px'><i>This slide is randomly displayed to inform you that this copy is not yet licensed. <br />Refresh page for actual content...</i></font>";
+                    trialText.Text = "<font size='20px' style='font-size:20px;' color='#C77405'>Powered by <font size='30px' style='font-size:30px;'><i>Dynamic Rotator .NET</i></font> from Avatar Software</font><br/><font color='#525252;' size='14px'><i>This slide is randomly displayed to inform you that this copy is not yet licensed. <br />Refresh page for actual content...</i></font>";
                     trialText.Yposition = 70;
                     trialText.Xposition = 240;
 
@@ -388,38 +391,13 @@ namespace avt.DynamicFlashRotator.Net
             //Page.ClientScript.RegisterClientScriptInclude("AC_RunActiveContent", TemplateSourceDirectory + "/flash/AC_RunActiveContent.js");
             //Page.ClientScript.RegisterClientScriptBlock(GetType(), "AC_FL_RunContent", "AC_FL_RunContent = 0;", true);
 
-            // render the flash
-            string flashUrl = Page.ClientScript.GetWebResourceUrl(GetType(), "avt.DynamicFlashRotator.Net.flash.rotator-v2-5.swf");
-            string timestamp = Settings.LastUpdate.ToFileTime().ToString();
+            Settings.FrontEndRenderEngine.Render(this, output);
 
-            string settingsUrl = Page.Request.RawUrl;
-            settingsUrl += (settingsUrl.IndexOf('?') > 0 ? (settingsUrl.IndexOf('?') != settingsUrl.Length - 1 ? "&" : "") : "?") + "avtadrot=settings&t=" + timestamp;
-            settingsUrl += "&controlId=" + RealId;
-            settingsUrl = HttpUtility.UrlEncode(settingsUrl);
+            //IRenderEngine feng = new FlashEngine();
+            //feng.Render(this, output);
 
-            string contentUrl = Page.Request.RawUrl;
-            contentUrl += (contentUrl.IndexOf('?') > 0 ? (contentUrl.IndexOf('?') != contentUrl.Length - 1 ? "&" : "") : "?") + "avtadrot=content&t=" + timestamp;
-            contentUrl += "&controlId=" + RealId;
-            contentUrl = HttpUtility.UrlEncode(contentUrl);
-
-            string transitionsUrl = Page.Request.RawUrl;
-            transitionsUrl += (transitionsUrl.IndexOf('?') > 0 ? (transitionsUrl.IndexOf('?') != transitionsUrl.Length - 1 ? "&" : "") : "?") + "avtadrot=transitions&t=" + timestamp;
-            transitionsUrl += "&controlId=" + RealId;
-            transitionsUrl = HttpUtility.UrlEncode(transitionsUrl);
-
-            output.Write(
-                //"<script type=\"text/javascript\">AC_FL_RunContent( 'codebase','http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0','width','950','height','250','src','" + flashUrl + "?settingsxml=settings_v2_simple.xml&contentxml=content_v2_simple.xml&transitionsxml=transitions.xml','quality','high','pluginspage','http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash','movie','" + flashUrl + "?settingsxml=settings_v2_simple.xml&contentxml=content_v2_simple.xml&transitionsxml=transitions.xml' ); //end AC code</script>" +
-                //"<noscript>" +
-                "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0\" width=\"" + Width.Value + "\" height=\"" + Height.Value + "\">" +
-                    "<param name=\"movie\" value=\"" + flashUrl + "&settingsxml=" + settingsUrl + "&contentxml=" + contentUrl + "&transitionsxml=" + transitionsUrl + "\">" +
-                    "<param name=\"quality\" value=\"high\">" +
-                    "<param name=\"wmode\" value=\"transparent\">" +
-                    //(Settings.TransparentBackground ? "<param name=\"wmode\" value=\"transparent\">" : "") +
-                    "<embed src=\"" + flashUrl + "&settingsxml=" + settingsUrl + "&contentxml=" + contentUrl + "&transitionsxml=" + transitionsUrl + "\" quality=\"high\" pluginspage=\"http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash\" type=\"application/x-shockwave-flash\" width=\"" + Width.Value + "\" height=\"" + Height.Value + "\" wmode=\"transparent\"></embed>" +
-                "</object>"
-                // + "</noscript>"
-            );
-
+            //IRenderEngine jeng = new jQueryEngine();
+            //jeng.Render(this, output);
 
             if (!RotatorSettings.IsActivated() && HttpContext.Current.Request.Url.Host != "localhost") {
                 Random r = new Random();
@@ -494,8 +472,8 @@ namespace avt.DynamicFlashRotator.Net
 
             SlideObjectInfo slide1Text = new SlideObjectInfo();
             slide1Text.ObjectType = eObjectType.Text;
-            slide1Text.Text = "<font size='20px' color='#e24242'>This <i>Dynamic Rotator</i> has not been configured yet!<font size='30px'></font><br/>";
-            slide1Text.Text += "<font size='14px' color='#C77405'>Start by locating the Manage links below the rotator...</font>";
+            slide1Text.Text = "<font size='20px' style='font-size:20px;' color='#e24242'>This <i>Dynamic Rotator</i> has not been configured yet!<font size='30px' style='font-size:30px;'></font><br/>";
+            slide1Text.Text += "<font size='14px' style='font-size:14px;' color='#C77405'>Start by locating the Manage links below the rotator...</font>";
             slide1Text.Yposition = 140;
             slide1Text.Xposition = 280;
             slide1Text.TextBackgroundColor = Color.FromArgb(0xC77405);
@@ -524,9 +502,8 @@ namespace avt.DynamicFlashRotator.Net
 
             SlideObjectInfo slide2Text = new SlideObjectInfo();
             slide2Text.ObjectType = eObjectType.Text;
-            slide2Text.Text = "<font size='20px' color='#e24242'>Add Slides and Content!</font><br/><br/>";
-            slide2Text.Text += "<font size='14px' color='#C77405'>Use the Administration Console to add <br/>as many slides as you need which can contain <br/>text, images and other flash movies.</font><br /><br />";
-            //slide2Text.Text += "<font size='14px' color='#C77405'>Explore lots of options available for .<span>";
+            slide2Text.Text = "<font size='20px' style='font-size:20px;' color='#e24242'>Add Slides and Content!</font><br/><br/>";
+            slide2Text.Text += "<font size='14px' style='font-size:14px;' color='#C77405'>Use the Administration Console to add <br/>as many slides as you need which can contain <br/>text, images and other flash movies.</font><br /><br />";
             slide2Text.Yposition = 40;
             slide2Text.Xposition = 20;
             slide2Text.TextBackgroundColor = Color.FromArgb(0xC77405);
@@ -557,8 +534,8 @@ namespace avt.DynamicFlashRotator.Net
 
             SlideObjectInfo slide3Text = new SlideObjectInfo();
             slide3Text.ObjectType = eObjectType.Text;
-            slide3Text.Text = "<font size='20px' color='#C77405'><font size='30px'><i>Dynamic Rotator .NET</i></font> from Avatar Software</font><br/>";
-            slide3Text.Text += "<font color='#525252;' size='14px'><i>Explore thousands of possibilities easily achieveable with our <br />simple and powerful Administration Console...</i></font>";
+            slide3Text.Text = "<font size='20px' style='font-size:20px;' color='#C77405'><font size='30px' style='font-size:30px;'><i>Dynamic Rotator .NET</i></font> from Avatar Software</font><br/>";
+            slide3Text.Text += "<font color='#525252;' size='14px' style='font-size:14px;'><i>Explore thousands of possibilities easily achieveable with our <br />simple and powerful Administration Console...</i></font>";
             slide3Text.Yposition = 60;
             slide3Text.Xposition = 50;
 
@@ -594,7 +571,7 @@ namespace avt.DynamicFlashRotator.Net
 
             SlideObjectInfo slide1Text = new SlideObjectInfo();
             slide1Text.ObjectType = eObjectType.Text;
-            slide1Text.Text = "<font size='20px' color='#e24242'>" + message + "</font>";
+            slide1Text.Text = "<font size='20px' style='font-size:20px;' color='#e24242'>" + message + "</font>";
             slide1Text.Yposition = 20;
             slide1Text.Xposition = 20;
             slide1Text.SlideFrom = eAllDirs.Left;

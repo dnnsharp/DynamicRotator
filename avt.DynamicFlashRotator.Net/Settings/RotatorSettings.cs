@@ -11,9 +11,19 @@ using System.Xml.Xsl;
 using System.IO;
 using avt.DynamicFlashRotator.Net.Services;
 using System.Web;
+using avt.DynamicFlashRotator.Net.Serialization;
+using avt.DynamicFlashRotator.Net.RenderEngine;
 
 namespace avt.DynamicFlashRotator.Net.Settings
 {
+    
+    public enum eRenderEngine
+    {
+        Flash,
+        jQuery
+    }
+
+
     public class RotatorSettings
     {
         //string RotatorId;
@@ -39,7 +49,6 @@ namespace avt.DynamicFlashRotator.Net.Settings
             }
         }
 
-
         //public void Init(string rotatorId, IConfiguration config)
         //{
         //    RotatorId = rotatorId;
@@ -53,6 +62,12 @@ namespace avt.DynamicFlashRotator.Net.Settings
 
         Unit _Height = 250;
         public Unit Height { get { return _Height; } set { _Height = value; } }
+
+        eRenderEngine _RenderEngine = eRenderEngine.Flash;
+        public eRenderEngine RenderEngine { get { return _RenderEngine; } set { _RenderEngine = value; } }
+
+        string _FallbackImage = "";
+        public string FallbackImage { get { return _FallbackImage; } set { _FallbackImage = value; } }
 
         bool _AutoStartSlideShow = true;
         public bool AutoStartSlideShow { get { return _AutoStartSlideShow; } set { _AutoStartSlideShow = value; } }
@@ -120,6 +135,16 @@ namespace avt.DynamicFlashRotator.Net.Settings
 
         #endregion
 
+        public IRenderEngine FrontEndRenderEngine {
+            get {
+                switch (RenderEngine) {
+                    case eRenderEngine.jQuery:
+                        return new jQueryEngine();
+                    default:
+                        return new FlashEngine();
+                }
+            }
+        }
 
         public bool LoadFromDB(string RotatorId) // string connStr, string dbOwner, string objQualifier)
         {
@@ -144,6 +169,14 @@ namespace avt.DynamicFlashRotator.Net.Settings
                             try {
                                 Height = Convert.ToInt32(val);
                             } catch { }
+                            break;
+                        case "RenderEngine":
+                            try {
+                                RenderEngine = (eRenderEngine)Enum.Parse(typeof(eRenderEngine), val, true);
+                            } catch { RenderEngine = eRenderEngine.Flash; }
+                            break;
+                        case "FallbackImage":
+                            FallbackImage = val;
                             break;
                         case "AutoStartSlideShow":
                             AutoStartSlideShow = val == "true";
@@ -252,6 +285,8 @@ namespace avt.DynamicFlashRotator.Net.Settings
             // load settings
             try { DataProvider.Instance().UpdateSetting(controlId, "Width", rootNode["Width"].InnerText); } catch { }
             try { DataProvider.Instance().UpdateSetting(controlId, "Height", rootNode["Height"].InnerText); } catch { }
+            try { DataProvider.Instance().UpdateSetting(controlId, "RenderEngine", rootNode["RenderEngine"].InnerText); } catch { }
+            try { DataProvider.Instance().UpdateSetting(controlId, "FallbackImage", rootNode["FallbackImage"].InnerText); } catch { }
             try { DataProvider.Instance().UpdateSetting(controlId, "AutoStartSlideShow", rootNode["AutoStartSlideShow"].InnerText); } catch { }
             try { DataProvider.Instance().UpdateSetting(controlId, "UseRoundCornersMask", rootNode["UseRoundCornersMask"].InnerText); } catch { }
             try { DataProvider.Instance().UpdateSetting(controlId, "RoundCornerMaskColor", rootNode["RoundCornerMaskColor"].InnerText); } catch { }
@@ -288,6 +323,8 @@ namespace avt.DynamicFlashRotator.Net.Settings
             // save settings
             Writer.WriteElementString("Width", Width.Value.ToString());
             Writer.WriteElementString("Height", Height.Value.ToString());
+            Writer.WriteElementString("RenderEngine", RenderEngine.ToString());
+            Writer.WriteElementString("FallbackImage", FallbackImage);
             Writer.WriteElementString("AutoStartSlideShow", AutoStartSlideShow ? "true" : "false");
             Writer.WriteElementString("UseRoundCornersMask", UseRoundCornersMask ? "true" : "false");
             Writer.WriteElementString("RoundCornerMaskColor", ColorExt.ColorToHexString(RoundCornerMaskColor));
@@ -346,6 +383,7 @@ namespace avt.DynamicFlashRotator.Net.Settings
             Writer.WriteStartElement("settings");
             Writer.WriteElementString("stageWidth", Width.Value.ToString());
             Writer.WriteElementString("stageHeight", Height.Value.ToString());
+            //Writer.WriteElementString("renderEngine", RenderEngine.ToString());
             Writer.WriteElementString("startSlideShow", AutoStartSlideShow ? "yes" : "no");
             Writer.WriteElementString("useRoundCornersMask", UseRoundCornersMask ? "yes" : "no");
             Writer.WriteElementString("roundCornerMaskColor", ColorExt.ColorToHexString(RoundCornerMaskColor).Replace("#","0x"));
@@ -372,6 +410,44 @@ namespace avt.DynamicFlashRotator.Net.Settings
             return strXML.ToString();
         }
 
+
+        public string ToJson()
+        {
+            JsonResponseWriter rw = new JsonResponseWriter();
+
+            rw.BeginObject("settings");
+            rw.WriteProperty("stageWidth", Width.Value);
+            rw.WriteProperty("stageHeight", Height.Value);
+            //rw.WriteProperty("renderEngine", RenderEngine.ToString());
+            rw.WriteProperty("startSlideShow", AutoStartSlideShow ? "yes" : "no");
+            rw.WriteProperty("useRoundCornersMask", UseRoundCornersMask ? "yes" : "no");
+            rw.WriteProperty("roundCornerMaskColor", ColorExt.ColorToHexString(RoundCornerMaskColor));
+            rw.WriteProperty("showBottomButtons", ShowBottomButtons ? "yes" : "no");
+            rw.WriteProperty("showPlayPauseControls", ShowPlayPauseControls ? "yes" : "no");
+            rw.WriteProperty("fadeColor", ColorExt.ColorToHexString(FadeColor));
+            rw.WriteProperty("showTopTitle", ShowTopTitle ? "yes" : "no");
+            rw.WriteProperty("topTitleBackground", ColorExt.ColorToHexString(TopTitleBackground));
+            rw.WriteProperty("topTitleBgTransparency", TopTitleBgTransparency.ToString());
+            rw.WriteProperty("topTitleTextColor", ColorExt.ColorToHexString(TopTitleTextColor));
+            rw.WriteProperty("showTimerBar", ShowTimerBar ? "yes" : "no");
+            rw.WriteProperty("smallButtonsColor", ColorExt.ColorToHexString(SlideButtonsColor));
+            rw.WriteProperty("smallButtonsNumberColor", ColorExt.ColorToHexString(SlideButtonsNumberColor));
+            rw.WriteProperty("smallButtonsType", (int)SlideButtonsType);
+            rw.WriteProperty("smallButtonsXoffset", SlideButtonsXoffset);
+            rw.WriteProperty("smallButtonsYoffset", SlideButtonsYoffset);
+            rw.WriteProperty("transparentBackground", TransparentBackground ? "yes" : "no");
+
+            rw.WriteProperty("DebugMode", DebugMode ? "on" : "off");
+            rw.BeginArray("slides");
+            foreach (SlideInfo slide in Slides) {
+                rw.WritePropertyLiteral("", slide.ToDesignerJson());
+            }
+            rw.EndArray(); // "slides"
+
+            rw.EndObject(); // "settings";
+
+            return rw.ToString();
+        }
 
         public static string JsonEncode(string s)
         {
