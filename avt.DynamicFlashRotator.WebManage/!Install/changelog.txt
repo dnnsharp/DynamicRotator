@@ -1,6 +1,14 @@
 What's new in Dynamic Rotator .NET?
 --------------------------------------------------------------------------
 
+1.2.0
+
+    * Added jQuery rendering engine (note that not all options are supported)
+    * Added fallback image when flash is not available
+    * Added option to specify foreground and background color for slide link button
+    * Fixed slide title from displaying undefined when hovering slide buttons
+    * Fixed invalid URLs for child portals URLs
+	
 1.1.0
 
     * Implemented IPortable, so slides can now be exported/imported

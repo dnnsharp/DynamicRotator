@@ -1,6 +1,6 @@
 ﻿<dotnetnuke version="5.0" type="Package" xmlns:fo="http://www.w3.org/1999/XSL/Format">
  <packages>
-  <package name="avt.Dynamic Rotator.NET" type="Module" version="01.01.02">
+  <package name="avt.Dynamic Rotator.NET" type="Module" version="01.02.00">
    <friendlyName>avt.Dynamic Rotator.NET</friendlyName>
    <description>Dynamic Rotator .NET is a powerfull tool which will help you create exactly the look and feel you've been searching for your website! You can use it in many different ways: a classic animated banner, products gallery, photo slide show, complex ads rotator, etc. Why waste time explaining your vision when you can shape it yourself in  minutes!</description>
    <owner>
@@ -30,12 +30,12 @@ This software is provided "AS IS," without a warranty of any kind. ALL EXPRESS O
             What's new?
         </h2>
         <br>
-        <div style="font-size: 11px; margin: 4px 0pt 0pt 10px;"><b>[1.1.0]</b><ul style="font-size: 12px; color: rgb(66, 66, 66);"><li style="margin: 5px;">Implemented IPortable, so slides can now be exported/imported</li><li style="margin: 5px;">Added Browse Server function to be able to select from available images in the portal home folder</li><li style="margin: 5px;">Implemented Text Width that will determine where the text wraps (by default, it takes all available space)</li><li style="margin: 5px;">Added Order Customization tab with 6 options</li><li style="margin: 5px;">Switched Manage Screen to fixed width</li><li style="margin: 5px;">Auto fill protocol dropdown for URL fields on copy/paste and when typing</li></ul>
-        [1.0.0]
-        <ul style="font-size: 12px; color: rgb(66, 66, 66);"><li style="margin: 5px;">Initial Version</li></ul>
-        <br />
-        <a href = "http://www.avatar-soft.ro/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx" target="_blank">Read more...<a/>
-        <br /><br />
+        <div style="font-size: 11px; margin: 4px 0pt 0pt 10px;"><b>[1.2.0]</b><ul style="font-size: 12px; color: rgb(66, 66, 66);"><li style="margin: 5px;">Added jQuery rendering engine (note that not all options are supported)</li><li style="margin: 5px;">Added fallback image when flash is not available</li><li style="margin: 5px;">Added option to specify foreground and background color for slide link button</li><li style="margin: 5px;">Fixed slide title from displaying undefined when hovering slide buttons</li><li style="margin: 5px;">Fixed invalid URLs for child portals URLs</li></ul>
+		[1.1.0]
+		<ul style="font-size: 12px; color: rgb(66, 66, 66);"><li style="margin: 5px;">Implemented IPortable, so slides can now be exported/imported</li><li style="margin: 5px;">Add Browse Server function to be able to select from available images in the portal home folder</li><li style="margin: 5px;">Implemented Text Width that will determine where the text wraps (by default, it takes all available space)</li><li style="margin: 5px;">Add Order Customization tab with 6 options</li><li style="margin: 5px;">Switched Manage Screen to fixed width</li><li style="margin: 5px;">Auto fill protocol dropdown for URL fields on copy/paste and when typing</li></ul>
+		[1.0.0]
+		<ul style="font-size: 12px; color: rgb(66, 66, 66);"><li style="margin: 5px;">Initial Version</li></ul><a href="http://www.avatar-soft.ro/Download/tabid/63/ctl/Changelog/mid/752/product/ADROT/Default.aspx">Read Full Changelog...</a></div>
+		<br /><br />
 ]]>
    </releaseNotes>
    <dependencies />
@@ -57,7 +57,7 @@ This software is provided "AS IS," without a warranty of any kind. ALL EXPRESS O
       </script>
       <script type="UnInstall">
        <name>Uninstall.SqlDataProvider</name>
-       <version>01.00.00</version>
+       <version>01.02.00</version>
       </script>
      </scripts>
     </component>
@@ -67,17 +67,17 @@ This software is provided "AS IS," without a warranty of any kind. ALL EXPRESS O
       <assembly>
        <name>avt.DynamicFlashRotator.Net.dll</name>
        <sourceFileName>avt.DynamicFlashRotator.Net.dll</sourceFileName>
-       <version>01.01.00</version>
+       <version>01.02.00</version>
       </assembly>
       <assembly>
        <name>avt.DynamicFlashRotator.WebManage.dll</name>
        <sourceFileName>avt.DynamicFlashRotator.WebManage.dll</sourceFileName>
-       <version>01.01.00</version>
+       <version>01.02.00</version>
       </assembly>
       <assembly>
        <name>avt.DynamicFlashRotator.Dnn.dll</name>
        <sourceFileName>avt.DynamicFlashRotator.Dnn.dll</sourceFileName>
-       <version>01.01.00</version>
+       <version>01.02.00</version>
       </assembly>
      </assemblies>
     </component>

@@ -6,7 +6,7 @@
    <foldername>AvatarSoft\DynamicRotator</foldername>
    <modulename>avt.Dynamic Rotator.NET</modulename>
    <description>Dynamic Rotator .NET is a powerfull tool which will help you create exactly the look and feel you've been searching for your website! You can use it in many different ways: a classic animated banner, products gallery, photo slide show, complex ads rotator, etc. Why waste time explaining your vision when you can shape it yourself in  minutes!</description>
-   <version>01.01.02</version>
+   <version>01.02.00</version>
    <businesscontrollerclass>avt.DynamicFlashRotator.Dnn.DynamicRotatorController, avt.DynamicFlashRotator.Dnn</businesscontrollerclass>
    <resourcefile>Resources.zip</resourcefile>
    <modules>
