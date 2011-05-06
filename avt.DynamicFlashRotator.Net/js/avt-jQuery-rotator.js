@@ -398,7 +398,7 @@
             this.settings.paused = true;
         };
 
-        this.settings.paused = _self.settings.startSlideShow != "yes";
+        this.settings.paused = this.settings.startSlideShow != "yes";
         this.settings.slideStart = new Date().getTime();
 
         var _self = this;
@@ -409,18 +409,19 @@
         // update progressbar
         if (this.settings.showTimerBar == "yes") {
             setInterval(function () {
+                var _pc = _self.container.find(".avtProgress");
                 if (_self.settings.paused) {
-                    _self.container.find(".avtProgress").hide();
+                    _pc.hide();
                 } else {
                     if (_self.settings.currentSlide == -1 || !_self.settings.slideStart)
                         return;
 
-                    _self.container.find(".avtProgress").show();
+                    _pc.show();
                     var d = _self.settings.slides[_self.settings.currentSlide].duration * 1000 + _self.settings.fadeInDuration + _self.settings.fadeOutDuration - 500; // 2 second for effects
-                    var p = (new Date().getTime() - _self.settings.slideStart) / d * 100;
-                    if (p > 100)
-                        p = 100;
-                    _self.container.find(".avtProgressIndicator").css("width", p + "%");
+                    var p = (new Date().getTime() - _self.settings.slideStart) / d;
+                    if (p > 1)
+                        p = 1;
+                    _self.container.find(".avtProgressIndicator").css("width", (p * _pc.width()) + "px");
                 }
             }, 100);
         }

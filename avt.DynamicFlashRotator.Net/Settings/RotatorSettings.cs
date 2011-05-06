@@ -497,9 +497,9 @@ namespace avt.DynamicFlashRotator.Net.Settings
         static public string RegSrv = "http://www.avatar-soft.ro/DesktopModules/avt.RegCore4/Api.aspx";
 
         static public string ProductCode = "ADROT";
-        static public string Version = "1.1";
-        static public string VersionAll = "1.1.0";
-        static public string ActivateMinorVersion = "1.1.0";
+        static public string Version = "1.2";
+        static public string VersionAll = "1.2.0";
+        static public string ActivateMinorVersion = "1.2.0";
         static public string Build = VersionAll + "_001";
 
         static public string DocSrv = RegSrv + "?cmd=doc&product=" + ProductCode + "&version=" + Version;

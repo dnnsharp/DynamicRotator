@@ -87,7 +87,7 @@ namespace avt.DynamicFlashRotator.Net.Services
             _RootFolder = new FileBrowser_Folder();
             _RootFolder.PhysicalPath = _RootPhysicalPath;
             _RootFolder.RelativePath = _RootPhysicalPath.Replace(HttpRuntime.AppDomainAppPath.ToLower(), "").Replace('\\', '/');
-            _RootFolder.Url = HttpRuntime.AppDomainAppVirtualPath.Trim('/') + "/" + _RootFolder.RelativePath.Trim('/');
+            _RootFolder.Url = (HttpRuntime.AppDomainAppVirtualPath == "/" ? "" : HttpRuntime.AppDomainAppVirtualPath.TrimEnd('/')) + "/" + _RootFolder.RelativePath.Trim('/');
             if (_RootFolder.Url == "/")
                 _RootFolder.Url = "";
         }
@@ -136,7 +136,7 @@ namespace avt.DynamicFlashRotator.Net.Services
                 FileBrowser_File file = new FileBrowser_File();
                 file.Name = Path.GetFileName(filePath);
                 file.PhysicalPath = filePath;
-                file.RelativePath = filePath.ToLower().Replace(RootPhysicalPath, "").Replace('\\', '/');
+                file.RelativePath = "/" + filePath.ToLower().Replace(RootPhysicalPath, "").Replace('\\', '/').Trim('/');
                 file.Url = ResolveUrl(file.RelativePath);
                 files.Add(file);
             }
