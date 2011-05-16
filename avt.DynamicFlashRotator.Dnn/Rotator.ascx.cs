@@ -35,10 +35,10 @@ namespace avt.DynamicFlashRotator.Dnn
         public ModuleActionCollection ModuleActions
         {
             get {
-                string managePath = TemplateSourceDirectory + "/ManageRotator.aspx?controlId=" + ModuleId.ToString() + "&rurl=" + HttpUtility.UrlEncode(Request.RawUrl);
+                string managePath = TemplateSourceDirectory + "/ManageRotator.aspx?controlId=" + ModuleId.ToString() + "&rurl=" + HttpUtility.UrlEncode(Request.RawUrl) + "&portalid=" + PortalId;
 
                 ModuleActionCollection Actions = new ModuleActionCollection();
-                Actions.Add(GetNextActionID(), "Manage Slides", DotNetNuke.Entities.Modules.Actions.ModuleActionType.AddContent, "", "icon_hostsettings_16px.gif", managePath + "#tabs-main-slides", false, DotNetNuke.Security.SecurityAccessLevel.Edit, true, false);
+                Actions.Add(GetNextActionID(), "Manage Slides", DotNetNuke.Entities.Modules.Actions.ModuleActionType.AddContent, "", "icon_hostsettings_16px.gif", managePath +"#tabs-main-slides", false, DotNetNuke.Security.SecurityAccessLevel.Edit, true, false);
                 Actions.Add(GetNextActionID(), "Rotator Settings", DotNetNuke.Entities.Modules.Actions.ModuleActionType.AddContent, "", "icon_sitesettings_16px.gif", managePath, false, DotNetNuke.Security.SecurityAccessLevel.Edit, true, false);
                 return Actions;
             }

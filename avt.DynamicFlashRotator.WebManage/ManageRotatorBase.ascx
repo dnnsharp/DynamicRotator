@@ -1525,7 +1525,7 @@ jQuery(document).ready(function() {
         var _dlg = jQuery("#dlgFileBrowserResource");
         _dlg.find(".fileLoader").show().css("opacity", 0.8);
 
-        jQuery.post("<%= TemplateSourceDirectory %>/AdminApi.aspx?controlId=<%= Request.QueryString["controlId"]%>&cmd=listfolders&resPath=<%= Server.UrlEncode(Request.QueryString["resPath"]) %>", { 
+        jQuery.post("<%= TemplateSourceDirectory %>/AdminApi.aspx?controlId=<%= Request.QueryString["controlId"]%>&cmd=listfolders&resPath=<%= Server.UrlEncode(Request.QueryString["resPath"]) %>&portalid=<%= Request.QueryString["portalId"] %>", { 
             relPath: parentFolder
         }, function(data) {
             if (data.error) {
@@ -1566,7 +1566,7 @@ jQuery(document).ready(function() {
         _dlg.find(".fileLoader").show().css("opacity", 0.8);
         jQuery("#dlgFileBrowserResource").find(".filePane").empty();
 
-        jQuery.post("<%= TemplateSourceDirectory %>/AdminApi.aspx?controlId=<%= Request.QueryString["controlId"]%>&cmd=listfiles&resPath=<%= Server.UrlEncode(Request.QueryString["resPath"]) %>", { 
+        jQuery.post("<%= TemplateSourceDirectory %>/AdminApi.aspx?controlId=<%= Request.QueryString["controlId"]%>&cmd=listfiles&resPath=<%= Server.UrlEncode(Request.QueryString["resPath"]) %>&portalid=<%= Request.QueryString["portalId"] %>", { 
             //relPath: _folder.children(".folder").attr("relPath")
             relPath: _folder
         }, function(data) {

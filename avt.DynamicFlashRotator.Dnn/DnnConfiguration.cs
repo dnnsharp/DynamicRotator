@@ -203,6 +203,8 @@ namespace avt.DynamicFlashRotator.Dnn
                 if (strContent.IndexOf("[") == -1)
                     return strContent;
                 methodReplace = (MethodInfo)HttpRuntime.Cache.Get(cacheKey_MethodReplace);
+                if (methodReplace == null)
+                    return Tokenize(strContent, modInfo, forceDebug, bRevertToDnn);
             } else {
                 // if it's not installed return string or tokenize with DNN replacer
                 if (!bRevertToDnn) {
@@ -226,7 +228,7 @@ namespace avt.DynamicFlashRotator.Dnn
                     strContent,
                     DotNetNuke.Entities.Users.UserController.GetCurrentUserInfo(),
                     forceDebug ? true : !DotNetNuke.Common.Globals.IsTabPreview(),
-                    null
+                    modInfo
                 }
             );
         }
