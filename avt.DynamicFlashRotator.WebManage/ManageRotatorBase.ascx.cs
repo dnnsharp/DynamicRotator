@@ -11,6 +11,7 @@ using System.Drawing;
 using System.Xml;
 using avt.DynamicFlashRotator.Net.Services;
 using System.Text;
+using System.Globalization;
 
 namespace avt.DynamicFlashRotator.Net.WebManage
 {
@@ -170,7 +171,7 @@ namespace avt.DynamicFlashRotator.Net.WebManage
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "SlideButtonsXoffset", tbSlideButtonsXoffset.Text);
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "SlideButtonsYoffset", tbSlideButtonsYoffset.Text);
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "TransparentBackground", cbTransparentBackground.Checked ? "true" : "false");
-            DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "LastUpdate", DateTime.Now.ToString());
+            DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "LastUpdate", DateTime.Now.ToString(new CultureInfo("en-US").DateTimeFormat));
 
             // save slides
 

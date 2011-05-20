@@ -13,6 +13,9 @@ using avt.DynamicFlashRotator.Net.Services;
 using System.Web;
 using avt.DynamicFlashRotator.Net.Serialization;
 using avt.DynamicFlashRotator.Net.RenderEngine;
+using System.Globalization;
+using avt.DynamicFlashRotator.Net.RegCore.Storage;
+using avt.DynamicFlashRotator.Net.RegCore;
 
 namespace avt.DynamicFlashRotator.Net.Settings
 {
@@ -253,9 +256,9 @@ namespace avt.DynamicFlashRotator.Net.Settings
                         //    _DebugMode = val == "true";
                         //    break;
                         case "LastUpdate":
-                            //try {
-                                LastUpdate = DateTime.Parse(val);
-                            //} catch { LastUpdate = DateTime.Now; }
+                            try {
+                                LastUpdate = DateTime.Parse(val, new CultureInfo("en-US").DateTimeFormat);
+                            } catch { LastUpdate = DateTime.Now; }
                             break;
                     }
                 }
@@ -454,36 +457,35 @@ namespace avt.DynamicFlashRotator.Net.Settings
             if (string.IsNullOrEmpty(s))
                 return "";
 
-            char c;
-            int i;
             int len = s.Length;
             StringBuilder sb = new StringBuilder(len + 4);
-            string t;
 
-            //sb.Append('"');
-            for (i = 0; i < len; i += 1) {
-                c = s[i];
-                if ((c == '\\') || (c == '"') || (c == '>') || (c == '\'')) {
-                    sb.Append('\\');
-                    sb.Append(c);
-                } else if (c == '\b')
+            // sb.Append('"');
+            char[] charArray = s.ToCharArray();
+            for (int i = 0; i < charArray.Length; i++) {
+                char c = charArray[i];
+                if (c == '"') {
+                    sb.Append("\\\"");
+                } else if (c == '\\') {
+                    sb.Append("\\\\");
+                } else if (c == '/') {
+                    sb.Append("\\/");
+                } else if (c == '\b') {
                     sb.Append("\\b");
-                else if (c == '\t')
-                    sb.Append("\\t");
-                else if (c == '\n')
-                    sb.Append("\\n");
-                else if (c == '\f')
+                } else if (c == '\f') {
                     sb.Append("\\f");
-                else if (c == '\r')
+                } else if (c == '\n') {
+                    sb.Append("\\n");
+                } else if (c == '\r') {
                     sb.Append("\\r");
-                else {
-                    if (c < ' ') {
-                        //t = "000" + Integer.toHexString(c); 
-                        string tmp = new string(c, 1);
-                        t = "000" + int.Parse(tmp, System.Globalization.NumberStyles.HexNumber);
-                        sb.Append("\\u" + t.Substring(t.Length - 4));
-                    } else {
+                } else if (c == '\t') {
+                    sb.Append("\\t");
+                } else {
+                    int codepoint = Convert.ToInt32(c);
+                    if ((codepoint >= 32) && (codepoint <= 126)) {
                         sb.Append(c);
+                    } else {
+                        sb.Append("\\u" + Convert.ToString(codepoint, 16).PadLeft(4, '0'));
                     }
                 }
             }
@@ -508,28 +510,24 @@ namespace avt.DynamicFlashRotator.Net.Settings
         static public string ProductKey = "<RSAKeyValue><Modulus>xjeQuuf4zC2gbVI0ZJJnKagUgmeFH8klB27NK80DhxcBaJkw/naUJl1N9195kxUyznRf8uwSkjt9sZfmGQplu3gYz+X3GFCcVhABZsXyO+vNAdkyU+F6KkX5wL4/AAfmpKbqhsYt/z3abPInaRWG1Mk6uoUSv0bkAXsvLWOjUZs=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
 
 
-        internal static AvtActivationDataSource GetActivationSrc()
+        internal static IActivationDataStore GetActivationSrc()
         {
-            return new AvtActivationDataSourceFile();
+            return new DsLicFile();
         }
 
-        internal static AvtRegCoreClient GetRegCoreClient()
+        internal static RegCoreClient GetRegCoreClient()
         {
-            return AvtRegCoreClient.Get(RegSrv, ProductCode, GetActivationSrc(), false);
+            return RegCoreClient.Get(RegSrv, ProductCode, GetActivationSrc(), false);
         }
 
         public static bool IsActivated()
         {
-            //return true;
-            bool isTrial = false;
-            return GetRegCoreClient().IsActivated(ProductCode, Version, ActivateMinorVersion, HttpContext.Current.Request.Url.Host, ref isTrial);
+            return GetRegCoreClient().IsActivated(ProductCode, Version, ActivateMinorVersion, HttpContext.Current.Request.Url.Host);
         }
 
         public static bool IsTrial()
         {
-            bool isTrial = false;
-            GetRegCoreClient().IsActivated(ProductCode, Version, ActivateMinorVersion, HttpContext.Current.Request.Url.Host, ref isTrial);
-            return isTrial;
+            return GetRegCoreClient().IsTrial(ProductCode, Version, ActivateMinorVersion, HttpContext.Current.Request.Url.Host);
         }
 
         public static void Activate(string regCode, string host, string actCode)

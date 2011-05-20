@@ -132,7 +132,7 @@
 
 using System;
 
-namespace avt.DynamicFlashRotator.Net
+namespace avt.DynamicFlashRotator.Net.RegCore.Cryptography
 {
 
     internal class BigInteger

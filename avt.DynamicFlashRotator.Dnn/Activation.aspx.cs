@@ -9,6 +9,7 @@ using DotNetNuke.Framework;
 using DotNetNuke.Security;
 using avt.DynamicFlashRotator.Net;
 using avt.DynamicFlashRotator.Net.Settings;
+using avt.DynamicFlashRotator.Net.RegCore;
 
 
 namespace avt.DynamicFlashRotator.Dnn
@@ -39,9 +40,9 @@ namespace avt.DynamicFlashRotator.Dnn
         {
             txtRegistrationCode.Text = txtRegistrationCode.Text.Trim();
 
-            AvtRegistrationCode regCode;
+            RegCode regCode;
             try {
-                regCode = new AvtRegistrationCode(txtRegistrationCode.Text);
+                regCode = new RegCode(txtRegistrationCode.Text);
                 //if (!regCode.IsValid(RedirectController.Version)) {
                 //    throw new Exception();
                 //}
