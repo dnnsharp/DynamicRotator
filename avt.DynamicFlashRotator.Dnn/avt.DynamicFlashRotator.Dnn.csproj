@@ -47,13 +47,6 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activation.aspx.cs">
-      <DependentUpon>Activation.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Activation.aspx.designer.cs">
-      <DependentUpon>Activation.aspx</DependentUpon>
-    </Compile>
     <Compile Include="DnnConfiguration.cs" />
     <Compile Include="DynamicRotatorController.cs" />
     <Compile Include="ManageRotator.aspx.cs">
@@ -64,6 +57,27 @@
       <DependentUpon>ManageRotator.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegCore\Activation.aspx.cs">
+      <DependentUpon>Activation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RegCore\Activation.aspx.designer.cs">
+      <DependentUpon>Activation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RegCore\QuickStatusAndLink.ascx.cs">
+      <DependentUpon>QuickStatusAndLink.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RegCore\QuickStatusAndLink.ascx.designer.cs">
+      <DependentUpon>QuickStatusAndLink.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="RegCore\UnlockTrial.aspx.cs">
+      <DependentUpon>UnlockTrial.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RegCore\UnlockTrial.aspx.designer.cs">
+      <DependentUpon>UnlockTrial.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Rotator.ascx.cs">
       <DependentUpon>Rotator.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -73,8 +87,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Activation.aspx" />
     <Content Include="ManageRotator.aspx" />
+    <Content Include="RegCore\Activation.aspx" />
+    <Content Include="RegCore\QuickStatusAndLink.ascx" />
+    <Content Include="RegCore\res\bk.png" />
+    <Content Include="RegCore\res\btn_cancel.png" />
+    <Content Include="RegCore\res\btn_next.png" />
+    <Content Include="RegCore\res\btn_purchase.png" />
+    <Content Include="RegCore\res\icon_help.png" />
+    <Content Include="RegCore\res\icon_help_over.png" />
+    <Content Include="RegCore\res\style.css" />
+    <Content Include="RegCore\UnlockTrial.aspx" />
     <Content Include="Rotator.ascx" />
   </ItemGroup>
   <ItemGroup>

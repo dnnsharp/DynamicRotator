@@ -24,6 +24,7 @@ namespace avt.DynamicFlashRotator.Dnn
             RotatorSettings.Init(ctlManageRotator.Configuration);
             ctlManageRotator.ReturnUrl = Server.UrlDecode(Request.QueryString["rurl"]);
             ctlManageRotator.BuyUrl = RotatorSettings.BuyLink;
+            ctlManageRotator.ControllerType = typeof(avt.DynamicFlashRotator.Dnn.DynamicRotatorController);
         }
 
     }

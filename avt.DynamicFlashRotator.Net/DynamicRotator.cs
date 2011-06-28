@@ -331,35 +331,38 @@ namespace avt.DynamicFlashRotator.Net
             settings.Encoding = Encoding.UTF8;
             XmlWriter Writer = XmlWriter.Create(strXML, settings);
 
-            if (!RotatorSettings.IsActivated() && HttpContext.Current.Request.Url.Host != "localhost") {
-                Random r = new Random();
-                if (r.Next(20) == 1) {
-                    
-                    SlideObjectInfo trialText = new SlideObjectInfo();
-                    trialText.ObjectType = eObjectType.Text;
-                    trialText.Text = "<font size='20px' style='font-size:20px;' color='#C77405'>Powered by <font size='30px' style='font-size:30px;'><i>Dynamic Rotator .NET</i></font> from Avatar Software</font><br/><font color='#525252;' size='14px'><i>This slide is randomly displayed to inform you that this copy is not yet licensed. <br />Refresh page for actual content...</i></font>";
-                    trialText.Yposition = 70;
-                    trialText.Xposition = 240;
+            RotatorSettings rotatorSettings = new RotatorSettings();
 
-                    SlideObjectInfo logoObj = new SlideObjectInfo();
-                    logoObj.ObjectType = eObjectType.Image;
-                    logoObj.ObjectUrl = "http://www.avatar-soft.ro/Portals/0/product_logo/Dynamic-Rotator.png";
-                    logoObj.Yposition = 30;
-                    logoObj.Xposition = 20;
-                    logoObj.SlideFrom = eAllDirs.Left;
-                    logoObj.EffectAfterSlide = eEffect.Zoom;
-                    logoObj.TransitionDuration = 1;
+            if (!rotatorSettings.IsActivated() || rotatorSettings.IsTrialExpired()) {
                     
-                    SlideInfo trialSlide = new SlideInfo();
-                    trialSlide.SlideObjects.Add(trialText);
-                    trialSlide.SlideObjects.Add(logoObj);
-                    trialSlide.SlideUrl = "http://www.avatar-soft.ro/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx";
-                    trialSlide.ButtonCaption = "Read More...";
-                    trialSlide.Settings = Settings;
-
-                    Slides.Clear();
-                    Slides.Add(trialSlide);
+                SlideObjectInfo trialText = new SlideObjectInfo();
+                trialText.ObjectType = eObjectType.Text;
+                if (rotatorSettings.IsTrialExpired()) {
+                    trialText.Text = "<font size='20px' style='font-size:20px;' color='#C77405'><font size='30px' style='font-size:30px;'><i>Dynamic Rotator .NET</i></font> Trial Expired!</font>";
+                } else {
+                    trialText.Text = "<font size='20px' style='font-size:20px;' color='#C77405'><font size='30px' style='font-size:30px;'><i>Dynamic Rotator .NET</i></font><br/>Use admin to Unlock 30 Day Trial or Activate for production.</font>";
                 }
+                trialText.Yposition = 70;
+                trialText.Xposition = 240;
+
+                SlideObjectInfo logoObj = new SlideObjectInfo();
+                logoObj.ObjectType = eObjectType.Image;
+                logoObj.ObjectUrl = "http://www.avatar-soft.ro/Portals/0/product_logo/Dynamic-Rotator.png";
+                logoObj.Yposition = 30;
+                logoObj.Xposition = 20;
+                logoObj.SlideFrom = eAllDirs.Left;
+                logoObj.EffectAfterSlide = eEffect.Zoom;
+                logoObj.TransitionDuration = 1;
+                    
+                SlideInfo trialSlide = new SlideInfo();
+                trialSlide.SlideObjects.Add(trialText);
+                trialSlide.SlideObjects.Add(logoObj);
+                trialSlide.SlideUrl = "http://www.avatar-soft.ro/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx";
+                trialSlide.ButtonCaption = "Read More...";
+                trialSlide.Settings = Settings;
+
+                Slides.Clear();
+                Slides.Add(trialSlide);
             }
 
             Writer.WriteStartElement("ads");
@@ -399,29 +402,29 @@ namespace avt.DynamicFlashRotator.Net
             //IRenderEngine jeng = new jQueryEngine();
             //jeng.Render(this, output);
 
-            if (!RotatorSettings.IsActivated() && HttpContext.Current.Request.Url.Host != "localhost") {
-                Random r = new Random();
-                if (r.Next(20) == 1) {
-                    // put some trial notifications
+            //if (!RotatorSettings.IsActivated() && HttpContext.Current.Request.Url.Host != "localhost") {
+            //    Random r = new Random();
+            //    if (r.Next(20) == 1) {
+            //        // put some trial notifications
 
-                    string pageUrl = "http://www.avatar-soft.ro/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx";
+            //        string pageUrl = "http://www.avatar-soft.ro/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx";
 
-                    string[] keywords = new string[] {
-                        "Trial Notification: Powered by <i>Dynamic Rotator.NET</i> - a <a href = '{0}'{2}>DNN Banner Module</a> from <a href = '{1}'{2}>Avatar Software</a>",
-                        "Trial Notification: <a href = '{0}'{2}>DNN Banner</a> built with <i>Dynamic Rotator.NET</i> from <a href = '{1}'{2}>Avatar Software</a>",
-                        "Trial Notification: Powered by <i>Dynamic Rotator.NET</i> - a <a href = '{0}'{2}>DNN Banner Module</a> from <a href = '{1}'{2}>Avatar Software</a>",
-                        "Trial Notification: <a href = '{0}'{2}>DNN Banner</a> built with <i>Dynamic Rotator.NET</i> from <a href = '{1}'{2}>Avatar Software</a>",
+            //        string[] keywords = new string[] {
+            //            "Trial Notification: Powered by <i>Dynamic Rotator.NET</i> - a <a href = '{0}'{2}>DNN Banner Module</a> from <a href = '{1}'{2}>Avatar Software</a>",
+            //            "Trial Notification: <a href = '{0}'{2}>DNN Banner</a> built with <i>Dynamic Rotator.NET</i> from <a href = '{1}'{2}>Avatar Software</a>",
+            //            "Trial Notification: Powered by <i>Dynamic Rotator.NET</i> - a <a href = '{0}'{2}>DNN Banner Module</a> from <a href = '{1}'{2}>Avatar Software</a>",
+            //            "Trial Notification: <a href = '{0}'{2}>DNN Banner</a> built with <i>Dynamic Rotator.NET</i> from <a href = '{1}'{2}>Avatar Software</a>",
 
-                        "Trial Notification: <a href = '{0}'{2}>DNN Banners</a> built with <i>Dynamic Rotator.NET</i> from <a href = '{1}'{2}>Avatar Software</a>",
-                        "Trial Notification: <a href = '{0}'{2}>DotNetNuke Banner</a> built with <i>Dynamic Rotator.NET</i> from <a href = '{1}'{2}>Avatar Software</a>",
-                        "Trial Notification: Powered by <i>Dynamic Rotator.NET</i> - a <a href = '{0}'{2}>DNN Flash</a> module from <a href = '{1}'{2}>Avatar Software</a>",
-                        "Trial Notification: Powered by <i>Dynamic Rotator.NET</i> - a <a href = '{0}'{2}>DotNetNuke Flash</a> from <a href = '{1}'{2}>Avatar Software</a>"
-                    };
-                    bool isIp = Regex.Match(HttpContext.Current.Request.Url.Host, ".*\\d+\\.\\d+\\.\\d+\\.\\d+.*").Length > 0;
+            //            "Trial Notification: <a href = '{0}'{2}>DNN Banners</a> built with <i>Dynamic Rotator.NET</i> from <a href = '{1}'{2}>Avatar Software</a>",
+            //            "Trial Notification: <a href = '{0}'{2}>DotNetNuke Banner</a> built with <i>Dynamic Rotator.NET</i> from <a href = '{1}'{2}>Avatar Software</a>",
+            //            "Trial Notification: Powered by <i>Dynamic Rotator.NET</i> - a <a href = '{0}'{2}>DNN Flash</a> module from <a href = '{1}'{2}>Avatar Software</a>",
+            //            "Trial Notification: Powered by <i>Dynamic Rotator.NET</i> - a <a href = '{0}'{2}>DotNetNuke Flash</a> from <a href = '{1}'{2}>Avatar Software</a>"
+            //        };
+            //        bool isIp = Regex.Match(HttpContext.Current.Request.Url.Host, ".*\\d+\\.\\d+\\.\\d+\\.\\d+.*").Length > 0;
 
-                    output.Write("<div>" + string.Format(keywords[Math.Abs((HttpContext.Current.Request.Url.Host + HttpContext.Current.Request.RawUrl).GetHashCode() % keywords.Length)], pageUrl, "http://www.avatar-soft.ro", isIp ? " rel=\"nofollow\"" : "") + ".</div>");
-                }
-            }
+            //        output.Write("<div>" + string.Format(keywords[Math.Abs((HttpContext.Current.Request.Url.Host + HttpContext.Current.Request.RawUrl).GetHashCode() % keywords.Length)], pageUrl, "http://www.avatar-soft.ro", isIp ? " rel=\"nofollow\"" : "") + ".</div>");
+            //    }
+            //}
 
             IList<IAdminAuthentication> security = GetSecurityLayers(RealId);
             if (AllowRuntimeConfiguration && RotatorSettings.Configuration.ShowManageLinks() && RotatorSettings.Configuration.HasAccess(RealId, security)) {
@@ -451,9 +454,14 @@ namespace avt.DynamicFlashRotator.Net
                 //    manageUrl += "&resPath=" + ResourceUrl;
                 manageUrl += "&rurl=" + HttpUtility.UrlEncode(HttpContext.Current.Request.RawUrl);
                 output.Write("<br />");
-                output.Write("<a href='" + manageUrl + "#tabs-main-slides' style='color: #CB2027;font-weight: bold;text-decoration: none;'>Manage Slides</a>");
-                output.Write("&nbsp;&nbsp;|&nbsp;&nbsp;");
-                output.Write("<a href='" + manageUrl + "' style='color: #CB2027;font-weight: bold;text-decoration: none;'>Rotator Settings</a>");
+
+                if (!Settings.IsActivated() || Settings.IsTrialExpired()) {
+                    output.Write("<a href='" + manageUrl + "' style='color: #CB2027;font-weight: bold;text-decoration: underline;'>Unlock 30 Day Trial or Activate for Production</a>");
+                } else {
+                    output.Write("<a href='" + manageUrl + "#tabs-main-slides' style='color: #CB2027;font-weight: bold;text-decoration: none;'>Manage Slides</a>");
+                    output.Write("&nbsp;&nbsp;|&nbsp;&nbsp;");
+                    output.Write("<a href='" + manageUrl + "' style='color: #CB2027;font-weight: bold;text-decoration: none;'>Rotator Settings</a>");
+                }
 
                 if (security.Count == 0) {
                     output.Write("<div style='color:red;'>WARNING! Everybody can configure this rotator, setup security using <i>SecurityAllowAspRole, SecurityAllowIps or SecurityAllowInvokeType</i> attributes of the Dynamic Rotator control.<br/>Read <a href='http://rotator.avatar-soft.ro'>Security Layers for Asp.NET Control</a> articles for more information.</div>");

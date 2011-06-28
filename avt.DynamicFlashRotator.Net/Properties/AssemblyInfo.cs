@@ -42,3 +42,6 @@ using System.Web.UI;
 [assembly: WebResource("avt.DynamicFlashRotator.Net.js.jquery-ui-1.8.11.eff.js", "text/js")]
 [assembly: WebResource("avt.DynamicFlashRotator.Net.js.jquery.hoverIntent.js", "text/js")]
 [assembly: WebResource("avt.DynamicFlashRotator.Net.js.avt-jQuery-rotator.js", "text/js")]
+
+[assembly: InternalsVisibleTo("avt.DynamicFlashRotator.Dnn")]
+

@@ -29,18 +29,19 @@ namespace avt.DynamicFlashRotator.Net.RegCore.Storage
                     asmPath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "bin");
                 }
 
-                return Path.Combine(asmPath, GetType().Namespace + ".lic");
+                return Path.Combine(asmPath, GetType().Namespace.Replace(".RegCore.Storage", "") + ".lic");
             }
         }
 
-        Dictionary<string, LicenseActivation> _Activations = null;
-        Dictionary<string, LicenseActivation> Activations {
+        Dictionary<string, ILicenseActivation> _Activations = null;
+        Dictionary<string, ILicenseActivation> Activations
+        {
             get {
                 if (_Activations != null)
                     return _Activations;
 
                 lock (typeof(DsLicFile)) {
-                    _Activations = new Dictionary<string, LicenseActivation>();
+                    _Activations = new Dictionary<string, ILicenseActivation>();
 
                     if (!File.Exists(LicenseFilePath)) {
                         return _Activations;
@@ -61,8 +62,8 @@ namespace avt.DynamicFlashRotator.Net.RegCore.Storage
                         act.Host = srAct.ReadLine();
                         act.ActivationCode = srAct.ReadLine();
                         act.ProductKey = srAct.ReadLine();
+                        act.BaseProductCode = srAct.ReadLine(); 
                         act.BaseProductVersion = srAct.ReadLine();
-                        act.BaseProductCode = srAct.ReadLine();
                         _Activations[act.Host] = act;
                     }
 
@@ -71,7 +72,7 @@ namespace avt.DynamicFlashRotator.Net.RegCore.Storage
             }
         }
 
-        public Dictionary<string, LicenseActivation> GetActivations()
+        public Dictionary<string, ILicenseActivation> GetActivations()
         {
             return Activations;
         }
@@ -88,30 +89,32 @@ namespace avt.DynamicFlashRotator.Net.RegCore.Storage
             AddActivation(act);
         }
 
-        public void AddActivation(LicenseActivation act)
+        public void AddActivation(ILicenseActivation act)
         {
-            // first, check if it already exists
-            foreach (LicenseActivation existingAct in Activations.Values) {
-                if (existingAct.RegistrationCode == act.RegistrationCode && existingAct.Host == act.Host) {
-                    //if (existingAct.BaseProductCode == act.BaseProductCode && existingAct.BaseProductVersion == act.BaseProductVersion) {
-                    //    return;
-                    //} 
-                    
-                    // different version? remove the previous
-                    Activations.Remove(existingAct.Host);
-                    break;
-                }
-            }
+            lock (typeof(DsLicFile)) {
+                // first, check if it already exists
+                foreach (LicenseActivation existingAct in Activations.Values) {
+                    if (existingAct.RegistrationCode == act.RegistrationCode && existingAct.Host == act.Host) {
+                        //if (existingAct.BaseProductCode == act.BaseProductCode && existingAct.BaseProductVersion == act.BaseProductVersion) {
+                        //    return;
+                        //} 
 
-            Activations[act.Host] = act;
-            SaveAllActivations();
+                        // different version? remove the previous
+                        Activations.Remove(existingAct.Host);
+                        break;
+                    }
+                }
+
+                Activations[act.Host] = act;
+                SaveAllActivations();
+            }
         }
 
 
         public void Remove(string regCode, string host)
         {
             lock (typeof(DsLicFile)) {
-                Dictionary<string, LicenseActivation> activations = GetActivations();
+                Dictionary<string, ILicenseActivation> activations = GetActivations();
                 bool bFound = false;
 
                 foreach (string hostAct in activations.Keys) {
@@ -130,7 +133,7 @@ namespace avt.DynamicFlashRotator.Net.RegCore.Storage
         public void RemoveTrial()
         {
             lock (typeof(DsLicFile)) {
-                Dictionary<string, LicenseActivation> activations = GetActivations();
+                Dictionary<string, ILicenseActivation> activations = GetActivations();
                 bool bFound = false;
 
                 foreach (string hostAct in activations.Keys) {
@@ -146,7 +149,7 @@ namespace avt.DynamicFlashRotator.Net.RegCore.Storage
             }
         }
 
-        public void Remove(LicenseActivation act)
+        public void Remove(ILicenseActivation act)
         {
             Remove(act.RegistrationCode, act.Host);
         }
@@ -166,7 +169,7 @@ namespace avt.DynamicFlashRotator.Net.RegCore.Storage
         void SaveAllActivations()
         {
             File.WriteAllText(LicenseFilePath, "");
-            foreach (LicenseActivation act in Activations.Values) {
+            foreach (ILicenseActivation act in Activations.Values) {
                 StringBuilder sbAct = new StringBuilder();
                 sbAct.AppendLine(); // 1 empty line separates activations
                 sbAct.AppendLine(act.RegistrationCode);

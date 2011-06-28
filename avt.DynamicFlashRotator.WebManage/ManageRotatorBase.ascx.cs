@@ -30,6 +30,9 @@ namespace avt.DynamicFlashRotator.Net.WebManage
         string _BuyUrl;
         public string BuyUrl { get { return _BuyUrl; } set { _BuyUrl = value; } }
 
+        Type _ControllerType;
+        public Type ControllerType { get { return _ControllerType; } set { _ControllerType = value; } }
+
         protected int LastUpdate;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -50,8 +53,10 @@ namespace avt.DynamicFlashRotator.Net.WebManage
 
             if (!Page.IsPostBack) {
 
+                RotatorSettings settings = new RotatorSettings();
+
                 // check activation
-                lblTabActivateContents.Visible = lblTabActivate.Visible = !avt.DynamicFlashRotator.Net.Settings.RotatorSettings.IsActivated();
+                lblTabActivateContents.Visible = lblTabActivate.Visible = !settings.IsActivated() || settings.IsTrial();
 
                 ddSlideButtonsType.Items.Add(new ListItem("Square (with numbers)", eSlideButtonsType.SquareWithNumbers.ToString()));
                 ddSlideButtonsType.Items.Add(new ListItem("Round (no numbers)", eSlideButtonsType.RoundNoNumbers.ToString()));
@@ -90,7 +95,6 @@ namespace avt.DynamicFlashRotator.Net.WebManage
                 ddRenderEngine.DataBind();
 
                 // load settings
-                RotatorSettings settings = new RotatorSettings();
                 settings.LoadFromDB(Request.QueryString["controlId"]);
 
                 lblControlName.Text = Configuration.FormatTitle(Request.QueryString["controlId"]);

@@ -7,15 +7,29 @@ using System.Security.Cryptography;
 
 namespace avt.DynamicFlashRotator.Net.RegCore
 {
-    internal class LicenseActivation
+    internal class LicenseActivation : ILicenseActivation
     {
-        public string Host;
-        public string RegistrationCode;
-        public string ActivationCode;
-        public string ProductKey;
-        public string BaseProductCode;
-        public string BaseProductVersion;
-        public string TmpKey = "";
+        string _Host;
+        public string Host { get { return _Host; } set { _Host = value; } }
+
+        string _RegistrationCode;
+        public string RegistrationCode { get { return _RegistrationCode; } set { _RegistrationCode = value; } }
+
+        string _ActivationCode;
+        public string ActivationCode { get { return _ActivationCode; } set { _ActivationCode = value; } }
+
+        string _ProductKey;
+        public string ProductKey { get { return _ProductKey; } set { _ProductKey = value; } }
+
+        string _BaseProductCode;
+        public string BaseProductCode { get { return _BaseProductCode; } set { _BaseProductCode = value; } }
+
+        string _BaseProductVersion;
+        public string BaseProductVersion { get { return _BaseProductVersion; } set { _BaseProductVersion = value; } }
+
+        string _TmpKey = "";
+        public string TmpKey { get { return _TmpKey; } set { _TmpKey = value; } }
+
 
         RegCode _RegCode = null;
         public RegCode RegCode
@@ -37,7 +51,7 @@ namespace avt.DynamicFlashRotator.Net.RegCore
         {
         }
 
-        public LicenseActivation Clone()
+        public ILicenseActivation Clone()
         {
             LicenseActivation act = new LicenseActivation();
             act.ActivationCode = ActivationCode;
@@ -49,7 +63,7 @@ namespace avt.DynamicFlashRotator.Net.RegCore
             return act;
         }
 
-        public bool IsValid(string productCode, string versionCode, string minorVersion)
+        public bool IsValid(string productCode, string versionCode)
         {
             //System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
             //timer.Start();
@@ -66,7 +80,7 @@ namespace avt.DynamicFlashRotator.Net.RegCore
                 signatureBytes[i] = Convert.ToByte(ActivationCode.Substring(i * 2, 2), 16);
             }
 
-            return ezrsa_public.VerifyData(Encoding.Unicode.GetBytes(Host + RegistrationCode + RegCode.R + productCode + minorVersion), new SHA1CryptoServiceProvider(), signatureBytes);
+            return ezrsa_public.VerifyData(Encoding.Unicode.GetBytes(Host + RegistrationCode + RegCode.R + productCode + versionCode), new SHA1CryptoServiceProvider(), signatureBytes);
         }
     }
 }

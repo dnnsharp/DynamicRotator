@@ -6,7 +6,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using avt.DynamicFlashRotator.Net;
 using avt.DynamicFlashRotator.Net.Settings;
-using avt.DynamicFlashRotator.Net.RegCore;
 
 
 namespace avt.DynamicFlashRotator.Net

@@ -496,49 +496,62 @@ namespace avt.DynamicFlashRotator.Net.Settings
 
         #region RegCore
 
-        static public string RegSrv = "http://www.avatar-soft.ro/DesktopModules/avt.RegCore4/Api.aspx";
+        //public static bool IsAdmin { get { return DotNetNuke.Entities.Users.UserController.GetCurrentUserInfo().IsInRole(DotNetNuke.Entities.Portals.PortalController.GetCurrentPortalSettings().AdministratorRoleName); } }
 
-        static public string ProductCode = "ADROT";
-        static public string Version = "1.2";
-        static public string VersionAll = "1.2.0";
-        static public string ActivateMinorVersion = "1.2.0";
-        static public string Build = VersionAll + "_001";
+        static bool _IsAdmin = true; // TODO:
+        public static bool IsAdmin { get { return _IsAdmin; } set { _IsAdmin = value; } }
+        public static string RegCoreServer { get { return "http://www.avatar-soft.ro/DesktopModules/RegCore/"; } }
+        public static string ProductName { get { return "Dynamic Rotator .NET"; } }
+        public static string ProductCode { get { return "ADROT"; } }
+        public static string ProductKey { get { return "<RSAKeyValue><Modulus>xjeQuuf4zC2gbVI0ZJJnKagUgmeFH8klB27NK80DhxcBaJkw/naUJl1N9195kxUyznRf8uwSkjt9sZfmGQplu3gYz+X3GFCcVhABZsXyO+vNAdkyU+F6KkX5wL4/AAfmpKbqhsYt/z3abPInaRWG1Mk6uoUSv0bkAXsvLWOjUZs=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>"; } }
+        public static string Version { get { return "1.2.0"; } }
+        public static string Build { get { return Version + "-rc2"; } }
 
-        static public string DocSrv = RegSrv + "?cmd=doc&product=" + ProductCode + "&version=" + Version;
-        static public string BuyLink = RegSrv + "?cmd=buy&product=" + ProductCode + "&version=" + Version;
+        static public string DocSrv = RegCoreServer + "/Api.aspx?cmd=doc&product=" + ProductCode + "&version=" + Version;
+        static public string BuyLink = RegCoreServer + "/Api.aspx?cmd=buy&product=" + ProductCode + "&version=" + Version;
 
-        static public string ProductKey = "<RSAKeyValue><Modulus>xjeQuuf4zC2gbVI0ZJJnKagUgmeFH8klB27NK80DhxcBaJkw/naUJl1N9195kxUyznRf8uwSkjt9sZfmGQplu3gYz+X3GFCcVhABZsXyO+vNAdkyU+F6KkX5wL4/AAfmpKbqhsYt/z3abPInaRWG1Mk6uoUSv0bkAXsvLWOjUZs=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
+        List<ListItem> _Hosts;
+        public List<ListItem> Hosts {
+            get { return _Hosts; }
+            set { _Hosts = value; }
+        }
 
-
-        internal static IActivationDataStore GetActivationSrc()
+        internal IActivationDataStore GetActivationSrc()
         {
             return new DsLicFile();
         }
 
-        internal static RegCoreClient GetRegCoreClient()
-        {
-            return RegCoreClient.Get(RegSrv, ProductCode, GetActivationSrc(), false);
+        public static IRegCoreClient RegCore {
+            get {
+                return RegCoreClient.Get(new RegCoreServer(RegCoreServer).ApiScript, ProductCode, new DsLicFile(), false);
+            }
         }
 
-        public static bool IsActivated()
+        public bool IsActivated()
         {
-            return GetRegCoreClient().IsActivated(ProductCode, Version, ActivateMinorVersion, HttpContext.Current.Request.Url.Host);
+            return RegCore.IsActivated(ProductCode, Version, HttpContext.Current.Request.Url.Host);
         }
 
-        public static bool IsTrial()
+        public bool IsTrial()
         {
-            return GetRegCoreClient().IsTrial(ProductCode, Version, ActivateMinorVersion, HttpContext.Current.Request.Url.Host);
+            return RegCore.IsTrial(ProductCode, Version, HttpContext.Current.Request.Url.Host);
         }
 
-        public static void Activate(string regCode, string host, string actCode)
+        public bool IsTrialExpired()
+        {
+            return RegCore.IsTrialExpired(ProductCode, Version, HttpContext.Current.Request.Url.Host);
+        }
+
+        public void Activate(string regCode, string host, string actCode)
         {
             if (string.IsNullOrEmpty(actCode)) {
-                GetRegCoreClient().Activate(regCode, ProductCode, Version, ActivateMinorVersion, host, ProductKey);
+                RegCore.Activate(regCode, ProductCode, Version, host, ProductKey);
             } else {
-                GetRegCoreClient().Activate(regCode, ProductCode, Version, ActivateMinorVersion, host, ProductKey, actCode);
+                RegCore.Activate(regCode, ProductCode, Version, host, ProductKey, actCode);
             }
         }
 
         #endregion
+
     }
 }

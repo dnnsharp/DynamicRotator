@@ -6,10 +6,10 @@ namespace avt.DynamicFlashRotator.Net.RegCore.Storage
 {
     internal interface IActivationDataStore
     {
-        Dictionary<string, LicenseActivation> GetActivations();
+        Dictionary<string, ILicenseActivation> GetActivations();
         void AddActivation(string regCode, string host, string actCode, string productKey, string baseProductCode, string baseVersionCode);
-        void AddActivation(LicenseActivation act);
-        void Remove(LicenseActivation act);
+        void AddActivation(ILicenseActivation act);
+        void Remove(ILicenseActivation act);
         void RemoveTrial();
         void RemoveAll();
     }

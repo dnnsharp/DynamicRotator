@@ -92,5 +92,7 @@ namespace avt.DynamicFlashRotator.Net.RegCore
         {
             return _RegCode;
         }
+
+        public int DaysLeft { get { return (int) (DateExpire - DateTime.Now).TotalDays + 1; } }
     }
 }

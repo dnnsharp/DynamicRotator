@@ -17,22 +17,26 @@ using avt.DynamicFlashRotator.Net.RegCore.Cryptography;
 
 namespace avt.DynamicFlashRotator.Net.RegCore
 {
-    internal class RegCoreClient
+    internal class RegCoreClient : IRegCoreClient
     {
-        Dictionary<string, LicenseActivation> _initActivations;
-        public Dictionary<string, LicenseActivation> AllActivations { get { return _initActivations; } }
+        Dictionary<string, ILicenseActivation> _initActivations;
+        public Dictionary<string, ILicenseActivation> AllActivations { get { return _initActivations; } }
 
-        Dictionary<string, LicenseActivation> _validActivations;
+        Dictionary<string, ILicenseActivation> _validActivations;
         IActivationDataStore _src;
-        string _regCoreSrv;
+
+        RegCoreServer _regCoreSrv;
+        public RegCoreServer RegCoreSrv { get { return _regCoreSrv; } }
+
+        static Random _R = new Random();
 
         private RegCoreClient(string regCoreSrv, IActivationDataStore src)
         {
             // fill activations
             _initActivations = src.GetActivations();
-            _validActivations = new Dictionary<string, LicenseActivation>();
+            _validActivations = new Dictionary<string, ILicenseActivation>();
             _src = src;
-            _regCoreSrv = regCoreSrv;
+            _regCoreSrv = new RegCoreServer(regCoreSrv);
         }
 
         static public RegCoreClient Get(string regCoreSrv, string productCode, IActivationDataStore src, bool clearCache)
@@ -55,6 +59,11 @@ namespace avt.DynamicFlashRotator.Net.RegCore
             }
         }
 
+        public static int GetRandom()
+        {
+            return _R.Next();
+        }
+
         public void ClearCache(string productCode)
         {
             lock (typeof(RegCoreClient)) {
@@ -66,15 +75,15 @@ namespace avt.DynamicFlashRotator.Net.RegCore
         {
             _src.RemoveAll();
 
-            _initActivations = new Dictionary<string, LicenseActivation>();
-            _validActivations = new Dictionary<string, LicenseActivation>();
+            _initActivations = new Dictionary<string, ILicenseActivation>();
+            _validActivations = new Dictionary<string, ILicenseActivation>();
         }
 
 
-        public LicenseActivation GetValidActivation(string productCode, string version, string minorVersion, string host)
+        public ILicenseActivation GetValidActivation(string productCode, string version, string host)
         {
             // first, check if we have it in cache
-            if (_validActivations.ContainsKey(host) && _validActivations[host].IsValid(productCode, version, minorVersion) && _validActivations[host].TmpKey == GetHash(host + _validActivations[host].ActivationCode)) {
+            if (_validActivations.ContainsKey(host) && _validActivations[host].IsValid(productCode, version) && _validActivations[host].TmpKey == GetHash(host + _validActivations[host].ActivationCode)) {
                 return _validActivations[host];
             }
 
@@ -87,7 +96,7 @@ namespace avt.DynamicFlashRotator.Net.RegCore
                     continue; // check this later if no other license is found
                 }
 
-                if (!act.IsValid(productCode, version, minorVersion))
+                if (!act.IsValid(productCode, version))
                     continue;
 
                 if (act.RegCode.VariantCode == "ENT")
@@ -104,7 +113,7 @@ namespace avt.DynamicFlashRotator.Net.RegCore
 
                 if (act.Host == host) {
                     // put in tmp key
-                    LicenseActivation actCpy = act.Clone();
+                    ILicenseActivation actCpy = act.Clone();
                     actCpy.TmpKey = GetHash(host + actCpy.ActivationCode);
                     _validActivations[checkHost] = actCpy;
                     return act;
@@ -114,7 +123,7 @@ namespace avt.DynamicFlashRotator.Net.RegCore
             // let's check the rest of activations
             foreach (LicenseActivation act in _initActivations.Values) {
                 if (act.RegCode.IsTrial) {
-                    if (!act.IsValid(productCode, version, minorVersion))
+                    if (!act.IsValid(productCode, version))
                         continue;
 
                     return act;
@@ -124,33 +133,34 @@ namespace avt.DynamicFlashRotator.Net.RegCore
             return null;
         }
 
-        public bool IsActivated(string productCode, string version, string minorVersion, string host)
+        public bool IsActivated(string productCode, string version, string host)
         {
-            LicenseActivation act = GetValidActivation(productCode, version, minorVersion, host);
+            ILicenseActivation act = GetValidActivation(productCode, version, host);
             return act != null;
         }
 
-        public bool IsTrial(string productCode, string version, string minorVersion, string host)
+        public bool IsTrial(string productCode, string version, string host)
         {
-            LicenseActivation act = GetValidActivation(productCode, version, minorVersion, host);
+            ILicenseActivation act = GetValidActivation(productCode, version, host);
             return act != null && act.RegCode.IsTrial;
         }
 
-        public bool IsTrialExpired(string productCode, string version, string minorVersion, string host)
+        public bool IsTrialExpired(string productCode, string version, string host)
         {
-            // we'll only do this check for when there's only one license and it's a XDays license
-
-            if (AllActivations.Count > 1)
+            if (AllActivations.Count == 0 || !IsTrial(productCode, version, host))
                 return false;
 
+            bool trialExpired = true;
             foreach (LicenseActivation act in AllActivations.Values) {
-                return act.RegCode.IsTrial && act.RegCode.IsExpired();
+                if (act.RegCode.IsTrial && !act.RegCode.IsExpired()) {
+                    trialExpired = false;
+                }
             }
 
-            return false;
+            return trialExpired;
         }
 
-        public LicenseActivation Activate(string regCode, string productCode, string version, string minorVersion, string host, string productKey)
+        public ILicenseActivation Activate(string regCode, string productCode, string version, string host, string productKey)
         {
             RegCode r = new RegCode(regCode);
 
@@ -162,12 +172,12 @@ namespace avt.DynamicFlashRotator.Net.RegCore
             data["product"] = productCode; // this is not encrypted because we need to extract the private key on the server side
             prvData["regcode"] = regCode;
             prvData["version"] = version;
-            prvData["minorversion"] = minorVersion;
+            prvData["minorversion"] = version;
             prvData["hostname"] = host;
 
             XmlDocument xmlAct = new XmlDocument();
             try {
-                xmlAct.LoadXml(SendData(_regCoreSrv + "?cmd=activate", productKey, data, prvData));
+                xmlAct.LoadXml(SendData(_regCoreSrv.Address + "?cmd=activate", productKey, data, prvData));
             } catch (Exception e) {
                 throw new Exception("An error occured (" + e.Message + ")");
             }
@@ -184,7 +194,7 @@ namespace avt.DynamicFlashRotator.Net.RegCore
             act.BaseProductCode = r.ProductCode;
             act.BaseProductVersion = xmlAct.FirstChild["version"].InnerText;
 
-            if (!act.IsValid(productCode, version, minorVersion)) {
+            if (!act.IsValid(productCode, version)) {
                 throw new Exception("Invalid activation");
             }
 
@@ -197,7 +207,7 @@ namespace avt.DynamicFlashRotator.Net.RegCore
         }
 
 
-        public LicenseActivation Activate(string regCode, string productCode, string version, string minorVersion, string host, string productKey, string actCode)
+        public ILicenseActivation Activate(string regCode, string productCode, string version, string host, string productKey, string actCode)
         {
             RegCode r = new RegCode(regCode);
 
@@ -211,7 +221,7 @@ namespace avt.DynamicFlashRotator.Net.RegCore
             act.BaseProductCode = r.ProductCode;
             act.BaseProductVersion = version;
 
-            if (!act.IsValid(productCode, version, minorVersion)) {
+            if (!act.IsValid(productCode, version)) {
                 throw new Exception("Invalid activation");
             }
 
@@ -223,7 +233,7 @@ namespace avt.DynamicFlashRotator.Net.RegCore
             return act;
         }
 
-        public void Upgrade(string productCode, string version, string minorVersion, string productKey, bool bThrowErrors)
+        public void Upgrade(string productCode, string version, string productKey, bool bThrowErrors)
         {
             List<LicenseActivation> activations = new List<LicenseActivation>();
             foreach (LicenseActivation act in _initActivations.Values) {
@@ -232,7 +242,7 @@ namespace avt.DynamicFlashRotator.Net.RegCore
 
             foreach (LicenseActivation act in activations) {
                 try {
-                    Activate(act.RegistrationCode, productCode, version, minorVersion, act.Host, productKey);
+                    Activate(act.RegistrationCode, productCode, version, act.Host, productKey);
                 } catch { 
                     if (bThrowErrors)
                         throw;

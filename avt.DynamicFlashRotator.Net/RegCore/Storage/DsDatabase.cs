@@ -22,13 +22,13 @@ namespace avt.DynamicFlashRotator.Net.RegCore.Storage
             _table = table;
         }
 
-        public Dictionary<string, LicenseActivation> GetActivations()
+        public Dictionary<string, ILicenseActivation> GetActivations()
         {
             SqlConnection conn = new SqlConnection(_conStr);
             SqlDataAdapter a = new SqlDataAdapter("select * from " + _dbo + _qualifier + _table, conn);
             DataSet s = new DataSet(); a.Fill(s);
 
-            Dictionary<string, LicenseActivation> activations = new Dictionary<string, LicenseActivation>();
+            Dictionary<string, ILicenseActivation> activations = new Dictionary<string, ILicenseActivation>();
             foreach (DataRow dr in s.Tables[0].Rows) {
                 LicenseActivation act = new LicenseActivation();
                 act.Host = dr["Host"].ToString();
@@ -55,7 +55,7 @@ namespace avt.DynamicFlashRotator.Net.RegCore.Storage
             conn.Close();
         }
 
-        public void AddActivation(LicenseActivation act)
+        public void AddActivation(ILicenseActivation act)
         {
             AddActivation(act.RegistrationCode, act.Host, act.ActivationCode, act.ProductKey, act.BaseProductCode, act.BaseProductVersion);
         }
@@ -83,7 +83,7 @@ namespace avt.DynamicFlashRotator.Net.RegCore.Storage
             conn.Close();
         }
 
-        public void Remove(LicenseActivation act)
+        public void Remove(ILicenseActivation act)
         {
             Remove(act.RegistrationCode, act.Host);
         }

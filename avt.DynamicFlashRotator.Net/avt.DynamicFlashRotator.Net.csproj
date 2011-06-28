@@ -48,16 +48,40 @@
     <Compile Include="Data\SqlDataProvider.cs" />
     <Compile Include="DynamicRotator.cs" />
     <Compile Include="DynamicRotatorDesigner.cs" />
-    <Compile Include="RegCore\Cryptography\BigInteger.cs" />
-    <Compile Include="RegCore\Cryptography\ezrsa.cs" />
-    <Compile Include="RegCore\IRegCoreClient.cs" />
-    <Compile Include="RegCore\LicenseActivation.cs" />
-    <Compile Include="RegCore\RegCode.cs" />
-    <Compile Include="RegCore\RegCoreClient.cs" />
-    <Compile Include="RegCore\Storage\DsDatabase.cs" />
-    <Compile Include="RegCore\Storage\DsLicFile.cs" />
-    <Compile Include="RegCore\Storage\IActivationDataStore.cs" />
-    <Compile Include="RegCore\Util\RandomNotification.cs" />
+    <Compile Include="RegCore\Cryptography\BigInteger.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RegCore\Cryptography\ezrsa.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RegCore\ILicenseActivation.cs" />
+    <Compile Include="RegCore\IRegCoreClient.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RegCore\IRegCoreComponent.cs" />
+    <Compile Include="RegCore\LicenseActivation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RegCore\RegCode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RegCore\RegCoreApp.cs" />
+    <Compile Include="RegCore\RegCoreClient.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RegCore\RegCoreServer.cs" />
+    <Compile Include="RegCore\Storage\DsDatabase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RegCore\Storage\DsLicFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RegCore\Storage\IActivationDataStore.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RegCore\Util\RandomNotification.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="RenderEngine\jQueryEngine.cs" />
     <Compile Include="RenderEngine\FlashEngine.cs" />
     <Compile Include="RenderEngine\IRenderEngine.cs" />

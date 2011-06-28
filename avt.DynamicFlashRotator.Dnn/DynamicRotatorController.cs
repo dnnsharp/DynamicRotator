@@ -7,11 +7,82 @@ using System.Xml;
 using avt.DynamicFlashRotator.Net.Settings;
 using avt.DynamicFlashRotator.Net;
 using avt.DynamicFlashRotator.Net.Data;
+using System.Web.UI.WebControls;
+using avt.DynamicFlashRotator.Net.RegCore.Storage;
+using avt.DynamicFlashRotator.Net.RegCore;
+using DotNetNuke.Entities.Portals;
+using System.Collections;
 
 namespace avt.DynamicFlashRotator.Dnn
 {
-    public class DynamicRotatorController : IPortable
+    public class DynamicRotatorController : IPortable, IUpgradeable
     {
+
+        #region RegCore
+
+        public static bool IsAdmin { get { return DotNetNuke.Entities.Users.UserController.GetCurrentUserInfo().IsInRole(DotNetNuke.Entities.Portals.PortalController.GetCurrentPortalSettings().AdministratorRoleName); } }
+        public static string RegCoreServer { get { return RotatorSettings.RegCoreServer; } }
+        public static string ProductName { get { return RotatorSettings.ProductName; } }
+        public static string ProductCode { get { return RotatorSettings.ProductCode; } }
+        public static string ProductKey { get { return RotatorSettings.ProductKey; } }
+        public static string Version { get { return RotatorSettings.Version; } }
+        public static string Build { get { return RotatorSettings.Build; } }
+
+        static public string DocSrv = RegCoreServer + "/Api.aspx?cmd=doc&product=" + ProductCode + "&version=" + Version;
+        static public string BuyLink = RegCoreServer + "/Api.aspx?cmd=buy&product=" + ProductCode + "&version=" + Version;
+
+        public List<ListItem> Hosts {
+            get {
+                List<ListItem> hosts = new List<ListItem>();
+                PortalAliasController paCtrl = new PortalAliasController();
+                foreach (DictionaryEntry de in paCtrl.GetPortalAliases()) {
+                    PortalAliasInfo paInfo = (PortalAliasInfo)de.Value;
+                    hosts.Add(new ListItem(paInfo.HTTPAlias, paInfo.HTTPAlias));
+                }
+                return hosts;
+            }
+        }
+
+        internal IActivationDataStore GetActivationSrc()
+        {
+            return new DsLicFile();
+        }
+
+        public static IRegCoreClient RegCore
+        {
+            get
+            {
+                return RegCoreClient.Get(new RegCoreServer(RegCoreServer).ApiScript, ProductCode, new DsLicFile(), false);
+            }
+        }
+
+        public bool IsActivated()
+        {
+            return RegCore.IsActivated(ProductCode, Version, HttpContext.Current.Request.Url.Host);
+        }
+
+        public bool IsTrial()
+        {
+            return RegCore.IsTrial(ProductCode, Version, HttpContext.Current.Request.Url.Host);
+        }
+
+        public bool IsTrialExpired()
+        {
+            return RegCore.IsTrialExpired(ProductCode, Version, HttpContext.Current.Request.Url.Host);
+        }
+
+        public void Activate(string regCode, string host, string actCode)
+        {
+            if (string.IsNullOrEmpty(actCode)) {
+                RegCore.Activate(regCode, ProductCode, Version, host, ProductKey);
+            } else {
+                RegCore.Activate(regCode, ProductCode, Version, host, ProductKey, actCode);
+            }
+        }
+
+        #endregion
+
+
 
         #region IPortable Members
 
@@ -41,6 +112,14 @@ namespace avt.DynamicFlashRotator.Dnn
         }
 
         #endregion
+
+        public string UpgradeModule(string Version)
+        {
+            // update activation
+            RegCore.Upgrade(ProductCode, Version, ProductKey, false);
+
+            return "Done";
+        }
     }
 }
 

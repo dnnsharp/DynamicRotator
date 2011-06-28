@@ -495,9 +495,9 @@
 
     <asp:Label runat="server" ID = "lblTabActivateContents">
         <div id = "tabs-main-activate" style="margin: 15px 25px;">
-            <h2 style="color: #C77405;">This copy of Dynamic Rotator .NET is Not Activated!</h2>
+            <h2 style="color: #C77405;">This copy of Dynamic Rotator .NET is in Trial!</h2>
             <div>
-                This means that when you're not accessing this website on localhost you will get random trial notifications.
+                This means that you can evaluate the software with full functionalities for 30 days.
             </div>
 
             <br /><br />
@@ -505,7 +505,7 @@
                 To activate this package you need a License Key. If you don't have one yet you can <a style="color: #1C94C4;" href = "<%= BuyUrl %>">Purchase a License here</a>.
 
                 <br /><br />
-                If you already have a license, proceed to <a href = "<%= TemplateSourceDirectory %>/Activation.aspx?rurl=<%= Server.UrlEncode(Request.RawUrl) %>" style="color: #1C94C4; font-weight: bold;">Activation Wizard</a>.
+                If you already have a license, proceed to <a href = "<%= TemplateSourceDirectory + "/RegCore/Activation.aspx?t="+ HttpUtility.UrlEncode(ControllerType.AssemblyQualifiedName) + "&rurl=" + Server.UrlEncode(Request.RawUrl) %>" style="color: #1C94C4; font-weight: bold;">Activation Wizard</a>.
             </div>
         </div>
     </asp:Label>
@@ -518,7 +518,7 @@
             <a href = "http://www.avatar-soft.ro/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx">Read more about Dynamic Redirect .NET</a> |
             <a href ="<%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.DocSrv %>">Browse Documentation</a>
             <br /><br />
-            Version <%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.VersionAll %> by <a href = "http://www.avatar-soft.ro" style="color: #C77405;">Avatar Software</a>
+            Version <%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.Build %> by <a href = "http://www.avatar-soft.ro" style="color: #C77405;">Avatar Software</a>
         </div>
         <div class="btnPane" style="display: none;">
             <a href = "<%= ReturnUrl %>" style="color: #525252; padding: 1px 10px; margin-right: 10px; font-weight: normal;" >Cancel</a>
@@ -1072,6 +1072,7 @@ jQuery(document).ready(function() {
             slideRoot.find(".tbBtnTextColor").val(slide.btnTextColor);
             slideRoot.find(".tbBtnBackColor").val(slide.btnBackColor);
             slideRoot.find(".cbLinkCaption").attr("checked","checked");
+            checkLinkCaption(slideRoot.find('.pnlSlideOptsLink:first'), true);
         } else {
             checkLinkCaption(slideRoot.find('.pnlSlideOptsLink:first'), false);
         }
