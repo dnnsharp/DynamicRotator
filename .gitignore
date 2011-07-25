@@ -17,3 +17,5 @@
 *.suo
 *.user
 
+Flash.Presenter/!lib
+/Flash.Presenter/Presenter.swf

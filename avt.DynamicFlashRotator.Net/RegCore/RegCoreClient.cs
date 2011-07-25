@@ -99,7 +99,7 @@ namespace avt.DynamicFlashRotator.Net.RegCore
                 if (!act.IsValid(productCode, version))
                     continue;
 
-                if (act.RegCode.VariantCode == "ENT")
+                if (act.RegCode.VariantCode == "ENT" || act.RegCode.VariantCode == "DEV")
                     return act;
 
                 try {
@@ -135,18 +135,27 @@ namespace avt.DynamicFlashRotator.Net.RegCore
 
         public bool IsActivated(string productCode, string version, string host)
         {
+            if (host == "localhost")
+                return true;
+
             ILicenseActivation act = GetValidActivation(productCode, version, host);
             return act != null;
         }
 
         public bool IsTrial(string productCode, string version, string host)
         {
+            if (host == "localhost")
+                return false;
+
             ILicenseActivation act = GetValidActivation(productCode, version, host);
             return act != null && act.RegCode.IsTrial;
         }
 
         public bool IsTrialExpired(string productCode, string version, string host)
         {
+            if (host == "localhost")
+                return false;
+
             if (AllActivations.Count == 0 || !IsTrial(productCode, version, host))
                 return false;
 
