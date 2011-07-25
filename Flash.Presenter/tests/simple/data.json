@@ -1,0 +1,55 @@
+{
+	"setup": {
+		
+		"debug": true,
+		"slideWidth": 600,
+		"slideHeight": 200,
+		"slideLayout": {
+			"type": "grid",
+			"rows": 1,
+			"cols": 1
+		},
+		"randomOrder": true,
+		"loop": false,
+		"progressiveLoadSlides": true,
+		"fullScreenMode": {
+			"allow": true
+		},
+		
+		"loader": {
+			"x": "center",
+			"y": "center",
+			"image": ""
+		},
+			
+		"advancePresentation": {
+			
+			"timing": {
+				"allow": true,
+				"autostart": true,
+				"defaultTiming": 10000
+			},
+
+			"manual": {
+				"event": "click",
+				"keyBack": null,
+				"keyForward": null,
+				"enableScroll":false
+			}
+		}
+		
+	},
+	
+	"slides": [
+		{ "src": "tests/simple/slide.xml" },
+		{
+			"title": "First Slide",
+			"duration": 6
+		},
+		{
+			"title": "Second Slide"
+		},
+		{ "src": "tests/simple/slide.xml" },
+		{ "src": "tests/simple/slide2.xml" }
+	]
+}

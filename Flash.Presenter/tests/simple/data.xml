@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf8"?>
+<presentation>
+
+	<setup>
+		<debug>true</debug>
+		<slideWidth>600</slideWidth>
+		<slideHeight>600</slideHeight>
+	</setup>
+	
+	<slides>
+		<slide>
+			<title>First Slide</title>
+		</slide>
+		<slide>
+			<title>Second Slide</title>
+		</slide>
+	</slides>
+	
+</presentation>
