@@ -1,7 +1,9 @@
-﻿package avt.Presenter {
+﻿package avt.Presenter.AdvanceSlide {
 	
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
+	import avt.Presenter.Slide;
+	import avt.Presenter.Presentation;
 	
 	public class AdvanceSlideClick implements IAdvanceSlide {
 		

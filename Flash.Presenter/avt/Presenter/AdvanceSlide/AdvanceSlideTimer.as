@@ -1,8 +1,10 @@
-﻿package avt.Presenter {
+﻿package avt.Presenter.AdvanceSlide {
 	
 	import flash.display.Sprite;
 	import flash.utils.setTimeout;
 	import flash.utils.clearTimeout;
+	import avt.Presenter.Slide;
+	import avt.Presenter.Presentation;
 	
 	public class AdvanceSlideTimer implements IAdvanceSlide {
 		

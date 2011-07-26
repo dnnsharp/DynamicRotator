@@ -10,11 +10,13 @@
 	import flash.text.TextFormat;
 	import flash.geom.ColorTransform;
 	import flash.display.Sprite;
+	import avt.Presenter.SlideTransitions.*;
 	
 	public class Slide extends Sprite {
 
 		public function Slide(presentation:Presentation) {
 			_presentation = presentation;
+			this.visible = false;
 		}
 		
 		private var _presentation:Presentation;
@@ -41,6 +43,9 @@
 		private var _duration:int;
 		public function get duration():int { return _duration; }
 		public function set duration(i:int):void { _duration = i; }	
+		
+		private var _transition:ISlideTransition;
+		public function get transition():ISlideTransition { return _transition; }
 		
 		public function parseConfiguration(config:*): void {
 			trace("  > Parsing slide...");
@@ -77,8 +82,15 @@
 			this.title = config.title ? config.title : "Unnamed Slide";
 			trace("    title: " + this.title);
 			
-			try { this.duration = parseInt(config.title); } catch (e:Error) { config.duration = -1; }
+			try { this.duration = parseInt(config.duration); } catch (e:Error) { config.duration = -1; }
 			trace("    duration: " + this.duration);
+			
+			if (config.transition) {
+				_transition = SlideTransitionFactory.factory(_presentation, config.transition);
+			} else {
+				_transition = new SlideTransitionNone();
+			}
+			
 			
 			// setup graphics
 			// TODO: backgrounder class?
@@ -86,29 +98,11 @@
 			_mcBg.graphics.beginFill(0xff0000);
 			_mcBg.graphics.drawRect(0, 0, _presentation.slideWidth, _presentation.slideHeight);
         	_mcBg.graphics.endFill();
-			_mcBg.alpha=0.0;
+			_mcBg.alpha=0.2;
 			addChild(_mcBg);
 			
-			loaded = true;
-			if (_renderOnLoad) {
-				_render();
-			}
-		}
-		
-		public function render():void {
-			if (!loaded) {
-				trace("> Render called but slide is not loaded; show loader until everything loads...");
-				_renderOnLoad = true;
-				return;
-			}
 			
-			_render();
-		}
-		
-		private function _render():void {
-			trace("> Render slide " + originalIndex + ": " + title);
-			
-			var textFormat:TextFormat = new TextFormat("verdana", 11)
+			var textFormat:TextFormat = new TextFormat("verdana", 24)
 			var textField:TextField = new TextField()
 			textField.defaultTextFormat = textFormat
     		textField.text = title;
@@ -126,10 +120,42 @@
 //        this.graphics.drawCircle(50,50,50); // parameters(x,y,radius)
 //        this.graphics.endFill();
 		
-			opaqueBackground = 0xf2f2ff;
+			//opaqueBackground = 0xf2f2ff;
+			
+			
+			loaded = true;
+			if (_renderOnLoad) {
+				_render();
+			}
+		}
+		
+		public function render():void {
+			if (!loaded) {
+				trace("> Render called but slide is not loaded; show loader until everything loads...");
+				_renderOnLoad = true;
+				return;
+			}
+			
+			_render();
+		}
+		
+		public function reset():void {
+			x=0;
+			y=0;
+			alpha = 1;
+			visible = true;
+		}
+		
+		private function _render():void {
+			trace("> Render slide " + originalIndex + ": " + title);
+			
+			this.parent.setChildIndex(this, this.parent.numChildren - 1);
 		
 		
-
+			_transition.transition(_presentation.prevSlide, this, onTransitionComplete);
+		}
+		
+		private function onTransitionComplete():void {
 			_presentation.notifySlideVisible(this);
 		}
 

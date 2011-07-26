@@ -9,7 +9,7 @@
 			"rows": 1,
 			"cols": 1
 		},
-		"randomOrder": true,
+		"randomOrder": false,
 		"loop": false,
 		"progressiveLoadSlides": true,
 		"fullScreenMode": {
@@ -27,7 +27,7 @@
 			"timing": {
 				"allow": true,
 				"autostart": true,
-				"defaultTiming": 10000
+				"defaultTiming": 3000
 			},
 
 			"manual": {
@@ -42,14 +42,26 @@
 	
 	"slides": [
 		{ "src": "tests/simple/slide.xml" },
+		
+		{
+			"title": "Second Slide",
+			"duration": 7000,
+			"transition": {
+				"type": "push",
+				"direction": "down",
+				"duration": 3000,
+				"easing": "Strong.easeIn"
+			}
+		},
 		{
 			"title": "First Slide",
-			"duration": 6
+			"duration": 6000,
+			"transition": {
+				"type": "fade",
+				"duration": 2000,
+				"easing": "Strong.easeIn"
+			}
 		},
-		{
-			"title": "Second Slide"
-		},
-		{ "src": "tests/simple/slide.xml" },
 		{ "src": "tests/simple/slide2.xml" }
 	]
 }

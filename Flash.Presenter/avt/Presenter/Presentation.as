@@ -9,10 +9,14 @@
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
+	import avt.Presenter.AdvanceSlide.IAdvanceSlide;
+	import avt.Presenter.AdvanceSlide.AdvanceSlideTimer;
+	import avt.Presenter.AdvanceSlide.AdvanceSlideClick;
 	
 	public class Presentation {
 
 		private var _container:Sprite;
+		public function get container():Sprite { return _container; }
 
 		public function Presentation(container:Sprite) {
 			_container = container;
@@ -46,29 +50,38 @@
 		private var _slides:Vector.<Slide>;
 		public function get slides():Vector.<Slide> { return _slides; }
 		
-		private var _currentSlide:int = -1;
+		private var _prevSlide:Slide = null;
+		public function get prevSlide():Slide { return _prevSlide; }
+		
+		private var _currentSlideIndex:int = -1;
+		
+		private function get nextSlideIndex():int {
+			var nextSlideIndex = _currentSlideIndex + 1;
+			if (nextSlideIndex >= _slides.length)
+				nextSlideIndex = 0;
+			
+			return nextSlideIndex;
+		}
+		
+		
 		public function goToNextSlide():Slide {
 			if (!_slides || _slides.length == 0) {
 				throw new Error("There are no slides loaded!");
 			}
 			
-			if (_currentSlide != -1 && _slides[_currentSlide] != null) {
-				_slides[_currentSlide].visible = false;
+			if (_currentSlideIndex != -1 && _slides[_currentSlideIndex] != null) {
+				_prevSlide = _slides[_currentSlideIndex];
 				stopAllSlideAdvanceListeners();
 			}
 			
-			_currentSlide++;
-			if (_currentSlide >= _slides.length)
-				_currentSlide = 0;
-
-			_slides[_currentSlide].visible = true;
-			_slides[_currentSlide].render();
+			_currentSlideIndex = nextSlideIndex;
+			_slides[_currentSlideIndex].render();		
 			
-			return _slides[_currentSlide];
+			return _slides[_currentSlideIndex];
 		}
 		
 		public function get currentSlide():Slide {
-			return _slides[_currentSlide];
+			return _slides[_currentSlideIndex];
 		}
 		
 		public function Load(strPath:String) : void {
