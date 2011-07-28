@@ -10,17 +10,16 @@
 		
 		static public function factory(presentation:Presentation, config:*):ISlideTransition {
 			
-			var t:ISlideTransition = null;
-			switch (config.type) {
-				case "fade":
-					t = new SlideTransitionFade();
-					break;
-				case "push":
-					t = new SlideTransitionPush();
-					break;
-				default:
-					t = new SlideTransitionNone();
-					break;
+			var t:ISlideTransition = new SlideTransitionNone();
+			if (config.effect) {
+				switch (config.effect.toString()) {
+					case "fade":
+						t = new SlideTransitionFade();
+						break;
+					case "push":
+						t = new SlideTransitionPush();
+						break;
+				}
 			}
 			t.init(presentation, config);
 			return t;

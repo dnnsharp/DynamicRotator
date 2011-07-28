@@ -6,17 +6,12 @@
 	import flash.utils.getDefinitionByName;
 	import fl.transitions.TweenEvent;
 	import avt.Presenter.Presentation;
+	import avt.Util.EasingHelper;
 	
 	public class SlideTransitionPush implements ISlideTransition {
 		
 		public function SlideTransitionPush() {
-			// hack the compiler to include these simbols
-			var a = None.easeNone;
-			a = Regular.easeIn;
-			a = Bounce.easeIn;
-			a = Back.easeIn;
-			a = Elastic.easeIn;
-			a = Strong.easeIn;
+
 		}
 		
 		const DefaultDuration:int = 2000;
@@ -37,8 +32,7 @@
 					_duration = DefaultDuration / 1000;
 			} catch (e:Error) { _duration = DefaultDuration/10000; }
 			
-			var strEasing:String = config.easing.toString();
-			_easing = getDefinitionByName("fl.transitions.easing."+strEasing.substr(0, strEasing.indexOf('.')))[strEasing.substr(strEasing.indexOf('.')+1)] as Function;
+			_easing = EasingHelper.fromString(config.easing.toString());
 
 			try { _direction = config.direction; } catch (e:Error) { _direction = "left"; }
 		}
@@ -50,24 +44,26 @@
 			
 			if (_direction == "up" || _direction== "down") {
 				prop="y";
-				deltaMove = (_direction =="up" ? -currentSlide.stage.height : currentSlide.stage.height);
+				deltaMove = (_direction =="up" ? -currentSlide.presentation.slideHeight : currentSlide.presentation.slideHeight);
 			} else {
 				prop="x";
-				deltaMove = (_direction =="left" ? -currentSlide.stage.width: currentSlide.stage.width);
+				deltaMove = (_direction =="left" ? -currentSlide.presentation.slideWidth: currentSlide.presentation.slideWidth);
 			}
 			
 			trace("  > Slide transition PUSH (duration: "+ _duration +"; prop: " + prop + "; delta:"+ deltaMove +")");
 			
 			if (prevSlide != null) {
 				prevSlide.reset();
-				//_prevTween = new Tween(prevSlide, prop,_easing,0,deltaMove,_duration,true); 
-				//_prevTween.addEventListener(TweenEvent.MOTION_FINISH, function(e:TweenEvent) { prevSlide.visible = false; });
 			}
 
 			currentSlide.reset();
 
 			_currentTween= new Tween(currentSlide, prop,_easing,-deltaMove,0,_duration,true); 
-			_currentTween.addEventListener(TweenEvent.MOTION_FINISH, function(e:TweenEvent) { fnComplete(); });
+			_currentTween.addEventListener(TweenEvent.MOTION_FINISH, function(e:TweenEvent) { 
+				if (prevSlide != null)
+					prevSlide.visible = false;
+			   fnComplete(); 
+			});
 			_currentTween.addEventListener(TweenEvent.MOTION_CHANGE , function(e:TweenEvent) { 
 				if (prevSlide != null) {
 					prevSlide[prop] = deltaMove + e.position;

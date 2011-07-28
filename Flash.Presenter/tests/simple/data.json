@@ -41,26 +41,144 @@
 	},
 	
 	"slides": [
-		{ "src": "tests/simple/slide.xml" },
 		
 		{
 			"title": "Second Slide",
 			"duration": 7000,
+			
 			"transition": {
-				"type": "push",
+				"effect": "push",
 				"direction": "down",
 				"duration": 3000,
 				"easing": "Strong.easeIn"
-			}
+			},
+			
+			"objects": [
+				{
+					"objType": "graphic",
+					"src": "tests/simple/net-logo.png",
+					"init": {
+						"x": 100,
+						"y": 0,
+						"alpha": 0.0,
+						"scaleX":2
+					},
+										
+					"animations": [
+					
+						{
+							"prop": "alpha",
+							"start": 500,
+							"duration": 5000,
+							"from": "0",
+							"to": "1",
+							"easing": "Strong.easeIn"
+						},
+						
+						{
+							"prop": "x",
+							"start": 2500,
+							"duration": 1000,
+							"from": 100,
+							"to": 200,
+							"easing": "Bounce.easeInOut"
+						},
+						
+						{
+							"prop": "y",
+							"start": 2500,
+							"duration": 2500,
+							"from": 0,
+							"to": 100,
+							"easing": "Strong.easeIn"
+						},
+						
+						{
+							"prop": "x",
+							"start": 5500,
+							"duration": 2000,
+							"to": 20,
+							"easing": "Strong.easeInOut"
+						}
+					]
+				},
+				{
+					"objType": "graphic",
+					"src": "tests/simple/DotNetNukeGear.png",
+					"init": {
+						"x": 0,
+						"y": 100,
+						"alpha": 0,
+						"scaleX": 0.5,
+						"scaleY": 0.5
+					},
+										
+					"animations": [
+						
+						{
+							"prop": "alpha",
+							"start": 2000,
+							"duration": 1000,
+							"to": 1,
+							"easing": "Strong.easeInOut"
+						},
+						{
+							"prop": "alpha",
+							"start": 3000,
+							"duration": 1000,
+							"to": 0,
+							"easing": "Strong.easeInOut"
+						},
+						{
+							"prop": "alpha",
+							"start": 4000,
+							"duration": 1000,
+							"to": 1,
+							"easing": "Strong.easeInOut"
+						},
+						{
+							"prop": "alpha",
+							"start": 5000,
+							"duration": 3000,
+							"to": 1,
+							"easing": "Bounce.easeInOut"
+						}
+						
+					]
+				},
+				
+				{
+					"objType": "button",
+					"text": "Click Me",
+					"url": "http://www.dnnsharp.com"
+				}
+			]
 		},
+		{ "src": "tests/simple/slide.xml" },
 		{
 			"title": "First Slide",
 			"duration": 6000,
 			"transition": {
-				"type": "fade",
+				"effect": "fade",
 				"duration": 2000,
 				"easing": "Strong.easeIn"
-			}
+			},
+			
+			"objects": [
+				{
+					"objType": "graphic",
+					"src": "tests/simple/webclock2.swf",
+					"init": {
+						"x": 10,
+						"y": 10
+					},
+										
+					"animations": [
+					
+						
+					]
+				}
+			]
 		},
 		{ "src": "tests/simple/slide2.xml" }
 	]

@@ -6,17 +6,18 @@
 	import flash.utils.getDefinitionByName;
 	import fl.transitions.TweenEvent;
 	import avt.Presenter.Presentation;
+	import avt.Util.EasingHelper;
 	
 	public class SlideTransitionFade implements ISlideTransition {
 		
 		public function SlideTransitionFade() {
-			// hack the compiler to include these simbols
-			var a = None.easeNone;
-			a = Regular.easeIn;
-			a = Bounce.easeIn;
-			a = Back.easeIn;
-			a = Elastic.easeIn;
-			a = Strong.easeIn;
+			//// hack the compiler to include these simbols
+//			var a = None.easeNone;
+//			a = Regular.easeIn;
+//			a = Bounce.easeIn;
+//			a = Back.easeIn;
+//			a = Elastic.easeIn;
+//			a = Strong.easeIn;
 		}
 		
 		const DefaultDuration:int = 2000;
@@ -36,8 +37,8 @@
 			} catch (e:Error) { _duration = DefaultDuration/10000; }
 			
 			var strEasing:String = config.easing.toString();
-			_easing = getDefinitionByName("fl.transitions.easing."+strEasing.substr(0, strEasing.indexOf('.')))[strEasing.substr(strEasing.indexOf('.')+1)] as Function;
-			trace(_easing);
+			//_easing = getDefinitionByName("fl.transitions.easing."+strEasing.substr(0, strEasing.indexOf('.')))[strEasing.substr(strEasing.indexOf('.')+1)] as Function;
+			_easing = EasingHelper.fromString(strEasing);
 		}
 		
 		public function transition(prevSlide:Slide, currentSlide:Slide, fnComplete:Function):void {

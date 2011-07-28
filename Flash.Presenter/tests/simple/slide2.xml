@@ -1,4 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <slide>
 	<title>Other External Slide</title>
+	<duration>7000</duration>
+	
+	<transition>
+		<effect>fade</effect>
+		<duration>2000</duration>
+		<easing>Strong.easeIn</easing>
+	</transition>	
+			
 </slide>
