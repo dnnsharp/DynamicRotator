@@ -9,7 +9,7 @@
 			if (isNaN(marginLeft)) marginLeft = 0;
 			if (isNaN(marginRight)) marginRight = 0;
 			
-			var xReal:Number  = x ? parseFloat(x) : parseFloat(xDefault);
+			var xReal:Number  = x || x == 0 ? parseFloat(x) : parseFloat(xDefault);
 			if (isNaN(xReal))
 				xReal = mapAlignX(obj, parentWidth, x ? x.toString() : xDefault.toString());
 			
@@ -38,7 +38,7 @@
 			if (isNaN(marginTop)) marginTop = 0;
 			if (isNaN(marginBottom)) marginBottom = 0;
 			
-			var yReal:Number  = y ? parseFloat(y) : parseFloat(yDefault);
+			var yReal:Number  = y || y == 0 ? parseFloat(y) : parseFloat(yDefault);
 			if (isNaN(yReal))
 				yReal = mapAlignY(obj, parentHeight, y ? y.toString() : yDefault.toString());
 			

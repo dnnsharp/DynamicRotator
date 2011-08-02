@@ -71,16 +71,12 @@
 					
 					// the image is now loaded, so let's add it to the display tree!     
 					_this.addChild(_loader);
-
-					 _initProps["x"] = PositionHelper.getRealX(_this, presentation.slideWidth, _initProps["x"], "center", _initProps["marginLeft"], _initProps["marginRight"]);
-					 _initProps["y"] = PositionHelper.getRealY(_this, presentation.slideHeight, _initProps["y"], "center", _initProps["marginTop"], _initProps["marginBottom"]);
-					 
-					 delete _initProps["marginLeft"];
-					 delete _initProps["marginRight"];
-					 delete _initProps["marginTop"];
-					 delete _initProps["marginBottom"];
 					 
 					for (var i in _initProps) {
+						
+						if (i.indexOf("margin") == 0)
+							continue;
+					
 						if (!_this.hasOwnProperty(i)) {
 							trace("    Invalid loader property " + i);
 						} else {
@@ -88,6 +84,9 @@
 							_this[i] = _initProps[i];
 						}
 					}
+					
+					_this["x"] = PositionHelper.getRealX(_this, presentation.slideWidth, _initProps["x"], "center", _initProps["marginLeft"], _initProps["marginRight"]);
+					_this["y"] = PositionHelper.getRealY(_this, presentation.slideHeight, _initProps["y"], "center", _initProps["marginTop"], _initProps["marginBottom"]);
 					
 					_mc = (_loader.getChildAt(0) as MovieClip).getChildAt(0) as MovieClip;
 				});
