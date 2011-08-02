@@ -11,8 +11,8 @@
 		static public function factory(presentation:Presentation, config:*):ISlideTransition {
 			
 			var t:ISlideTransition = new SlideTransitionNone();
-			if (config.effect) {
-				switch (config.effect.toString()) {
+			if (config.transition) {
+				switch (config.transition.toString()) {
 					case "fade":
 						t = new SlideTransitionFade();
 						break;

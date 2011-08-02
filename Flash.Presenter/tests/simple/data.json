@@ -17,9 +17,14 @@
 		},
 		
 		"loader": {
-			"x": "center",
-			"y": "center",
-			"image": ""
+			"props": {
+				"x": "right",
+				"y": "bottom",
+				"marginRight": 10,
+				"marginBottom": 5
+			},
+			"syncProgressWithTimeline": false,
+			"src": "tests/simple/loader bar.swf"
 		},
 			
 		"advancePresentation": {
@@ -42,12 +47,13 @@
 	
 	"slides": [
 		
+		{ "src": "tests/simple/slide.xml" },
 		{
 			"title": "Second Slide",
 			"duration": 7000,
 			
 			"transition": {
-				"effect": "push",
+				"transition": "push",
 				"direction": "down",
 				"duration": 3000,
 				"easing": "Strong.easeIn"
@@ -57,7 +63,7 @@
 				{
 					"objType": "graphic",
 					"src": "tests/simple/net-logo.png",
-					"init": {
+					"props": {
 						"x": 100,
 						"y": 0,
 						"alpha": 0.0,
@@ -105,7 +111,7 @@
 				{
 					"objType": "graphic",
 					"src": "tests/simple/DotNetNukeGear.png",
-					"init": {
+					"props": {
 						"x": 0,
 						"y": 100,
 						"alpha": 0,
@@ -154,12 +160,11 @@
 				}
 			]
 		},
-		{ "src": "tests/simple/slide.xml" },
 		{
 			"title": "First Slide",
 			"duration": 6000,
 			"transition": {
-				"effect": "fade",
+				"transition": "fade",
 				"duration": 2000,
 				"easing": "Strong.easeIn"
 			},
@@ -168,7 +173,7 @@
 				{
 					"objType": "graphic",
 					"src": "tests/simple/webclock2.swf",
-					"init": {
+					"props": {
 						"x": 10,
 						"y": 10
 					},

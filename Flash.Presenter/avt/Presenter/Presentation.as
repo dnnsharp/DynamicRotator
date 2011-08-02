@@ -12,17 +12,33 @@
 	import avt.Presenter.AdvanceSlide.IAdvanceSlide;
 	import avt.Presenter.AdvanceSlide.AdvanceSlideTimer;
 	import avt.Presenter.AdvanceSlide.AdvanceSlideClick;
+	import avt.Presenter.Loaders.BaseLoader;
 	
 	public class Presentation {
 
-		private var _container:Sprite;
-		public function get container():Sprite { return _container; }
-
 		public function Presentation(container:Sprite) {
 			_container = container;
+			
+			_slideContainer = new Sprite();
+			_container.addChild(_slideContainer);
+			
+			_overlay = new Sprite();
+			_container.addChild(_overlay);
 		}
 		
 		const AdvancePresentation_TimingDefaultMs = 10000; // 10 seconds
+		
+		private var _loader:BaseLoader;
+		public function get loader():BaseLoader { return _loader; }
+		
+		private var _container:Sprite;
+		public function get container():Sprite { return _container; }
+		
+		private var _overlay:Sprite;
+		public function get overlay():Sprite { return _overlay; }
+		
+		private var _slideContainer:Sprite;
+		public function get slideContainer():Sprite { return _slideContainer; }
 		
 		private var _debug:Boolean;
 		public function get debug():Boolean { return _debug; }
@@ -126,6 +142,12 @@
 			try { this.loop = config.setup.loop.toString().toLowerCase() == "true"; } catch (e:Error) { this.loop = false; }
 			trace("  loop: " + this.loop);
 			
+			trace("> Parse Loader");
+			_loader = new BaseLoader(this);
+			_loader.parseConfiguration(config.setup.loader);
+			overlay.addChild(_loader);
+			_loader.show();
+			
 			trace("> Parse advance slide options...");
 			
 			_advanceSlide = new Vector.<IAdvanceSlide>();
@@ -156,14 +178,15 @@
 			trace("> Parsing "+ config.slides.length +" slides...");
 			this._slides = new Vector.<Slide>();
 			for (var i:int=0; i < config.slides.length; i++) {
-				var s:Slide = new Slide(this);
+				var s:Slide = new Slide(this, config.slides[i]);
 				
-				s.parseConfiguration(config.slides[i]);
+				//s.parseConfiguration(config.slides[i]);
 				s.originalIndex = s.viewIndex = i + 1;
 				slides.push(s);
 				
-				_container.addChild(s);
+				slideContainer.addChild(s);
 			}
+			slides[0].load(slideFinishedLoading);
 			
 			if (this.randomOrder) {
 				trace("> Random order detected, reorder array...");
@@ -176,10 +199,18 @@
 			
 			trace("> Done loading configuration, render first slide");
 			
+			
 			//_container.stage.scaleMode = StageScaleMode.NO_SCALE;
             //_container.stage.align = StageAlign.TOP_LEFT;
 			
 			goToNextSlide();
+		}
+		
+		public function slideFinishedLoading(slide:Slide) {
+			// load next slide
+			if (slide.viewIndex < slides.length) {
+				slides[slide.viewIndex].load(slideFinishedLoading);
+			}
 		}
 		
 		public function notifySlideVisible(slide:Slide) {

@@ -14,12 +14,14 @@
 	import flash.display.Loader;
 	import avt.Presenter.SlideObjects.*;
 	import br.com.stimuli.loading.BulkLoader;
+	import br.com.stimuli.loading.BulkProgressEvent;
 	
 	public class Slide extends Sprite {
 
-		public function Slide(presentation:Presentation) {
+		public function Slide(presentation:Presentation, config:*) {
 			_presentation = presentation;
 			this.visible = false;
+			_config = config;
 		}
 		
 		private var _presentation:Presentation;
@@ -31,7 +33,10 @@
 		public function get loaded():Boolean { return _loaded; }
 		public function set loaded(l:Boolean):void { _loaded = l; }
 		
-		private var _loader : BulkLoader;
+		private var _config: *;		
+		public function get config():* { return _config; }
+		
+		private var _loader: BulkLoader;
 		
 		private var _renderOnLoad:Boolean = false;
 		
@@ -57,12 +62,13 @@
 		private var _objects:Vector.<SlideObjectBase>;
 		public function get objects():Vector.<SlideObjectBase> { return _objects; }
 		
-		public function parseConfiguration(config:*): void {
-			trace("  > Parsing slide...");
 			
-			showLoader();
-			_loader = new BulkLoader();
+		
+		public function load(fnComplete:Function):void {
 			
+			trace("> Loading slide "+ originalIndex +"...");
+			loaded = false;
+						
 			if (config.src) {
 				trace("  ...configuration is in external file, loading " + config.src);
 				this.title = "Loading from external source...";
@@ -77,35 +83,23 @@
 						return;
 					}
 					
-					trace("  > Parsing externally loaded slide...");
-					_parseConfiguration(settings);
-					
+					_config = settings;
+					_parseConfiguration();
 				});
 				
 				// TODO: handle error
 				slideConfigLoader.load(new URLRequest(config.src));
 				
 			} else {
-				_parseConfiguration(config);
+				_parseConfiguration();
 			}
-		}
-		
-		var _slideLoader:Loader;
-		private function showLoader():void {
-			// loader icon
-			_slideLoader = new Loader();
-			_slideLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, function onLoaderReady(e:Event) {     
-				  // the image is now loaded, so let's add it to the display tree!     
-				  addChild(_slideLoader);
-				  _slideLoader.x = width / 2 - _slideLoader.width/2;
-				  _slideLoader.y = height / 2 - _slideLoader.height/2;
-			});
 			
-			var fileRequest:URLRequest = new URLRequest("tests/simple/loader rotite.swf");
-			_slideLoader.load(fileRequest);
 		}
 		
-		private function _parseConfiguration(config:*): void {
+		
+		private function _parseConfiguration(): void {
+			
+			trace("  > Parsing slide configuration...");
 			
 			this.title = config.title ? config.title : "Unnamed Slide";
 			trace("    title: " + this.title);
@@ -119,13 +113,14 @@
 			trace("    duration: " + this.duration);
 			
 			if (config.transition) {
-				trace("    Has transition of type " + config.transition.effect);
+				trace("    Has transition of type " + config.transition.transition);
 				_transition = SlideTransitionFactory.factory(_presentation, config.transition);
 			} else {
 				_transition = new SlideTransitionNone();
 			}
 			
 			// parse slides objects
+			_loader = new BulkLoader();
 			this._objects = new Vector.<SlideObjectBase>();
 			if (config.objects) {
 				trace("  > Parsing "+ config.objects.length +" objects...");
@@ -139,15 +134,18 @@
 			}
 			
 			
-			
 			if (_loader.itemsTotal == 0) {
+				trace("There are no slide objects in slide " + originalIndex + ", the slide will render empty.");
+				presentation.loader.hide();
+				presentation.slideFinishedLoading(this);
+
 				loaded = true;
-				_slideLoader.visible = false;
 				if (_renderOnLoad) {
 					_render();
 				}
 			} else {
 				
+				var _thisSlide = this;
 				_loader.addEventListener(BulkLoader.COMPLETE, function(evt:Event) {
 					
 					var _failedItems:Array = _loader.getFailedItems();
@@ -158,19 +156,24 @@
 							trace(" - " + _failedItems[i]);
 						}
 					} else {
-						trace("  Everything loaded fine...");
+						trace("  All slide objects loaded fine...");
 					}
 										 
+					presentation.loader.hide();
+					presentation.slideFinishedLoading(_thisSlide);
 					loaded = true;
-					_slideLoader.visible = false;
-					
 					if (_renderOnLoad) {
 						_render();
 					}
 				});
+				
+				_loader.addEventListener(BulkLoader.PROGRESS, function(e:BulkProgressEvent) {
+					presentation.loader.update(e.percentLoaded);
+				});
 					
 				_loader.start();
 			}
+			
 			
 			// setup graphics
 			// TODO: backgrounder class?
@@ -193,9 +196,7 @@
 			//var colorTransform:ColorTransform = this.transform.colorTransform;
 //			colorTransform.color = 0xCC6666;
 //			this.transform.colorTransform = colorTransform;
-			
-			
-			
+
 			
 			//this.graphics.beginFill(0xff0000);
 //        this.graphics.drawCircle(50,50,50); // parameters(x,y,radius)
@@ -203,15 +204,14 @@
 		
 			//opaqueBackground = 0xf2f2ff;
 			
-			
-			
-			
 		}
 		
+
 		public function render():void {
 			if (!loaded) {
 				trace("> Render called but slide is not loaded; show loader until everything loads...");
 				_renderOnLoad = true;
+				presentation.loader.show();
 				return;
 			}
 			

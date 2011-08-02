@@ -4,7 +4,7 @@
 	<duration>7000</duration>
 	
 	<transition>
-		<effect>fade</effect>
+		<transition>fade</transition>
 		<duration>2000</duration>
 		<easing>Strong.easeIn</easing>
 	</transition>	

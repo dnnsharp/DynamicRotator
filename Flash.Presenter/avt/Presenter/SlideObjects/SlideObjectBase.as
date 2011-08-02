@@ -37,8 +37,8 @@
 		public function parseConfiguration(config:*,loader:BulkLoader): void {
 			trace("  > Parsing object...");
 			
-			if (config.init) {
-				_initProps = config.init;
+			if (config.props) {
+				_initProps = config.props;
 			} else {
 				_initProps = new Object();
 				_initProps.x = 0;
