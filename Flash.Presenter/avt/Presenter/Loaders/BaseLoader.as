@@ -19,7 +19,7 @@
 		public function get presentation():Presentation { return _presentation; }
 		
 		private var _loader:Loader;
-		private var _initProps:*;
+		private var _initProps:Object;
 		private var _mc:MovieClip = null;
 		private var _mcBg:MovieClip;
 		private var _syncProgressWithTimeline:Boolean;
@@ -45,13 +45,18 @@
 				
 		public function parseConfiguration(config:*): void {
 		
-			if (!config) {
+			if (!config || config == undefined) {
 				trace("  No configuration found, no loader animation will be displayed");
 				return;
 			}
 			
-			if (config.props) {
-				_initProps = config.props;
+			_initProps = new Object();
+			if (config.props && config.props != undefined) {
+				var initProps:* = config.props.children ? config.props.children() : config.props;
+				for (var iProp in initProps) {
+					var nodeName:String = isNaN(parseInt(iProp)) ? iProp : initProps[iProp].name();
+					_initProps[nodeName] = initProps[iProp];
+				}
 			} else {
 				trace("  Properties not found, defaulting to center coordinates");
 				_initProps = new Object();
@@ -61,7 +66,7 @@
 			
 			_syncProgressWithTimeline = config.syncProgressWithTimeline.toString() == "true";
 			
-			if (config.src) {
+			if (config.src && config.src != undefined) {
 				trace("  Loading resource from " + config.src + "...");
 				_loader = new Loader();
 				var _this = this;
@@ -85,8 +90,8 @@
 						}
 					}
 					
-					_this["x"] = PositionHelper.getRealX(_this, presentation.slideWidth, _initProps["x"], "center", _initProps["marginLeft"], _initProps["marginRight"]);
-					_this["y"] = PositionHelper.getRealY(_this, presentation.slideHeight, _initProps["y"], "center", _initProps["marginTop"], _initProps["marginBottom"]);
+					_initProps["x"] = _this["x"] = PositionHelper.getRealX(_this, presentation.slideWidth, _initProps["x"], "center", _initProps["marginLeft"], _initProps["marginRight"]);
+					_initProps["y"] = _this["y"] = PositionHelper.getRealY(_this, presentation.slideHeight, _initProps["y"], "center", _initProps["marginTop"], _initProps["marginBottom"]);
 					
 					_mc = (_loader.getChildAt(0) as MovieClip).getChildAt(0) as MovieClip;
 				});

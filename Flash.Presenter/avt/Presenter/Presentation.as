@@ -101,7 +101,7 @@
 		}
 		
 		public function Load(strPath:String) : void {
-			trace("> Loading configuration file...");
+			trace("> Loading configuration file from "+ strPath +"...");
 			
 			var myTextLoader:URLLoader = new URLLoader();
 
@@ -174,11 +174,20 @@
 				trace("  > Advance by slide click");
 			}
 			
-			// parse slides
-			trace("> Parsing "+ config.slides.length +" slides...");
+			if (_advanceSlide.length == 0) {
+				trace("  > No advance event defined, defaulting to timings (10 seconds)");
+				advanceSlide.push(new AdvanceSlideTimer(this, true, 10000));
+			}
+			
+			
 			this._slides = new Vector.<Slide>();
-			for (var i:int=0; i < config.slides.length; i++) {
-				var s:Slide = new Slide(this, config.slides[i]);
+			var slidesArr = config.slides.length != undefined ? config.slides : config.slides.children();
+			var slidesArrLen = config.slides.length != undefined ? config.slides.length : config.slides.children().length();
+			
+			trace("> Parsing "+ slidesArrLen +" slides...");
+			
+			for (var i:int=0; i < slidesArrLen; i++) {
+				var s:Slide = new Slide(this, slidesArr[i]);
 				
 				//s.parseConfiguration(config.slides[i]);
 				s.originalIndex = s.viewIndex = i + 1;
@@ -186,6 +195,8 @@
 				
 				slideContainer.addChild(s);
 			}
+			
+
 			slides[0].load(slideFinishedLoading);
 			
 			if (this.randomOrder) {

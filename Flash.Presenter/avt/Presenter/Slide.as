@@ -69,7 +69,7 @@
 			trace("> Loading slide "+ originalIndex +"...");
 			loaded = false;
 						
-			if (config.src) {
+			if (config.src && config.src != undefined) {
 				trace("  ...configuration is in external file, loading " + config.src);
 				this.title = "Loading from external source...";
 				
@@ -101,18 +101,18 @@
 			
 			trace("  > Parsing slide configuration...");
 			
-			this.title = config.title ? config.title : "Unnamed Slide";
+			this.title = config.title && config.title != undefined ? config.title : "Unnamed Slide";
 			trace("    title: " + this.title);
 			
-			if (config.duration) {
+			if (config.duration && config.duration != undefined) {
 				try { this.duration = parseInt(config.duration); } catch (e:Error) { config.duration = -1; }
-				if (config.duration <= 0) {
-					config.duration = -1;
+				if (this.duration <= 0) {
+					this.duration = -1;
 				}
 			}
 			trace("    duration: " + this.duration);
 			
-			if (config.transition) {
+			if (config.transition && config.transition != undefined) {
 				trace("    Has transition of type " + config.transition.transition);
 				_transition = SlideTransitionFactory.factory(_presentation, config.transition);
 			} else {
@@ -122,10 +122,14 @@
 			// parse slides objects
 			_loader = new BulkLoader();
 			this._objects = new Vector.<SlideObjectBase>();
-			if (config.objects) {
-				trace("  > Parsing "+ config.objects.length +" objects...");
-				for (var i:int=0; i < config.objects.length; i++) {
-					var so:SlideObjectBase = SlideObjectBase.factory(this, config.objects[i], _loader); 
+			if (config.objects && config.objects != undefined) {
+				
+				var objArr = config.objects.length != undefined ? config.objects : config.objects.children();
+				var objArrLen = config.objects.length != undefined ? config.objects.length : config.objects.children().length();
+			
+				trace("  > Parsing "+ objArrLen +" objects...");
+				for (var i:int=0; i < objArrLen; i++) {
+					var so:SlideObjectBase = SlideObjectBase.factory(this, objArr[i], _loader); 
 					if (so) {
 						_objects.push(so);
 						addChild(so);
@@ -175,22 +179,22 @@
 			}
 			
 			
-			// setup graphics
-			// TODO: backgrounder class?
-			_mcBg = new MovieClip();
-			_mcBg.graphics.beginFill(0xff0000);
-			_mcBg.graphics.drawRect(0, 0, _presentation.slideWidth, _presentation.slideHeight);
-        	_mcBg.graphics.endFill();
-			_mcBg.alpha=0.2;
-			addChild(_mcBg);
-			
-			
-			var textFormat:TextFormat = new TextFormat("verdana", 24)
-			var textField:TextField = new TextField()
-			textField.defaultTextFormat = textFormat
-    		textField.text = title;
-			textField.width=300;
-    		addChild(textField)
+			//// setup graphics
+//			// TODO: backgrounder class?
+//			_mcBg = new MovieClip();
+//			_mcBg.graphics.beginFill(0xff0000);
+//			_mcBg.graphics.drawRect(0, 0, _presentation.slideWidth, _presentation.slideHeight);
+//        	_mcBg.graphics.endFill();
+//			_mcBg.alpha=0.2;
+//			addChild(_mcBg);
+//			
+//			
+//			var textFormat:TextFormat = new TextFormat("verdana", 24)
+//			var textField:TextField = new TextField()
+//			textField.defaultTextFormat = textFormat
+//    		textField.text = title;
+//			textField.width=300;
+//    		addChild(textField)
 			
 			
 			//var colorTransform:ColorTransform = this.transform.colorTransform;

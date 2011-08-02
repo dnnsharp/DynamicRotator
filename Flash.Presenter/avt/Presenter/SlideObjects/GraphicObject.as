@@ -18,8 +18,8 @@
 		public override function parseConfiguration(config:*,loader:BulkLoader): void {
 			super.parseConfiguration(config,loader);
 			
-			if (config.src) {
-				loader.add(config.src);
+			if (config.src && config.src != undefined) {
+				loader.add(config.src.toString());
 				loader.addEventListener(BulkLoader.COMPLETE, function(evt:Event) {
 					var obj : * = loader.getContent(config.src).parent;
 					addChild(obj);
