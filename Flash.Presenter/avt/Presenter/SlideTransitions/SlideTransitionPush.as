@@ -6,7 +6,7 @@
 	import flash.utils.getDefinitionByName;
 	import fl.transitions.TweenEvent;
 	import avt.Presenter.Presentation;
-	import avt.Util.EasingHelper;
+	import avt.Util.TransitionUtils;
 	
 	public class SlideTransitionPush implements ISlideTransition {
 		
@@ -32,7 +32,7 @@
 					_duration = DefaultDuration / 1000;
 			} catch (e:Error) { _duration = DefaultDuration/10000; }
 			
-			_easing = EasingHelper.fromString(config.easing.toString());
+			_easing = TransitionUtils.easingFromString(config.easing.toString());
 
 			try { _direction = config.direction; } catch (e:Error) { _direction = "left"; }
 		}

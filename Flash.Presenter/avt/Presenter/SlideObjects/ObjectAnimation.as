@@ -1,6 +1,6 @@
 ﻿package avt.Presenter.SlideObjects {
 	import fl.transitions.Tween;
-	import avt.Util.EasingHelper;
+	import avt.Util.TransitionUtils;
 	import flash.utils.setTimeout;
 	import flash.utils.clearTimeout;
 	
@@ -44,7 +44,7 @@
 			
 		}
 		
-		public function start():void {
+		public function scheduleStart():void {
 			_timer = setTimeout(startTween, _start * 1000);
 		}
 		
@@ -57,7 +57,7 @@
 			if (!from)
 				from = _slideObject[_prop];
 			
-			_tween = new Tween(_slideObject, _prop, EasingHelper.fromString(_easing), from, _to, _duration, true);
+			_tween = new Tween(_slideObject, _prop, TransitionUtils.easingFromString(_easing), from, _to, _duration, true);
 		}
 		
 	}

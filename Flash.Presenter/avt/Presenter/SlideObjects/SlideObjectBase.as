@@ -2,13 +2,15 @@
 	
 	import avt.Presenter.Slide;
 	import br.com.stimuli.loading.BulkLoader;
-	import flash.display.Sprite;
+	import flash.display.MovieClip;
 	import fl.transitions.Tween;
 	import avt.Util.PositionHelper;
 	import flash.events.Event;
+	import fl.transitions.Transition;
+	import flash.utils.setTimeout;
 	
 	
-	public class SlideObjectBase extends Sprite {
+	public class SlideObjectBase extends MovieClip {
 
 		public function SlideObjectBase(slide:Slide) {
 			_slide = slide;
@@ -17,6 +19,10 @@
 		private var _slide:Slide;
 		private var _initProps:Object;
 		private var _animations:Vector.<ObjectAnimation>;
+		private var _enterSceneAtTime:int;
+		private var _leaveSceneAtTime:int;
+		private var _transitionsIn:Vector.<ObjectTransition>;
+		private var _transitionsOut:Vector.<ObjectTransition>;
 		private var _bInit: Boolean;
 
 		public static function factory(slide:Slide, config:*, loader:BulkLoader):SlideObjectBase {
@@ -44,17 +50,68 @@
 			
 			_initProps = new Object();
 			if (config.props && config.props != undefined) {
+				trace("    > Parsing inital parameters: ");
 				var initProps:* = config.props.children ? config.props.children() : config.props;
 				for (var iProp in initProps) {
 					var nodeName:String = isNaN(parseInt(iProp)) ? iProp : initProps[iProp].name();
 					_initProps[nodeName] = initProps[iProp];
+					trace("      " + nodeName + ": " + initProps[iProp])
 				}
 			} else {
+				trace("      no properties found, default position to (0,0)");
 				_initProps = new Object();
 				_initProps.x = 0;
 				_initProps.y = 0;
 			}
-
+			
+			// when to enter scene
+			_enterSceneAtTime = 0;
+			_transitionsIn = new Vector.<ObjectTransition>();
+			if (config.enterScene && config.enterScene != undefined) {
+				try { _enterSceneAtTime = parseInt(config.enterScene.atTime); } catch (e:Error) { _enterSceneAtTime = 0; }
+				
+				if (config.enterScene.transitions && config.enterScene.transitions != undefined) {
+					
+					var tArrIn = config.enterScene.transitions.length != undefined ? config.enterScene.transitions: config.enterScene.transitions.children();
+					var tArrInLen = config.enterScene.transitions.length != undefined ? config.enterScene.transitions.length : config.enterScene.transitions.children().length();
+					
+					for (var itin=0; itin<tArrInLen; itin++) {
+						var tIn:ObjectTransition = new ObjectTransition(this, tArrIn[itin], Transition.IN);
+						_transitionsIn.push(tIn);
+					}
+				}
+			}
+			trace("    > enterSceneAtTime: " + _enterSceneAtTime);
+			
+			// when to leave scene
+			_leaveSceneAtTime = _slide.duration;
+			_transitionsOut = new Vector.<ObjectTransition>();
+			var maxOutDuration:int = 0;
+			if (config.leaveScene && config.leaveScene != undefined) {
+				try { _leaveSceneAtTime = parseInt(config.leaveScene.atTime); } catch (e:Error) { _leaveSceneAtTime = _slide.duration; }
+				
+				if (config.leaveScene.transitions && config.leaveScene.transitions != undefined) {
+					
+					var tArrOut = config.leaveScene.transitions.length != undefined ? config.leaveScene.transitions: config.leaveScene.transitions.children();
+					var tArrOutLen = config.leaveScene.transitions.length != undefined ? config.leaveScene.transitions.length : config.leaveScene.transitions.children().length();
+					
+					for (var itout = 0; itout < tArrOutLen; itout++) {
+						var tOut:ObjectTransition = new ObjectTransition(this, tArrOut[itout], Transition.OUT);
+						_transitionsOut.push(tOut);
+						
+						if (maxOutDuration < tOut.duration) {
+							maxOutDuration = tOut.duration;
+						}
+					}
+				}
+			}
+			trace("    > leaveSceneAtTime: " + _leaveSceneAtTime);
+			
+			_leaveSceneAtTime -= maxOutDuration;
+			trace("    > leaveSceneAtTimeAdjusted: " + _leaveSceneAtTime);
+			
+			
+			// parse animations
 			_animations = new Vector.<ObjectAnimation>();						
 			if (config.animations && config.animations != undefined) {
 				
@@ -66,7 +123,6 @@
 					_animations.push(anim);
 				}
 			}
-			
 		}
 		
 		public function reset():void {
@@ -89,19 +145,55 @@
 			}
 			
 			_bInit = true;
+			visible = false;
 		}
 		
-		public function startAnimations():void {
+		public function scheduleShow() {
+			reset();
+			setTimeout(function() {
+					_show();
+				}, _enterSceneAtTime);
+		}
+		
+		private function _show():void {
+			
+			if (_transitionsIn.length == 0) {
+				trace("  > Showing object instantly.");
+				visible = true;
+			} else {
+				trace("  > Showing object with transitions.");
+				for (var it=0; it < _transitionsIn.length; it++) {
+					_transitionsIn[it].start();
+				}
+			}
+			
 			for (var i=0; i<_animations.length; i++) {
-				_animations[i].start();
+				_animations[i].scheduleStart();
+			}
+			
+			// set timer to hide object
+			setTimeout(function() {
+				_hide();
+			}, _leaveSceneAtTime - _enterSceneAtTime);
+		}
+		
+		private function _hide() {
+			if (_transitionsIn.length == 0) {
+				trace("  > Hiding object instantly.");
+				visible = false;
+			} else {
+				trace("  > Hiding object with transitions.");
+				for (var it=0; it < _transitionsOut.length; it++) {
+					_transitionsOut[it].start();
+				}
 			}
 		}
 		
-		public function cancelAnimations():void {
-			for (var i=0; i<_animations.length; i++) {
-				_animations[i].stop();
-			}
-		}
+		//public function cancelAnimations():void {
+//			for (var i=0; i<_animations.length; i++) {
+//				_animations[i].stop();
+//			}
+//		}
 
 	}
 	

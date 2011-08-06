@@ -236,8 +236,7 @@
 			_transition.transition(_presentation.prevSlide, this, onTransitionComplete);
 			
 			for (var i=0; i < objects.length; i++) {
-				objects[i].reset();
-				objects[i].startAnimations();
+				objects[i].scheduleShow();
 			}
 		}
 		

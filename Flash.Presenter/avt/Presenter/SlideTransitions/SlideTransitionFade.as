@@ -6,7 +6,7 @@
 	import flash.utils.getDefinitionByName;
 	import fl.transitions.TweenEvent;
 	import avt.Presenter.Presentation;
-	import avt.Util.EasingHelper;
+	import avt.Util.TransitionUtils;
 	
 	public class SlideTransitionFade implements ISlideTransition {
 		
@@ -38,7 +38,7 @@
 			
 			var strEasing:String = config.easing.toString();
 			//_easing = getDefinitionByName("fl.transitions.easing."+strEasing.substr(0, strEasing.indexOf('.')))[strEasing.substr(strEasing.indexOf('.')+1)] as Function;
-			_easing = EasingHelper.fromString(strEasing);
+			_easing = TransitionUtils.easingFromString(strEasing);
 		}
 		
 		public function transition(prevSlide:Slide, currentSlide:Slide, fnComplete:Function):void {

@@ -8,7 +8,7 @@
 	import flash.events.Event;
 	
 	
-	public class GraphicObject extends SlideObjectBase {
+	public dynamic class GraphicObject extends SlideObjectBase {
 
 		public function GraphicObject(slide:Slide) {
 			super(slide);
