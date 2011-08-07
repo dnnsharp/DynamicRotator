@@ -9,9 +9,7 @@
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
-	import avt.Presenter.AdvanceSlide.IAdvanceSlide;
-	import avt.Presenter.AdvanceSlide.AdvanceSlideTimer;
-	import avt.Presenter.AdvanceSlide.AdvanceSlideClick;
+	import avt.Presenter.AdvanceSlide.*;
 	import avt.Presenter.Loaders.BaseLoader;
 	
 	public class Presentation {
@@ -52,6 +50,9 @@
 		public function get slideHeight():int { return _slideHeight; }
 		public function set slideHeight(w:int):void { _slideHeight = w; }
 		
+		private var _defaultSlideDuration:int;
+		public function get defaultSlideDuration():int { return _defaultSlideDuration; }
+		
 		private var _randomOrder:Boolean;
 		public function get randomOrder():Boolean { return _randomOrder; }
 		public function set randomOrder(r:Boolean):void { _randomOrder = r; }
@@ -88,10 +89,14 @@
 			if (_currentSlideIndex != -1 && _slides[_currentSlideIndex] != null) {
 				_prevSlide = _slides[_currentSlideIndex];
 				stopAllSlideAdvanceListeners();
+				
+				// if there's only one slide don't bother to hide it and show it back
+				if (_slides.length == 1)
+					return _slides[_currentSlideIndex];
 			}
 			
 			_currentSlideIndex = nextSlideIndex;
-			_slides[_currentSlideIndex].render();		
+			_slides[_currentSlideIndex].render();
 			
 			return _slides[_currentSlideIndex];
 		}
@@ -109,7 +114,7 @@
 				trace("  Done.");
 				trace("> Determine configuration file format...");
 				
-				var settings:* = FileUtils.parseConfigurationObject(event.target.data);
+				var settings:* = FileUtils.parseConfigurationObject(event.target.data, strPath);
 				if (settings == null) {
 					return;
 				}
@@ -142,6 +147,9 @@
 			try { this.loop = config.setup.loop.toString().toLowerCase() == "true"; } catch (e:Error) { this.loop = false; }
 			trace("  loop: " + this.loop);
 			
+			_container.stage.scaleMode  = StageScaleMode.NO_SCALE;
+			_container.stage.align = StageAlign.TOP_LEFT;
+			
 			trace("> Parse Loader");
 			_loader = new BaseLoader(this);
 			_loader.parseConfiguration(config.setup.loader);
@@ -153,18 +161,18 @@
 			_advanceSlide = new Vector.<IAdvanceSlide>();
 			
 			var apAllowTiming:Boolean = true;
-			try { apAllowTiming = config.setup.advancePresentation.timing.allow.toString().toLowerCase() == "true"; } catch (e:Error) { apAllowTiming = true; }
+			try { apAllowTiming = config.setup.advancePresentation.timing.enabled.toString().toLowerCase() == "true"; } catch (e:Error) { apAllowTiming = true; }
+			
+			_defaultSlideDuration = AdvancePresentation_TimingDefaultMs;
 			
 			if (apAllowTiming) {
 				
 				var apTimingAutoStart:Boolean = true;
 				try { apTimingAutoStart = config.setup.advancePresentation.timing.autostart.toString().toLowerCase() == "true"; } catch (e:Error) { apTimingAutoStart = true; }
+				try { _defaultSlideDuration = parseInt(config.setup.advancePresentation.timing.defaultTiming); } catch (e:Error) { _defaultSlideDuration = AdvancePresentation_TimingDefaultMs; }
 				
-				var apTimingDefaultMs:int = AdvancePresentation_TimingDefaultMs;
-				try { apTimingDefaultMs = parseInt(config.setup.advancePresentation.timing.defaultTiming); } catch (e:Error) { apTimingDefaultMs = AdvancePresentation_TimingDefaultMs; }
-				
-				advanceSlide.push(new AdvanceSlideTimer(this, apTimingAutoStart, apTimingDefaultMs));
-				trace("  > Advance by timings (autostart: " + apTimingAutoStart +"; defaultInterval: " + apTimingDefaultMs + ")");
+				advanceSlide.push(new AdvanceSlideTimer(this, apTimingAutoStart, _defaultSlideDuration));
+				trace("  > Advance by timings (autostart: " + apTimingAutoStart +"; defaultInterval: " + _defaultSlideDuration + ")");
 			}
 			
 			var apAllowManualEvent:String = "none";
@@ -225,6 +233,11 @@
 		}
 		
 		public function notifySlideVisible(slide:Slide) {
+			
+			// if there's only one slide don't bother to hide it and show it back
+			if (_slides.length == 1)
+				return ;
+					
 			for (var ias:int = 0; ias < advanceSlide.length; ias++) {
 				advanceSlide[ias].startListen(currentSlide);
 			}

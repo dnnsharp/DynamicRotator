@@ -78,7 +78,7 @@
 				slideConfigLoader.addEventListener(Event.COMPLETE, function(e:Event) {
 					trace("> Loaded external slide config file.");
 
-					var settings:* = FileUtils.parseConfigurationObject(e.target.data);
+					var settings:* = FileUtils.parseConfigurationObject(e.target.data, config.src);
 					if (settings == null) {
 						return;
 					}
@@ -104,12 +104,13 @@
 			this.title = config.title && config.title != undefined ? config.title : "Unnamed Slide";
 			trace("    title: " + this.title);
 			
-			if (config.duration && config.duration != undefined) {
+			this.duration = -1;
+			if (config.duration && config.duration != undefined)
 				try { this.duration = parseInt(config.duration); } catch (e:Error) { config.duration = -1; }
-				if (this.duration <= 0) {
-					this.duration = -1;
-				}
-			}
+
+			if (this.duration <= 0)
+				this.duration = _presentation.defaultSlideDuration;
+				
 			trace("    duration: " + this.duration);
 			
 			if (config.transition && config.transition != undefined) {
@@ -227,6 +228,10 @@
 			y=0;
 			alpha = 1;
 			visible = true;
+			
+			for (var i=0; i < objects.length; i++) {
+				objects[i].reset();
+			}
 		}
 		
 		private function _render():void {

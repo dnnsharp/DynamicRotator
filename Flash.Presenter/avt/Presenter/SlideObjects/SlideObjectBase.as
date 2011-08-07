@@ -8,6 +8,7 @@
 	import flash.events.Event;
 	import fl.transitions.Transition;
 	import flash.utils.setTimeout;
+	import flash.utils.clearTimeout;
 	
 	
 	public class SlideObjectBase extends MovieClip {
@@ -24,6 +25,7 @@
 		private var _transitionsIn:Vector.<ObjectTransition>;
 		private var _transitionsOut:Vector.<ObjectTransition>;
 		private var _bInit: Boolean;
+		private var _timerShowHide: uint;
 
 		public static function factory(slide:Slide, config:*, loader:BulkLoader):SlideObjectBase {
 			var obj:SlideObjectBase = null;
@@ -145,12 +147,17 @@
 			}
 			
 			_bInit = true;
-			visible = false;
+			
+			if (_leaveSceneAtTime != _slide.duration || _transitionsOut.length > 0) {
+				clearTimeout(_timerShowHide);
+				visible = false;
+			}
 		}
 		
 		public function scheduleShow() {
 			reset();
-			setTimeout(function() {
+			
+			_timerShowHide = setTimeout(function() {
 					_show();
 				}, _enterSceneAtTime);
 		}
@@ -171,14 +178,22 @@
 				_animations[i].scheduleStart();
 			}
 			
+			// if there's only one slide don't bother to hide it and show it back
+			if (_slide.presentation.slides.length == 1)
+				return;
+			
+			if (_leaveSceneAtTime == _slide.duration && _transitionsOut.length == 0) {
+				return;
+			}
+			
 			// set timer to hide object
-			setTimeout(function() {
+			_timerShowHide = setTimeout(function() {
 				_hide();
 			}, _leaveSceneAtTime - _enterSceneAtTime);
 		}
 		
 		private function _hide() {
-			if (_transitionsIn.length == 0) {
+			if (_transitionsOut.length == 0) {
 				trace("  > Hiding object instantly.");
 				visible = false;
 			} else {
@@ -188,6 +203,7 @@
 				}
 			}
 		}
+		
 		
 		//public function cancelAnimations():void {
 //			for (var i=0; i<_animations.length; i++) {
