@@ -15,6 +15,7 @@
 	import avt.Presenter.SlideObjects.*;
 	import br.com.stimuli.loading.BulkLoader;
 	import br.com.stimuli.loading.BulkProgressEvent;
+	import avt.Presenter.Backgrounds.*;
 	
 	public class Slide extends Sprite {
 
@@ -58,6 +59,8 @@
 		
 		private var _transition:ISlideTransition;
 		public function get transition():ISlideTransition { return _transition; }
+		
+		private var _background:IBackground;
 		
 		private var _objects:Vector.<SlideObjectBase>;
 		public function get objects():Vector.<SlideObjectBase> { return _objects; }
@@ -108,6 +111,7 @@
 			if (config.duration && config.duration != undefined)
 				try { this.duration = parseInt(config.duration); } catch (e:Error) { config.duration = -1; }
 
+
 			if (this.duration <= 0)
 				this.duration = _presentation.defaultSlideDuration;
 				
@@ -119,6 +123,9 @@
 			} else {
 				_transition = new SlideTransitionNone();
 			}
+			
+			_background = BackgroundFactory.factory(config.background);
+			_background.addTo(this, _presentation.slideWidth, _presentation.slideHeight);
 			
 			// parse slides objects
 			_loader = new BulkLoader();

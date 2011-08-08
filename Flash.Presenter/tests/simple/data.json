@@ -4,17 +4,20 @@
 		"debug": true,
 		"slideWidth": 600,
 		"slideHeight": 200,
-		"slideLayout": {
-			"type": "grid",
-			"rows": 1,
-			"cols": 1
-		},
+		
+		//"slideLayout": {
+		//	"type": "grid",
+		//	"rows": 1,
+		//	"cols": 1
+		//},
+		
 		"randomOrder": false,
 		"loop": false,
-		"progressiveLoadSlides": true,
-		"fullScreenMode": {
-			"allow": true
-		},
+		
+		//"progressiveLoadSlides": true,
+		//"fullScreenMode": {
+		//	"allow": true
+		//},
 		
 		"loader": {
 			"props": {
@@ -36,7 +39,7 @@
 			},
 
 			"manual": {
-				"event": "click",
+				"click": true,
 				"keyBack": null,
 				"keyForward": null,
 				"enableScroll":false
@@ -50,7 +53,28 @@
 		{ "src": "tests/simple/slide.xml" },
 		{
 			"title": "Second Slide",
-			"duration": 7000,
+			"duration": 10000,
+			
+			"background": {
+				"bgType": "gradient",
+				"style": "liniar",
+				"rotation": 80,
+				"spread": "reflect",
+				"interpolation": "rgb",
+				"focalPointPosX": 0,
+				"keyPoints": [
+					{
+						"atPercent": 20,
+						"color": "0x00FF00",
+						"alpha": 1
+					},
+					{
+						"atPercent": 80,
+						"color": "0x0000FF",
+						"alpha": 1
+					}
+				]
+			},
 			
 			"transition": {
 				"transition": "push",
@@ -65,10 +89,49 @@
 					"src": "tests/simple/net-logo.png",
 					"props": {
 						"x": 100,
-						"y": 0,
-						"alpha": 0.0,
-						"scaleX":2
+						"y": 40//,
+						// "alpha": 0.0,
+						//"scaleX": 2
 					},
+										
+					"enterScene": {
+						"atTime": 3000,
+						"transitions": [
+							{
+								"transition": "Fly",
+								"duration": 4000,
+								"easing": "Back.easeInOut",
+								"startPoint": 7
+							},
+							{
+								"transition": "Blinds",
+								"duration": 4000,
+								"easing": "Back.easeInOut",
+								"numStrips": 50,
+								"dimension": 1
+							}
+						]
+					},
+					
+					"leaveScene": {
+						"atTime": 10000,
+						"transitions": [
+							{
+								"transition": "Rotate",
+								"duration": 2000,
+								"easing": "Strong.easeIn",
+								"startPoint": 1,
+								"degrees": 720
+							},
+							{
+								"transition": "Zoom",
+								"duration": 2000,
+								"easing": "Strong.easeIn",
+								"startPoint": 1
+							}
+						]
+					}
+					/*,
 										
 					"animations": [
 					
@@ -107,12 +170,13 @@
 							"easing": "Strong.easeInOut"
 						}
 					]
+					*/
 				},
 				{
 					"objType": "graphic",
 					"src": "tests/simple/DotNetNukeGear.png",
 					"props": {
-						"x": 0,
+						"x": "center",
 						"y": 100,
 						"alpha": 0,
 						"scaleX": 0.5,

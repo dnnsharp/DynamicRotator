@@ -175,9 +175,9 @@
 				trace("  > Advance by timings (autostart: " + apTimingAutoStart +"; defaultInterval: " + _defaultSlideDuration + ")");
 			}
 			
-			var apAllowManualEvent:String = "none";
-			try { apAllowManualEvent = config.setup.advancePresentation.manual.event.toString().toLowerCase(); } catch (e:Error) { apAllowManualEvent = "none"; }
-			if (apAllowManualEvent == "click") {
+			var apByClick:String = "";
+			try { apByClick = config.setup.advancePresentation.manual.click.toString().toLowerCase(); } catch (e:Error) { }
+			if (apByClick == "true") {
 				advanceSlide.push(new AdvanceSlideClick(this));
 				trace("  > Advance by slide click");
 			}
