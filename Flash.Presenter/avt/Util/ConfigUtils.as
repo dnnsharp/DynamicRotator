@@ -5,7 +5,9 @@
 		
 		public static function parseNumber(numberObject:*, defaultValue:Number=NaN, minValue:Number=NaN, maxValue:Number=NaN):Number {
 			var n:Number = NaN;
-			try { n = parseFloat(numberObject); } catch (err:Error) { }
+			if (numberObject != undefined) {
+				try { n = parseFloat(numberObject); } catch (err:Error) { }
+			}
 			
 			if (isNaN(n)) {
 				if (isNaN(defaultValue))

@@ -15,6 +15,7 @@
 		}
 		
 		private var _style:String;
+		private var _scale:Point;
 		private var _rotation:Number;
 		private var _spreadMethod:String;
 		private var _interpolationMethod:String;
@@ -32,8 +33,15 @@
 			_style = (config.style == "radial" ? GradientType.RADIAL : GradientType.LINEAR);
 			trace("    style: " + _style)
 			
-			_rotation = ConfigUtils.parseNumber(config.rotation, 0);
-			trace("    rotation: " + _rotation)
+			_rotation = ConfigUtils.parseNumber(config.rotation, 0) * Math.PI / 180;
+			trace("    rotation: " + _rotation);
+			
+			_scale = new Point();
+			if (config.scale && config.scale != undefined) {
+				_scale.x = ConfigUtils.parseNumber(config.scale.x, 0, 0, 1);
+				_scale.y = ConfigUtils.parseNumber(config.scale.y, 0, 0, 1);
+			}
+			trace("    size: " + _scale);
 			
 			_translation = new Point();
 			if (config.translation && config.translation != undefined) {
@@ -45,13 +53,11 @@
 			_spreadMethod = (config.spread == "pad" ? SpreadMethod.PAD : ( config.spread == "repeat" ? SpreadMethod.REPEAT : SpreadMethod.REFLECT  ) );			
 			trace("    spread: " + _spreadMethod)
 			
-			_interpolationMethod = (config.interpolation == "liniar" ? InterpolationMethod.LINEAR_RGB : InterpolationMethod.RGB);
+			_interpolationMethod = (config.interpolation == "linear" ? InterpolationMethod.LINEAR_RGB : InterpolationMethod.RGB);
 			trace("    interpolation: " + _interpolationMethod)
 			
 			// parse focal point
-			_focalPointPosX = 0;
-			try { _focalPointPosX = parseFloat(config.focalPointPosX); } catch (err:Error) { _focalPointPosX = 0; }		
-			if (isNaN(_focalPointPosX = 0)) _focalPointPosX = 0;
+			_focalPointPosX = ConfigUtils.parseNumber(config.focalPointPosX, 0, -1, 1);
 			trace("    focal point: " + _focalPointPosX);
 			
 			// parse points
@@ -64,8 +70,8 @@
 			
 			for (var ipt=0; ipt <ptArrLen; ipt++) {
 				
-				var at:int = ConfigUtils.parseNumber(ptArr[ipt].atPercent, ipt / (ptArrLen == 1 ? 1 : ptArrLen - 1) * 100, 0, 100);
-				_ratios.push(2.55 * at); // needs to be on 0-255 scale
+				var at:Number = ConfigUtils.parseNumber(ptArr[ipt].at, ipt / (ptArrLen == 1 ? 1 : ptArrLen - 1), 0, 1);
+				_ratios.push(2.55 * at * 100); // needs to be on 0-255 scale
 				
 				var color:uint = 0xffffff;
 				try { color = parseInt(ptArr[ipt].color); } catch (err:Error) { color = 0xffffff; }
@@ -81,12 +87,13 @@
 		
 		public function addTo(obj:Sprite, width: Number, height:Number):void {
 			
-			 
-//			 var colors:Array = [0xFF0000, 0x0000FF];
-//			 var alphas:Array = [1, 1];
-//			 var ratios:Array = [0x00, 0xFF];
-			 var matr:Matrix = new Matrix();
-			 matr.createGradientBox(width, height, _rotation, _translation.x, _translation.y);
+			var matr:Matrix = new Matrix();
+			matr.createGradientBox(
+				_scale.x > 0 ? _scale.x * width: width, 
+				_scale.y > 0 ? _scale.y * height: height, 
+				_rotation, 
+				_translation.x, _translation.y
+			);
 			 
 			var bg:Sprite = new Sprite();
 			bg.graphics.beginGradientFill(_style, _colors, _alphas, _ratios, matr, _spreadMethod, _interpolationMethod, _focalPointPosX);        
