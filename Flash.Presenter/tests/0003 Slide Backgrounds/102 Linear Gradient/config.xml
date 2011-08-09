@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf8"?>
+<presentation>
+
+	<setup>
+		<slideWidth>400</slideWidth>
+		<slideHeight>200</slideHeight>
+		<advancePresentation>
+			<timing><enabled>false</enabled></timing>
+			<manual><click>true</click></manual>
+		</advancePresentation>
+	</setup>
+	
+	<slides>
+		
+		<slide>
+			<title>Slide 1</title>
+			<background>
+				<bgType>gradient</bgType>
+				<keyPoints>
+					<point>
+						<color>0x00ee00</color>
+					</point>
+					<point>
+						<color>0x0000ee</color>
+					</point>
+				</keyPoints>
+			</background>
+		</slide>
+		
+		<slide>
+			<title>Slide 2</title>
+			<background>
+				<bgType>gradient</bgType>
+				<keyPoints>
+					<point>
+						<at>0</at>
+						<color>0x00ee00</color>
+					</point>
+					<point>
+						<at>0.5</at>
+						<color>0x0000ee</color>
+					</point>
+					<point>
+						<at>1</at>
+						<color>0xee0000</color>
+					</point>
+				</keyPoints>
+			</background>
+		</slide>
+		
+		<slide>
+			<title>Slide 3</title>
+			<background>
+				<bgType>gradient</bgType>
+				<rotation>30</rotation>
+				<keyPoints>
+					<point>
+						<at>0</at>
+						<color>0x00ee00</color>
+					</point>
+					<point>
+						<at>0.5</at>
+						<color>0x0000ee</color>
+					</point>
+					<point>
+						<at>1</at>
+						<color>0xee0000</color>
+					</point>
+				</keyPoints>
+			</background>
+		</slide>
+		
+		<slide>
+			<title>Slide 4</title>
+			<background>
+				<bgType>gradient</bgType>
+				<rotation>30</rotation>
+				<translation>
+					<x>50</x>
+					<y>20</y>
+				</translation>
+				<keyPoints>
+					<point>
+						<at>0</at>
+						<color>0x00ee00</color>
+					</point>
+					<point>
+						<at>0.5</at>
+						<color>0x0000ee</color>
+					</point>
+					<point>
+						<at>1</at>
+						<color>0xee0000</color>
+					</point>
+				</keyPoints>
+			</background>
+		</slide>
+		
+		<slide>
+			<title>Slide 5</title>
+			<background>
+				<bgType>gradient</bgType>
+				<rotation>30</rotation>
+				<translation>
+					<x>50</x>
+					<y>20</y>
+				</translation>
+				<keyPoints>
+					<point>
+						<at>0</at>
+						<color>0x00ee00</color>
+						<alpha>0.4</alpha>
+					</point>
+					<point>
+						<at>0.5</at>
+						<color>0x0000ee</color>
+						<alpha>0.6</alpha>
+					</point>
+					<point>
+						<at>1</at>
+						<color>0xee0000</color>
+						<alpha>0.8</alpha>
+					</point>
+				</keyPoints>
+			</background>
+		</slide>
+		
+		<slide>
+			<title>Slide 6</title>
+			<background>
+				<bgType>gradient</bgType>
+				<rotation>30</rotation>
+				<translation>
+					<x>50</x>
+					<y>20</y>
+				</translation>
+				<scale>
+					<x>0.4</x>
+					<y>0.4</y>
+				</scale>
+				<keyPoints>
+					<point>
+						<at>0</at>
+						<color>0x00ee00</color>
+						<alpha>0.4</alpha>
+					</point>
+					<point>
+						<at>0.5</at>
+						<color>0x0000ee</color>
+						<alpha>0.6</alpha>
+					</point>
+					<point>
+						<at>1</at>
+						<color>0xee0000</color>
+						<alpha>0.8</alpha>
+					</point>
+				</keyPoints>
+			</background>
+		</slide>
+		
+	</slides>
+	
+</presentation>

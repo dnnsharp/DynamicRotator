@@ -64,12 +64,12 @@
 				"focalPointPosX": 0,
 				"keyPoints": [
 					{
-						"atPercent": 20,
+						"at": 20,
 						"color": "0x00FF00",
 						"alpha": 1
 					},
 					{
-						"atPercent": 80,
+						"at": 80,
 						"color": "0x0000FF",
 						"alpha": 1
 					}

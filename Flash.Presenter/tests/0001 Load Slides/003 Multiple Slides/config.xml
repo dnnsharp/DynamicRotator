@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf8"?>
+<presentation>
+
+	<setup>
+		<slideWidth>400</slideWidth>
+		<slideHeight>200</slideHeight>
+		<advancePresentation>
+			<timing>
+				<enabled>true</enabled>
+				<autostart>true</autostart>
+				<defaultTiming>2000</defaultTiming>
+			</timing>
+		</advancePresentation>
+	</setup>
+	
+	
+	
+	<slides>
+		
+		<slide><src>slide.xml</src></slide>
+		
+		<slide>
+			<title>Second Slide</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0x0000FF</color>
+			</background>
+		</slide>
+		
+	</slides>
+	
+</presentation>

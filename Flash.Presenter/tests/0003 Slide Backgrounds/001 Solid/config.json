@@ -1,0 +1,17 @@
+{
+	"setup": {
+
+		"slideWidth": 400,
+		"slideHeight": 200
+	},
+	
+	"slides": [
+		{
+			"title": "Test Slide",
+			"background": {
+				"bgType": "solid",
+				"color": "0xFF0000"
+			}
+		}
+	]
+}

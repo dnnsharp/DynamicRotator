@@ -1,0 +1,29 @@
+{
+	"setup": {
+
+		"slideWidth": 400,
+		"slideHeight": 200,
+		
+		"advancePresentation": {
+			
+			"timing": {
+				"enabled": true,
+				"autostart": true,
+				"defaultTiming": 2000
+			}
+		}
+	},
+	
+	"slides": [
+		
+		{ "src": "slide.json" },
+		
+		{
+			"title": "Second Slide",
+			"background": {
+				"bgType": "solid",
+				"color": "0x0000FF"
+			}
+		}
+	]
+}

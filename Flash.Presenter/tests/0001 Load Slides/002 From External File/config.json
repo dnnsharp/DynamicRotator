@@ -1,0 +1,11 @@
+{
+	"setup": {
+
+		"slideWidth": 400,
+		"slideHeight": 200
+	},
+	
+	"slides": [
+		{ "src": "slide.json" }
+	]
+}
