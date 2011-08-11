@@ -9,7 +9,7 @@
 	<objects>
 		<object>
 			<objType>graphic</objType>
-			<src>../../../test-data/square-red.png</src>
+			<src>../../.res/square-red.png</src>
 			<props>
 				<x>50</x>
 				<y>30</y>
@@ -17,7 +17,7 @@
 		</object>
 		<object>
 			<objType>graphic</objType>
-			<src>../../../test-data/triangle-green.png</src>
+			<src>../../.res/triangle-green.png</src>
 			<props>
 				<x>150</x>
 				<y>80</y>
@@ -25,7 +25,7 @@
 		</object>
 		<object>
 			<objType>graphic</objType>
-			<src>../../../test-data/square-red.png</src>
+			<src>../../.res/square-red.png</src>
 			<props>
 				<x>250</x>
 				<y>30</y>
@@ -33,7 +33,7 @@
 		</object>
 		<object>
 			<objType>graphic</objType>
-			<src>../../../test-data/circle-blue.png</src>
+			<src>../../.res/circle-blue.png</src>
 			<props>
 				<x>150</x>
 				<y>30</y>

@@ -21,19 +21,19 @@
 			"objects": [
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/square-red.png",
+					"src": "../../.res/square-red.png",
 					"props": { "x": 20 }
 				},
 				
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/triangle-green.png",
+					"src": "../../.res/triangle-green.png",
 					"props": { "x": 150 }
 				},
 				
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/circle-blue.png",
+					"src": "../../.res/circle-blue.png",
 					"props": { "x": 280 }
 				}
 			]
@@ -44,7 +44,7 @@
 			"objects": [
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/square-red.png",
+					"src": "../../.res/square-red.png",
 					"props": { "x": 20 },
 					"animations": [
 						{
@@ -57,7 +57,7 @@
 				
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/triangle-green.png",
+					"src": "../../.res/triangle-green.png",
 					"props": { "x": 150 },
 					"animations": [
 						{
@@ -70,7 +70,7 @@
 				
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/circle-blue.png",
+					"src": "../../.res/circle-blue.png",
 					"props": { "x": 280 },
 					"animations": [
 						{
@@ -88,7 +88,7 @@
 			"objects": [
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/square-red.png",
+					"src": "../../.res/square-red.png",
 					"props": { "x": 20 },
 					"animations": [
 						{
@@ -103,7 +103,7 @@
 				
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/triangle-green.png",
+					"src": "../../.res/triangle-green.png",
 					"props": { "x": 150 },
 					"animations": [
 						{
@@ -118,7 +118,7 @@
 				
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/circle-blue.png",
+					"src": "../../.res/circle-blue.png",
 					"props": { "x": 280 },
 					"animations": [
 						{
@@ -145,7 +145,7 @@
 			"objects": [
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/square-red.png",
+					"src": "../../.res/square-red.png",
 					"props": { "x": 20 },
 					"animations": [
 						{
@@ -167,7 +167,7 @@
 				
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/circle-blue.png",
+					"src": "../../.res/circle-blue.png",
 					"props": { "x": 0, "alpha": 0 },
 					"animations": [
 						

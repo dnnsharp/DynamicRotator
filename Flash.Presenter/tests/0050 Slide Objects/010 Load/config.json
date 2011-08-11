@@ -24,7 +24,7 @@
 			"objects": [
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/square-red.png"
+					"src": "../../.res/square-red.png"
 				}
 			]
 		},
@@ -38,14 +38,14 @@
 			"objects": [
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/square-red.png",
+					"src": "../../.res/square-red.png",
 					"props": {
 						"x": 50
 					}
 				},
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/square-red.png",
+					"src": "../../.res/square-red.png",
 					"props": {
 						"x": 250
 					}
@@ -63,7 +63,7 @@
 			"objects": [
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/square-red.png",
+					"src": "../../.res/square-red.png",
 					"props": {
 						"x": 50,
 						"y": 30
@@ -71,7 +71,7 @@
 				},
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/square-red.png",
+					"src": "../../.res/square-red.png",
 					"props": {
 						"x": 250,
 						"y": 30
@@ -79,7 +79,7 @@
 				},
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/triangle-green.png",
+					"src": "../../.res/triangle-green.png",
 					"props": {
 						"x": 150,
 						"y": 80

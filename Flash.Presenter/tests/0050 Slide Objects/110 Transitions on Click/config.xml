@@ -28,21 +28,21 @@
 			<objects>
 				<object>
 					<objType>graphic</objType>
-					<src>../../../test-data/square-red.png</src>
+					<src>../../.res/square-red.png</src>
 					<props>
 						<x>20</x>
 					</props>
 				</object>
 				<object>
 					<objType>graphic</objType>
-					<src>../../../test-data/triangle-green.png</src>
+					<src>../../.res/triangle-green.png</src>
 					<props>
 						<x>150</x>
 					</props>
 				</object>
 				<object>
 					<objType>graphic</objType>
-					<src>../../../test-data/circle-blue.png</src>
+					<src>../../.res/circle-blue.png</src>
 					<props>
 						<x>280</x>
 					</props>
@@ -56,7 +56,7 @@
 				
 				<object>
 					<objType>graphic</objType>
-					<src>../../../test-data/square-red.png</src>
+					<src>../../.res/square-red.png</src>
 					<props>
 						<x>20</x>
 					</props>
@@ -74,7 +74,7 @@
 				
 				<object>
 					<objType>graphic</objType>
-					<src>../../../test-data/triangle-green.png</src>
+					<src>../../.res/triangle-green.png</src>
 					<props>
 						<x>150</x>
 					</props>
@@ -93,7 +93,7 @@
 				
 				<object>
 					<objType>graphic</objType>
-					<src>../../../test-data/circle-blue.png</src>
+					<src>../../.res/circle-blue.png</src>
 					<props>
 						<x>280</x>
 					</props>
@@ -118,7 +118,7 @@
 				
 				<object>
 					<objType>graphic</objType>
-					<src>../../../test-data/square-red.png</src>
+					<src>../../.res/square-red.png</src>
 					<props>
 						<x>20</x>
 					</props>
@@ -144,7 +144,7 @@
 				
 				<object>
 					<objType>graphic</objType>
-					<src>../../../test-data/triangle-green.png</src>
+					<src>../../.res/triangle-green.png</src>
 					<props>
 						<x>150</x>
 					</props>
@@ -173,7 +173,7 @@
 				
 				<object>
 					<objType>graphic</objType>
-					<src>../../../test-data/circle-blue.png</src>
+					<src>../../.res/circle-blue.png</src>
 					<props>
 						<x>280</x>
 					</props>
@@ -209,7 +209,7 @@
 				
 				<object>
 					<objType>graphic</objType>
-					<src>../../../test-data/square-red.png</src>
+					<src>../../.res/square-red.png</src>
 					<props>
 						<x>20</x>
 					</props>
@@ -247,7 +247,7 @@
 				
 				<object>
 					<objType>graphic</objType>
-					<src>../../../test-data/triangle-green.png</src>
+					<src>../../.res/triangle-green.png</src>
 					<props>
 						<x>150</x>
 					</props>
@@ -286,7 +286,7 @@
 				
 				<object>
 					<objType>graphic</objType>
-					<src>../../../test-data/circle-blue.png</src>
+					<src>../../.res/circle-blue.png</src>
 					<props>
 						<x>280</x>
 					</props>

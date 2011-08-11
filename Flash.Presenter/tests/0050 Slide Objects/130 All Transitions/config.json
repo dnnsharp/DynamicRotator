@@ -21,17 +21,17 @@
 			"objects": [
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/square-red.png",
+					"src": "../../.res/square-red.png",
 					"props": { "x": 20 }
 				},
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/triangle-green.png",
+					"src": "../../.res/triangle-green.png",
 					"props": { "x": 150 }
 				},
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/circle-blue.png",
+					"src": "../../.res/circle-blue.png",
 					"props": { "x": 280 }
 				}
 			]
@@ -42,7 +42,7 @@
 			"objects": [
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/square-red.png",
+					"src": "../../.res/square-red.png",
 					"props": { "x": 20 },
 					
 					"enterScene": {
@@ -68,7 +68,7 @@
 				
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/triangle-green.png",
+					"src": "../../.res/triangle-green.png",
 					"props": { "x": 150 },
 					
 					"enterScene": {
@@ -96,7 +96,7 @@
 				
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/circle-blue.png",
+					"src": "../../.res/circle-blue.png",
 					"props": { "x": 280 },
 					
 					"enterScene": {
@@ -131,7 +131,7 @@
 			"objects": [
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/square-red.png",
+					"src": "../../.res/square-red.png",
 					"props": { "x": 20 },
 					
 					"enterScene": {
@@ -157,7 +157,7 @@
 				
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/triangle-green.png",
+					"src": "../../.res/triangle-green.png",
 					"props": { "x": 150 },
 					
 					"enterScene": {
@@ -183,7 +183,7 @@
 				
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/circle-blue.png",
+					"src": "../../.res/circle-blue.png",
 					"props": { "x": 280 },
 					
 					"enterScene": {
@@ -214,7 +214,7 @@
 			"objects": [
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/square-red.png",
+					"src": "../../.res/square-red.png",
 					"props": { "x": 20 },
 					
 					"enterScene": {
@@ -242,7 +242,7 @@
 				
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/triangle-green.png",
+					"src": "../../.res/triangle-green.png",
 					"props": { "x": 150 },
 					
 					"enterScene": {
@@ -270,7 +270,7 @@
 				
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/circle-blue.png",
+					"src": "../../.res/circle-blue.png",
 					"props": { "x": 280 },
 					
 					"enterScene": {
@@ -303,7 +303,7 @@
 			"objects": [
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/square-red.png",
+					"src": "../../.res/square-red.png",
 					"props": { "x": 20 },
 					
 					"enterScene": {
@@ -331,7 +331,7 @@
 				
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/triangle-green.png",
+					"src": "../../.res/triangle-green.png",
 					"props": { "x": 150 },
 					
 					"enterScene": {
@@ -361,7 +361,7 @@
 				
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/circle-blue.png",
+					"src": "../../.res/circle-blue.png",
 					"props": { "x": 280 },
 					
 					"enterScene": {
@@ -396,7 +396,7 @@
 			"objects": [
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/square-red.png",
+					"src": "../../.res/square-red.png",
 					"props": { "x": 20 },
 					
 					"enterScene": {
@@ -422,7 +422,7 @@
 				
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/triangle-green.png",
+					"src": "../../.res/triangle-green.png",
 					"props": { "x": 150 },
 					
 					"enterScene": {
@@ -448,7 +448,7 @@
 				
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/circle-blue.png",
+					"src": "../../.res/circle-blue.png",
 					"props": { "x": 280 },
 					
 					"enterScene": {
@@ -479,7 +479,7 @@
 			"objects": [
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/square-red.png",
+					"src": "../../.res/square-red.png",
 					"props": { "x": 20 },
 					
 					"enterScene": {
@@ -505,7 +505,7 @@
 				
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/triangle-green.png",
+					"src": "../../.res/triangle-green.png",
 					"props": { "x": 150 },
 					
 					"enterScene": {
@@ -535,7 +535,7 @@
 				
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/circle-blue.png",
+					"src": "../../.res/circle-blue.png",
 					"props": { "x": 280 },
 					
 					"enterScene": {
@@ -570,7 +570,7 @@
 			"objects": [
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/square-red.png",
+					"src": "../../.res/square-red.png",
 					"props": { "x": 20 },
 					
 					"enterScene": {
@@ -596,7 +596,7 @@
 				
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/triangle-green.png",
+					"src": "../../.res/triangle-green.png",
 					"props": { "x": 150 },
 					
 					"enterScene": {
@@ -624,7 +624,7 @@
 				
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/circle-blue.png",
+					"src": "../../.res/circle-blue.png",
 					"props": { "x": 280 },
 					
 					"enterScene": {
@@ -657,7 +657,7 @@
 			"objects": [
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/square-red.png",
+					"src": "../../.res/square-red.png",
 					"props": { "x": 20 },
 					
 					"enterScene": {
@@ -683,7 +683,7 @@
 				
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/triangle-green.png",
+					"src": "../../.res/triangle-green.png",
 					"props": { "x": 150 },
 					
 					"enterScene": {
@@ -711,7 +711,7 @@
 				
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/circle-blue.png",
+					"src": "../../.res/circle-blue.png",
 					"props": { "x": 280 },
 					
 					"enterScene": {
@@ -744,7 +744,7 @@
 			"objects": [
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/square-red.png",
+					"src": "../../.res/square-red.png",
 					"props": { "x": 20 },
 					
 					"enterScene": {
@@ -770,7 +770,7 @@
 				
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/triangle-green.png",
+					"src": "../../.res/triangle-green.png",
 					"props": { "x": 150 },
 					
 					"enterScene": {
@@ -798,7 +798,7 @@
 				
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/circle-blue.png",
+					"src": "../../.res/circle-blue.png",
 					"props": { "x": 280 },
 					
 					"enterScene": {
@@ -831,7 +831,7 @@
 			"objects": [
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/square-red.png",
+					"src": "../../.res/square-red.png",
 					"props": { "x": 20 },
 					
 					"enterScene": {
@@ -857,7 +857,7 @@
 				
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/triangle-green.png",
+					"src": "../../.res/triangle-green.png",
 					"props": { "x": 150 },
 					
 					"enterScene": {
@@ -883,7 +883,7 @@
 				
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/circle-blue.png",
+					"src": "../../.res/circle-blue.png",
 					"props": { "x": 280 },
 					
 					"enterScene": {

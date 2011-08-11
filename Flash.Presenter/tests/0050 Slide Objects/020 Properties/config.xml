@@ -21,7 +21,7 @@
 			<objects>
 				<object>
 					<objType>graphic</objType>
-					<src>../../../test-data/square-red.png</src>
+					<src>../../.res/square-red.png</src>
 				</object>
 			</objects>
 		</slide>
@@ -31,7 +31,7 @@
 			<objects>
 				<object>
 					<objType>graphic</objType>
-					<src>../../../test-data/square-red.png</src>
+					<src>../../.res/square-red.png</src>
 					<props>
 						<marginTop>50</marginTop>
 						<marginLeft>0</marginLeft>
@@ -47,7 +47,7 @@
 			<objects>
 				<object>
 					<objType>graphic</objType>
-					<src>../../../test-data/square-red.png</src>
+					<src>../../.res/square-red.png</src>
 					<props>
 						<x>200</x>
 						<rotationZ>45</rotationZ>
@@ -61,7 +61,7 @@
 			<objects>
 				<object>
 					<objType>graphic</objType>
-					<src>../../../test-data/square-red.png</src>
+					<src>../../.res/square-red.png</src>
 					<props>
 						<x>170</x>
 						<rotationY>45</rotationY>
@@ -75,7 +75,7 @@
 			<objects>
 				<object>
 					<objType>graphic</objType>
-					<src>../../../test-data/square-red.png</src>
+					<src>../../.res/square-red.png</src>
 					<props>
 						<x>160</x>
 						<rotationX>45</rotationX>
@@ -89,7 +89,7 @@
 			<objects>
 				<object>
 					<objType>graphic</objType>
-					<src>../../../test-data/square-red.png</src>
+					<src>../../.res/square-red.png</src>
 					<props>
 						<alpha>0.4</alpha>
 					</props>
@@ -102,7 +102,7 @@
 			<objects>
 				<object>
 					<objType>graphic</objType>
-					<src>../../../test-data/square-red.png</src>
+					<src>../../.res/square-red.png</src>
 					<props>
 						<scaleX>1.2</scaleX>
 						<scaleY>0.5</scaleY>

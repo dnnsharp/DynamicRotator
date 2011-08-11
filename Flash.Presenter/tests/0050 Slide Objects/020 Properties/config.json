@@ -20,7 +20,7 @@
 			"objects": [
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/square-red.png"
+					"src": "../../.res/square-red.png"
 				}
 			]
 		},
@@ -30,7 +30,7 @@
 			"objects": [
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/square-red.png",
+					"src": "../../.res/square-red.png",
 					"props": {
 						"marginTop": 50,
 						"marginLeft": 0,
@@ -46,7 +46,7 @@
 			"objects": [
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/square-red.png",
+					"src": "../../.res/square-red.png",
 					"props": {
 						"x": 200,
 						"rotationZ": 45
@@ -60,7 +60,7 @@
 			"objects": [
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/square-red.png",
+					"src": "../../.res/square-red.png",
 					"props": {
 						"x": 170,
 						"rotationY": 45
@@ -74,7 +74,7 @@
 			"objects": [
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/square-red.png",
+					"src": "../../.res/square-red.png",
 					"props": {
 						"x": 160,
 						"rotationX": 45
@@ -88,7 +88,7 @@
 			"objects": [
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/square-red.png",
+					"src": "../../.res/square-red.png",
 					"props": {
 						"alpha": 0.4
 					}
@@ -101,7 +101,7 @@
 			"objects": [
 				{
 					"objType": "graphic",
-					"src": "../../../test-data/square-red.png",
+					"src": "../../.res/square-red.png",
 					"props": {
 						"scaleX": 1.2,
 						"scaleY": 0.5
