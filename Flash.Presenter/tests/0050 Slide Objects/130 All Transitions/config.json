@@ -370,7 +370,7 @@
 								"transition": "Iris",
 								"duration": 1500,
 								"easing": "Strong.easeOut",
-								"startPoint": "top-right",
+								"startPoint": "center",
 								"shape": "SQUARE"
 							}
 						]
@@ -382,7 +382,7 @@
 								"transition": "Iris",
 								"duration": 1500,
 								"easing": "Strong.easeOut",
-								"startPoint": "bottom",
+								"startPoint": "center",
 								"shape": "SQUARE"
 							}
 						]
@@ -790,7 +790,7 @@
 								"transition": "Wipe",
 								"duration": 2500,
 								"easing": "Bounce.easeOut",
-								"startPoint": "bottom-left"
+								"startPoint": "center"
 							}
 						]
 					}
@@ -807,7 +807,7 @@
 								"transition": "Wipe",
 								"duration": 1500,
 								"easing": "Strong.easeOut",
-								"startPoint": "left"
+								"startPoint": "center"
 							}
 						]
 					},

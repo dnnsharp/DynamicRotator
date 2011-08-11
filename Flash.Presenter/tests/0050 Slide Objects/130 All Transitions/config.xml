@@ -391,7 +391,7 @@
 								<transition>Iris</transition>
 								<duration>1500</duration>
 								<easing>Strong.easeOut</easing>
-								<startPoint>top-right</startPoint>
+								<startPoint>center</startPoint>
 								<shape>SQUARE</shape>
 							</transition>
 						</transitions>
@@ -402,7 +402,7 @@
 								<transition>Iris</transition>
 								<duration>1500</duration>
 								<easing>Strong.easeOut</easing>
-								<startPoint>bottom</startPoint>
+								<startPoint>center</startPoint>
 								<shape>SQUARE</shape>
 							</transition>
 						</transitions>
@@ -820,7 +820,7 @@
 								<transition>Wipe</transition>
 								<duration>2500</duration>
 								<easing>Bounce.easeOut</easing>
-								<startPoint>bottom-left</startPoint>
+								<startPoint>center</startPoint>
 							</transition>
 						</transitions>
 					</leaveScene>
@@ -838,7 +838,7 @@
 								<transition>Wipe</transition>
 								<duration>1500</duration>
 								<easing>Strong.easeOut</easing>
-								<startPoint>left</startPoint>
+								<startPoint>center</startPoint>
 							</transition>
 						</transitions>
 					</enterScene>
