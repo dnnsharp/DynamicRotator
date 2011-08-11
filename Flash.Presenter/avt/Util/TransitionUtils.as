@@ -33,6 +33,10 @@
 		}
 		
 		public static function easingFromString(strEasing:String):Function {
+			
+			if (!strEasing || strEasing.indexOf('.') == -1)
+				return None.easeNone;
+				
 			var strType = strEasing.substr(0, strEasing.indexOf('.'));
 			var strMethod = strEasing.substr(strEasing.indexOf('.')+1);
 			

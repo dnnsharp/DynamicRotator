@@ -16,6 +16,8 @@
 	import br.com.stimuli.loading.BulkLoader;
 	import br.com.stimuli.loading.BulkProgressEvent;
 	import avt.Presenter.Backgrounds.*;
+	import avt.Presenter.AdvanceSlide.AdvanceSlideTimer;
+	import avt.Util.ConfigUtils;
 	
 	public class Slide extends Sprite {
 
@@ -40,6 +42,7 @@
 		private var _loader: BulkLoader;
 		
 		private var _renderOnLoad:Boolean = false;
+		private var _renderOpts:Object = {};
 		
 		private var _originalIndex:int;
 		public function get originalIndex():int { return _originalIndex; }
@@ -107,15 +110,9 @@
 			this.title = config.title && config.title != undefined ? config.title : "Unnamed Slide";
 			trace("    title: " + this.title);
 			
-			this.duration = -1;
-			if (config.duration && config.duration != undefined)
-				try { this.duration = parseInt(config.duration); } catch (e:Error) { config.duration = -1; }
-
-
-			if (this.duration <= 0)
-				this.duration = _presentation.defaultSlideDuration;
-				
+			this.duration = ConfigUtils.parseNumber(config.duration, AdvanceSlideTimer.DefaultSlideDuration);				
 			trace("    duration: " + this.duration);
+			
 			
 			if (config.transition && config.transition != undefined) {
 				trace("    Has transition of type " + config.transition.transition);
@@ -153,7 +150,7 @@
 
 				loaded = true;
 				if (_renderOnLoad) {
-					_render();
+					_render(_renderOpts);
 				}
 			} else {
 				
@@ -175,7 +172,7 @@
 					presentation.slideFinishedLoading(_thisSlide);
 					loaded = true;
 					if (_renderOnLoad) {
-						_render();
+						_render(_renderOpts);
 					}
 				});
 				
@@ -197,12 +194,14 @@
 //			addChild(_mcBg);
 //			
 //			
-//			var textFormat:TextFormat = new TextFormat("verdana", 24)
-//			var textField:TextField = new TextField()
-//			textField.defaultTextFormat = textFormat
-//    		textField.text = title;
-//			textField.width=300;
-//    		addChild(textField)
+			if (_presentation.debugShowTitles) {
+				var textFormat:TextFormat = new TextFormat("verdana", 14)
+				var textField:TextField = new TextField()
+				textField.defaultTextFormat = textFormat;
+				textField.text = title;
+				textField.width = _presentation.slideWidth;
+				addChild(textField);
+			}
 			
 			
 			//var colorTransform:ColorTransform = this.transform.colorTransform;
@@ -219,15 +218,16 @@
 		}
 		
 
-		public function render():void {
+		public function render(opts:Object):void {
 			if (!loaded) {
 				trace("> Render called but slide is not loaded; show loader until everything loads...");
 				_renderOnLoad = true;
 				presentation.loader.show();
+				_renderOpts = opts;
 				return;
 			}
 			
-			_render();
+			_render(opts);
 		}
 		
 		public function reset():void {
@@ -241,14 +241,47 @@
 			}
 		}
 		
-		private function _render():void {
+		private function _render(opts:Object):void {
 			trace("> Render slide " + originalIndex + ": " + title);
 			
+			if (_presentation.prevSlide && opts.completeObjectTransitions == true) {
+				_presentation.prevSlide.hideObjects( function() { __render(opts); } );
+			} else {
+				__render(opts);
+			}
+		}
+		
+		private function __render(opts:Object):void {
 			this.parent.setChildIndex(this, this.parent.numChildren - 1);
 			_transition.transition(_presentation.prevSlide, this, onTransitionComplete);
 			
 			for (var i=0; i < objects.length; i++) {
 				objects[i].scheduleShow();
+			}
+		}
+		
+		private var _objToHide:int;
+		private var _fnHideObjectComplete:Function;
+		
+		private function hideObjects(fnComplete:Function):void {
+			
+			_objToHide = objects.length;
+			if (_objToHide == 0) {
+				fnComplete();
+				return;
+			}
+			
+			_fnHideObjectComplete = fnComplete;
+			for (var obj in objects) {
+				objects[obj].hide();
+			}
+		}
+		
+		public function notifyObjectHidden(obj:SlideObjectBase):void {
+			_objToHide--;
+			if ( _objToHide == 0) {
+				if (_fnHideObjectComplete != null) 
+					_fnHideObjectComplete();
 			}
 		}
 		

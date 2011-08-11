@@ -1,0 +1,20 @@
+{
+	"setup": {
+
+		"slideWidth": 400,
+		"slideHeight": 200,
+		"debug": {
+			"showTitles": true
+		}
+	},
+	
+	"slides": [
+		{
+			"title": "Red Slide",
+			"background": {
+				"bgType": "solid",
+				"color": "0xFF0000"
+			}
+		}
+	]
+}

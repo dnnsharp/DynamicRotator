@@ -19,12 +19,11 @@
 			super.parseConfiguration(config,loader);
 			
 			if (config.src && config.src != undefined) {
-				loader.add(config.src.toString());
+				loader.add(config.src.toString(), { id: objectId });
 				loader.addEventListener(BulkLoader.COMPLETE, function(evt:Event) {
-					var obj : * = loader.getContent(config.src).parent;
+					var obj : * = loader.getContent(objectId).parent;
 					addChild(obj);
 				});
-			
 			}
 		}
 

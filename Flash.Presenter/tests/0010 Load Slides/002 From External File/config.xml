@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf8"?>
+<presentation>
+
+	<setup>
+		<slideWidth>400</slideWidth>
+		<slideHeight>200</slideHeight>
+		<debug>
+			<showTitles>true</showTitles>
+		</debug>
+	</setup>
+	
+	<slides>
+		<slide><src>slide.xml</src></slide>
+	</slides>
+	
+</presentation>

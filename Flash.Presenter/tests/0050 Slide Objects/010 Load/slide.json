@@ -1,0 +1,42 @@
+﻿{
+	"title": "4 graphic objects from external slide file",
+	"background": {
+		"bgType": "solid",
+		"color": "0xCFE7FB"
+	},
+	"objects": [
+		{
+			"objType": "graphic",
+			"src": "../../../test-data/square-red.png",
+			"props": {
+				"x": 50,
+				"y": 30
+			}
+		},
+		{
+			"objType": "graphic",
+			"src": "../../../test-data/square-red.png",
+			"props": {
+				"x": 250,
+				"y": 30
+			}
+		},
+		{
+			"objType": "graphic",
+			"src": "../../../test-data/triangle-green.png",
+			"props": {
+				"x": 150,
+				"y": 80
+			}
+		},
+		{
+			"objType": "graphic",
+			"src": "../../../test-data/circle-blue.png",
+			"props": {
+				"x": 150,
+				"y": 30
+			}
+		}
+		
+	]
+}

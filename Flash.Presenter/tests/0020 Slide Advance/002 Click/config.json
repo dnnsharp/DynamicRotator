@@ -1,0 +1,34 @@
+{
+	"setup": {
+
+		"slideWidth": 400,
+		"slideHeight": 200,
+		
+		"advancePresentation": {
+			"timing": { "enabled": false },
+			"manual": { "click": true }
+		},
+		"debug": {
+			"showTitles": true
+		}
+	},
+	
+	"slides": [
+		
+		{
+			"title": "Red Slide, click to go to next",
+			"background": {
+				"bgType": "solid",
+				"color": "0xFF0000"
+			}
+		},
+		
+		{
+			"title": "Blue Slide, click to go back to first",
+			"background": {
+				"bgType": "solid",
+				"color": "0x0000FF"
+			}
+		}
+	]
+}

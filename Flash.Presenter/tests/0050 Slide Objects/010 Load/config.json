@@ -1,0 +1,94 @@
+{
+	"setup": {
+
+		"slideWidth": 400,
+		"slideHeight": 200,
+		
+		"advancePresentation": {
+			"timing": { "enabled": false },
+			"manual": { "click": true }
+		},
+		"debug": {
+			"showTitles": true
+		}
+	},
+	
+	"slides": [
+		
+		{
+			"title": "Slide with one graphic object",
+			"background": {
+				"bgType": "solid",
+				"color": "0xF8F091"
+			},
+			"objects": [
+				{
+					"objType": "graphic",
+					"src": "../../../test-data/square-red.png"
+				}
+			]
+		},
+		
+		{
+			"title": "Slide with same graphic object twice",
+			"background": {
+				"bgType": "solid",
+				"color": "0xCFE7FB"
+			},
+			"objects": [
+				{
+					"objType": "graphic",
+					"src": "../../../test-data/square-red.png",
+					"props": {
+						"x": 50
+					}
+				},
+				{
+					"objType": "graphic",
+					"src": "../../../test-data/square-red.png",
+					"props": {
+						"x": 250
+					}
+				}
+				
+			]
+		},
+		
+		{
+			"title": "Slide with 3 graphic objects",
+			"background": {
+				"bgType": "solid",
+				"color": "0xF8F091"
+			},
+			"objects": [
+				{
+					"objType": "graphic",
+					"src": "../../../test-data/square-red.png",
+					"props": {
+						"x": 50,
+						"y": 30
+					}
+				},
+				{
+					"objType": "graphic",
+					"src": "../../../test-data/square-red.png",
+					"props": {
+						"x": 250,
+						"y": 30
+					}
+				},
+				{
+					"objType": "graphic",
+					"src": "../../../test-data/triangle-green.png",
+					"props": {
+						"x": 150,
+						"y": 80
+					}
+				}
+				
+			]
+		},
+		
+		{ "src": "slide.json" }
+	]
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf8"?>
+<presentation>
+
+	<setup>
+		<slideWidth>400</slideWidth>
+		<slideHeight>200</slideHeight>
+		<debug>
+			<showTitles>true</showTitles>
+		</debug>
+	</setup>
+	
+	<slides>
+		<slide>
+			<title>Solid Red Background</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xFF0000</color>
+			</background>
+		</slide>
+	</slides>
+	
+</presentation>

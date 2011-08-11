@@ -2,7 +2,6 @@
 	
 	import avt.Presenter.Slide;
 	import fl.transitions.Tween;
-	import fl.transitions.easing.*;
 	import flash.utils.getDefinitionByName;
 	import fl.transitions.TweenEvent;
 	import avt.Presenter.Presentation;
@@ -11,13 +10,7 @@
 	public class SlideTransitionFade implements ISlideTransition {
 		
 		public function SlideTransitionFade() {
-			//// hack the compiler to include these simbols
-//			var a = None.easeNone;
-//			a = Regular.easeIn;
-//			a = Bounce.easeIn;
-//			a = Back.easeIn;
-//			a = Elastic.easeIn;
-//			a = Strong.easeIn;
+			
 		}
 		
 		const DefaultDuration:int = 2000;
@@ -37,7 +30,6 @@
 			} catch (e:Error) { _duration = DefaultDuration/10000; }
 			
 			var strEasing:String = config.easing.toString();
-			//_easing = getDefinitionByName("fl.transitions.easing."+strEasing.substr(0, strEasing.indexOf('.')))[strEasing.substr(strEasing.indexOf('.')+1)] as Function;
 			_easing = TransitionUtils.easingFromString(strEasing);
 		}
 		
@@ -56,18 +48,6 @@
 			_currentTween.addEventListener(TweenEvent.MOTION_FINISH, function(e:TweenEvent) { fnComplete(); });
 		}
 		
-		//public function cancel(): void {
-//			
-//			trace("  > Cancel slide transition FADE");
-//			
-//			if (_prevTween) {
-//				_prevTween.fforward();
-//			}
-//			
-//			if (_currentTween) {
-//				// _currentTween.fforward();
-//			}
-//		}
 	}
 	
 }

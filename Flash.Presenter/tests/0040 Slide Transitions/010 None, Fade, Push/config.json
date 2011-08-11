@@ -1,0 +1,95 @@
+{
+	"setup": {
+
+		"slideWidth": 400,
+		"slideHeight": 200,
+		
+		"advancePresentation": {
+			"timing": { "enabled": false },
+			"manual": { "click": true }
+		},
+		"debug": {
+			"showTitles": true
+		}
+	},
+	
+	"slides": [
+		
+		{
+			"title": "No transition (slide becomes visible instantly)",
+			"background": {
+				"bgType": "solid",
+				"color": "0xee0000"
+			}
+		},
+		
+		{
+			"title": "Slide fades in...",
+			"background": {
+				"bgType": "solid",
+				"color": "0x0000ee"
+			},
+			"transition": {
+				"transition": "fade",
+				"duration": 2000,
+				"easing": "Strong.easeInOut"
+			}
+		},
+		
+		{
+			"title": "New slide pushes current slide from the left...",
+			"background": {
+				"bgType": "solid",
+				"color": "0xee0000"
+			},
+			"transition": {
+				"transition": "push",
+				"duration": 2000,
+				"direction": "right",
+				"easing": "Strong.easeIn"
+			}
+		},
+		
+		{
+			"title": "Slide pushes from the top (with bounce easing)...",
+			"background": {
+				"bgType": "solid",
+				"color": "0x0000ee"
+			},
+			"transition": {
+				"transition": "push",
+				"duration": 2000,
+				"direction": "down",
+				"easing": "Bounce.easeOut"
+			}
+		},
+		
+		{
+			"title": "Slide pushes from the right (with elastic easing)...",
+			"background": {
+				"bgType": "solid",
+				"color": "0xee0000"
+			},
+			"transition": {
+				"transition": "push",
+				"duration": 2000,
+				"direction": "left",
+				"easing": "Elastic.easeOut"
+			}
+		},
+		
+		{
+			"title": "Slide pushes from the bottom (with elastic easing)...",
+			"background": {
+				"bgType": "solid",
+				"color": "0x0000ee"
+			},
+			"transition": {
+				"transition": "push",
+				"duration": 2000,
+				"direction": "up",
+				"easing": "Elastic.easeIn"
+			}
+		}
+	]
+}

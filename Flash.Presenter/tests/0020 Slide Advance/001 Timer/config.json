@@ -1,0 +1,38 @@
+{
+	"setup": {
+
+		"slideWidth": 400,
+		"slideHeight": 200,
+		
+		"advancePresentation": {
+			
+			"timing": {
+				"enabled": true,
+				"autostart": true,
+				"defaultTiming": 2000
+			}
+		},
+		"debug": {
+			"showTitles": true
+		}
+	},
+	
+	"slides": [
+		
+		{
+			"title": "Red Slide, next in 2 seconds",
+			"background": {
+				"bgType": "solid",
+				"color": "0xFF0000"
+			}
+		},
+		
+		{
+			"title": "Blue Slide, next in 2 seconds",
+			"background": {
+				"bgType": "solid",
+				"color": "0x0000FF"
+			}
+		}
+	]
+}

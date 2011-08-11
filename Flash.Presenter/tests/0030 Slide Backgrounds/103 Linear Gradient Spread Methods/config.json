@@ -1,0 +1,102 @@
+{
+	"setup": {
+
+		"slideWidth": 400,
+		"slideHeight": 200,
+		
+		"advancePresentation": {
+			"timing": { "enabled": false },
+			"manual": { "click": true }
+		},
+		"debug": {
+			"showTitles": true
+		}
+	},
+	
+	"slides": [
+		{
+			"title": "Default (reflect) method and default (rgb) interpolation",
+			"background": {
+				"bgType": "gradient",
+				"rotation": 45,
+				"scale": { "x": 0.25, "y": 0.25 },
+				"keyPoints": [
+					{ "color": "0x00ee00" },
+					{ "color": "0x0000ee" }
+				]
+			}
+		},
+		
+		{
+			"title": "Default (reflect) method and linear interpolation",
+			"background": {
+				"bgType": "gradient",
+				"rotation": 45,
+				"interpolation": "linear",
+				"scale": { "x": 0.25, "y": 0.25 },
+				"keyPoints": [
+					{ "color": "0x00ee00" },
+					{ "color": "0x0000ee" }
+				]
+			}
+		},
+		
+		{
+			"title": "Repeat method and default (rgb) interpolation",
+			"background": {
+				"bgType": "gradient",
+				"rotation": 45,
+				"spread": "repeat",
+				"scale": { "x": 0.25, "y": 0.25 },
+				"keyPoints": [
+					{ "color": "0x00ee00" },
+					{ "color": "0x0000ee" }
+				]
+			}
+		},
+		
+		{
+			"title": "Repeat method and linear interpolation",
+			"background": {
+				"bgType": "gradient",
+				"rotation": 45,
+				"spread": "repeat",
+				"interpolation": "linear",
+				"scale": { "x": 0.25, "y": 0.25 },
+				"keyPoints": [
+					{ "color": "0x00ee00" },
+					{ "color": "0x0000ee" }
+				]
+			}
+		},
+		
+		{
+			"title": "Pad method and default (rgb) interpolation",
+			"background": {
+				"bgType": "gradient",
+				"rotation": 45,
+				"spread": "pad",
+				"scale": { "x": 0.5, "y": 0.5 },
+				"keyPoints": [
+					{ "color": "0x00ee00" },
+					{ "color": "0x0000ee" }
+				]
+			}
+		},
+		
+		{
+			"title": "Pad method and linear interpolation",
+			"background": {
+				"bgType": "gradient",
+				"rotation": 45,
+				"spread": "pad",
+				"interpolation": "linear",
+				"scale": { "x": 0.5, "y": 0.5 },
+				"keyPoints": [
+					{ "color": "0x00ee00" },
+					{ "color": "0x0000ee" }
+				]
+			}
+		}
+	]
+}

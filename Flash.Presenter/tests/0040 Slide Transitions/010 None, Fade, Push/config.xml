@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf8"?>
+<presentation>
+
+	<setup>
+		<slideWidth>400</slideWidth>
+		<slideHeight>200</slideHeight>
+		<advancePresentation>
+			<timing><enabled>false</enabled></timing>
+			<manual><click>true</click></manual>
+		</advancePresentation>
+		<debug>
+			<showTitles>true</showTitles>
+		</debug>
+	</setup>
+	
+	<slides>
+		
+		<slide>
+			<title>No transition (slide becomes visible instantly)</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xee0000</color>
+			</background>
+		</slide>
+		
+		<slide>
+			<title>Slide fades in...</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0x0000ee</color>
+			</background>
+			<transition>
+				<transition>fade</transition>
+				<duration>2000</duration>
+				<easing>Strong.easeInOut</easing>
+			</transition>
+		</slide>
+		
+		<slide>
+			<title>New slide pushes current slide from the left...</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xee0000</color>
+			</background>
+			<transition>
+				<transition>push</transition>
+				<duration>2000</duration>
+				<direction>right</direction>
+				<easing>Strong.easeIn</easing>
+			</transition>
+		</slide>
+		
+		<slide>
+			<title>Slide pushes from the top (with bounce easing)...</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0x0000ee</color>
+			</background>
+			<transition>
+				<transition>push</transition>
+				<duration>2000</duration>
+				<direction>down</direction>
+				<easing>Bounce.easeOut</easing>
+			</transition>
+		</slide>
+		
+		<slide>
+			<title>Slide pushes from the right (with elastic easing)...</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xee0000</color>
+			</background>
+			<transition>
+				<transition>push</transition>
+				<duration>2000</duration>
+				<direction>left</direction>
+				<easing>Elastic.easeOut</easing>
+			</transition>
+		</slide>
+		
+		<slide>
+			<title>Slide pushes from the bottom (with elastic easing)...</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0x0000ee</color>
+			</background>
+			<transition>
+				<transition>push</transition>
+				<duration>2000</duration>
+				<direction>up</direction>
+				<easing>Elastic.easeIn</easing>
+			</transition>
+		</slide>
+		
+	</slides>
+	
+</presentation>

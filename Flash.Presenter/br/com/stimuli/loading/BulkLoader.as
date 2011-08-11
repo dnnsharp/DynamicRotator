@@ -565,12 +565,12 @@ package br.com.stimuli.loading {
             }else if (!url is URLRequest){
                 throw new Error("[BulkLoader] cannot add object with bad type for url:'" + url.url);
             }
-            var item : LoadingItem = get(props[ID]);
+            var item : LoadingItem; // = get(props[ID]);
             // have already loaded this?
-            if( item ){
-                log("Add received an already added id: " + props[ID] + ", not adding a new item");
-                return item;
-            }
+            //if( item ){
+                //log("Add received an already added id: " + props[ID] + ", not adding a new item");
+                //return item;
+            //}
             var type : String;
             if (props["type"]) {
                 type = props["type"].toLowerCase();

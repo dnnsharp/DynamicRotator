@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf8"?>
+<slide>
+	<title>4 graphic objects from external slide file</title>
+	<background>
+		<bgType>solid</bgType>
+		<color>0xCFE7FB</color>
+	</background>
+	
+	<objects>
+		<object>
+			<objType>graphic</objType>
+			<src>../../../test-data/square-red.png</src>
+			<props>
+				<x>50</x>
+				<y>30</y>
+			</props>
+		</object>
+		<object>
+			<objType>graphic</objType>
+			<src>../../../test-data/triangle-green.png</src>
+			<props>
+				<x>150</x>
+				<y>80</y>
+			</props>
+		</object>
+		<object>
+			<objType>graphic</objType>
+			<src>../../../test-data/square-red.png</src>
+			<props>
+				<x>250</x>
+				<y>30</y>
+			</props>
+		</object>
+		<object>
+			<objType>graphic</objType>
+			<src>../../../test-data/circle-blue.png</src>
+			<props>
+				<x>150</x>
+				<y>30</y>
+			</props>
+		</object>
+	</objects>
+</slide>

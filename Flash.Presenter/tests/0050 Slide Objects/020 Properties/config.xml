@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf8"?>
+<presentation>
+
+	<setup>
+		<slideWidth>400</slideWidth>
+		<slideHeight>200</slideHeight>
+		
+		<advancePresentation>
+			<timing><enabled>false</enabled></timing>
+			<manual><click>true</click></manual>
+		</advancePresentation>
+		<debug>
+			<showTitles>true</showTitles>
+		</debug>
+	</setup>
+	
+	<slides>
+		
+		<slide>
+			<title>No props</title>			
+			<objects>
+				<object>
+					<objType>graphic</objType>
+					<src>../../../test-data/square-red.png</src>
+				</object>
+			</objects>
+		</slide>
+		
+		<slide>
+			<title>Margins (top, left, bottom, right)</title>
+			<objects>
+				<object>
+					<objType>graphic</objType>
+					<src>../../../test-data/square-red.png</src>
+					<props>
+						<marginTop>50</marginTop>
+						<marginLeft>0</marginLeft>
+						<marginBottom>0</marginBottom>
+						<marginRight>50</marginRight>
+					</props>
+				</object>
+			</objects>
+		</slide>
+		
+		<slide>
+			<title>Rotation around Z axis (in screen plane)</title>
+			<objects>
+				<object>
+					<objType>graphic</objType>
+					<src>../../../test-data/square-red.png</src>
+					<props>
+						<x>200</x>
+						<rotationZ>45</rotationZ>
+					</props>
+				</object>
+			</objects>
+		</slide>
+		
+		<slide>
+			<title>Rotation around Y axis (vertical axis)</title>
+			<objects>
+				<object>
+					<objType>graphic</objType>
+					<src>../../../test-data/square-red.png</src>
+					<props>
+						<x>170</x>
+						<rotationY>45</rotationY>
+					</props>
+				</object>
+			</objects>
+		</slide>
+		
+		<slide>
+			<title>Rotation around X axis (horizontal axis)</title>
+			<objects>
+				<object>
+					<objType>graphic</objType>
+					<src>../../../test-data/square-red.png</src>
+					<props>
+						<x>160</x>
+						<rotationX>45</rotationX>
+					</props>
+				</object>
+			</objects>
+		</slide>
+		
+		<slide>
+			<title>Alpha channel (opacity)</title>
+			<objects>
+				<object>
+					<objType>graphic</objType>
+					<src>../../../test-data/square-red.png</src>
+					<props>
+						<alpha>0.4</alpha>
+					</props>
+				</object>
+			</objects>
+		</slide>
+		
+		<slide>
+			<title>Scale (X and Y)</title>
+			<objects>
+				<object>
+					<objType>graphic</objType>
+					<src>../../../test-data/square-red.png</src>
+					<props>
+						<scaleX>1.2</scaleX>
+						<scaleY>0.5</scaleY>
+					</props>
+				</object>
+			</objects>
+		</slide>
+		
+	</slides>
+	
+</presentation>

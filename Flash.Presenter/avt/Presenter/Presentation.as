@@ -11,6 +11,7 @@
 	import flash.display.StageScaleMode;
 	import avt.Presenter.AdvanceSlide.*;
 	import avt.Presenter.Loaders.BaseLoader;
+	import avt.Util.ConfigUtils;
 	
 	public class Presentation {
 
@@ -23,8 +24,6 @@
 			_overlay = new Sprite();
 			_container.addChild(_overlay);
 		}
-		
-		const AdvancePresentation_TimingDefaultMs = 10000; // 10 seconds
 		
 		private var _loader:BaseLoader;
 		public function get loader():BaseLoader { return _loader; }
@@ -40,7 +39,11 @@
 		
 		private var _debug:Boolean;
 		public function get debug():Boolean { return _debug; }
-		public function set debug(d:Boolean):void { _debug = d; }
+		public function set debug(val:Boolean):void { _debug = val; }
+		
+		private var _debugShowTitles:Boolean;
+		public function get debugShowTitles():Boolean { return _debugShowTitles; }
+		public function set debugShowTitles(val:Boolean):void { _debugShowTitles = val; }
 		
 		private var _slideWidth:int;
 		public function get slideWidth():int { return _slideWidth; }
@@ -50,8 +53,11 @@
 		public function get slideHeight():int { return _slideHeight; }
 		public function set slideHeight(w:int):void { _slideHeight = w; }
 		
-		private var _defaultSlideDuration:int;
-		public function get defaultSlideDuration():int { return _defaultSlideDuration; }
+		//private var _defaultSlideDuration:int;
+//		public function get defaultSlideDuration():int { return _defaultSlideDuration; }
+		
+		// private var _hasTimer:Boolean;
+		// public function get hasTimer():Boolean { return _hasTimer; }
 		
 		private var _randomOrder:Boolean;
 		public function get randomOrder():Boolean { return _randomOrder; }
@@ -63,6 +69,10 @@
 		
 		private var _advanceSlide:Vector.<IAdvanceSlide>;
 		public function get advanceSlide():Vector.<IAdvanceSlide> { return _advanceSlide; }
+		
+		private var _isTimerEnabled:Boolean = false;
+		public function get isTimerEnabled():Boolean { return _isTimerEnabled; }
+		
 			
 		private var _slides:Vector.<Slide>;
 		public function get slides():Vector.<Slide> { return _slides; }
@@ -81,7 +91,7 @@
 		}
 		
 		
-		public function goToNextSlide():Slide {
+		public function goToNextSlide(opts:Object):Slide {
 			if (!_slides || _slides.length == 0) {
 				throw new Error("There are no slides loaded!");
 			}
@@ -96,7 +106,7 @@
 			}
 			
 			_currentSlideIndex = nextSlideIndex;
-			_slides[_currentSlideIndex].render();
+			_slides[_currentSlideIndex].render(opts);
 			
 			return _slides[_currentSlideIndex];
 		}
@@ -132,8 +142,8 @@
 		private function parseConfiguration(config:*): void {
 			trace("> Setting up presentation...");
 			
-			try { this.debug = config.setup.debug.toString().toLowerCase() == "true"; } catch (e:Error) { this.debug = false; }
-			trace("  debug: " + this.debug);
+			//try { this.debug = config.setup.debug.toString().toLowerCase() == "true"; } catch (e:Error) { this.debug = false; }
+//			trace("  debug: " + this.debug);
 			
 			try { this.slideWidth = parseInt(config.setup.slideWidth); } catch (e:Error) { this.slideWidth = 600; }
 			trace("  width: " + this.slideWidth);
@@ -146,6 +156,9 @@
 			
 			try { this.loop = config.setup.loop.toString().toLowerCase() == "true"; } catch (e:Error) { this.loop = false; }
 			trace("  loop: " + this.loop);
+			
+			try { debugShowTitles = ConfigUtils.parseBoolean(config.setup.debug.showTitles, false); } catch (err:Error) { }
+			trace("  debug.showTitles: " + debugShowTitles);
 			
 			_container.stage.scaleMode  = StageScaleMode.NO_SCALE;
 			_container.stage.align = StageAlign.TOP_LEFT;
@@ -160,32 +173,55 @@
 			
 			_advanceSlide = new Vector.<IAdvanceSlide>();
 			
-			var apAllowTiming:Boolean = true;
-			try { apAllowTiming = config.setup.advancePresentation.timing.enabled.toString().toLowerCase() == "true"; } catch (e:Error) { apAllowTiming = true; }
+			try { advanceSlide.push(new AdvanceSlideClick(this, config.setup.advancePresentation.manual.click)); } catch (err:Error) { }
+			try { 
+				advanceSlide.push(new AdvanceSlideTimer(this, config.setup.advancePresentation.timing)); 
+				_isTimerEnabled = (advanceSlide[advanceSlide.length-1] as AdvanceSlideTimer).enabled;
+			} catch (err:Error) { }
 			
-			_defaultSlideDuration = AdvancePresentation_TimingDefaultMs;
-			
-			if (apAllowTiming) {
-				
-				var apTimingAutoStart:Boolean = true;
-				try { apTimingAutoStart = config.setup.advancePresentation.timing.autostart.toString().toLowerCase() == "true"; } catch (e:Error) { apTimingAutoStart = true; }
-				try { _defaultSlideDuration = parseInt(config.setup.advancePresentation.timing.defaultTiming); } catch (e:Error) { _defaultSlideDuration = AdvancePresentation_TimingDefaultMs; }
-				
-				advanceSlide.push(new AdvanceSlideTimer(this, apTimingAutoStart, _defaultSlideDuration));
-				trace("  > Advance by timings (autostart: " + apTimingAutoStart +"; defaultInterval: " + _defaultSlideDuration + ")");
+			if (advanceSlide.length == 0) {
+				trace("  > No advance timing event defined, defaulting to timing 10 seconds");
+				advanceSlide.push(new AdvanceSlideTimer(this, null));
+				_isTimerEnabled = true;
 			}
 			
-			var apByClick:String = "";
-			try { apByClick = config.setup.advancePresentation.manual.click.toString().toLowerCase(); } catch (e:Error) { }
-			if (apByClick == "true") {
-				advanceSlide.push(new AdvanceSlideClick(this));
-				trace("  > Advance by slide click");
-			}
+			//
+//			if (_advanceSlide.length == 0) {
+//				trace("  > No advance event defined, defaulting to timings (10 seconds)");
+//				advanceSlide.push(new AdvanceSlideTimer(this, null));
+//			}
+//			
+//			try {
+//				var advTimer:AdvanceSlideTimer = new AdvanceSlideTimer(this, config.setup.advancePresentation.timing);
+//				advanceSlide.push(advTimer);
+//				_defaultSlideDuration = advTimer.defaultDuration;
+//			} catch (err:Error) { }
 			
-			if (_advanceSlide.length == 0) {
-				trace("  > No advance event defined, defaulting to timings (10 seconds)");
-				advanceSlide.push(new AdvanceSlideTimer(this, true, 10000));
-			}
+			
+			//_hasTimer = true;
+//			try { _hasTimer = config.setup.advancePresentation.timing.enabled.toString().toLowerCase() == "true"; } catch (err:Error) { 
+//				try { _hasTimer = config.setup.advancePresentation.timing.toString().toLowerCase() == "true"; } catch (errInner:Error) { _hasTimer = true; }
+//			}
+//			
+//			if (_hasTimer) {
+//				var advTimer:AdvanceSlideTimer = new AdvanceSlideTimer(this, config.setup.advancePresentation.timing);
+//				advanceSlide.push(advTimer);
+//				_defaultSlideDuration = advTimer.defaultDuration;
+//			}
+			
+			//var apByClick:String = "";
+//			try { apByClick = config.setup.advancePresentation.manual.click.enabled.toString().toLowerCase(); }
+//				catch (err:Error) { try { apByClick = config.setup.advancePresentation.manual.click.toString().toLowerCase(); } catch (errInner:Error) { } }
+//				
+//			if (apByClick == "true") {
+//				advanceSlide.push(new AdvanceSlideClick(this, config.setup.advancePresentation.manual.click));
+//			}
+//			
+//			if (_advanceSlide.length == 0) {
+//				trace("  > No advance event defined, defaulting to timings (10 seconds)");
+//				_hasTimer = true;
+//				advanceSlide.push(new AdvanceSlideTimer(this, null));
+//			}
 			
 			
 			this._slides = new Vector.<Slide>();
@@ -222,7 +258,7 @@
 			//_container.stage.scaleMode = StageScaleMode.NO_SCALE;
             //_container.stage.align = StageAlign.TOP_LEFT;
 			
-			goToNextSlide();
+			goToNextSlide({});
 		}
 		
 		public function slideFinishedLoading(slide:Slide) {

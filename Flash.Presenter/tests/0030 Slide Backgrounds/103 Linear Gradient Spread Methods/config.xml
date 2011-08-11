@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf8"?>
+<presentation>
+
+	<setup>
+		<slideWidth>400</slideWidth>
+		<slideHeight>200</slideHeight>
+		<advancePresentation>
+			<timing><enabled>false</enabled></timing>
+			<manual><click>true</click></manual>
+		</advancePresentation>
+		<debug>
+			<showTitles>true</showTitles>
+		</debug>
+	</setup>
+	
+	<slides>
+		
+		<slide>
+			<title>Default (reflect) method and default (rgb) interpolation</title>
+			<background>
+				<bgType>gradient</bgType>
+				<rotation>45</rotation>
+				<scale>
+					<x>0.25</x>
+					<y>0.25</y>
+				</scale>
+				<keyPoints>
+					<point>
+						<at>0</at>
+						<color>0x00ee00</color>
+					</point>
+					<point>
+						<at>1</at>
+						<color>0x0000ee</color>
+					</point>
+				</keyPoints>
+			</background>
+		</slide>
+		
+		<slide>
+			<title>Default (reflect) method and linear interpolation</title>
+			<background>
+				<bgType>gradient</bgType>
+				<interpolation>linear</interpolation>
+				<rotation>45</rotation>
+				<scale>
+					<x>0.25</x>
+					<y>0.25</y>
+				</scale>
+				<keyPoints>
+					<point>
+						<at>0</at>
+						<color>0x00ee00</color>
+					</point>
+					<point>
+						<at>1</at>
+						<color>0x0000ee</color>
+					</point>
+				</keyPoints>
+			</background>
+		</slide>
+		
+		<slide>
+			<title>Repeat method and default (rgb) interpolation</title>
+			<background>
+				<bgType>gradient</bgType>
+				<rotation>45</rotation>
+				<spread>repeat</spread>
+				<scale>
+					<x>0.25</x>
+					<y>0.25</y>
+				</scale>
+				<keyPoints>
+					<point>
+						<at>0</at>
+						<color>0x00ee00</color>
+					</point>
+					<point>
+						<at>1</at>
+						<color>0x0000ee</color>
+					</point>
+				</keyPoints>
+			</background>
+		</slide>
+		
+		<slide>
+			<title>Repeat method and linear interpolation</title>
+			<background>
+				<bgType>gradient</bgType>
+				<interpolation>linear</interpolation>
+				<rotation>45</rotation>
+				<spread>repeat</spread>
+				<scale>
+					<x>0.25</x>
+					<y>0.25</y>
+				</scale>
+				<keyPoints>
+					<point>
+						<at>0</at>
+						<color>0x00ee00</color>
+					</point>
+					<point>
+						<at>1</at>
+						<color>0x0000ee</color>
+					</point>
+				</keyPoints>
+			</background>
+		</slide>
+		
+		<slide>
+			<title>Repeat method and default (rgb) interpolation</title>
+			<background>
+				<bgType>gradient</bgType>
+				<rotation>45</rotation>
+				<spread>pad</spread>
+				<scale>
+					<x>0.5</x>
+					<y>0.5</y>
+				</scale>
+				<keyPoints>
+					<point>
+						<at>0</at>
+						<color>0x00ee00</color>
+					</point>
+					<point>
+						<at>1</at>
+						<color>0x0000ee</color>
+					</point>
+				</keyPoints>
+			</background>
+		</slide>
+		
+		<slide>
+			<title>Pad method and linear interpolation</title>
+			<background>
+				<bgType>gradient</bgType>
+				<rotation>45</rotation>
+				<spread>pad</spread>
+				<interpolation>linear</interpolation>
+				<scale>
+					<x>0.5</x>
+					<y>0.5</y>
+				</scale>
+				<keyPoints>
+					<point>
+						<at>0</at>
+						<color>0x00ee00</color>
+					</point>
+					<point>
+						<at>1</at>
+						<color>0x0000ee</color>
+					</point>
+				</keyPoints>
+			</background>
+		</slide>
+		
+	</slides>
+	
+</presentation>

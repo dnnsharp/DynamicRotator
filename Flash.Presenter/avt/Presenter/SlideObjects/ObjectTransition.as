@@ -9,13 +9,30 @@
 	public class ObjectTransition {
 		
 		private var _slideObject:SlideObjectBase;
-		private var _props:Object;	
+		private var _props:Object;
+		private var _mappings:Object = {
+			startPoint: {
+				"top-left": 1,
+				"top": 2,
+				"top-right": 3,
+				"left": 4,
+				"center": 5,
+				"right": 6,
+				"bottom-left": 7,
+				"bottom": 8,
+				"bottom-right": 9
+			},
+			"dimension": {
+				"horizontal": 0,
+				"vertical": 1
+			}
+		};
 		
 		public function get duration():int { return _props["duration"]*1000; }
 		
 		public function ObjectTransition(slideObject:SlideObjectBase, config:*, direction:uint) {
 			
-			_slideObject = slideObject;
+			// _slideObject = slideObject;
 			_props = new Object();
 			
 			_props["direction"] = direction;
@@ -37,10 +54,24 @@
 						_props["easing"] = TransitionUtils.easingFromString(props[iProp]);
 						break;
 					default:
-						_props[nodeName] = props[iProp];
+						if (_mappings[nodeName]) {
+							if (_mappings[nodeName][props[iProp]]) {
+								_props[nodeName] = _mappings[nodeName][props[iProp]];
+							} else {
+								// default to first value
+								for (var mp in _mappings[nodeName]) {
+									_props[nodeName] = _mappings[nodeName][props[iProp]];
+									break;
+								}
+							}
+						} else {
+							_props[nodeName] = props[iProp];
+						}
 						break;
 				}
 			}
+			
+			//manager.addTransition(new Transition(slideObject, _props, manager));
 			
 			 // _props = {type:Fly, direction:direction, duration:_props["duration"], easing:_props["easing"], startPoint:_props["startPoint"]};
 			//for (var ip in _props) {
@@ -49,8 +80,8 @@
 		
 		}
 		
-		public function start():void {
-			TransitionManager.start(_slideObject, _props);
+		public function start(mng:TransitionManager):void {
+			mng.startTransition(_props);
 		}
 //		
 //		public function stop():void {
