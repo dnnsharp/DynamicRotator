@@ -13,6 +13,9 @@
 	import fl.transitions.TransitionManager;
 	import flash.geom.Transform;
 	import fl.transitions.Iris;
+	import flash.events.MouseEvent;
+	import flash.net.navigateToURL;
+	import flash.net.URLRequest;
 	
 	
 	public class SlideObjectBase extends MovieClip {
@@ -140,6 +143,25 @@
 					_animations.push(anim);
 				}
 			}
+			
+			// parse link
+			if (config.hasOwnProperty("link")) {
+				
+				var url = config.link.hasOwnProperty("url") ? config.link.url : config.link;
+				var target = config.link.hasOwnProperty("target") ? config.link.target : "_self";
+				
+				trace("    > link set to " + url + " (target: "+ target +")");
+				
+				this.buttonMode = true;
+   				this.useHandCursor = true;
+   
+				this.addEventListener(MouseEvent.CLICK, function(ev:MouseEvent) {
+					navigateToURL(new URLRequest(url), target);
+					ev.preventDefault();
+					ev.stopPropagation();
+					ev.stopImmediatePropagation();
+				});
+			}
 		}
 		
 		public function reset():void {
@@ -165,7 +187,7 @@
 			_bInit = true;
 			
 			clearTimeout(_timerShowHide);
-			visible = false;
+			//visible = false;
 			
 			//if (_leaveSceneAtTime != _slide.duration || _transitionsOut.length > 0) {
 //				clearTimeout(_timerShowHide);
@@ -175,7 +197,7 @@
 		
 		public function scheduleShow() {
 			reset();
-			
+			visible = false;
 			_timerShowHide = setTimeout(function() {
 					_show();
 				}, _enterSceneAtTime);
@@ -228,7 +250,7 @@
 			if (_transitionsOut.length == 0) {
 				trace("  > Hiding object instantly.");
 				_slide.notifyObjectHidden(this);
-				visible = false;
+				//visible = false;
 				
 				for (var ia in _animations) {
 					_animations[ia].stop();

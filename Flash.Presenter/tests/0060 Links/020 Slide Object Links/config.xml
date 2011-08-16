@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf8"?>
+<presentation>
+
+	<setup>
+		<slideWidth>400</slideWidth>
+		<slideHeight>200</slideHeight>
+		
+		<advancePresentation>
+			<timing>
+				<enabled>true</enabled>
+				<defaultTiming>5000</defaultTiming>
+			</timing>
+			<manual><click>true</click></manual>
+		</advancePresentation>
+		<debug>
+			<showTitles>true</showTitles>
+		</debug>
+	</setup>
+	
+	<slides>
+		
+		<slide>
+			<title>Click to open google.com in same window</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xF8F091</color>
+			</background>
+			<objects>
+				<object>
+					<objType>graphic</objType>
+					<src>../../.res/square-red.png</src>
+					<link>http://google.com</link>
+				</object>
+			</objects>
+		</slide>
+		
+		<slide>
+			<title>Click to open dnnsharp.com in new window</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xCFE7FB</color>
+			</background>
+			<objects>
+				<object>
+					<objType>graphic</objType>
+					<src>../../.res/circle-blue.png</src>
+					<link>
+						<url>http://www.dnnsharp.com</url>
+						<target>_blank</target>
+					</link>
+				</object>
+			</objects>
+		</slide>
+	</slides>
+</presentation>

@@ -18,6 +18,8 @@
 	import avt.Presenter.Backgrounds.*;
 	import avt.Presenter.AdvanceSlide.AdvanceSlideTimer;
 	import avt.Util.ConfigUtils;
+	import flash.events.MouseEvent;
+	import flash.net.navigateToURL;
 	
 	public class Slide extends Sprite {
 
@@ -124,6 +126,25 @@
 			_background = BackgroundFactory.factory(config.background);
 			_background.addTo(this, _presentation.slideWidth, _presentation.slideHeight);
 			
+			// parse link
+			if (config.hasOwnProperty("link")) {
+				
+				var url = config.link.hasOwnProperty("url") ? config.link.url : config.link;
+				var target = config.link.hasOwnProperty("target") ? config.link.target : "_self";
+				
+				trace("    > link set to " + url + " (target: "+ target +")");
+				
+				this.buttonMode = true;
+   				this.useHandCursor = true;
+   
+				this.addEventListener(MouseEvent.CLICK, function(ev:MouseEvent) {
+					navigateToURL(new URLRequest(url), target);
+					ev.preventDefault();
+					ev.stopPropagation();
+					ev.stopImmediatePropagation();
+				});
+			}
+			
 			// parse slides objects
 			_loader = new BulkLoader();
 			this._objects = new Vector.<SlideObjectBase>();
@@ -198,8 +219,9 @@
 				var textFormat:TextFormat = new TextFormat("verdana", 14)
 				var textField:TextField = new TextField()
 				textField.defaultTextFormat = textFormat;
-				textField.text = title;
+				textField.text = title.replace("\\n", "\n");
 				textField.width = _presentation.slideWidth;
+				textField.selectable = false;
 				addChild(textField);
 			}
 			

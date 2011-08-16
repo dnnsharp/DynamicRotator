@@ -16,11 +16,10 @@
 			
 			trace("  > Slide transition NONE");
 			
+			currentSlide.reset();
 			if (prevSlide != null) {
 				prevSlide.visible = false;
 			}
-			
-			currentSlide.reset();
 			fnComplete();
 		}
 		
