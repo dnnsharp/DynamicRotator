@@ -16,6 +16,8 @@
 	import flash.events.MouseEvent;
 	import flash.net.navigateToURL;
 	import flash.net.URLRequest;
+	import avt.Presenter.Backgrounds.IBackground;
+	import avt.Presenter.Backgrounds.BackgroundFactory;
 	
 	
 	public class SlideObjectBase extends MovieClip {
@@ -46,6 +48,8 @@
 		private var _timerShowHide: uint;
 		
 		private static var _OBJECTID = 0;
+		
+		private var _background:IBackground;
 
 		public static function factory(slide:Slide, config:*, loader:BulkLoader):SlideObjectBase {
 			var obj:SlideObjectBase = null;
@@ -54,6 +58,10 @@
 				switch (config.objType.toString()) {
 					case "graphic":
 						obj = new GraphicObject(slide);
+						break;
+					case "text":
+					case "html":
+						obj = new HtmlText(slide);
 						break;
 				}
 			}
@@ -86,6 +94,9 @@
 			} else {
 				trace("      no properties found, default position to (center,center)");
 			}
+			
+			_background = BackgroundFactory.factory(config.background);
+			_background.addTo(this, 200, 200);
 			
 			// when to enter scene
 			_enterSceneAtTime = 0;

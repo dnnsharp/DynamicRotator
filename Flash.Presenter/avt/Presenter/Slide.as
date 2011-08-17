@@ -32,7 +32,7 @@
 		private var _presentation:Presentation;
 		public function get presentation():Presentation { return _presentation; }
 		
-		private var _mcBg:MovieClip;
+		// private var _mcBg:MovieClip;
 		
 		private var _loaded:Boolean;
 		public function get loaded():Boolean { return _loaded; }
@@ -165,7 +165,7 @@
 			
 			
 			if (_loader.itemsTotal == 0) {
-				trace("There are no slide objects in slide " + originalIndex + ", the slide will render empty.");
+				trace("There are no slide objects resources to load for slide " + originalIndex + ".");
 				presentation.loader.hide();
 				presentation.slideFinishedLoading(this);
 

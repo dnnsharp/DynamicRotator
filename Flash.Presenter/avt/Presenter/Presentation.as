@@ -12,6 +12,7 @@
 	import avt.Presenter.AdvanceSlide.*;
 	import avt.Presenter.Loaders.BaseLoader;
 	import avt.Util.ConfigUtils;
+	import avt.Util.FontManager;
 	
 	public class Presentation {
 
@@ -24,6 +25,14 @@
 			_overlay = new Sprite();
 			_container.addChild(_overlay);
 		}
+		
+		
+		public const LOADSTATE_INIT:int = 0;
+		public const LOADSTATE_LOADER:int = 1;
+		public const LOADSTATE_RESOURCES:int = 2;
+		public const LOADSTATE_SLIDES:int = 3;
+		
+		private var _loadingState:int = LOADSTATE_INIT;
 		
 		private var _loader:BaseLoader;
 		public function get loader():BaseLoader { return _loader; }
@@ -142,6 +151,10 @@
 		private function parseConfiguration(config:*): void {
 			trace("> Setting up presentation...");
 			
+			trace("> Parsing resources... ");
+			var fm:FontManager = new FontManager(fontsLoaded);
+			fm.parseConfig(config.hasOwnProperty("resources") ? config.resources.fonts : null);
+			
 			//try { this.debug = config.setup.debug.toString().toLowerCase() == "true"; } catch (e:Error) { this.debug = false; }
 //			trace("  debug: " + this.debug);
 			
@@ -231,6 +244,7 @@
 			trace("> Parsing "+ slidesArrLen +" slides...");
 			
 			for (var i:int=0; i < slidesArrLen; i++) {
+				
 				var s:Slide = new Slide(this, slidesArr[i]);
 				
 				//s.parseConfiguration(config.slides[i]);
@@ -239,9 +253,6 @@
 				
 				slideContainer.addChild(s);
 			}
-			
-
-			slides[0].load(slideFinishedLoading);
 			
 			if (this.randomOrder) {
 				trace("> Random order detected, reorder array...");
@@ -259,6 +270,10 @@
             //_container.stage.align = StageAlign.TOP_LEFT;
 			
 			goToNextSlide({});
+		}
+		
+		public function fontsLoaded() {
+			slides[0].load(slideFinishedLoading);
 		}
 		
 		public function slideFinishedLoading(slide:Slide) {

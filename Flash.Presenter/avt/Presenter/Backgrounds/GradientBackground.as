@@ -68,7 +68,7 @@
 			_alphas = new Array();
 			_ratios = new Array();
 			
-			for (var ipt=0; ipt <ptArrLen; ipt++) {
+			for (var ipt:Number=0; ipt <ptArrLen; ipt++) {
 				
 				var at:Number = ConfigUtils.parseNumber(ptArr[ipt].at, ipt / (ptArrLen == 1 ? 1 : ptArrLen - 1), 0, 1);
 				_ratios.push(2.55 * at * 100); // needs to be on 0-255 scale
