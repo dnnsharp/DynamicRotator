@@ -18,6 +18,8 @@
 	import flash.net.URLRequest;
 	import avt.Presenter.Backgrounds.IBackground;
 	import avt.Presenter.Backgrounds.BackgroundFactory;
+	import avt.Util.StringUtils;
+	import flash.filters.GlowFilter;
 	
 	
 	public class SlideObjectBase extends MovieClip {
@@ -27,6 +29,7 @@
 		}
 		
 		private var _slide:Slide;
+		public function get slide():Slide { return _slide; }
 		
 		private var _objectId:String;
 		public function get objectId():String { return _objectId; }
@@ -50,6 +53,9 @@
 		private static var _OBJECTID = 0;
 		
 		private var _background:IBackground;
+		
+		private var _padding:Object; // { left:, right:, top:, bottom: }
+		public function get padding():Object { return _padding; }
 
 		public static function factory(slide:Slide, config:*, loader:BulkLoader):SlideObjectBase {
 			var obj:SlideObjectBase = null;
@@ -95,8 +101,23 @@
 				trace("      no properties found, default position to (center,center)");
 			}
 			
+			// parse padding
+			_padding = {"left": 0, "right": 0, "top": 0, "bottom": 0};
+			if (config.hasOwnProperty("padding")) {
+				if (isNaN(parseFloat(config.padding))) {
+					_padding.left = ConfigUtils.parseNumber(config.padding.left, 0);
+					_padding.right = ConfigUtils.parseNumber(config.padding.right, 0);
+					_padding.top = ConfigUtils.parseNumber(config.padding.top, 0);
+					_padding.bottom = ConfigUtils.parseNumber(config.padding.bottom, 0);
+				} else {
+					_padding.left =_padding.right =_padding.top =_padding.bottom = parseFloat(config.padding);
+				}
+			}
+			trace(StringUtils.formatObj("  > padding (left: {left}, right: {right}, top: {top}, bottom: {bottom})", _padding));
+			
+			// initialize background but don't draw it since we don't know the object final dimensions
 			_background = BackgroundFactory.factory(config.background);
-			_background.addTo(this, 200, 200);
+			_background.addTo(this);
 			
 			// when to enter scene
 			_enterSceneAtTime = 0;
@@ -175,12 +196,28 @@
 			}
 		}
 		
+		public function onDoneLoading():void {
+
+			// width and height are not recalculated to contain the textbox x and y coordinated
+			// until later in the draw process; so add the background after the frame is constructed
+
+			var paintBg = function(event:Event) {
+				removeEventListener(Event.FRAME_CONSTRUCTED, paintBg);
+				_background.redraw(width + padding.left + padding.right, height + padding.top + padding.bottom);
+			};
+			
+			addEventListener(Event.FRAME_CONSTRUCTED, paintBg);	   
+		}
+		
 		public function reset():void {
 			
 			for (var i in _initProps) {
 				
 				// ignore special properties
 				if (i.indexOf("margin") == 0)
+					continue;
+				
+				if (i.indexOf("padding") == 0)
 					continue;
 					
 				if (!this.hasOwnProperty(i)) {
@@ -193,6 +230,9 @@
 			if (!_bInit) {
 				_initProps["x"] = this["x"] = PositionHelper.getRealX(this, _slide.presentation.slideWidth, _initProps["x"], "center", _initProps["marginLeft"], _initProps["marginRight"]);
 				_initProps["y"] = this["y"] = PositionHelper.getRealY(this, _slide.presentation.slideHeight, _initProps["y"], "center", _initProps["marginTop"], _initProps["marginBottom"]);
+				
+				// set padding
+				_padding
 			}
 			
 			_bInit = true;

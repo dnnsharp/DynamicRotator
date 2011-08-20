@@ -26,7 +26,11 @@
 		private var _alphas: Array;
 		private var _ratios: Array;
 		
+		private var _bg:Sprite;
+		
 		public function init(config:*):void {
+			
+			_bg = new Sprite();
 			
 			trace("  > Slide background is gradient")
 			
@@ -85,8 +89,12 @@
 		
 		}
 		
-		public function addTo(obj:Sprite, width: Number, height:Number):void {
-			
+		public function addTo(obj:Sprite):void {
+			obj.addChild(_bg);			
+		}
+		
+		public function redraw(width: Number, height:Number):void {
+
 			var matr:Matrix = new Matrix();
 			matr.createGradientBox(
 				_scale.x > 0 ? _scale.x * width: width, 
@@ -95,12 +103,9 @@
 				_translation.x, _translation.y
 			);
 			 
-			var bg:Sprite = new Sprite();
-			bg.graphics.beginGradientFill(_style, _colors, _alphas, _ratios, matr, _spreadMethod, _interpolationMethod, _focalPointPosX);        
-			bg.graphics.drawRect(0, 0, width, height);
-			bg.graphics.endFill();
-			obj.addChild(bg);
-			
+			_bg.graphics.beginGradientFill(_style, _colors, _alphas, _ratios, matr, _spreadMethod, _interpolationMethod, _focalPointPosX);        
+			_bg.graphics.drawRect(0, 0, width, height);
+			_bg.graphics.endFill();			
 		}
 		
 	}

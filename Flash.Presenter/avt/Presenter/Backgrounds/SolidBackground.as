@@ -5,6 +5,8 @@
 		
 	public class SolidBackground implements IBackground {
 		
+		private var _bg:Sprite;
+		
 		public function SolidBackground() {
 
 		}
@@ -13,6 +15,8 @@
 		private var _alpha: Number;
 		
 		public function init(config:*):void {
+			
+			_bg = new Sprite();
 			
 			_color = 0xFFFFFF;
 			if (config.color && config.color != undefined)
@@ -26,12 +30,14 @@
 			trace("  > Slide background is solid color " + config.color)
 		}
 		
-		public function addTo(obj:Sprite, width: Number, height:Number):void {
-			var bg:Sprite = new Sprite();
-			bg.graphics.beginFill(_color, _alpha);
-			bg.graphics.drawRect(0, 0, width, height);
-			bg.graphics.endFill();
-			obj.addChild(bg);
+		public function addTo(obj:Sprite):void {
+			obj.addChild(_bg);
+		}
+		
+		public function redraw(width: Number, height:Number):void {
+			_bg.graphics.beginFill(_color, _alpha);
+			_bg.graphics.drawRect(0, 0, width, height);
+			_bg.graphics.endFill();
 		}
 		
 	}

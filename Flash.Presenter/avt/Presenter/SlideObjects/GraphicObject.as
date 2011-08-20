@@ -6,7 +6,7 @@
 	import br.com.stimuli.loading.BulkLoader;
 	import flash.display.Bitmap;
 	import flash.events.Event;
-	
+
 	
 	public dynamic class GraphicObject extends SlideObjectBase {
 
@@ -22,6 +22,12 @@
 				loader.add(config.src.toString(), { id: objectId });
 				loader.addEventListener(BulkLoader.COMPLETE, function(evt:Event) {
 					var obj : * = loader.getContent(objectId).parent;
+					try { // will all the loader.getContent objects have x and y?
+						obj.x = padding.left; 
+						obj.y = padding.top;
+					} catch (err:Error) { }
+					
+					// add it to the scene
 					addChild(obj);
 				});
 			}

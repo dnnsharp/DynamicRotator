@@ -1,0 +1,14 @@
+p {
+	font-style: italic;
+	font-size: 22;
+}
+
+.red {
+	color: #dd2222;
+}
+
+.big-blue { 
+	color: #2222dd; 
+	font-weight: bold; 
+	font-size: 24; 
+} 

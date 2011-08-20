@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf8"?>
+<presentation>
+
+	<resources>
+		<fonts>
+			<font>
+				<url>../../../fonts/MedievalSharp/MedievalSharp.swf</url>
+				<symbols>
+					<symbol>MedievalSharp</symbol>
+				</symbols>
+			</font>
+		</fonts>
+	</resources>
+	
+	<setup>
+		<slideWidth>400</slideWidth>
+		<slideHeight>200</slideHeight>
+		<advancePresentation>
+			<timing>false</timing>
+			<manual><click>true</click></manual>
+		</advancePresentation>
+		<debug>
+			<showTitles>true</showTitles>
+		</debug>
+	</setup>
+	
+	<slides>
+		
+		<slide>
+			<title>No Styles</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xCFE7FB</color>
+			</background>
+			<objects>
+				<object>
+					<objType>text</objType>
+					<content>
+					<![CDATA[
+						The quick brown fox jumps over the lazy dog
+					]]>
+					</content>
+				</object>
+			</objects>
+		</slide>
+		<slide>
+			<title>Inline element and class styles</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xF0DE79</color>
+			</background>
+			
+			<objects>
+				<object>
+					<objType>text</objType>
+					<content>
+					<![CDATA[
+						<p>Six big juicy steaks <span class='red'>sizzled in a pan</span> as <span class='big-blue'>five workmen</span> left the quarry</p>
+					]]>
+					</content>
+					<stylesheet>
+						span { font-size: 16; } 
+						.red { color: #dd2222; } 
+						.big-blue { color: #2222dd; font-weight: bold; font-size: 24; } 
+					</stylesheet>
+				</object>
+			</objects>
+		</slide>
+		<slide>
+			<title>Styles from external styles.css file</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xCFE7FB</color>
+			</background>
+			<objects>
+				<object>
+					<objType>text</objType>
+					<props>
+						<selectable>true</selectable>
+					</props>
+					<content>
+					<![CDATA[
+						<p>The quick brown fox <span class='red'>jumps</span> over the lazy dog</p>
+					]]>
+					</content>
+					<stylesheet>
+						<src>styles.css</src>
+					</stylesheet>
+				</object>
+			</objects>
+		</slide>
+		<slide>
+			<title>External content and styles</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xF0DE79</color>
+			</background>
+			<objects>
+				<object>
+					<objType>text</objType>
+					<props>
+						<selectable>true</selectable>
+					</props>
+					<content>
+						<src>sample.html</src>
+					<![CDATA[
+						<p>The quick brown fox <span class='red'>jumps</span> over the lazy dog</p>
+					]]>
+					</content>
+					<stylesheet>
+						<src>styles.css</src>
+					</stylesheet>
+				</object>
+			</objects>
+		</slide>
+	</slides>
+</presentation>

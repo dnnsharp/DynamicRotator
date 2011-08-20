@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf8"?>
+<presentation>
+
+	<resources>
+		<fonts>
+			<font>
+				<url>../../../fonts/MedievalSharp/MedievalSharp.swf</url>
+				<symbols>
+					<symbol>MedievalSharp</symbol>
+				</symbols>
+			</font>
+		</fonts>
+	</resources>
+	
+	<setup>
+		<slideWidth>400</slideWidth>
+		<slideHeight>200</slideHeight>
+		<advancePresentation>
+			<timing>false</timing>
+			<manual><click>true</click></manual>
+		</advancePresentation>
+		<debug>
+			<showTitles>true</showTitles>
+		</debug>
+	</setup>
+	
+	<slides>
+		
+		<slide>
+			<title>Wrap / No Wrap</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xCFE7FB</color>
+			</background>
+			<objects>
+				<object>
+					<objType>text</objType>
+					<props>
+						<y>40</y>
+						<wordWrap>true</wordWrap>
+					</props>
+					<content>
+					<![CDATA[
+						The quick brown fox jumps over the lazy dog
+					]]>
+					</content>
+				</object>
+				<object>
+					<objType>text</objType>
+					<props>
+						<y>120</y>
+						<wordWrap>false</wordWrap>
+					</props>
+					<content>
+					<![CDATA[
+						The quick brown fox jumps over the lazy dog
+					]]>
+					</content>
+				</object>
+			</objects>
+		</slide>
+		<slide>
+			<title>Selectable / Not Selectable</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xF0DE79</color>
+			</background>
+			
+			<objects>
+				<object>
+					<objType>text</objType>
+					<props>
+						<y>40</y>
+						<selectable>true</selectable>
+					</props>
+					<content>
+					<![CDATA[
+						Six big juicy steaks sizzled in a pan as five workmen left the quarry
+					]]>
+					</content>
+				</object>
+				<object>
+					<objType>text</objType>
+					<props>
+						<y>120</y>
+						<selectable>false</selectable>
+					</props>
+					<content>
+					<![CDATA[
+						Six big juicy steaks sizzled in a pan as five workmen left the quarry
+					]]>
+					</content>
+				</object>
+			</objects>
+		</slide>
+		<slide>
+			<title>Width</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xCFE7FB</color>
+			</background>
+			<objects>
+				<object>
+					<objType>text</objType>
+					<props>
+						<y>40</y>
+						<width>200</width>
+					</props>
+					<content>
+					<![CDATA[
+						The quick brown fox jumps over the lazy dog
+					]]>
+					</content>
+				</object>
+				<object>
+					<objType>text</objType>
+					<props>
+						<y>120</y>
+						<width>300</width>
+					</props>
+					<content>
+					<![CDATA[
+						The quick brown fox jumps over the lazy dog
+					]]>
+					</content>
+				</object>
+			</objects>
+		</slide>
+	</slides>
+</presentation>

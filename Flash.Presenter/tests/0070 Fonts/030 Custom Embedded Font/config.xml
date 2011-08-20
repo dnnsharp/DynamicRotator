@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf8"?>
+<presentation>
+
+	<resources>
+		<fonts>
+			<font>
+				<url>../../../fonts/GNUTypewriter/GNUTypewriter.swf</url>
+				<symbols>
+					<symbol>GNUTypewriter</symbol>
+				</symbols>
+			</font>
+			<font>
+				<url>../../../fonts/MedievalSharp/MedievalSharp.swf</url>
+				<symbols>
+					<symbol>MedievalSharp</symbol>
+				</symbols>
+			</font>
+		</fonts>
+	</resources>
+
+	<setup>
+		<slideWidth>400</slideWidth>
+		<slideHeight>200</slideHeight>
+		<advancePresentation>
+			<timing>false</timing>
+			<manual><click>true</click></manual>
+		</advancePresentation>
+		<debug>
+			<showTitles>true</showTitles>
+		</debug>
+	</setup>
+	
+	<slides>
+		
+		<slide>
+			<title>Custom embeded font GNUTypewriter</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xCFE7FB</color>
+			</background>
+			<objects>
+				<object>
+					<objType>text</objType>
+					<content>The quick brown fox jumps over the lazy dog</content>
+					<defaultStyles>font-family: GNUTypewriter; </defaultStyles>
+				</object>
+			</objects>
+		</slide>
+		<slide>
+			<title>Custom embeded font MedievalSharp</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xF0DE79</color>
+			</background>
+			<objects>
+				<object>
+					<objType>text</objType>
+					<content>Six big juicy steaks sizzled in a pan as five workmen left the quarry</content>
+					<defaultStyles>font-family: MedievalSharp; </defaultStyles>
+				</object>
+			</objects>
+		</slide>
+		
+	</slides>
+</presentation>

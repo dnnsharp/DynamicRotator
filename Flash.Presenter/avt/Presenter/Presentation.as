@@ -270,10 +270,20 @@
             //_container.stage.align = StageAlign.TOP_LEFT;
 			
 			goToNextSlide({});
+			
+			if (_loadSlidesWhenPossible) {
+				slides[0].load(slideFinishedLoading);
+			}
 		}
 		
+		private var _loadSlidesWhenPossible = false;
 		public function fontsLoaded() {
-			slides[0].load(slideFinishedLoading);
+			if (slides) {
+				slides[0].load(slideFinishedLoading);
+			} else {
+				// slides aren't loaded yet, delay until they are
+				_loadSlidesWhenPossible = true;
+			}
 		}
 		
 		public function slideFinishedLoading(slide:Slide) {

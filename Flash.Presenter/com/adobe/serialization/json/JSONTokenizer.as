@@ -53,6 +53,9 @@ package com.adobe.serialization.json
 		/** The current parsing location in the JSON string */
 		private var loc:int;
 		
+		//[blit] 
+		private var currentLine:int;
+		
 		/** The current character in the JSON string during parsing */
 		private var ch:String;
 		
@@ -74,6 +77,8 @@ package com.adobe.serialization.json
 			jsonString = s;
 			this.strict = strict;
 			loc = 0;
+			// [blit]
+			currentLine = 1;
 			
 			// prime the pump by getting the first character
 			nextChar();
@@ -203,7 +208,7 @@ package com.adobe.serialization.json
 					{
 						// not sure what was in the input string - it's not
 						// anything we expected
-						parseError( "Unexpected " + ch + " encountered" );
+						parseError( "Unexpected " + ch + " encountered (aprox on line " + currentLine + ")");
 					}
 			}
 			
@@ -662,6 +667,8 @@ package com.adobe.serialization.json
 			// Check for the whitespace defined in the spec
 			if ( ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r' )
 			{
+				if (ch == '\n')
+					currentLine++;
 				return true;
 			}
 			// If we're not in strict mode, we also accept non-breaking space

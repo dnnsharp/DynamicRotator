@@ -11,7 +11,11 @@
 			trace("  > Slide background is transparent")
 		}
 		
-		public function addTo(obj:Sprite, width: Number, height:Number):void {
+		public function addTo(obj:Sprite):void {
+			
+		}
+		
+		public function redraw(width: Number, height:Number):void {
 			
 		}
 	}

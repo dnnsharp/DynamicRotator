@@ -26,7 +26,7 @@
 		private var _timer:uint;
 		
 		public static const DEFAULT_TIMING_MS:int = 10000; // 10 seconds
-		public static var DefaultSlideDuration:int;
+		public static var DefaultSlideDuration:int = DEFAULT_TIMING_MS;
 		
 		public function AdvanceSlideTimer(presentation:Presentation, config:*) {
 			_presentation = presentation;

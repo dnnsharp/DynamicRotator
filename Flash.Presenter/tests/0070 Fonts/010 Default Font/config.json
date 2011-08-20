@@ -1,0 +1,28 @@
+{
+	"setup": {
+
+		"slideWidth": 400,
+		"slideHeight": 200,
+		
+		"debug": {
+			"showTitles": true
+		}
+	},
+	
+	"slides": [
+		{
+			"title": "Text displayed with default font (Times New Roman)",
+			"background": {
+				"bgType": "solid",
+				"color": "0xCFE7FB"
+			},
+			"objects": [
+				{
+					"objType": "text",
+					"content": "The quick brown fox jumps over the lazy dog"
+				}
+			]
+			
+		}
+	]
+}

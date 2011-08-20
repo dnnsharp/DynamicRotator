@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf8"?>
+<presentation>
+
+	<setup>
+		<slideWidth>400</slideWidth>
+		<slideHeight>200</slideHeight>
+		<debug>
+			<showTitles>true</showTitles>
+		</debug>
+	</setup>
+	
+	<slides>
+		
+		<slide>
+			<title>Text with invalid font-family, revert to default</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xCFE7FB</color>
+			</background>
+			<objects>
+				<object>
+					<objType>text</objType>
+					<content>The quick brown fox jumps over the lazy dog</content>
+					<defaultStyles>font-family: InvalidFont; </defaultStyles>
+				</object>
+			</objects>
+		</slide>
+	</slides>
+</presentation>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf8"?>
+<presentation>
+
+	<setup>
+		<slideWidth>400</slideWidth>
+		<slideHeight>200</slideHeight>
+		<advancePresentation>
+			<timing>false</timing>
+			<manual><click>true</click></manual>
+		</advancePresentation>
+		<debug>
+			<showTitles>true</showTitles>
+		</debug>
+	</setup>
+	
+	<slides>
+		
+		<slide>
+			<title>No Styles</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xCFE7FB</color>
+			</background>
+			<objects>
+				<object>
+					<objType>text</objType>
+					<content>The quick brown fox jumps over the lazy dog</content>
+					<defaultStyles></defaultStyles>
+				</object>
+			</objects>
+		</slide>
+		<slide>
+			<title>Small, Arial, Italic</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xF0DE79</color>
+			</background>
+			<objects>
+				<object>
+					<objType>text</objType>
+					<content>Six big juicy steaks sizzled in a pan as five workmen left the quarry</content>
+					<defaultStyles>font-family: Arial; font-size: 14; font-style: italic;</defaultStyles>
+				</object>
+			</objects>
+		</slide>
+		<slide>
+			<title>Indented First Line, Big, Bold</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xCFE7FB</color>
+			</background>
+			<objects>
+				<object>
+					<objType>text</objType>
+					<content>The quick brown fox jumps over the lazy dog</content>
+					<defaultStyles>font-size: 30px; font-weight: bold; text-indent: 20;</defaultStyles>
+				</object>
+			</objects>
+		</slide>
+		<slide>
+			<title>Underline, Right Aligned</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xF0DE79</color>
+			</background>
+			<objects>
+				<object>
+					<objType>text</objType>
+					<content>Six big juicy steaks sizzled in a pan as five workmen left the quarry</content>
+					<defaultStyles>text-decoration: underline; text-align: right;</defaultStyles>
+				</object>
+			</objects>
+		</slide>
+	</slides>
+</presentation>

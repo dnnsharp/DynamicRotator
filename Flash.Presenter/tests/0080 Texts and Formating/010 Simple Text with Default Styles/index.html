@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+  <head>
+    <title>Text: Simple Text with Default Styles</title>
+    <script type="text/javascript" src="../../../swfobject.js"></script>
+    
+    <script type="text/javascript">
+		swfobject.embedSWF("../../../Presenter.swf", "loadSlideFromXml", "400", "200", "10.0.0", "../../../expressInstall.swf", {"config": "config.xml"}, {}, { "wmode": "transparent" });
+		swfobject.embedSWF("../../../Presenter.swf", "loadSlideFromJson", "400", "200", "10.0.0", "../../../expressInstall.swf", {"config": "config.json"}, {}, { "wmode": "transparent" });
+    </script>
+
+  </head>
+  <body style="background: #f2f2f2; margin: 10px; padding: 0;">
+	
+	<h1>Text: Simple Text with Default Styles</h1>
+	
+	<div style="float: left; margin: 4px;">
+		<h2>XML</h2>
+		<div id="loadSlideFromXml">
+		  <p>Flash not loaded...</p>
+		</div>
+	</div>
+
+	<div style="float: left; margin: 4px;">	
+		<h2>JSON</h2>
+		<div id="loadSlideFromJson">
+		  <p>Flash not loaded...</p>
+		</div>
+	</div>
+	
+	<div style="clear: both;"></div>
+	
+	<p>
+		<ol>
+			<li>Load configuration file as XML and JSON</li>
+			<li>TODO</li>
+		</ol>
+	</p>
+	
+  </body>
+</html>

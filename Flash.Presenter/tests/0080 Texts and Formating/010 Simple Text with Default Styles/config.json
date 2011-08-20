@@ -1,0 +1,80 @@
+{
+	"setup": {
+
+		"slideWidth": 400,
+		"slideHeight": 200,
+		
+		"debug": {
+			"showTitles": true
+		},
+		"advancePresentation": {
+			"timing": false,
+			"manual": {
+				"click": true
+			}
+		}
+	},
+	
+	"slides": [
+		{
+			"title": "No Styles",
+			"background": {
+				"bgType": "solid",
+				"color": "0xCFE7FB"
+			},
+			"objects": [
+				{
+					"objType": "text",
+					"content": "The quick brown fox jumps over the lazy dog",
+					"defaultStyles": ""
+				}
+			]
+			
+		},
+		{
+			"title": "Small, Arial, Italic",
+			"background": {
+				"bgType": "solid",
+				"color": "0xF0DE79"
+			},
+			"objects": [
+				{
+					"objType": "text",
+					"content": "Six big juicy steaks sizzled in a pan as five workmen left the quarry",
+					"defaultStyles": "font-family: Arial; font-size: 14; font-style: italic;"
+				}
+			]
+			
+		},
+		{
+			"title": "Indented First Line, Big, Bold",
+			"background": {
+				"bgType": "solid",
+				"color": "0xCFE7FB"
+			},
+			"objects": [
+				{
+					"objType": "text",
+					"content": "The quick brown fox jumps over the lazy dog",
+					"defaultStyles": "font-size: 30px; font-weight: bold; text-indent: 20;"
+				}
+			]
+			
+		},
+		{
+			"title": "Underline, Right Aligned",
+			"background": {
+				"bgType": "solid",
+				"color": "0xF0DE79"
+			},
+			"objects": [
+				{
+					"objType": "text",
+					"content": "Six big juicy steaks sizzled in a pan as five workmen left the quarry",
+					"defaultStyles": "text-decoration: underline; text-align: right;"
+				}
+			]
+			
+		}
+	]
+}

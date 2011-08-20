@@ -1,0 +1,63 @@
+{
+	"resources": {
+		"fonts": [
+			{ 
+				"url": "../../../fonts/GNUTypewriter/GNUTypewriter.swf", 
+				"symbols": [ "GNUTypewriter" ] 
+			},
+			{ 
+				"url": "../../../fonts/MedievalSharp/MedievalSharp.swf", 
+				"symbols": [ "MedievalSharp" ] 
+			}
+		]
+	},
+	
+	"setup": {
+
+		"slideWidth": 400,
+		"slideHeight": 200,
+		
+		"debug": {
+			"showTitles": true
+		},
+		"advancePresentation": {
+			"timing": false,
+			"manual": {
+				"click": true
+			}
+		}
+	},
+	
+	"slides": [
+		{
+			"title": "Custom embeded font GNUTypewriter",
+			"background": {
+				"bgType": "solid",
+				"color": "0xCFE7FB"
+			},
+			"objects": [
+				{
+					"objType": "text",
+					"content": "The quick brown fox jumps over the lazy dog",
+					"defaultStyles": "font-family: GNUTypewriter; "
+				}
+			]
+			
+		},
+		{
+			"title": "Custom embeded font MedievalSharp",
+			"background": {
+				"bgType": "solid",
+				"color": "0xF0DE79"
+			},
+			"objects": [
+				{
+					"objType": "text",
+					"content": "Six big juicy steaks sizzled in a pan as five workmen left the quarry",
+					"defaultStyles": "font-family: MedievalSharp;"
+				}
+			]
+			
+		}
+	]
+}

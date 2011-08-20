@@ -1,0 +1,108 @@
+{
+	"resources": {
+		"fonts": [
+			{ 
+				"url": "../../../fonts/MedievalSharp/MedievalSharp.swf", 
+				"symbols": [ "MedievalSharp" ] 
+			}
+		]
+	},
+	
+	"setup": {
+
+		"slideWidth": 400,
+		"slideHeight": 200,
+		
+		"debug": {
+			"showTitles": true
+		},
+		"advancePresentation": {
+			"timing": false,
+			"manual": {
+				"click": true
+			}
+		}
+	},
+	
+	"slides": [
+		{
+			"title": "Wrap / No Wrap",
+			"background": {
+				"bgType": "solid",
+				"color": "0xCFE7FB"
+			},
+			"objects": [
+				{
+					"props": {
+						"y": "40",
+						"wordWrap": true
+					},
+					"objType": "text",
+					"content": "The quick brown fox jumps over the lazy dog"
+				},
+				{
+					"props": {
+						"y": "120",
+						"wordWrap": false
+					},
+					"objType": "text",
+					"content": "The quick brown fox jumps over the lazy dog"
+				}
+			]
+			
+		},
+		{
+			"title": "Selectable / Not Selectable",
+			"background": {
+				"bgType": "solid",
+				"color": "0xF0DE79"
+			},
+			"objects": [
+				{
+					"props": {
+						"y": "40",
+						"selectable": true
+					},
+					"objType": "text",
+					"content": "Six big juicy steaks sizzled in a pan as five workmen left the quarry"
+				},
+				{
+					"props": {
+						"y": "120",
+						"selectable": false
+					},
+					"objType": "text",
+					"content": "Six big juicy steaks sizzled in a pan as five workmen left the quarry"
+				}
+				
+			]
+			
+		},
+		{
+			"title": "Width",
+			"background": {
+				"bgType": "solid",
+				"color": "0xCFE7FB"
+			},
+			"objects": [
+				{
+					"props": {
+						"y": "40",
+						"width": 200
+					},
+					"objType": "text",
+					"content": "The quick brown fox jumps over the lazy dog"
+				},
+				{
+					"props": {
+						"y": "120",
+						"width": 300
+					},
+					"objType": "text",
+					"content": "The quick brown fox jumps over the lazy dog"
+				}
+			]
+			
+		}
+	]
+}

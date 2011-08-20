@@ -124,7 +124,8 @@
 			}
 			
 			_background = BackgroundFactory.factory(config.background);
-			_background.addTo(this, _presentation.slideWidth, _presentation.slideHeight);
+			_background.addTo(this);
+			_background.redraw(_presentation.slideWidth, _presentation.slideHeight);
 			
 			// parse link
 			if (config.hasOwnProperty("link")) {
@@ -143,6 +144,16 @@
 					ev.stopPropagation();
 					ev.stopImmediatePropagation();
 				});
+			}
+			
+			if (_presentation.debugShowTitles) {
+				var textFormat:TextFormat = new TextFormat("verdana", 14)
+				var textField:TextField = new TextField()
+				textField.defaultTextFormat = textFormat;
+				textField.text = title.replace("\\n", "\n");
+				textField.width = _presentation.slideWidth;
+				textField.selectable = false;
+				addChild(textField);
 			}
 			
 			// parse slides objects
@@ -166,13 +177,17 @@
 			
 			if (_loader.itemsTotal == 0) {
 				trace("There are no slide objects resources to load for slide " + originalIndex + ".");
+				
 				presentation.loader.hide();
 				presentation.slideFinishedLoading(this);
-
+				
 				loaded = true;
-				if (_renderOnLoad) {
+				if (_renderOnLoad)
 					_render(_renderOpts);
-				}
+				
+				// give a chance to each object to complete initialization
+				for each (var obj:SlideObjectBase in _objects)
+					obj.onDoneLoading();
 			} else {
 				
 				var _thisSlide = this;
@@ -188,7 +203,11 @@
 					} else {
 						trace("  All slide objects loaded fine...");
 					}
-										 
+					
+					// give a chance to each object to complete initialization
+					for each (var obj:SlideObjectBase in _objects)
+						obj.onDoneLoading();
+					
 					presentation.loader.hide();
 					presentation.slideFinishedLoading(_thisSlide);
 					loaded = true;
@@ -215,15 +234,7 @@
 //			addChild(_mcBg);
 //			
 //			
-			if (_presentation.debugShowTitles) {
-				var textFormat:TextFormat = new TextFormat("verdana", 14)
-				var textField:TextField = new TextField()
-				textField.defaultTextFormat = textFormat;
-				textField.text = title.replace("\\n", "\n");
-				textField.width = _presentation.slideWidth;
-				textField.selectable = false;
-				addChild(textField);
-			}
+			
 			
 			
 			//var colorTransform:ColorTransform = this.transform.colorTransform;
