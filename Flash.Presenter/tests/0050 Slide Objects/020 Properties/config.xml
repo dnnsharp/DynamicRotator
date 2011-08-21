@@ -17,7 +17,11 @@
 	<slides>
 		
 		<slide>
-			<title>No props</title>			
+			<title>No props</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xF8F091</color>
+			</background>
 			<objects>
 				<object>
 					<objType>graphic</objType>
@@ -28,6 +32,10 @@
 		
 		<slide>
 			<title>Margins (top, left, bottom, right)</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xCFE7FB</color>
+			</background>
 			<objects>
 				<object>
 					<objType>graphic</objType>
@@ -44,6 +52,10 @@
 		
 		<slide>
 			<title>Rotation around Z axis (in screen plane)</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xF8F091</color>
+			</background>		
 			<objects>
 				<object>
 					<objType>graphic</objType>
@@ -58,6 +70,10 @@
 		
 		<slide>
 			<title>Rotation around Y axis (vertical axis)</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xCFE7FB</color>
+			</background>
 			<objects>
 				<object>
 					<objType>graphic</objType>
@@ -72,6 +88,10 @@
 		
 		<slide>
 			<title>Rotation around X axis (horizontal axis)</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xF8F091</color>
+			</background>		
 			<objects>
 				<object>
 					<objType>graphic</objType>
@@ -86,6 +106,10 @@
 		
 		<slide>
 			<title>Alpha channel (opacity)</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xCFE7FB</color>
+			</background>
 			<objects>
 				<object>
 					<objType>graphic</objType>
@@ -99,6 +123,10 @@
 		
 		<slide>
 			<title>Scale (X and Y)</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xF8F091</color>
+			</background>		
 			<objects>
 				<object>
 					<objType>graphic</objType>

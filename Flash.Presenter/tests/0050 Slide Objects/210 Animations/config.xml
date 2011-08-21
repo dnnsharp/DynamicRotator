@@ -24,7 +24,11 @@
 	<slides>
 		
 		<slide>
-			<title>No animation</title>			
+			<title>No animation</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xF8F091</color>
+			</background>
 			<objects>
 				<object>
 					<objType>graphic</objType>
@@ -51,7 +55,11 @@
 		</slide>
 		
 		<slide>
-			<title>Rotate each around one axis (Z, X, Y) for 10 seconds</title>			
+			<title>Rotate each around one axis (Z, X, Y) for 5 seconds</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xCFE7FB</color>
+			</background>			
 			<objects>
 				<object>
 					<objType>graphic</objType>
@@ -62,8 +70,8 @@
 					<animations>
 						<animation>
 							<prop>rotationZ</prop>
-							<duration>10000</duration>
-							<to>1440</to>
+							<duration>5000</duration>
+							<to>720</to>
 						</animation>
 					</animations>
 				</object>
@@ -76,8 +84,8 @@
 					<animations>
 						<animation>
 							<prop>rotationX</prop>
-							<duration>10000</duration>
-							<to>1440</to>
+							<duration>5000</duration>
+							<to>720</to>
 						</animation>
 					</animations>
 				</object>
@@ -90,8 +98,8 @@
 					<animations>
 						<animation>
 							<prop>rotationY</prop>
-							<duration>10000</duration>
-							<to>1440</to>
+							<duration>5000</duration>
+							<to>720</to>
 						</animation>
 					</animations>
 				</object>
@@ -99,7 +107,11 @@
 		</slide>
 		
 		<slide>
-			<title>Scale Objects</title>			
+			<title>Scale Objects</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xF8F091</color>
+			</background>
 			<objects>
 				<object>
 					<objType>graphic</objType>
@@ -161,6 +173,10 @@
 		
 		<slide>
 			<title>Simple Scenario</title>			
+			<background>
+				<bgType>solid</bgType>
+				<color>0xCFE7FB</color>
+			</background>			
 			<objects>
 				<object>
 					<objType>graphic</objType>

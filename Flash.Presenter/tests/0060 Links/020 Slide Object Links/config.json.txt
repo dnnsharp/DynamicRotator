@@ -1,0 +1,51 @@
+{
+	"setup": {
+
+		"slideWidth": 400,
+		"slideHeight": 200,
+		
+		"advancePresentation": {
+			"timing": false,
+			"manual": { "click": true }
+		},
+		"debug": {
+			"showTitles": true
+		}
+	},
+	
+	"slides": [
+		
+		{
+			"title": "Click to open test-page1.html in same window",
+			"background": {
+				"bgType": "solid",
+				"color": "0xF8F091"
+			},
+			"objects": [
+				{
+					"objType": "graphic",
+					"src": "../../.res/square-red.png",
+					"link": "test-page1.html"
+				}
+			]
+		},
+		
+		{
+			"title": "Click to open test-page2.html in new window",
+			"background": {
+				"bgType": "solid",
+				"color": "0xCFE7FB"
+			},
+			"objects": [
+				{
+					"objType": "graphic",
+					"src": "../../.res/circle-blue.png",
+					"link": {
+						"url": "test-page2.html",
+						"target": "_blank"
+					}
+				}
+			]
+		}
+	]
+}

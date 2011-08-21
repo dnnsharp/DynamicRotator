@@ -1,0 +1,332 @@
+{
+	"setup": {
+
+		"slideWidth": 400,
+		"slideHeight": 200,
+		
+		"advancePresentation": {
+			"timing": {
+				"enabled": true,
+				"defaultTiming": 3000
+			}
+		},
+		
+		"debug": {
+			"showTitles": true
+		}
+	},
+	
+	"slides": [
+		
+		{
+			"title": "No transition",
+			"background": {
+				"bgType": "solid",
+				"color": "0xF8F091"
+			},
+			"objects": [
+				{
+					"objType": "graphic",
+					"src": "../../.res/square-red.png",
+					"props": { "x": 20 }
+				},
+				
+				{
+					"objType": "graphic",
+					"src": "../../.res/triangle-green.png",
+					"props": { "x": 150 }
+				},
+				
+				{
+					"objType": "graphic",
+					"src": "../../.res/circle-blue.png",
+					"props": { "x": 280 }
+				}
+			]
+		},
+		
+		{
+			"title": "Enter with Fly, leave with no effect",
+			"background": {
+				"bgType": "solid",
+				"color": "0xCFE7FB"
+			},
+			"duration": 7000,
+			"objects": [
+				{
+					"objType": "graphic",
+					"src": "../../.res/square-red.png",
+					"props": { "x": 20 },
+					
+					"enterScene": {
+						"transitions": [
+							{
+								"transition": "Fly",
+								"duration": 1000,
+								"easing": "Strong.easeOut",
+								"startPoint": "left"
+							}
+						]
+					}
+				},
+				
+				{
+					"objType": "graphic",
+					"src": "../../.res/triangle-green.png",
+					"props": { "x": 150 },
+					
+					"enterScene": {
+						"atTime": 1000,
+						"transitions": [
+							{
+								"transition": "Fly",
+								"duration": 1500,
+								"easing": "Bounce.easeOut",
+								"startPoint": "top"
+							}
+						]
+					}
+				},
+				
+				{
+					"objType": "graphic",
+					"src": "../../.res/circle-blue.png",
+					"props": { "x": 280 },
+					
+					"enterScene": {
+						"atTime": 2000,
+						"transitions": [
+							{
+								"transition": "Fly",
+								"duration": 1500,
+								"easing": "Strong.easeOut",
+								"startPoint": "top-right"
+							}
+						]
+					}
+				}
+			]
+		},
+		
+		{
+			"title": "Enter with Fade, leave with PixelDissolve",
+			"background": {
+				"bgType": "solid",
+				"color": "0xF8F091"
+			},
+			"duration": 9000,
+			"objects": [
+				{
+					"objType": "graphic",
+					"src": "../../.res/square-red.png",
+					"props": { "x": 20 },
+					
+					"enterScene": {
+						"transitions": [
+							{
+								"transition": "Fade",
+								"duration": 1000,
+								"easing": "Strong.easeOut"
+							}
+						]
+					},
+					
+					"leaveScene": {
+						"transitions": [
+							{
+								"transition": "PixelDissolve",
+								"duration": 1000,
+								"easing": "Strong.easeOut"
+							}
+						]
+					}
+				},
+				
+				{
+					"objType": "graphic",
+					"src": "../../.res/triangle-green.png",
+					"props": { "x": 150 },
+					
+					"enterScene": {
+						"atTime": 1000,
+						"transitions": [
+							{
+								"transition": "Fade",
+								"duration": 1500,
+								"easing": "Bounce.easeOut"
+							}
+						]
+					},
+					
+					"leaveScene": {
+						"transitions": [
+							{
+								"transition": "PixelDissolve",
+								"duration": 1500,
+								"easing": "Bounce.easeOut",
+								"xSections": 30,
+								"ySections": 30
+							}
+						]
+					}
+				},
+				
+				{
+					"objType": "graphic",
+					"src": "../../.res/circle-blue.png",
+					"props": { "x": 280 },
+					
+					"enterScene": {
+						"atTime": 2000,
+						"transitions": [
+							{
+								"transition": "Fade",
+								"duration":2000,
+								"easing": "Strong.easeOut"
+							}
+						]
+					},
+					
+					"leaveScene": {
+						"transitions": [
+							{
+								"transition": "PixelDissolve",
+								"duration": 2000,
+								"easing": "Strong.easeOut",
+								"xSections": 12,
+								"ySections": 6
+							}
+						]
+					}
+				}
+			]
+		},
+		
+		{
+			"title": "Enter with Fly + Photo, leave with Zoom + Rotate",
+			"background": {
+				"bgType": "solid",
+				"color": "0xCFE7FB"
+			},
+			"duration": 9000,
+			"objects": [
+				{
+					"objType": "graphic",
+					"src": "../../.res/square-red.png",
+					"props": { "x": 20 },
+					
+					"enterScene": {
+						"transitions": [
+							{
+								"transition": "Fly",
+								"duration": 1500,
+								"easing": "Strong.easeOut",
+								"startPoint": "left"
+							},
+							{
+								"transition": "Photo",
+								"duration": 1500,
+								"easing": "Strong.easeOut"
+							}
+						]
+					},
+					
+					"leaveScene": {
+						"transitions": [
+							{
+								"transition": "Rotate",
+								"duration": 1500,
+								"easing": "Strong.easeOut",
+								"degrees": 45
+							},
+							{
+								"transition": "Zoom",
+								"duration": 1500,
+								"easing": "Strong.easeOut"
+							}
+						]
+					}
+				},
+				
+				{
+					"objType": "graphic",
+					"src": "../../.res/triangle-green.png",
+					"props": { "x": 150 },
+					
+					"enterScene": {
+						"atTime": 1000,
+						"transitions": [
+							{
+								"transition": "Fly",
+								"duration": 2000,
+								"easing": "Bounce.easeOut",
+								"startPoint": "top"
+							},
+							{
+								"transition": "Photo",
+								"duration": 2000,
+								"easing": "Bounce.easeOut"
+							}
+						]
+					},
+					
+					"leaveScene": {
+						"transitions": [
+							{
+								"transition": "Rotate",
+								"duration": 1500,
+								"easing": "Back.easeIn",
+								"degrees": 720
+							},
+							{
+								"transition": "Zoom",
+								"duration": 1500,
+								"easing": "Back.easeIn"
+							}
+						]
+					}
+				},
+				
+				{
+					"objType": "graphic",
+					"src": "../../.res/circle-blue.png",
+					"props": { "x": 280 },
+					
+					"enterScene": {
+						"atTime": 2000,
+						"transitions": [
+							{
+								"transition": "Fly",
+								"duration": 2500,
+								"easing": "Strong.easeOut",
+								"startPoint": "right"
+							},
+							{
+								"transition": "Photo",
+								"duration": 2500,
+								"easing": "Strong.easeOut"
+							}
+						]
+					},
+					
+					"leaveScene": {
+						"transitions": [
+							{
+								"transition": "Rotate",
+								"duration": 2500,
+								"easing": "Strong.easeOut",
+								"degrees": 360
+							},
+							{
+								"transition": "Zoom",
+								"duration": 1000,
+								"easing": "Strong.easeOut"
+							}
+						]
+					}
+				}
+			]
+		}
+		
+	]
+}

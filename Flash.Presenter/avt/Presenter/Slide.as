@@ -153,6 +153,7 @@
 				textField.text = title.replace("\\n", "\n");
 				textField.width = _presentation.slideWidth;
 				textField.selectable = false;
+				textField.mouseEnabled = false;
 				addChild(textField);
 			}
 			

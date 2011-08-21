@@ -1,0 +1,34 @@
+{
+	"setup": {
+
+		"slideWidth": 400,
+		"slideHeight": 200,
+		
+		"debug": {
+			"showTitles": true
+		}
+	},
+	
+	"slides": [
+		{
+			"title": "Click red square to open test-page1.html\nClick outside red square for test-page2.html",
+			"background": {
+				"bgType": "solid",
+				"color": "0xF8F091"
+			},
+			"link": {
+				"url": "test-page2.html",
+				"target": "_blank"
+			},
+			"objects": [
+				{
+					"objType": "graphic",
+					"src": "../../.res/square-red.png",
+					"link": {
+						"url": "test-page1.html"
+					}
+				}
+			]
+		}
+	]
+}

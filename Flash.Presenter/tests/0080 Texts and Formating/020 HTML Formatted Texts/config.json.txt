@@ -1,0 +1,87 @@
+{
+	"resources": {
+		"fonts": [
+			{ 
+				"url": "../../../fonts/MedievalSharp/MedievalSharp.swf", 
+				"symbols": [ "MedievalSharp" ] 
+			}
+		]
+	},
+	
+	"setup": {
+
+		"slideWidth": 400,
+		"slideHeight": 200,
+		
+		"debug": {
+			"showTitles": true
+		},
+		"advancePresentation": {
+			"timing": false,
+			"manual": {
+				"click": true
+			}
+		}
+	},
+	
+	"slides": [
+		{
+			"title": "No Styles",
+			"background": {
+				"bgType": "solid",
+				"color": "0xCFE7FB"
+			},
+			"objects": [
+				{
+					"objType": "text",
+					"content": "The quick brown fox jumps over the lazy dog"
+				}
+			]
+			
+		},
+		{
+			"title": "Simple formatting: Bold, Italic, Underline",
+			"background": {
+				"bgType": "solid",
+				"color": "0xF0DE79"
+			},
+			"objects": [
+				{
+					"objType": "text",
+					"content": "Six <b>big juicy<\/b> steaks <i>sizzled in a pan<\/i> as <u>five workmen<\/u> left the quarry"
+				}
+			]
+			
+		},
+		{
+			"title": "Font (size, color, face)",
+			"background": {
+				"bgType": "solid",
+				"color": "0xCFE7FB"
+			},
+			"objects": [
+				{
+					"objType": "text",
+					"content": "The <font size='30'>quick<\/font> brown fox <font color='#FF0000'>jumps<\/font> over the <font face='MedievalSharp'>lazy dog<\/font>"
+				}
+			]
+			
+		},
+		{
+			"title": "Text from external HTML File with Links",
+			"background": {
+				"bgType": "solid",
+				"color": "0xF0DE79"
+			},
+			"objects": [
+				{
+					"objType": "text",
+					"content": {
+						"src": "sample.html"
+					}
+				}
+			]
+			
+		}
+	]
+}

@@ -1,0 +1,94 @@
+{
+	"resources": {
+		"fonts": [
+			{ 
+				"url": "../../../fonts/MedievalSharp/MedievalSharp.swf", 
+				"symbols": [ "MedievalSharp" ] 
+			}
+		]
+	},
+	
+	"setup": {
+
+		"slideWidth": 400,
+		"slideHeight": 200,
+		
+		"debug": {
+			"showTitles": true
+		},
+		"advancePresentation": {
+			"timing": false,
+			"manual": {
+				"click": true
+			}
+		}
+	},
+	
+	"slides": [
+		{
+			"title": "No Styles",
+			"background": {
+				"bgType": "solid",
+				"color": "0xCFE7FB"
+			},
+			"objects": [
+				{
+					"objType": "text",
+					"content": "The quick brown fox jumps over the lazy dog"
+				}
+			]
+			
+		},
+		{
+			"title": "Inline element and class styles",
+			"background": {
+				"bgType": "solid",
+				"color": "0xF0DE79"
+			},
+			"objects": [
+				{
+					"objType": "text",
+					"content": "<p>Six big juicy steaks <span class='red'>sizzled in a pan<\/span> as <span class='big-blue'>five workmen<\/span> left the quarry<\/p>",
+					"stylesheet": "span { font-size: 16; } .red { color: #dd2222; } .big-blue { color: #2222dd; font-weight: bold; font-size: 24; } "
+				}
+			]
+			
+		},
+		{
+			"title": "Styles from external styles.css file",
+			"background": {
+				"bgType": "solid",
+				"color": "0xCFE7FB"
+			},
+			"objects": [
+				{
+					"objType": "text",
+					"content": "<p>The quick brown fox <span class='red'>jumps<\/span> over the lazy dog<\/p>",
+					"stylesheet": { 
+						"src": "styles.css"
+					}
+				}
+			]
+			
+		},
+		{
+			"title": "External content and styles",
+			"background": {
+				"bgType": "solid",
+				"color": "0xF0DE79"
+			},
+			"objects": [
+				{
+					"objType": "text",
+					"content": {
+						"src": "sample.html"
+					},
+					"stylesheet": { 
+						"src": "styles.css"
+					}
+				}
+			]
+			
+		}
+	]
+}

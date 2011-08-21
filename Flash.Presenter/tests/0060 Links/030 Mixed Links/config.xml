@@ -13,14 +13,14 @@
 	<slides>
 		
 		<slide>
-			<title>Click red square to open google.com\nClick outside red square for dnnsharp.com</title>
+			<title>Click red square to open test-page1.html\nClick outside red square for test-page2.html</title>
 			<background>
 				<bgType>solid</bgType>
 				<color>0xF8F091</color>
 			</background>
 
 			<link>
-				<url>http://www.dnnsharp.com</url>
+				<url>test-page2.html</url>
 				<target>_blank</target>
 			</link>
 					
@@ -29,8 +29,7 @@
 					<objType>graphic</objType>
 					<src>../../.res/square-red.png</src>
 					<link>
-						<url>http://www.google.com</url>
-						<target>_blank</target>
+						<url>test-page1.html</url>
 					</link>
 				</object>
 			</objects>

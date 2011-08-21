@@ -20,22 +20,22 @@
 	<slides>
 		
 		<slide>
-			<title>Click to open google.com in same window</title>
+			<title>Click to open test-page1.html in same window</title>
 			<background>
 				<bgType>solid</bgType>
 				<color>0xF8F091</color>
 			</background>
-			<link>http://google.com</link>
+			<link>test-page1.html</link>
 		</slide>
 		
 		<slide>
-			<title>Click to open dnnsharp.com in new window</title>
+			<title>Click to open test-page2.html in new window</title>
 			<background>
 				<bgType>solid</bgType>
 				<color>0xCFE7FB</color>
 			</background>
 			<link>
-				<url>http://www.dnnsharp.com</url>
+				<url>test-page2.html</url>
 				<target>_blank</target>
 			</link>
 		</slide>

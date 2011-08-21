@@ -6,10 +6,7 @@
 		<slideHeight>200</slideHeight>
 		
 		<advancePresentation>
-			<timing>
-				<enabled>true</enabled>
-				<defaultTiming>5000</defaultTiming>
-			</timing>
+			<timing>false</timing>
 			<manual><click>true</click></manual>
 		</advancePresentation>
 		<debug>
@@ -20,7 +17,7 @@
 	<slides>
 		
 		<slide>
-			<title>Click to open google.com in same window</title>
+			<title>Click to open test-page1.html in same window</title>
 			<background>
 				<bgType>solid</bgType>
 				<color>0xF8F091</color>
@@ -29,13 +26,13 @@
 				<object>
 					<objType>graphic</objType>
 					<src>../../.res/square-red.png</src>
-					<link>http://google.com</link>
+					<link>test-page1.html</link>
 				</object>
 			</objects>
 		</slide>
 		
 		<slide>
-			<title>Click to open dnnsharp.com in new window</title>
+			<title>Click to open test-page2.html in new window</title>
 			<background>
 				<bgType>solid</bgType>
 				<color>0xCFE7FB</color>
@@ -45,7 +42,7 @@
 					<objType>graphic</objType>
 					<src>../../.res/circle-blue.png</src>
 					<link>
-						<url>http://www.dnnsharp.com</url>
+						<url>test-page2.html</url>
 						<target>_blank</target>
 					</link>
 				</object>

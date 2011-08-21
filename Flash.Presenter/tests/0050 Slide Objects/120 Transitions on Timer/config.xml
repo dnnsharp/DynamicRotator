@@ -21,7 +21,11 @@
 	<slides>
 		
 		<slide>
-			<title>No transition</title>			
+			<title>No transition</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xF8F091</color>
+			</background>
 			<objects>
 				<object>
 					<objType>graphic</objType>
@@ -49,7 +53,11 @@
 		
 		<slide>
 			<title>Enter with Fly, leave with no effect</title>
-			<duration>4000</duration>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xCFE7FB</color>
+			</background>
+			<duration>7000</duration>
 			
 			<objects>
 				
@@ -113,7 +121,11 @@
 		
 		<slide>
 			<title>Enter with Fade, leave with PixelDissolve</title>
-			<duration>7000</duration>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xF8F091</color>
+			</background>
+			<duration>9000</duration>
 			
 			<objects>
 				
@@ -206,7 +218,11 @@
 		
 		<slide>
 			<title>Enter with Fly + Photo, leave with Zoom + Rotate</title>
-			<duration>7000</duration>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xCFE7FB</color>
+			</background>
+			<duration>9000</duration>
 			<objects>
 				
 				<object>

@@ -1,0 +1,141 @@
+{
+	"setup": {
+
+		"slideWidth": 400,
+		"slideHeight": 200,
+		
+		"advancePresentation": {
+			"timing": { "enabled": false },
+			"manual": { "click": true }
+		},
+		"debug": {
+			"showTitles": true
+		}
+	},
+	
+	"slides": [
+		
+		{
+			"title": "No props",
+			"background": {
+				"bgType": "solid",
+				"color": "0xF8F091"
+			},
+			"objects": [
+				{
+					"objType": "graphic",
+					"src": "../../.res/square-red.png"
+				}
+			]
+		},
+		
+		{
+			"title": "Margins (top, left, bottom, right)",
+			"background": {
+				"bgType": "solid",
+				"color": "0xCFE7FB"
+			},
+			"objects": [
+				{
+					"objType": "graphic",
+					"src": "../../.res/square-red.png",
+					"props": {
+						"marginTop": 50,
+						"marginLeft": 0,
+						"marginBottom": 0,
+						"marginRight": 50
+					}
+				}
+			]
+		},
+		
+		{
+			"title": "Rotation around Z axis (in screen plane)",
+			"background": {
+				"bgType": "solid",
+				"color": "0xF8F091"
+			},
+			"objects": [
+				{
+					"objType": "graphic",
+					"src": "../../.res/square-red.png",
+					"props": {
+						"x": 200,
+						"rotationZ": 45
+					}
+				}
+			]
+		},
+		
+		{
+			"title": "Rotation around Y axis (vertical axis)",
+			"background": {
+				"bgType": "solid",
+				"color": "0xCFE7FB"
+			},
+			"objects": [
+				{
+					"objType": "graphic",
+					"src": "../../.res/square-red.png",
+					"props": {
+						"x": 170,
+						"rotationY": 45
+					}
+				}
+			]
+		},
+		
+		{
+			"title": "Rotation around X axis (horizontal axis)",
+			"background": {
+				"bgType": "solid",
+				"color": "0xF8F091"
+			},
+			"objects": [
+				{
+					"objType": "graphic",
+					"src": "../../.res/square-red.png",
+					"props": {
+						"x": 160,
+						"rotationX": 45
+					}
+				}
+			]
+		},
+		
+		{
+			"title": "Alpha channel (opacity)",
+			"background": {
+				"bgType": "solid",
+				"color": "0xCFE7FB"
+			},
+			"objects": [
+				{
+					"objType": "graphic",
+					"src": "../../.res/square-red.png",
+					"props": {
+						"alpha": 0.4
+					}
+				}
+			]
+		},
+		
+		{
+			"title": "Scale (X and Y)",
+			"background": {
+				"bgType": "solid",
+				"color": "0xF8F091"
+			},
+			"objects": [
+				{
+					"objType": "graphic",
+					"src": "../../.res/square-red.png",
+					"props": {
+						"scaleX": 1.2,
+						"scaleY": 0.5
+					}
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,14 @@
+{
+	"setup": {
+
+		"slideWidth": 400,
+		"slideHeight": 200,
+		"debug": {
+			"showTitles": true
+		}
+	},
+	
+	"slides": [
+		{ "src": "slide.json.txt" }
+	]
+}

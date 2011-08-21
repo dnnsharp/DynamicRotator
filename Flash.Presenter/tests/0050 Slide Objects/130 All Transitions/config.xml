@@ -24,7 +24,11 @@
 	<slides>
 		
 		<slide>
-			<title>No transition</title>			
+			<title>No transition</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xF8F091</color>
+			</background>
 			<objects>
 				<object>
 					<objType>graphic</objType>
@@ -52,6 +56,10 @@
 		
 		<slide>
 			<title>Blinds</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xCFE7FB</color>
+			</background>
 			<objects>
 				
 				<object>
@@ -143,6 +151,10 @@
 		
 		<slide>
 			<title>Fade</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xF8F091</color>
+			</background>
 			<objects>
 				
 				<object>
@@ -228,6 +240,10 @@
 		
 		<slide>
 			<title>Fly</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xCFE7FB</color>
+			</background>
 			<objects>
 				
 				<object>
@@ -319,6 +335,10 @@
 		
 		<slide>
 			<title>Iris</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xF8F091</color>
+			</background>
 			<objects>
 				
 				<object>
@@ -414,6 +434,10 @@
 		
 		<slide>
 			<title>Photo</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xCFE7FB</color>
+			</background>
 			<objects>
 				
 				<object>
@@ -499,6 +523,10 @@
 		
 		<slide>
 			<title>PixelDissolve</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xF8F091</color>
+			</background>
 			<objects>
 				
 				<object>
@@ -592,6 +620,10 @@
 		
 		<slide>
 			<title>Rotate</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xCFE7FB</color>
+			</background>
 			<objects>
 				
 				<object>
@@ -681,6 +713,10 @@
 		
 		<slide>
 			<title>Squeeze</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xF8F091</color>
+			</background>
 			<objects>
 				
 				<object>
@@ -770,6 +806,10 @@
 		
 		<slide>
 			<title>Wipe</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xCFE7FB</color>
+			</background>
 			<objects>
 				
 				<object>
@@ -859,6 +899,10 @@
 		
 		<slide>
 			<title>Zoom</title>
+			<background>
+				<bgType>solid</bgType>
+				<color>0xF8F091</color>
+			</background>
 			<objects>
 				
 				<object>
