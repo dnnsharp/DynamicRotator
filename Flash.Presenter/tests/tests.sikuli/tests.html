@@ -70,11 +70,15 @@
 <h2>tests.sikuli\tests.sikuli</h2> <a href="tests.sikuli\tests.zip">(Download this script)</a>
 </div>
 <pre class="sikuli-code">
+<span class="cmt">#setShowActions(True)
+</span>Settings.MinSimilarity = <span class="dig">0.99</span>;
+
 <span class="kw">def</span> getXmlAndJsonRegions():
         <span class="kw">return</span> [Region(<span class="skw">find</span>(<img src="1313926462819.png" />).below(<span class="dig">200</span>)),Region(<span class="skw">find</span>(<img src="JSON.png" />).below(<span class="dig">200</span>))]
 
 <span class="kw">def</span> closeCurrentWindow():
         <span class="skw">click</span>(<img src="x2.png" />)
+
 
 <span class="kw">def</span> test0010():
         <span class="cmt">#Test 0010-001
@@ -93,38 +97,45 @@
         <span class="skw">wait</span>(<img src="JSONBlueInli.png" />, <span class="dig">5</span>)
 <span class="cmt">#test0010()
 </span>
+
 <span class="kw">def</span> test0020():
         <span class="cmt"># Test 0020-001
 </span>        <span class="skw">click</span>(<img src="0020SlideAdv.png" />)
         <span class="skw">wait</span>(<img src="001Tuner002C.png" />)
         <span class="skw">click</span>(<img src="001Timer.png" />)
-        <span class="skw">wait</span>(<img src="JSONRedSlide.png" />,<span class="dig">5</span>)
-        <span class="skw">wait</span>(<img src="JSONBlueSlid.png" />,<span class="dig">5</span>)
+        <span class="skw">wait</span>(<img src="SlideAdvance.png" />,<span class="dig">10</span>)
+        <span class="kw">assert</span> exists(<img src="JSONRedSlide.png" />)
+        <span class="skw">wait</span>(<img src="JSONBlueSlid.png" />,<span class="dig">10</span>)
 
         <span class="cmt"># test 0020-002
 </span>        <span class="skw">click</span>(<img src="002Click.png" />)
-        <span class="skw">wait</span>(<img src="JSONRedSlide-2.png" />, <span class="dig">5</span>)
-        <span class="skw">wait</span>(<span class="dig">15</span>)
-        <span class="skw">click</span>(<img src="JSONRedSlide-3.png" />)
-        <span class="skw">click</span>(<img src="JSONRedSlide-4.png" />)
-        exists(<img src="JSONBlueSlid-1.png" />)
+        <span class="skw">wait</span>(<img src="SlideAdvance-1.png" />,<span class="dig">10</span>)
+        <span class="kw">for</span> r <span class="kw">in</span> getXmlAndJsonRegions():
+                r.highlight(<span class="dig">1</span>)
+                r.<span class="skw">click</span>(<img src="RedSlideclic-1.png" />)
+                r.<span class="skw">click</span>(<img src="BlueSlidecli-1.png" />)
+                r.<span class="skw">click</span>(<img src="RedSlideclic-1.png" />)
+
 
         <span class="cmt"># test 0020-003
 </span>        <span class="skw">click</span>(<img src="003MixedHmei.png" />)
-        <span class="skw">wait</span>(<img src="JSONRedSlide-5.png" />,<span class="dig">5</span>)
-        <span class="skw">wait</span>(<img src="JSONBlueSlid-2.png" />,<span class="dig">5</span>)
-        <span class="skw">click</span>(<img src="RedSlideclic.png" />)
-        exists(<img src="BlueSlidecli.png" />)
-        <span class="skw">click</span>(<img src="JSONRedSlide-6.png" />)
-        exists(<img src="JSONBlueSlid-3.png" />)
+        <span class="skw">wait</span>(<img src="SlideAdvance-2.png" />,<span class="dig">10</span>)
+        <span class="kw">for</span> r <span class="kw">in</span> getXmlAndJsonRegions():
+                r.highlight(<span class="dig">1</span>)
+                r.<span class="skw">click</span>(<img src="RedSlideclic-2.png" />)
+                <span class="kw">assert</span> r.exists(<img src="BlueSlidecli-2.png" />)
+                r.<span class="skw">wait</span>(<img src="RedSlideclic-2.png" />,<span class="dig">10</span>)
 
         <span class="cmt">#test0020-004
 </span>        <span class="skw">click</span>(<img src="004Disabled.png" />)
-        <span class="skw">click</span>(<img src="JSONRedSlide-7.png" />)
-        <span class="skw">click</span>(<img src="JSONRedSlide-8.png" />)
-        exists(<img src="JSONRedSlide-9.png" />)
-        <span class="skw">wait</span>(<span class="dig">20</span>)
-        exists(<img src="JSONRedSlide-9.png" />)
+        <span class="skw">wait</span>(<img src="SlideAdvance-4.png" />,<span class="dig">10</span>)
+        <span class="kw">for</span> r <span class="kw">in</span> getXmlAndJsonRegions():
+                r.highlight(<span class="dig">1</span>)
+                r.<span class="skw">click</span>(<img src="RedSlidealwa.png" />)
+                <span class="kw">assert</span> r.exists(<img src="RedSlidealwa.png" />)
+                <span class="skw">wait</span>(<span class="dig">20</span>)
+                <span class="kw">assert</span> r.exists(<img src="RedSlidealwa.png" />)
+
 <span class="cmt">#test0020()
 </span>
 <span class="kw">def</span> test0030():
@@ -136,70 +147,40 @@
 
         <span class="cmt">#test0030-102
 </span>        <span class="skw">click</span>(<img src="102LinearGra.png" />)
-        <span class="skw">wait</span>(<img src="JSON2KeyPoin.png" />)
-        <span class="skw">click</span>(<img src="2KeyPointsGr.png" />)
-        <span class="skw">click</span>(<img src="JSON2KeyPoin-1.png" />)
+        <span class="skw">wait</span>(<img src="SlideBackgro.png" />,<span class="dig">5</span>)
+        <span class="kw">for</span> r <span class="kw">in</span> getXmlAndJsonRegions():
+                r.highlight(<span class="dig">1</span>)
+                r.<span class="skw">click</span>(<img src="2KeyPointsGr-2.png" />)
+                r.<span class="skw">click</span>(<img src="KePointsGree-1.png" />)
+                r.<span class="skw">click</span>(<img src="Rotated30deg-1.png" />)
+                r.<span class="skw">click</span>(<img src="shiftedwith5-1.png" />)
+                r.<span class="skw">click</span>(<img src="Iphasettogre-1.png" />)
+                r.<span class="skw">click</span>(<img src="scalesett040.png" />)
 
-        <span class="skw">click</span>(<img src="KePointsGree.png" />)
-        <span class="skw">click</span>(<img src="JSONKePoints-1.png" />)
-
-        <span class="skw">click</span>(<img src="Rotated30deg.png" />)
-        <span class="skw">click</span>(<img src="JSONRotated3.png" />)
-
-        <span class="skw">click</span>(<img src="shiftedwith5.png" />)
-        <span class="skw">click</span>(<img src="JSONshiftedw.png" />)
-
-        <span class="skw">click</span>(<img src="Iphasettogre.png" />)
-        <span class="skw">click</span>(<img src="JSONIphasett.png" />)
-
-        <span class="skw">click</span>(<img src="scalesetto40.png" />)
-        <span class="skw">click</span>(<img src="JSONscaleset.png" />)
-
-        exists(<img src="JSON2KeyPoin-2.png" />)
 
         <span class="cmt">#test0030-103
 </span>        <span class="skw">click</span>(<img src="103LinearGra.png" />)
-        <span class="skw">wait</span>(<img src="JSONDefaultr.png" />,<span class="dig">5</span>)
-        <span class="skw">click</span>(<img src="Defaultrefle.png" />)
-        <span class="skw">click</span>(<img src="JSONDefaultr-1.png" />)
-
-        <span class="skw">click</span>(<img src="Defaultrefle-1.png" />)
-        <span class="skw">click</span>(<img src="JSONDefaultr-2.png" />)
-
-        <span class="skw">click</span>(<img src="Eaeatmethodg.png" />)
-        <span class="skw">click</span>(<img src="JSONEaeatmet.png" />)
-
-        <span class="skw">click</span>(<img src="Rgueatmethod.png" />)
-        <span class="skw">click</span>(<img src="JSONRgueatme.png" />)
-
-        <span class="skw">click</span>(<img src="Repeatmethod.png" />)
-        <span class="skw">click</span>(<img src="JSONPadmetho.png" />)
-
-        <span class="skw">click</span>(<img src="Padmethodand.png" />)
-        <span class="skw">click</span>(<img src="JSONPadmetho-1.png" />)
+        <span class="skw">wait</span>(<img src="SlideBackgro-1.png" />,<span class="dig">5</span>)
+        <span class="kw">for</span> r <span class="kw">in</span> getXmlAndJsonRegions():
+                r.highlight(<span class="dig">1</span>)
+                r.<span class="skw">click</span>(<img src="Defaultrefle-2.png" />)
+                r.<span class="skw">click</span>(<img src="Defaultrefle-3.png" />)
+                r.<span class="skw">click</span>(<img src="Epeatmethoda.png" />)
+                r.<span class="skw">click</span>(<img src="Rueatmethoda.png" />)
+                r.<span class="skw">click</span>(<img src="Padmethodand.png" />)
+                r.<span class="skw">click</span>(<img src="Padmethodand-1.png" />)
 
         <span class="cmt">#test0030-200
 </span>        <span class="skw">click</span>(<img src="200RadialGra.png" />)
-        <span class="skw">wait</span>(<img src="JSON2KeyPoin-3.png" />)
-
-        <span class="skw">click</span>(<img src="2KeyPointsGr-1.png" />)
-        <span class="skw">click</span>(<img src="JSON2KeyPoin-4.png" />)
-
-        <span class="skw">click</span>(<img src="3KeyPointsGr.png" />)
-        <span class="skw">click</span>(<img src="JSON3KeyPoin.png" />)
-
-        <span class="skw">click</span>(<img src="focalpointmo.png" />)
-        <span class="skw">click</span>(<img src="JSONfocalpoi.png" />)
-
-        <span class="skw">click</span>(<img src="ralEF.png" />)
-        <span class="skw">click</span>(<img src="JSONralEF.png" />)
-
-        <span class="skw">click</span>(<img src="grgjtranslat-1.png" />)
-        <span class="skw">click</span>(<img src="JSONgrgjtran.png" />)
-
-        <span class="skw">click</span>(<img src="QefizssmcI1Y.png" />)
-        <span class="skw">click</span>(<img src="JSONQefizssm.png" />)
-        exists(<img src="JSON2KeyPoin-5.png" />)
+        <span class="skw">wait</span>(<img src="SlideBackgro-2.png" />,<span class="dig">5</span>)
+        <span class="kw">for</span> r <span class="kw">in</span> getXmlAndJsonRegions():
+                r.highlight(<span class="dig">1</span>)
+                r.<span class="skw">click</span>(<img src="2KeyPointsGr-3.png" />)
+                r.<span class="skw">click</span>(<img src="3KeyPointsGr-1.png" />)
+                r.<span class="skw">click</span>(<img src="focalpointmo-1.png" />)
+                r.<span class="skw">click</span>(<img src="ralEF-1.png" />)
+                r.<span class="skw">click</span>(<img src="grgjtranslat.png" />)
+                r.<span class="skw">click</span>(<img src="lf25tI1Y.png" />)
 
 <span class="cmt">#test0030()
 </span>
@@ -207,38 +188,22 @@
         <span class="skw">click</span>(<img src="0040SlideTra.png" />)
         <span class="skw">wait</span>(<img src="010NoneFadeP.png" />)
         <span class="skw">click</span>(<img src="010NoneFadeP-1.png" />)
-        <span class="skw">wait</span>(<img src="JSONNotransi.png" />,<span class="dig">5</span>)
-        <span class="skw">click</span>(<img src="Notransition.png" />)
-        <span class="skw">click</span>(<img src="JSONNotransi-1.png" />)
-        <span class="skw">wait</span>(<img src="JSONSlidefad.png" />,<span class="dig">5</span>)
-
-        <span class="skw">click</span>(<img src="Slidefadesin.png" />)
-        <span class="skw">click</span>(<img src="JSONSlidefad-1.png" />)
-        <span class="skw">wait</span>(<img src="JSONNewslide.png" />)
-
-        <span class="skw">click</span>(<img src="Newslidepush.png" />)
-        <span class="skw">click</span>(<img src="JSONNewslide-1.png" />)
-        <span class="skw">wait</span>(<img src="JSONSlidepus.png" />)
-
-        <span class="skw">click</span>(<img src="Slidepushesf.png" />)
-        <span class="skw">click</span>(<img src="JSONSlidepus-1.png" />)
-        <span class="skw">wait</span>(<img src="JSONSlidepus-2.png" />)
-
-        <span class="skw">click</span>(<img src="Slidepushesf-1.png" />)
-        <span class="skw">click</span>(<img src="JSONSlidepus-3.png" />)
-        <span class="skw">wait</span>(<img src="JSONSlidepus-4.png" />)
-
-        <span class="skw">click</span>(<img src="Slidepushesf-2.png" />)
-        <span class="skw">click</span>(<img src="JSONSlidepus-5.png" />)
-        exists(<img src="JSONNotransi-2.png" />)
+        <span class="skw">wait</span>(<img src="SlideTransit.png" />,<span class="dig">5</span>)
+        <span class="kw">for</span> r <span class="kw">in</span> getXmlAndJsonRegions():
+                r.highlight(<span class="dig">1</span>)
+                r.<span class="skw">click</span>(<img src="Notransition-1.png" />)
+                r.<span class="skw">wait</span>(<img src="Slidefadesin-1.png" />,<span class="dig">15</span>)
+                r.<span class="skw">click</span>(<img src="Slidefadesin-1.png" />)
+                r.<span class="skw">wait</span>(<img src="Newslidepush-1.png" />,<span class="dig">15</span>)
+                r.<span class="skw">click</span>(<img src="Newslidepush-1.png" />)
+                r.<span class="skw">wait</span>(<img src="Slidepushesf-3.png" />,<span class="dig">15</span>)
+                r.<span class="skw">click</span>(<img src="Slidepushesf-3.png" />)
+                r.<span class="skw">wait</span>(<img src="Slidepushesf-4.png" />,<span class="dig">15</span>)
+                r.<span class="skw">click</span>(<img src="Slidepushesf-4.png" />)
+                r.<span class="skw">wait</span>(<img src="Slidepushesf-5.png" />,<span class="dig">15</span>)
+                r.<span class="skw">click</span>(<img src="Slidepushesf-5.png" />)
 
 <span class="cmt">#test0040()
-</span>
-<span class="cmt">#setShowActions(True)
-</span>Settings.MinSimilarity = <span class="dig">0.99</span>;
-
-<span class="cmt">#regXml = Region(find("1313925685869.png")).below(200)
-</span><span class="cmt">#regJson = Region(628,264,400,200)
 </span>
 <span class="kw">def</span> test0050():
 
@@ -514,7 +479,6 @@
                 r.<span class="skw">click</span>(<img src="Fontsizecolo.png" />)
                 r.<span class="skw">click</span>(<img src="Textfromexte.png" />)
 
-<span class="kw">def</span> test00801():
         <span class="cmt">#test 0080-030
 </span>        <span class="skw">click</span>(<img src="Texts030Prop.png" />)
         <span class="skw">wait</span>(<img src="TextpecificP.png" />,<span class="dig">5</span>)
@@ -536,7 +500,19 @@
                 r.<span class="skw">click</span>(<img src="Stylesfromex.png" />)
                 r.<span class="skw">click</span>(<img src="Externalcont.png" />)
 
-test00801()
+<span class="cmt">#test0080()
+</span>
+<span class="kw">def</span> testAll():
+        <span class="cmt">#test0010();
+</span>        <span class="cmt">#test0020();
+</span>        <span class="cmt">#test0030();
+</span>        test0040();
+        test0050();
+        test0060();
+        test0070();
+        test0080();
+
+testAll();
 </pre>
 </body>
 </html>

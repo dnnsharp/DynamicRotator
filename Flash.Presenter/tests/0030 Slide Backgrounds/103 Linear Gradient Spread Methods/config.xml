@@ -108,7 +108,7 @@
 		</slide>
 		
 		<slide>
-			<title>Repeat method and default (rgb) interpolation</title>
+			<title>Pad method and default (rgb) interpolation</title>
 			<background>
 				<bgType>gradient</bgType>
 				<rotation>45</rotation>

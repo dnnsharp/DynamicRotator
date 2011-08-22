@@ -1,8 +1,12 @@
+#setShowActions(True)
+Settings.MinSimilarity = 0.99;
+
 def getXmlAndJsonRegions():
 	return [Region(find("1313926462819.png").below(200)),Region(find("JSON.png").below(200))]	
 
 def closeCurrentWindow():
 	click("x2.png")
+
 
 def test0010():
 	#Test 0010-001
@@ -21,38 +25,45 @@ def test0010():
 	wait("JSONBlueInli.png", 5)
 #test0010()
 
+
 def test0020():
 	# Test 0020-001
 	click("0020SlideAdv.png")
 	wait("001Tuner002C.png")
 	click("001Timer.png")
-	wait("JSONRedSlide.png",5)
-	wait("JSONBlueSlid.png",5)
+	wait("SlideAdvance.png",10)
+	assert exists("JSONRedSlide.png")
+	wait("JSONBlueSlid.png",10)
 	
 	# test 0020-002
 	click("002Click.png")
-	wait("JSONRedSlide-2.png", 5)
-	wait(15)
-	click("JSONRedSlide-3.png")
-	click("JSONRedSlide-4.png")
-	exists("JSONBlueSlid-1.png")
+	wait("SlideAdvance-1.png",10)
+	for r in getXmlAndJsonRegions():
+		r.highlight(1)
+		r.click("RedSlideclic-1.png")
+		r.click("BlueSlidecli-1.png")
+		r.click("RedSlideclic-1.png")
+		
 	
 	# test 0020-003
 	click("003MixedHmei.png")
-	wait("JSONRedSlide-5.png",5)
-	wait("JSONBlueSlid-2.png",5)
-	click("RedSlideclic.png")
-	exists("BlueSlidecli.png")
-	click("JSONRedSlide-6.png")
-	exists("JSONBlueSlid-3.png")
+	wait("SlideAdvance-2.png",10)
+	for r in getXmlAndJsonRegions():
+		r.highlight(1)
+		r.click("RedSlideclic-2.png")
+		assert r.exists("BlueSlidecli-2.png")
+		r.wait("RedSlideclic-2.png",10)
 
 	#test0020-004
 	click("004Disabled.png")
-	click("JSONRedSlide-7.png")
-	click("JSONRedSlide-8.png")
-	exists("JSONRedSlide-9.png")
-	wait(20)
-	exists("JSONRedSlide-9.png")	
+	wait("SlideAdvance-4.png",10)
+	for r in getXmlAndJsonRegions():
+		r.highlight(1)
+		r.click("RedSlidealwa.png")
+		assert r.exists("RedSlidealwa.png")
+		wait(20)
+		assert r.exists("RedSlidealwa.png")
+
 #test0020()
 
 def test0030():
@@ -64,70 +75,40 @@ def test0030():
 
 	#test0030-102
 	click("102LinearGra.png")
-	wait("JSON2KeyPoin.png")
-	click("2KeyPointsGr.png")
-	click("JSON2KeyPoin-1.png")
-
-	click("KePointsGree.png")
-	click("JSONKePoints-1.png")
-	
-	click("Rotated30deg.png")
-	click("JSONRotated3.png")
-
-	click("shiftedwith5.png")
-	click("JSONshiftedw.png")
-
-	click("Iphasettogre.png")
-	click("JSONIphasett.png")
-
-	click("scalesetto40.png")
-	click("JSONscaleset.png")
-
-	exists("JSON2KeyPoin-2.png")
+	wait("SlideBackgro.png",5)
+	for r in getXmlAndJsonRegions():
+		r.highlight(1)
+		r.click("2KeyPointsGr-2.png")
+		r.click("KePointsGree-1.png")
+		r.click("Rotated30deg-1.png")
+		r.click("shiftedwith5-1.png")
+		r.click("Iphasettogre-1.png")
+		r.click("scalesett040.png")
+		
 
 	#test0030-103
 	click("103LinearGra.png")
-	wait("JSONDefaultr.png",5)
-	click("Defaultrefle.png")
-	click("JSONDefaultr-1.png")
-
-	click("Defaultrefle-1.png")
-	click("JSONDefaultr-2.png")
-
-	click("Eaeatmethodg.png")
-	click("JSONEaeatmet.png")
-
-	click("Rgueatmethod.png")
-	click("JSONRgueatme.png")
-
-	click("Repeatmethod.png")
-	click("JSONPadmetho.png")
-	
-	click("Padmethodand.png")
-	click("JSONPadmetho-1.png")
+	wait("SlideBackgro-1.png",5)
+	for r in getXmlAndJsonRegions():
+		r.highlight(1)
+		r.click("Defaultrefle-2.png")
+		r.click("Defaultrefle-3.png")
+		r.click("Epeatmethoda.png")
+		r.click("Rueatmethoda.png")
+		r.click("Padmethodand.png")
+		r.click("Padmethodand-1.png")
 
 	#test0030-200
 	click("200RadialGra.png")
-	wait("JSON2KeyPoin-3.png")
-
-	click("2KeyPointsGr-1.png")
-	click("JSON2KeyPoin-4.png")
-
-	click("3KeyPointsGr.png")
-	click("JSON3KeyPoin.png")
-
-	click("focalpointmo.png")
-	click("JSONfocalpoi.png")
-
-	click("ralEF.png")
-	click("JSONralEF.png")
-
-	click("grgjtranslat-1.png")
-	click("JSONgrgjtran.png")
-
-	click("QefizssmcI1Y.png")
-	click("JSONQefizssm.png")
-	exists("JSON2KeyPoin-5.png")
+	wait("SlideBackgro-2.png",5)
+	for r in getXmlAndJsonRegions():
+		r.highlight(1)
+		r.click("2KeyPointsGr-3.png")
+		r.click("3KeyPointsGr-1.png")
+		r.click("focalpointmo-1.png")
+		r.click("ralEF-1.png")
+		r.click("grgjtranslat.png")
+		r.click("lf25tI1Y.png")
 	
 #test0030()
 
@@ -135,38 +116,22 @@ def test0040():
 	click("0040SlideTra.png")
 	wait("010NoneFadeP.png")
 	click("010NoneFadeP-1.png")
-	wait("JSONNotransi.png",5)
-	click("Notransition.png")
-	click("JSONNotransi-1.png")
-	wait("JSONSlidefad.png",5)
-	
-	click("Slidefadesin.png")
-	click("JSONSlidefad-1.png")
-	wait("JSONNewslide.png")
-
-	click("Newslidepush.png")
-	click("JSONNewslide-1.png")
-	wait("JSONSlidepus.png")
-
-	click("Slidepushesf.png")
-	click("JSONSlidepus-1.png")
-	wait("JSONSlidepus-2.png")
-
-	click("Slidepushesf-1.png")
-	click("JSONSlidepus-3.png")
-	wait("JSONSlidepus-4.png")
-
-	click("Slidepushesf-2.png")
-	click("JSONSlidepus-5.png")
-	exists("JSONNotransi-2.png")
+	wait("SlideTransit.png",5)
+	for r in getXmlAndJsonRegions():
+		r.highlight(1)
+		r.click("Notransition-1.png")
+		r.wait("Slidefadesin-1.png",15)
+		r.click("Slidefadesin-1.png")
+		r.wait("Newslidepush-1.png",15)
+		r.click("Newslidepush-1.png")
+		r.wait("Slidepushesf-3.png",15)
+		r.click("Slidepushesf-3.png")
+		r.wait("Slidepushesf-4.png",15)
+		r.click("Slidepushesf-4.png")
+		r.wait("Slidepushesf-5.png",15)
+		r.click("Slidepushesf-5.png")
 	
 #test0040()
-
-#setShowActions(True)
-Settings.MinSimilarity = 0.99;
-
-#regXml = Region(find("1313925685869.png")).below(200)
-#regJson = Region(628,264,400,200)
 
 def test0050():
 
@@ -181,7 +146,7 @@ def test0050():
 		r.click("1313925441951.png")
 		r.click("1313925447430.png")
 		r.click("1313925454273.png")
-		r.find("Slidewithone.png")	
+		r.find("Slidewithone.png")
 
 	
 	#test 0050-020
@@ -442,7 +407,6 @@ def test0080():
 		r.click("Fontsizecolo.png")
 		r.click("Textfromexte.png")
 
-def test00801():
 	#test 0080-030
 	click("Texts030Prop.png")
 	wait("TextpecificP.png",5)
@@ -464,4 +428,16 @@ def test00801():
 		r.click("Stylesfromex.png")
 		r.click("Externalcont.png")
 		
-test00801()
+#test0080()
+
+def testAll():
+	#test0010();
+	#test0020();
+	#test0030();
+	test0040();
+	test0050();
+	test0060();
+	test0070();
+	test0080();
+
+testAll();

@@ -13,6 +13,8 @@
 	import avt.Presenter.Loaders.BaseLoader;
 	import avt.Util.ConfigUtils;
 	import avt.Util.FontManager;
+	import avt.Presenter.Backgrounds.IBackground;
+	import avt.Presenter.Backgrounds.BackgroundFactory;
 	
 	public class Presentation {
 
@@ -36,6 +38,9 @@
 		
 		private var _loader:BaseLoader;
 		public function get loader():BaseLoader { return _loader; }
+		
+		private var _background:IBackground;
+		public function get background():IBackground { return _background; }
 		
 		private var _container:Sprite;
 		public function get container():Sprite { return _container; }
@@ -181,6 +186,11 @@
 			_loader.parseConfiguration(config.setup.loader);
 			overlay.addChild(_loader);
 			_loader.show();
+			
+			trace("> Parse main background"); 
+			_background = BackgroundFactory.factory(config.setup.background);
+			_background.addTo(slideContainer);
+			_background.redraw(slideWidth, slideHeight);
 			
 			trace("> Parse advance slide options...");
 			

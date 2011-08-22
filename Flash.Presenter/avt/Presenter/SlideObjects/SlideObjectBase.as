@@ -184,8 +184,9 @@
 				
 				trace("    > link set to " + url + " (target: "+ target +")");
 				
-				this.buttonMode = true;
-   				this.useHandCursor = true;
+				mouseEnabled = true;
+				buttonMode = true;
+   				useHandCursor = true;
    
 				this.addEventListener(MouseEvent.CLICK, function(ev:MouseEvent) {
 					navigateToURL(new URLRequest(url), target);
@@ -193,6 +194,8 @@
 					ev.stopPropagation();
 					ev.stopImmediatePropagation();
 				});
+			} else {
+				mouseEnabled = false;
 			}
 		}
 		
