@@ -133,6 +133,17 @@
                     The Timer Bar appears above the slide butttons; it's a visual indicator of Slide Duration option
                 </td>
             </tr>
+            <tr>
+                <td class="settingField">
+                    <asp:Label runat="server" AssociatedControlID="cbRandomOrder">Random Order</asp:Label>
+                </td>
+                <td class="settingField">
+                    <asp:CheckBox runat = "server" ID="cbRandomOrder" />
+                </td>
+                <td class = "grayed_desc">
+                    This option makes slides appear in different order each time the page is loaded
+                </td>
+            </tr>
 
             <tr class="rowSep"><td colspan="3">&nbsp;</td></tr>
 

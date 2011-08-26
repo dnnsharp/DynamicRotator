@@ -16,6 +16,7 @@ using System.Web.UI.HtmlControls;
 using System.Text.RegularExpressions;
 using avt.DynamicFlashRotator.Net.Services.Authentication;
 using avt.DynamicFlashRotator.Net.RenderEngine;
+using System.Collections;
 
 namespace avt.DynamicFlashRotator.Net
 {
@@ -276,6 +277,11 @@ namespace avt.DynamicFlashRotator.Net
         [DisplayName("Show Timer Bar")]
         public bool ShowTimerBar { get { return Settings.ShowTimerBar; } set { Settings.ShowTimerBar = value; } }
 
+        [Category("Dynamic Rotator")]
+        [Description("This option makes slides appear in different order each time the page is loaded")]
+        [DisplayName("Random Order")]
+        public bool RandomOrder { get { return Settings.RandomOrder; } set { Settings.RandomOrder = value; } }
+
         [TypeConverter(typeof(WebColorConverter))]
         [Category("Dynamic Rotator")]
         [Description("Customize color for slide buttons (and play/pause button too)")]
@@ -331,13 +337,11 @@ namespace avt.DynamicFlashRotator.Net
             settings.Encoding = Encoding.UTF8;
             XmlWriter Writer = XmlWriter.Create(strXML, settings);
 
-            RotatorSettings rotatorSettings = new RotatorSettings();
-
-            if (!rotatorSettings.IsActivated() || rotatorSettings.IsTrialExpired()) {
+            if (!Settings.IsActivated() || Settings.IsTrialExpired()) {
                     
                 SlideObjectInfo trialText = new SlideObjectInfo();
                 trialText.ObjectType = eObjectType.Text;
-                if (rotatorSettings.IsTrialExpired()) {
+                if (Settings.IsTrialExpired()) {
                     trialText.Text = "<font size='20px' style='font-size:20px;' color='#C77405'><font size='30px' style='font-size:30px;'><i>Dynamic Rotator .NET</i></font> Trial Expired!</font>";
                 } else {
                     trialText.Text = "<font size='20px' style='font-size:20px;' color='#C77405'><font size='30px' style='font-size:30px;'><i>Dynamic Rotator .NET</i></font><br/>Use admin to Unlock 30 Day Trial or Activate for production.</font>";
@@ -366,14 +370,32 @@ namespace avt.DynamicFlashRotator.Net
             }
 
             Writer.WriteStartElement("ads");
-            foreach (SlideInfo slide in Slides) {
+            IList slides = Settings.RandomOrder ? ShuffleSlides(Slides) : Slides;
+            foreach (SlideInfo slide in slides) 
                 slide.ToXml(Writer);
-            }
             Writer.WriteEndElement(); // "ads";
 
             Writer.Close();
 
             return strXML.ToString();
+        }
+
+        static IList ShuffleSlides(SlideCollection slides)
+        {
+            List<SlideInfo> suffledSlides = new List<SlideInfo>();
+            foreach (SlideInfo s in slides)
+                suffledSlides.Add(s);
+
+            Random rng = new Random();
+            int n = suffledSlides.Count;
+            while (n > 1) {
+                n--;
+                int k = rng.Next(n + 1);
+                SlideInfo value = suffledSlides[k];
+                suffledSlides[k] = suffledSlides[n];
+                suffledSlides[n] = value;
+            }
+            return suffledSlides;
         }
 
         #endregion

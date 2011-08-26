@@ -121,7 +121,7 @@ namespace avt.DynamicFlashRotator.Net.WebManage.RegCore.WebClient
                 host = tbHost.Text.Trim();
             }
 
-            btnActivationTool.HRef = "http://www.avatar-soft.ro/MyAccount/ManualActivation/tabid/180/Default.aspx?regkey=" + txtRegistrationCode.Text + "&host=" + host;
+            btnActivationTool.HRef = "http://www.dnnsharp.com/MyAccount/ManualActivation/tabid/180/Default.aspx?regkey=" + txtRegistrationCode.Text + "&host=" + host;
         }
 
         protected void OnActivate(object Sender, EventArgs args)
@@ -206,7 +206,7 @@ namespace avt.DynamicFlashRotator.Net.WebManage.RegCore.WebClient
                 // remove www.
                 httpAlias = StripSubdomains(httpAlias);
 
-                if (httpAlias.IndexOf("localhost") == 0) {
+                if (httpAlias.IndexOf("localhost") == 0 || httpAlias.IndexOf("127.0.0.") == 0) {
                     continue;
                 }
 

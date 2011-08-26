@@ -42,7 +42,7 @@
                 <div>
                     Ready to own a license? <br />
                     <a href = "<%= _RegCoreServer.GetBuyUrl(_RegCoreApp) %>">Purchase a <%= _RegCoreApp.ProductName %> license here</a>
-                    or <a href="http://www.avatar-soft.ro/Contact.aspx">Contact Us</a> for more information...
+                    or <a href="http://www.dnnsharp.com/Contact.aspx">Contact Us</a> for more information...
                 </div>
             </div>
 

@@ -135,7 +135,7 @@ namespace avt.DynamicFlashRotator.Net.RegCore
 
         public bool IsActivated(string productCode, string version, string host)
         {
-            if (host == "localhost")
+            if (host == "localhost" || host.IndexOf("127.0.0.") == 0)
                 return true;
 
             ILicenseActivation act = GetValidActivation(productCode, version, host);
@@ -144,7 +144,7 @@ namespace avt.DynamicFlashRotator.Net.RegCore
 
         public bool IsTrial(string productCode, string version, string host)
         {
-            if (host == "localhost")
+            if (host == "localhost" || host.IndexOf("127.0.0.") == 0)
                 return false;
 
             ILicenseActivation act = GetValidActivation(productCode, version, host);
@@ -153,7 +153,7 @@ namespace avt.DynamicFlashRotator.Net.RegCore
 
         public bool IsTrialExpired(string productCode, string version, string host)
         {
-            if (host == "localhost")
+            if (host == "localhost" || host.IndexOf("127.0.0.") == 0)
                 return false;
 
             if (AllActivations.Count == 0 || !IsTrial(productCode, version, host))

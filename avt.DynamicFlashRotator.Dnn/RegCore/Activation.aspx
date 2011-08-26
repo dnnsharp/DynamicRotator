@@ -26,7 +26,7 @@
         <b>Activation Successfull!</b><br /><br />
         <div style = "text-align: left">
             This copy of <%= _RegCoreApp.ProductName %> has been successfully activated.<br /><br />
-            For additional information, support, user manuals and other resources please check our website at <a href="http://www.avatar-soft.ro">www.avatar-soft.ro</a>
+            For additional information, support, user manuals and other resources please check our website at <a href="http://www.dnnsharp.com">www.dnnsharp.com</a>
             or the <a href = "<%= _RegCoreServer.GetDocUrl(_RegCoreApp) %>">documentation server</a>.
             <br /><br /><br /><br /><br /><br />
         </div>
@@ -73,7 +73,7 @@
         <b>Instructions for manual activation:</b>
         <br /><br />
         <ol>
-            <li>Go to <a runat = "server" id = "btnActivationTool" href = "">Manual Activation Tool at www.avatar-soft.ro</a></li>
+            <li>Go to <a runat = "server" id = "btnActivationTool" href = "">Manual Activation Tool at www.dnnsharp.com</a></li>
             <li>Login or create a new account if you don't already have one</li>
             <li>Review information in the form and click Activate when ready</li>
             <li>Copy &amp; Paste activation code in the field below</li>

@@ -113,6 +113,7 @@ namespace avt.DynamicFlashRotator.Net.WebManage
                 tbTopTitleBgTransparency.Text = settings.TopTitleBgTransparency.ToString();
                 tbTopTitleTextColor.Text = ColorExt.ColorToHexString(settings.TopTitleTextColor);
                 cbShowTimerBar.Checked = settings.ShowTimerBar;
+                cbRandomOrder.Checked = settings.RandomOrder;
                 tbSlideButtonsColor.Text = ColorExt.ColorToHexString(settings.SlideButtonsColor);
                 tbSlideButtonsNumberColor.Text = ColorExt.ColorToHexString(settings.SlideButtonsNumberColor);
                 try { ddSlideButtonsType.SelectedValue = settings.SlideButtonsType.ToString(); } catch { }
@@ -169,6 +170,7 @@ namespace avt.DynamicFlashRotator.Net.WebManage
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "TopTitleBgTransparency", tbTopTitleBgTransparency.Text);
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "TopTitleTextColor", tbTopTitleTextColor.Text);
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "ShowTimerBar", cbShowTimerBar.Checked ? "true" : "false");
+            DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "RandomOrder", cbRandomOrder.Checked ? "true" : "false");
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "SlideButtonsColor", tbSlideButtonsColor.Text);
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "SlideButtonsNumberColor", tbSlideButtonsNumberColor.Text);
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "SlideButtonsType", ddSlideButtonsType.SelectedValue);

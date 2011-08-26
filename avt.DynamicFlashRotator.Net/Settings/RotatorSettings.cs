@@ -105,6 +105,9 @@ namespace avt.DynamicFlashRotator.Net.Settings
         bool _ShowTimerBar = true;
         public bool ShowTimerBar { get { return _ShowTimerBar; } set { _ShowTimerBar = value; } }
 
+        bool _RandomOrder = false;
+        public bool RandomOrder { get { return _RandomOrder; } set { _RandomOrder = value; } }
+
         Color _SlideButtonsColor = Color.FromArgb(0x12, 0x12, 0x12);
         public Color SlideButtonsColor { get { return _SlideButtonsColor; } set { _SlideButtonsColor = value; } }
 
@@ -224,6 +227,9 @@ namespace avt.DynamicFlashRotator.Net.Settings
                         case "ShowTimerBar":
                             ShowTimerBar = val == "true";
                             break;
+                        case "RandomOrder":
+                            RandomOrder = val == "true";
+                            break;
                         case "SlideButtonsColor":
                             try {
                                 SlideButtonsColor = System.Drawing.Color.FromArgb(Convert.ToInt32(val.Replace("#", "0x"), 16));
@@ -301,6 +307,7 @@ namespace avt.DynamicFlashRotator.Net.Settings
             try { DataProvider.Instance().UpdateSetting(controlId, "TopTitleBgTransparency", rootNode["TopTitleBgTransparency"].InnerText); } catch { }
             try { DataProvider.Instance().UpdateSetting(controlId, "TopTitleTextColor", rootNode["TopTitleTextColor"].InnerText); } catch { }
             try { DataProvider.Instance().UpdateSetting(controlId, "ShowTimerBar", rootNode["ShowTimerBar"].InnerText); } catch { }
+            try { DataProvider.Instance().UpdateSetting(controlId, "RandomOrder", rootNode["RandomOrder"].InnerText); } catch { }
             try { DataProvider.Instance().UpdateSetting(controlId, "SlideButtonsColor", rootNode["SlideButtonsColor"].InnerText); } catch { }
             try { DataProvider.Instance().UpdateSetting(controlId, "SlideButtonsNumberColor", rootNode["SlideButtonsNumberColor"].InnerText); } catch { }
             try { DataProvider.Instance().UpdateSetting(controlId, "SlideButtonsType", rootNode["SlideButtonsType"].InnerText); } catch { }
@@ -339,6 +346,7 @@ namespace avt.DynamicFlashRotator.Net.Settings
             Writer.WriteElementString("TopTitleBgTransparency", TopTitleBgTransparency.ToString());
             Writer.WriteElementString("TopTitleTextColor", ColorExt.ColorToHexString(TopTitleTextColor));
             Writer.WriteElementString("ShowTimerBar", ShowTimerBar ? "true" : "false");
+            Writer.WriteElementString("RandomOrder", RandomOrder ? "true" : "false");
             Writer.WriteElementString("SlideButtonsColor", ColorExt.ColorToHexString(SlideButtonsColor));
             Writer.WriteElementString("SlideButtonsNumberColor", ColorExt.ColorToHexString(SlideButtonsNumberColor));
             Writer.WriteElementString("SlideButtonsType", ((int)SlideButtonsType).ToString());
@@ -398,6 +406,7 @@ namespace avt.DynamicFlashRotator.Net.Settings
             Writer.WriteElementString("topTitleBgTransparency", TopTitleBgTransparency.ToString());
             Writer.WriteElementString("topTitleTextColor", ColorExt.ColorToHexString(TopTitleTextColor).Replace("#", "0x"));
             Writer.WriteElementString("showTimerBar", ShowTimerBar ? "yes" : "no");
+            //Writer.WriteElementString("randomOrder", RandomOrder ? "yes" : "no");
             Writer.WriteElementString("smallButtonsColor", ColorExt.ColorToHexString(SlideButtonsColor).Replace("#", "0x"));
             Writer.WriteElementString("smallButtonsNumberColor", ColorExt.ColorToHexString(SlideButtonsNumberColor).Replace("#", "0x"));
             Writer.WriteElementString("smallButtonsType", ((int)SlideButtonsType).ToString());
@@ -433,6 +442,7 @@ namespace avt.DynamicFlashRotator.Net.Settings
             rw.WriteProperty("topTitleBgTransparency", TopTitleBgTransparency.ToString());
             rw.WriteProperty("topTitleTextColor", ColorExt.ColorToHexString(TopTitleTextColor));
             rw.WriteProperty("showTimerBar", ShowTimerBar ? "yes" : "no");
+            rw.WriteProperty("randomOrder", RandomOrder ? "yes" : "no");
             rw.WriteProperty("smallButtonsColor", ColorExt.ColorToHexString(SlideButtonsColor));
             rw.WriteProperty("smallButtonsNumberColor", ColorExt.ColorToHexString(SlideButtonsNumberColor));
             rw.WriteProperty("smallButtonsType", (int)SlideButtonsType);
