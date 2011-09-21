@@ -33,8 +33,8 @@ using System.Web.UI;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.1.2.0")]
-[assembly: AssemblyFileVersion("1.1.2.0")]
+[assembly: AssemblyVersion("1.2.1.0")]
+[assembly: AssemblyFileVersion("1.2.1.0")]
 
 //[assembly: WebResource("avt.AllinOneRotator.Net.flash.AC_RunActiveContent.js", "text/javascript")]
 [assembly: WebResource("avt.DynamicFlashRotator.Net.flash.rotator-v2-5.swf", "application/x-shockwave-flash")]

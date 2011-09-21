@@ -1,0 +1,9 @@
+.avtBtnSlide {
+	margin: 2px;
+	border: 1px solid #424242;
+	cursor: pointer;
+}
+
+.avtBtnSlideActive {
+	font-weight: bold;
+}

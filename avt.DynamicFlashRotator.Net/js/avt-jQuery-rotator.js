@@ -173,11 +173,8 @@
                 var btn = $("<button class='avtBtnSlide' onclick='return false;'>" + (this.settings.smallButtonsType == 2 ? "&#160;" : (i + 1)) + "</button>");
                 btn[0]["iSlide"] = i;
                 btn.css({
-                    "margin": "2px",
                     "color": this.settings.smallButtonsNumberColor,
-                    "background-color": this.settings.smallButtonsColor,
-                    "border": "1px solid #424242",
-                    "cursor": "pointer"
+                    "background-color": this.settings.smallButtonsColor
                 }).click(function () {
                     _self.switchSlide(this["iSlide"]);
                 });
@@ -248,8 +245,8 @@
 
             clearTimeout(_self.settings.slides[iSlide].timerChange);
 
-            this.container.find(".avtBtnSlide").css("font-weight", "normal");
-            this.container.find(".avtBtnSlide:eq(" + iSlide + ")").css("font-weight", "bold");
+            this.container.find(".avtBtnSlide").removeClass("avtBtnSlideActive"); //.css("font-weight", "normal");
+            this.container.find(".avtBtnSlide:eq(" + iSlide + ")").addClass("avtBtnSlideActive"); //.css("font-weight", "bold");
 
             var _fnNextSlide = function () {
                 // setup timer for next slide

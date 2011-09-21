@@ -781,15 +781,16 @@
     var g_isDragging = false;
 
     jQuery(document).ready(function() {
+    
         jQuery("#mainLoading").hide();
         jQuery("#mainTabs").tabs({ }).show();
         <%= _ActiveTab != -1 ? "jQuery('#mainTabs').tabs('select', " + _ActiveTab + ");" : "" %>
             
         jQuery(".btnPane").show();
-
+        
         applyColorpicker(jQuery("#tabs-main-settings"));
         applyUrlFormatters(jQuery("#objSettingsTabs"));
-
+        
         // init slides
         jQuery("#slides").sortable({
             handle: ".dragHandle",
@@ -798,19 +799,20 @@
                 updateSlideIndexes();
             }
         });
-
+        
         jQuery(".slideOptsGroup")
-            .mouseover(function() {
+            .live("mouseover", function() {
                 if (jQuery(this).hasClass("ui-state-hover"))
                     return;
                 jQuery(this).removeClass("ui-state-default").addClass("ui-state-active");
             })
-            .mouseout(function() {
+            .live("mouseout", function() {
                 if (jQuery(this).hasClass("ui-state-hover"))
                     return;
                 jQuery(this).removeClass("ui-state-active").addClass("ui-state-default");
             })
-            .click(function() {
+            .live("click", function() {
+            
                 jQuery(this).parents(".pnlSlideOptGroups:first").find(".slideOptsGroup").removeClass("ui-state-hover").addClass("ui-state-default");
                 jQuery(this).addClass("ui-state-hover").removeClass("ui-state-default").removeClass("ui-state-active");
                     
