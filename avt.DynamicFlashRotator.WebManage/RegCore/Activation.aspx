@@ -55,7 +55,7 @@
         
         <div runat = "server" id = "pnlHosts" visible = "false" style = "margin-top: 20px;">
             <div class = "field_title">
-                Select Host <asp:RequiredFieldValidator ID="RequiredFieldValidator2" CssClass = "lblerr" runat = "server" ControlToValidate = "ddHosts" Text = "required"></asp:RequiredFieldValidator>
+                Select Host <asp:CustomValidator ID="reqHost" CssClass = "lblerr" runat = "server" Text = "required"></asp:CustomValidator>
             </div>
             <asp:LinkButton ID="LinkButton1" runat = "server" CssClass = "btn_next" OnClick = "OnActivate">Activate</asp:LinkButton>
             <asp:DropDownList runat = "server" ID = "ddHosts" CssClass = "input_field"></asp:DropDownList>

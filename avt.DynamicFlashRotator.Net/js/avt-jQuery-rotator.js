@@ -238,6 +238,7 @@
                 return;
             } else {
                 _self.settings.slideStart = new Date().getTime();
+                _self.settings.slides[this.settings.currentSlide] && clearTimeout(_self.settings.slides[this.settings.currentSlide].timerChange);
             }
 
             if (iSlide >= this.settings.slides.length)
@@ -283,11 +284,11 @@
                 var _self = this;
                 var o = _self.settings.slides[iSlide].slideObjects[j];
                 var sObj = _slide.find(".avtSlideObj:eq(" + j + ")");
-
+                
                 (function (o, sObj) {
                     o.showTimer = setTimeout(function () {
                         _self._showObject(sObj, o);
-                    }, o.itemType == "Text" ? _self.settings.textDelay : o.delay);
+                    }, o.itemType == "Text" ? _self.settings.textDelay * 1000 : o.delay * 1000);
                 })(o, sObj);
             }
         };
@@ -312,7 +313,7 @@
                 (function (o, sObj) {
                     o.showTimer = setTimeout(function () {
                         _self._hideObject(sObj, o);
-                    }, o.itemType == "Text" ? 0 : _self.settings.textDelay + o.delay);
+                    }, o.itemType == "Text" ? 0 : _self.settings.textDelay * 1000 + o.delay * 1000);
                 })(o, sObj);
             }
         };

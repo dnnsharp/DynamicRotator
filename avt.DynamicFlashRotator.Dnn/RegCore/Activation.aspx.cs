@@ -133,6 +133,11 @@ namespace avt.DynamicFlashRotator.Net.RegCore.WebClient
                 host = tbHost.Text.Trim();
             }
 
+            if (string.IsNullOrEmpty(host)) {
+                reqHost.IsValid = false;
+                return;
+            }
+
             try {
                 _RegCoreClient.Activate(txtRegistrationCode.Text, _RegCoreApp.ProductCode, _RegCoreApp.Version, host, _RegCoreApp.ProductKey);
             } catch (Exception ex) {
