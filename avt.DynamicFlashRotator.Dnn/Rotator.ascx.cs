@@ -50,10 +50,12 @@ namespace avt.DynamicFlashRotator.Dnn
             (ctrlAct as IRegCoreComponent).InitRegCore(IsAdmin, RotatorSettings.RegCoreServer, RotatorSettings.ProductName, RotatorSettings.ProductCode, RotatorSettings.ProductKey, RotatorSettings.Version, TemplateSourceDirectory.TrimEnd('/') + "/RegCore/", typeof(DynamicRotatorController));
             this.Controls.Add(ctrlAct);
 
-            if (!Page.IsPostBack) {
-                
+            if (!rotatorSettings.IsActivated() || rotatorSettings.IsTrialExpired()) {
+                DynamicRotator.Visible = false;
             }
+
         }
+
         //private bool HasAdminRights()
         //{
         //    if (PortalSettings.UserMode == DotNetNuke.Entities.Portals.PortalSettings.Mode.Edit &&

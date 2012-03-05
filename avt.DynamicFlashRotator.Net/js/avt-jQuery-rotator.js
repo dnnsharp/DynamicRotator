@@ -49,7 +49,7 @@
             var slide;
 
             if (s.linkUrl && s.linkClickAnywhere) {
-                slide = $("<a href='" + s.linkUrl + "' class='avtSlide'></a>");
+                slide = $("<a href='" + s.linkUrl + "' class='avtSlide' target='" + s.linkTarget + "'></a>");
             } else {
                 slide = $("<div class='avtSlide'></div>");
             }

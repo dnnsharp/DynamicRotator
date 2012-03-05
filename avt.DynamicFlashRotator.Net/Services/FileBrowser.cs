@@ -78,8 +78,8 @@ namespace avt.DynamicFlashRotator.Net.Services
         {
             _RootPhysicalPath = rootPhysicalPath.ToLower().Replace('/', '\\');
             _RootName = rootName;
-            
-            _ext = new Dictionary<string, bool>();
+
+            _ext = new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase);
             foreach (string ext in extensions) {
                 _ext[ext] = true;
             }
