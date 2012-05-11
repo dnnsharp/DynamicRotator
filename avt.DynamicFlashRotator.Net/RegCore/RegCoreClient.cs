@@ -135,8 +135,11 @@ namespace avt.DynamicFlashRotator.Net.RegCore
 
         public bool IsActivated(string productCode, string version, string host)
         {
-            if (host == "localhost" || host.IndexOf("127.0.0.") == 0)
-                return true;
+            if (host == "localhost" || host.IndexOf("127.0.0.") == 0) {
+                if (HttpContext.Current == null || string.IsNullOrEmpty(HttpContext.Current.Request.QueryString["avtfact"])) {
+                    return true;
+                }
+            }
 
             ILicenseActivation act = GetValidActivation(productCode, version, host);
             return act != null;
@@ -144,8 +147,11 @@ namespace avt.DynamicFlashRotator.Net.RegCore
 
         public bool IsTrial(string productCode, string version, string host)
         {
-            if (host == "localhost" || host.IndexOf("127.0.0.") == 0)
-                return false;
+            if (host == "localhost" || host.IndexOf("127.0.0.") == 0) {
+                if (HttpContext.Current == null || string.IsNullOrEmpty(HttpContext.Current.Request.QueryString["avtfact"])) {
+                    return false;
+                }
+            }
 
             ILicenseActivation act = GetValidActivation(productCode, version, host);
             return act != null && act.RegCode.IsTrial;
@@ -153,8 +159,11 @@ namespace avt.DynamicFlashRotator.Net.RegCore
 
         public bool IsTrialExpired(string productCode, string version, string host)
         {
-            if (host == "localhost" || host.IndexOf("127.0.0.") == 0)
-                return false;
+            if (host == "localhost" || host.IndexOf("127.0.0.") == 0) {
+                if (HttpContext.Current == null || string.IsNullOrEmpty(HttpContext.Current.Request.QueryString["avtfact"])) {
+                    return false;
+                }
+            }
 
             if (AllActivations.Count == 0 || !IsTrial(productCode, version, host))
                 return false;

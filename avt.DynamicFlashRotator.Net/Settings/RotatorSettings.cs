@@ -510,7 +510,7 @@ namespace avt.DynamicFlashRotator.Net.Settings
 
         static bool _IsAdmin = true; // TODO:
         public static bool IsAdmin { get { return _IsAdmin; } set { _IsAdmin = value; } }
-        public static string RegCoreServer { get { return "http://www.avatar-soft.ro/DesktopModules/RegCore/"; } }
+        public static string RegCoreServer { get { return "http://www.dnnsharp.com/DesktopModules/RegCore/"; } }
         public static string ProductName { get { return "Dynamic Rotator .NET"; } }
         public static string ProductCode { get { return "ADROT"; } }
         public static string ProductKey { get { return "<RSAKeyValue><Modulus>xjeQuuf4zC2gbVI0ZJJnKagUgmeFH8klB27NK80DhxcBaJkw/naUJl1N9195kxUyznRf8uwSkjt9sZfmGQplu3gYz+X3GFCcVhABZsXyO+vNAdkyU+F6KkX5wL4/AAfmpKbqhsYt/z3abPInaRWG1Mk6uoUSv0bkAXsvLWOjUZs=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>"; } }
@@ -520,7 +520,7 @@ namespace avt.DynamicFlashRotator.Net.Settings
         static public string DocSrv = RegCoreServer + "/Api.aspx?cmd=doc&product=" + ProductCode + "&version=" + Version;
         static public string BuyLink = RegCoreServer + "/Api.aspx?cmd=buy&product=" + ProductCode + "&version=" + Version;
 
-        List<ListItem> _Hosts;
+        List<ListItem> _Hosts = new List<ListItem>();
         public List<ListItem> Hosts {
             get { return _Hosts; }
             set { _Hosts = value; }

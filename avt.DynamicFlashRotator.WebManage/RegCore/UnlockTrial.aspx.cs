@@ -22,29 +22,18 @@ namespace avt.DynamicFlashRotator.Net.WebManage.RegCore.WebClient
             if (string.IsNullOrEmpty(returnUrl))
                 returnUrl = ResolveUrl("~/");
 
-            try {
-                string strDataType = Request.QueryString["t"];
-                Type dataType = Type.GetType(strDataType);
+            string strDataType = Request.QueryString["t"];
+            Type dataType = Type.GetType(strDataType);
 
-                if (!(bool)dataType.GetProperty("IsAdmin", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public).GetValue(null, null)) {
-                    throw new Exception("Access denied!");
-                }
-
-                _RegCoreClient = (IRegCoreClient)dataType.GetProperty("RegCore", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public).GetValue(null, null);
-
-                _RegCoreServer = new RegCoreServer((string)dataType.GetProperty("RegCoreServer", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public).GetValue(null, null));
-                _RegCoreApp = new RegCoreApp();
-                _RegCoreApp.FromController(dataType);
-
-            } catch {
-                // TODO: log this?
-                try {
-                    Response.Redirect(Request.QueryString["rurl"]);
-                } catch {
-                    Response.Redirect(ResolveUrl("~/"));
-                }
-                return;
+            if (!(bool)dataType.GetProperty("IsAdmin", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public).GetValue(null, null)) {
+                throw new Exception("Access denied!");
             }
+
+            _RegCoreClient = (IRegCoreClient)dataType.GetProperty("RegCore", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public).GetValue(null, null);
+
+            _RegCoreServer = new RegCoreServer((string)dataType.GetProperty("RegCoreServer", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public).GetValue(null, null));
+            _RegCoreApp = new RegCoreApp();
+            _RegCoreApp.FromController(dataType);
 
             // check activation
             if (Request.QueryString["_avta"] == "unlock-trial" && Request.QueryString["p"] == _RegCoreApp.ProductCode) {
@@ -52,10 +41,10 @@ namespace avt.DynamicFlashRotator.Net.WebManage.RegCore.WebClient
             }
 
             if (!Page.IsPostBack) {
-               
+
                 // determine which case is this
-                if (_RegCoreClient.IsActivated(_RegCoreApp.ProductCode, _RegCoreApp.Version, Request.Url.Host))
-                    Response.Redirect(Request.QueryString["rurl"]);
+                //if (_RegCoreClient.IsActivated(_RegCoreApp.ProductCode, _RegCoreApp.Version, Request.Url.Host))
+                //    Response.Redirect(Request.QueryString["rurl"]);
 
                 if (_RegCoreClient.IsTrialExpired(_RegCoreApp.ProductCode, _RegCoreApp.Version, Request.Url.Host)) {
                     EnableTrialExpired();
@@ -84,10 +73,10 @@ namespace avt.DynamicFlashRotator.Net.WebManage.RegCore.WebClient
         {
             Response.Redirect(string.Format(
                 "{0}?trial=true&email={1}&rurl={2}&p={3}&v={4}&va={5}",
-                _RegCoreServer.UnlockTrialScript, 
+                _RegCoreServer.UnlockTrialScript,
                 tbTrialEmail.Text,
-                HttpUtility.UrlEncode(ToAbsoluteUrl(Request.RawUrl)), 
-                _RegCoreApp.ProductCode, 
+                HttpUtility.UrlEncode(ToAbsoluteUrl(Request.RawUrl)),
+                _RegCoreApp.ProductCode,
                 _RegCoreApp.Version,
                 _RegCoreApp.Version
             ));

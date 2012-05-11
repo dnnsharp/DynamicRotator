@@ -43,6 +43,11 @@
             })
         );
 
+        // randomize slides?
+        if (this.settings.randomOrder == "yes") {
+            this.settings.slides.sort(function () { return 0.5 - Math.random(); });
+        }
+
         // append slides
         for (var i = 0; i < this.settings.slides.length; i++) {
             var s = this.settings.slides[i];
@@ -284,7 +289,7 @@
                 var _self = this;
                 var o = _self.settings.slides[iSlide].slideObjects[j];
                 var sObj = _slide.find(".avtSlideObj:eq(" + j + ")");
-                
+
                 (function (o, sObj) {
                     o.showTimer = setTimeout(function () {
                         _self._showObject(sObj, o);
