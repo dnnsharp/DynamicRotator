@@ -48,7 +48,7 @@ namespace avt.DynamicFlashRotator.Dnn
 
             Control ctrlAct = LoadControl(TemplateSourceDirectory.TrimEnd('/') + "/RegCore/QuickStatusAndLink.ascx");
             (ctrlAct as IRegCoreComponent).InitRegCore(IsAdmin, RotatorSettings.RegCoreServer, RotatorSettings.ProductName, RotatorSettings.ProductCode, RotatorSettings.ProductKey, RotatorSettings.Version, TemplateSourceDirectory.TrimEnd('/') + "/RegCore/", typeof(DynamicRotatorController));
-            this.Controls.Add(ctrlAct);
+            this.pnlAdmin.Controls.Add(ctrlAct);
 
             if (!rotatorSettings.IsActivated() || rotatorSettings.IsTrialExpired()) {
                 DynamicRotator.Visible = false;

@@ -45,9 +45,9 @@ namespace avt.DynamicFlashRotator.Net
             base.OnDataBinding(e);
         }
 
-        protected override void OnInit(EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
-            base.OnInit(e);
+            base.OnLoad(e);
 
             // check settings
             if (RotatorSettings.Configuration == null) {

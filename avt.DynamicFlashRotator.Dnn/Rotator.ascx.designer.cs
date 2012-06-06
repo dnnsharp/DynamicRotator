@@ -13,6 +13,15 @@ namespace avt.DynamicFlashRotator.Dnn {
     public partial class Rotator {
         
         /// <summary>
+        /// pnlAdmin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pnlAdmin;
+        
+        /// <summary>
         /// DynamicRotator control.
         /// </summary>
         /// <remarks>

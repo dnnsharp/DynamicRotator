@@ -35,9 +35,10 @@ namespace avt.DynamicFlashRotator.Net.RenderEngine
             transitionsUrl = HttpUtility.UrlEncode(transitionsUrl);
 
             output.Write(
-                //"<script type=\"text/javascript\">AC_FL_RunContent( 'codebase','http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0','width','950','height','250','src','" + flashUrl + "?settingsxml=settings_v2_simple.xml&contentxml=content_v2_simple.xml&transitionsxml=transitions.xml','quality','high','pluginspage','http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash','movie','" + flashUrl + "?settingsxml=settings_v2_simple.xml&contentxml=content_v2_simple.xml&transitionsxml=transitions.xml' ); //end AC code</script>" +
+                string.Format(
+                //"<script type=\"text/javascript\">AC_FL_RunContent( 'codebase','{0}://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0','width','950','height','250','src','" + flashUrl + "?settingsxml=settings_v2_simple.xml&contentxml=content_v2_simple.xml&transitionsxml=transitions.xml','quality','high','pluginspage','http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash','movie','" + flashUrl + "?settingsxml=settings_v2_simple.xml&contentxml=content_v2_simple.xml&transitionsxml=transitions.xml' ); //end AC code</script>" +
                 //"<noscript>" +
-                "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0\" width=\"" + rotator.Settings.Width.Value + "\" height=\"" + rotator.Settings.Height.Value + "\">" +
+                "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"{0}://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0\" width=\"" + rotator.Settings.Width.Value + "\" height=\"" + rotator.Settings.Height.Value + "\">" +
                     "<param name=\"movie\" value=\"" + flashUrl + "&settingsxml=" + settingsUrl + "&contentxml=" + contentUrl + "&transitionsxml=" + transitionsUrl + "\">" +
                     "<param name=\"quality\" value=\"high\">" +
                     "<param name=\"wmode\" value=\"transparent\">" +
@@ -45,6 +46,7 @@ namespace avt.DynamicFlashRotator.Net.RenderEngine
                     "<embed src=\"" + flashUrl + "&settingsxml=" + settingsUrl + "&contentxml=" + contentUrl + "&transitionsxml=" + transitionsUrl + "\" quality=\"high\" pluginspage=\"http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash\" type=\"application/x-shockwave-flash\" width=\"" + rotator.Settings.Width.Value + "\" height=\"" + rotator.Settings.Height.Value + "\" wmode=\"transparent\"></embed>" +
                 "</object>"
                 // + "</noscript>"
+                , HttpContext.Current.Request.Url.Scheme)
             );
 
             // include code for when flash is not installed
