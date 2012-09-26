@@ -37,7 +37,6 @@ namespace avt.DynamicFlashRotator.Net
 
             Settings.Width = new Unit(950, UnitType.Pixel);
             Settings.Height = new Unit(250, UnitType.Pixel);
-
         }
 
         protected override void  OnDataBinding(EventArgs e)
@@ -48,6 +47,8 @@ namespace avt.DynamicFlashRotator.Net
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            if (ConfigUrlBase == null)
+                ConfigUrlBase = Page.Request.RawUrl;
 
             // check settings
             if (RotatorSettings.Configuration == null) {
@@ -133,6 +134,7 @@ namespace avt.DynamicFlashRotator.Net
         [Browsable(false)]
         public string RealId { get { return string.IsNullOrEmpty(OverrideId) ? this.ID : OverrideId; } }
 
+        public string ConfigUrlBase { get; set; }
 
         #region Runtime Configuration
 
@@ -493,100 +495,7 @@ namespace avt.DynamicFlashRotator.Net
 
         void LoadMiniTutorialWebManage()
         {
-            Width = 800;
-            SlideButtonsType = eSlideButtonsType.SquareWithNumbers;
-            Slides.Clear();
-
-            // First Slide
-            // --------------------------------------------------------------------------------------------
-
-            SlideObjectInfo slide1Text = new SlideObjectInfo();
-            slide1Text.ObjectType = eObjectType.Text;
-            slide1Text.Text = "<font size='20px' style='font-size:20px;' color='#e24242'>This <i>Dynamic Rotator</i> has not been configured yet!<font size='30px' style='font-size:30px;'></font><br/>";
-            slide1Text.Text += "<font size='14px' style='font-size:14px;' color='#C77405'>Start by locating the Manage links below the rotator...</font>";
-            slide1Text.Yposition = 140;
-            slide1Text.Xposition = 280;
-            slide1Text.TextBackgroundColor = Color.FromArgb(0xC77405);
-            slide1Text.TextBackgroundOpacity = 20;
-            slide1Text.SlideFrom = eAllDirs.Left;
-
-            SlideObjectInfo slide1Img = new SlideObjectInfo();
-            slide1Img.ObjectType = eObjectType.Image;
-            slide1Img.ObjectUrl = "http://www.avatar-soft.ro/Portals/0/banner-tutorial/banner-tutorial-manage.png";
-            slide1Img.Yposition = 30;
-            slide1Img.Xposition = 20;
-            slide1Img.SlideFrom = eAllDirs.Right;
-            slide1Img.TransitionDuration = 1;
-            slide1Img.Opacity = 40;
-            slide1Img.GlowColor = Color.FromArgb(0xC77405);
-            slide1Img.GlowSize = 2;
-
-            SlideInfo slide1 = new SlideInfo();
-            slide1.Settings = Settings;
-            slide1.SlideObjects.Add(slide1Text);
-            slide1.SlideObjects.Add(slide1Img);
-            Slides.Add(slide1);
-
-            // Second Slide
-            // --------------------------------------------------------------------------------------------
-
-            SlideObjectInfo slide2Text = new SlideObjectInfo();
-            slide2Text.ObjectType = eObjectType.Text;
-            slide2Text.Text = "<font size='20px' style='font-size:20px;' color='#e24242'>Add Slides and Content!</font><br/><br/>";
-            slide2Text.Text += "<font size='14px' style='font-size:14px;' color='#C77405'>Use the Administration Console to add <br/>as many slides as you need which can contain <br/>text, images and other flash movies.</font><br /><br />";
-            slide2Text.Yposition = 40;
-            slide2Text.Xposition = 20;
-            slide2Text.TextBackgroundColor = Color.FromArgb(0xC77405);
-            slide2Text.TextBackgroundOpacity = 20;
-            slide2Text.SlideFrom = eAllDirs.Left;
-
-            SlideObjectInfo slide2Img = new SlideObjectInfo();
-            slide2Img.ObjectType = eObjectType.Image;
-            slide2Img.ObjectUrl = "http://www.avatar-soft.ro/Portals/0/banner-tutorial/banner-tutorial-slides.png";
-            slide2Img.Yposition = 10;
-            slide2Img.Xposition = 300;
-            slide2Img.SlideFrom = eAllDirs.Right;
-            slide2Img.TransitionDuration = 1;
-            slide2Img.Opacity = 40;
-            slide2Img.GlowColor = Color.FromArgb(0xC77405);
-            slide2Img.GlowSize = 2;
-
-            SlideInfo slide2 = new SlideInfo();
-            slide2.Settings = Settings;
-            slide2.SlideObjects.Add(slide2Text);
-            slide2.SlideObjects.Add(slide2Img);
-
-            Slides.Add(slide2);
-
-
-            // Third Slide
-            // --------------------------------------------------------------------------------------------
-
-            SlideObjectInfo slide3Text = new SlideObjectInfo();
-            slide3Text.ObjectType = eObjectType.Text;
-            slide3Text.Text = "<font size='20px' style='font-size:20px;' color='#C77405'><font size='30px' style='font-size:30px;'><i>Dynamic Rotator .NET</i></font> from Avatar Software</font><br/>";
-            slide3Text.Text += "<font color='#525252;' size='14px' style='font-size:14px;'><i>Explore thousands of possibilities easily achieveable with our <br />simple and powerful Administration Console...</i></font>";
-            slide3Text.Yposition = 60;
-            slide3Text.Xposition = 50;
-
-            SlideObjectInfo slide3Img = new SlideObjectInfo();
-            slide3Img.ObjectType = eObjectType.Image;
-            slide3Img.ObjectUrl = "http://www.avatar-soft.ro/Portals/0/product_logo/Dynamic-Rotator.png";
-            slide3Img.Yposition = 30;
-            slide3Img.Xposition = 550;
-            slide3Img.SlideFrom = eAllDirs.Left;
-            slide3Img.EffectAfterSlide = eEffect.Zoom;
-            slide3Img.TransitionDuration = 1;
-
-
-            SlideInfo slide3 = new SlideInfo();
-            slide3.Settings = Settings;
-            slide3.SlideObjects.Add(slide3Text);
-            slide3.SlideObjects.Add(slide3Img);
-            slide3.SlideUrl = "http://www.avatar-soft.ro/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx";
-            slide3.ButtonCaption = "Visit Dynamic Rotator .NET Homepage";
-
-            Slides.Add(slide3);
+            Settings.LoadMiniTutorialWebManage();
         }
 
 

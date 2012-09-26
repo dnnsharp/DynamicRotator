@@ -10,6 +10,7 @@ using DotNetNuke.Entities.Portals;
 using System.Reflection;
 using avt.DynamicFlashRotator.Net.Settings;
 using avt.DynamicFlashRotator.Net.Services.Authentication;
+using DotNetNuke.Security.Permissions;
 
 namespace avt.DynamicFlashRotator.Dnn
 {
@@ -73,7 +74,8 @@ namespace avt.DynamicFlashRotator.Dnn
             if (modInfo == null)
                 return false;
 
-            return PortalSecurity.HasNecessaryPermission(SecurityAccessLevel.Edit, PortalController.GetCurrentPortalSettings(), modInfo);
+            return ModulePermissionController.CanManageModule(modInfo);
+            // return PortalSecurity.HasNecessaryPermission(SecurityAccessLevel.Edit, PortalController.GetCurrentPortalSettings(), modInfo);
         }
 
         public bool HasAccess(string controlId, IList<IAdminAuthentication> authLayers)

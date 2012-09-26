@@ -1015,7 +1015,7 @@ jQuery(document).ready(function() {
     g_lastUpdate = parseInt(jQuery("#<%= hdnLastUpdate.ClientID %>").val());
 
     g_checkUpdateTimer = setInterval(function() {
-        jQuery.post("<%= TemplateSourceDirectory %>/AdminApi.aspx?controlId=<%= Request.QueryString["controlId"]%>&cmd=checkupdate", { 
+        jQuery.post("<%= TemplateSourceDirectory %>/AdminApi.aspx?controlId=<%= Request.QueryString["controlId"]%>&cmd=checkupdate&portalid=<%= Request.QueryString["portalId"] %>", { 
                 
             }, function(data) {
                 if (data.error) {

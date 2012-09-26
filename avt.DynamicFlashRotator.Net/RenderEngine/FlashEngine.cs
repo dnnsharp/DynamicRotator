@@ -19,17 +19,17 @@ namespace avt.DynamicFlashRotator.Net.RenderEngine
             string flashUrl = rotator.Page.ClientScript.GetWebResourceUrl(GetType(), "avt.DynamicFlashRotator.Net.flash.rotator-v2-5.swf");
             string timestamp = rotator.Settings.LastUpdate.ToFileTime().ToString();
 
-            string settingsUrl = rotator.Page.Request.RawUrl;
+            string settingsUrl = rotator.ConfigUrlBase;
             settingsUrl += (settingsUrl.IndexOf('?') > 0 ? (settingsUrl.IndexOf('?') != settingsUrl.Length - 1 ? "&" : "") : "?") + "avtadrot=settings&t=" + timestamp;
             settingsUrl += "&controlId=" + rotator.RealId;
             settingsUrl = HttpUtility.UrlEncode(settingsUrl);
 
-            string contentUrl = rotator.Page.Request.RawUrl;
+            string contentUrl = rotator.ConfigUrlBase;
             contentUrl += (contentUrl.IndexOf('?') > 0 ? (contentUrl.IndexOf('?') != contentUrl.Length - 1 ? "&" : "") : "?") + "avtadrot=content&t=" + timestamp;
             contentUrl += "&controlId=" + rotator.RealId;
             contentUrl = HttpUtility.UrlEncode(contentUrl);
 
-            string transitionsUrl = rotator.Page.Request.RawUrl;
+            string transitionsUrl = rotator.ConfigUrlBase;
             transitionsUrl += (transitionsUrl.IndexOf('?') > 0 ? (transitionsUrl.IndexOf('?') != transitionsUrl.Length - 1 ? "&" : "") : "?") + "avtadrot=transitions&t=" + timestamp;
             transitionsUrl += "&controlId=" + rotator.RealId;
             transitionsUrl = HttpUtility.UrlEncode(transitionsUrl);

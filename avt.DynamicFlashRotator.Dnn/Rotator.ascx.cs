@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Web.UI.WebControls;
 using DotNetNuke.Entities.Portals;
 using System.Collections;
+using System.IO;
 
 namespace avt.DynamicFlashRotator.Dnn
 {
@@ -33,6 +34,7 @@ namespace avt.DynamicFlashRotator.Dnn
         {
             RotatorSettings.Init(new DnnConfiguration());
             DynamicRotator.OverrideId = ModuleId.ToString();
+            DynamicRotator.ConfigUrlBase = TemplateSourceDirectory + "/Config.ashx";
         }
 
         private void Page_Load(object sender, System.EventArgs e)
