@@ -67,15 +67,6 @@ namespace avt.DynamicFlashRotator.Net.WebManage {
         protected global::System.Web.UI.WebControls.TextBox tbHeight;
         
         /// <summary>
-        /// ddRenderEngine control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddRenderEngine;
-        
-        /// <summary>
         /// lblFallBackImage control.
         /// </summary>
         /// <remarks>
@@ -94,22 +85,13 @@ namespace avt.DynamicFlashRotator.Net.WebManage {
         protected global::System.Web.UI.WebControls.TextBox tbFallBackImage;
         
         /// <summary>
-        /// cbTransparentBackground control.
+        /// tbBackgroundColor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbTransparentBackground;
-        
-        /// <summary>
-        /// tbFadeColor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbFadeColor;
+        protected global::System.Web.UI.WebControls.TextBox tbBackgroundColor;
         
         /// <summary>
         /// cbAutoStartSlideShow control.
@@ -200,24 +182,6 @@ namespace avt.DynamicFlashRotator.Net.WebManage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbSlideButtonsYoffset;
-        
-        /// <summary>
-        /// cbUseRoundCornersMask control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbUseRoundCornersMask;
-        
-        /// <summary>
-        /// tbRoundCornerMaskColor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbRoundCornerMaskColor;
         
         /// <summary>
         /// cbShowTopTitle control.

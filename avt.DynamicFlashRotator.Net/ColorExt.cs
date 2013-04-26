@@ -24,6 +24,9 @@ namespace avt.DynamicFlashRotator.Net
         /// <returns>ex: "FFFFFF", "AB12E9"</returns>
         public static string ColorToHexString(Color color)
         {
+            if (color == Color.Transparent)
+                return "transparent";
+
             byte[] bytes = new byte[3];
             bytes[0] = color.R;
             bytes[1] = color.G;

@@ -83,7 +83,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="RenderEngine\jQueryEngine.cs" />
-    <Compile Include="RenderEngine\FlashEngine.cs" />
     <Compile Include="RenderEngine\IRenderEngine.cs" />
     <Compile Include="Serialization\ResponseBuilder.cs" />
     <Compile Include="Serialization\JsonResponseWriter.cs" />
@@ -105,17 +104,19 @@
     <Compile Include="Slides\SlideObjectCollection.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="flash\rotator-v2-5.swf" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="js\jquery.hoverIntent.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="js\avt-jQuery-rotator.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="js\jquery-1.5.1.js" />
     <EmbeddedResource Include="js\jquery-ui-1.8.11.eff.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="js\jquery-1.9.1.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="js\color.js" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

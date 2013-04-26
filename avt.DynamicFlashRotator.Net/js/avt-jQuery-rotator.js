@@ -39,7 +39,7 @@
                 "position": "absolute",
                 "width": this.settings.stageWidth,
                 "height": this.settings.stageHeight,
-                "background-color": this.settings.transparentBackground == "yes" ? "transparent" : this.settings.fadeColor
+                "background-color": this.settings.backgroundColor
             })
         );
 
@@ -147,42 +147,50 @@
         }
 
 
-        // append button pane
-        if (this.settings.showBottomButtons == "yes") {
-            this.container.append(
-                $("<div class='avtBtnPane'></div>").css({
-                    "position": "absolute",
-                    "margin-left": this.settings.smallButtonsXoffset,
-                    "margin-top": this.settings.stageHeight - this.settings.smallButtonsYoffset,
-                    "z-index": 900
-                })
+        // append controls pane
+        this.container.append(
+            $("<div class='avtBtnPane'></div>").css({
+                "position": "absolute",
+                "margin-left": this.settings.smallButtonsXoffset,
+                "margin-top": this.settings.stageHeight - this.settings.smallButtonsYoffset,
+                "z-index": 900
+            })
+        );
+
+
+        if (this.settings.showTimerBar == "yes") {
+            var pc = $("<div class='avtProgress'></div>").css({
+                "border": "1px solid #424242",
+                "background-color": this.settings.smallButtonsColor
+            });
+
+            pc.append($("<div class='avtProgressIndicator'></div>").css({
+                "height": "4px",
+                "width": "0%",
+                "background-color": this.settings.smallButtonsNumberColor
+            })
             );
 
-            if (this.settings.showTimerBar == "yes") {
-                var pc = $("<div class='avtProgress'></div>").css({
-                    "border": "1px solid #424242",
-                    "background-color": this.settings.smallButtonsColor
-                });
+            this.container.find(".avtBtnPane").append(pc);
+        }
 
-                pc.append($("<div class='avtProgressIndicator'></div>").css({
-                    "height": "4px",
-                    "width": "0%",
-                    "background-color": this.settings.smallButtonsNumberColor
-                })
-                );
-
-                this.container.find(".avtBtnPane").append(pc);
-            }
-
+        if (this.settings.showBottomButtons == "yes") {
             for (var i = 0; i < this.settings.slides.length; i++) {
                 var btn = $("<button class='avtBtnSlide' onclick='return false;'>" + (this.settings.smallButtonsType == 2 ? "&#160;" : (i + 1)) + "</button>");
                 btn[0]["iSlide"] = i;
                 btn.css({
                     "color": this.settings.smallButtonsNumberColor,
-                    "background-color": this.settings.smallButtonsColor
-                }).click(function () {
+                    "background-color": this.settings.smallButtonsColor,
+                    cursor: 'pointer'
+            }).click(function () {
                     _self.switchSlide(this["iSlide"]);
                 });
+                
+                if (this.settings.smallButtonsType == 2)
+                    btn.css({
+                        borderRadius: 8,
+                        borderWidth: 1
+                    });
 
                 if (this.settings.showTopTitle == "yes") {
                     btn.hoverIntent({
@@ -200,29 +208,29 @@
 
                 this.container.find(".avtBtnPane").append(btn);
             }
+        }
 
-            var _self = this;
-            if (this.settings.showPlayPauseControls == "yes") {
-                var btn = $("<button onclick='return false;' class='avtBtnCtrl " + (this.settings.startSlideShow == "yes" ? "avtBtnPause" : "avtBtnPlay") + "'>" + (this.settings.startSlideShow == "yes" ? "Pause" : "Play") + "</button>");
-                btn.css({
-                    "margin": "2px",
-                    "color": this.settings.smallButtonsNumberColor,
-                    "background-color": this.settings.smallButtonsColor,
-                    "border": "1px solid #424242",
-                    "cursor": "pointer"
-                }).click(function () {
-                    if ($(this).hasClass("avtBtnPause")) {
-                        $(this).removeClass("avtBtnPause").addClass("avtBtnPlay").html("Play");
-                        _self.pause();
-                    } else {
-                        _self.settings.paused = true;
-                        $(this).addClass("avtBtnPause").removeClass("avtBtnPlay").html("Pause");
-                        _self.play();
-                    }
-                });
+        var _self = this;
+        if (this.settings.showPlayPauseControls == "yes") {
+            var btn = $("<button onclick='return false;' class='avtBtnCtrl " + (this.settings.startSlideShow == "yes" ? "avtBtnPause" : "avtBtnPlay") + "'>" + (this.settings.startSlideShow == "yes" ? "Pause" : "Play") + "</button>");
+            btn.css({
+                "margin": "2px",
+                "color": this.settings.smallButtonsNumberColor,
+                "background-color": this.settings.smallButtonsColor,
+                "border": "1px solid #424242",
+                "cursor": "pointer"
+            }).click(function () {
+                if ($(this).hasClass("avtBtnPause")) {
+                    $(this).removeClass("avtBtnPause").addClass("avtBtnPlay").html("Play");
+                    _self.pause();
+                } else {
+                    _self.settings.paused = true;
+                    $(this).addClass("avtBtnPause").removeClass("avtBtnPlay").html("Pause");
+                    _self.play();
+                }
+            });
 
-                this.container.find(".avtBtnPane").append(btn);
-            }
+            this.container.find(".avtBtnPane").append(btn);
         }
 
 
@@ -289,7 +297,7 @@
                 var _self = this;
                 var o = _self.settings.slides[iSlide].slideObjects[j];
                 var sObj = _slide.find(".avtSlideObj:eq(" + j + ")");
-                
+
                 (function (o, sObj) {
                     o.showTimer = setTimeout(function () {
                         _self._showObject(sObj, o);
@@ -329,7 +337,7 @@
                 "margin-left": opts.posx,
                 "margin-top": opts.posy
             });
-            
+
             if (opts.appearMode == "Slide") {
                 var pos = { x: opts.posx, y: opts.posy };
                 switch (opts.slideFrom) {
@@ -436,5 +444,5 @@
     };
 
 
-})(avtRot_jQuery_1_5_1);
+})(avtRot_jQuery);
 

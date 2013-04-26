@@ -31,7 +31,6 @@
         <li><a href="#tabs-main-portable">Import/Export</a></li>
         <%--<li><a href="#tabs-main-presets">Presets</a></li>
         <li><a href="#tabs-main-library">Object Library</a></li>--%>
-        <li><a href="#tabs-main-customize">Order Customization</a></li>
         <asp:Literal runat="server" ID = "lblTabActivate">
             <li><a href="#tabs-main-activate">Activate</a></li>
         </asp:Literal>
@@ -49,10 +48,10 @@
                         pixels
                 </td>
                 <td class = "grayed_desc">
-                    Determines width and height of the flash rotator in pixels
+                    Determines width and height of the rotator in pixels
                 </td>
             </tr>
-            <tr>
+           <%-- <tr>
                 <td class="settingField" style="width: 200px;">
                     <asp:Label runat="server" AssociatedControlID="ddRenderEngine">Render Engine</asp:Label>
                 </td>
@@ -63,7 +62,7 @@
                     Configure what technology to use to render the rotator. If you're not sure, leave Flash which is the most popular method for displaying rotators. 
                     Please note that not all engines support all options.
                 </td>
-            </tr>
+            </tr>--%>
             <tr>
                 <td class="settingField" style="width: 200px;">
                     <asp:Label ID="lblFallBackImage" runat="server" AssociatedControlID="tbFallBackImage">Fallback Image</asp:Label>
@@ -72,10 +71,10 @@
                     <asp:TextBox runat = "server" ID="tbFallBackImage" class="tbLarge" />
                 </td>
                 <td class = "grayed_desc">
-                    Specify an image to fallback to when the engine selected above (Flash, jQuery) is not available.
+                    Specify an image to fallback to when javascript is not supported.
                 </td>
             </tr>
-            <tr>
+            <%--<tr>
                 <td class="settingField">
                     <asp:Label runat="server" AssociatedControlID="cbTransparentBackground">Transparent Background</asp:Label>
                 </td>
@@ -83,18 +82,18 @@
                     <asp:CheckBox runat = "server" ID="cbTransparentBackground" />
                 </td>
                 <td class = "grayed_desc">
-                    If this option is selected, the flash control is transparent so it takes the color of the HTML page
+                    If this option is selected, the control is transparent so it takes the color of the HTML page
                 </td>
-            </tr>
+            </tr>--%>
             <tr>
                 <td class="settingField">
-                    <asp:Label runat="server" AssociatedControlID="tbFadeColor">Fade Color</asp:Label>
+                    <asp:Label runat="server" AssociatedControlID="tbBackgroundColor">Background Color</asp:Label>
                 </td>
                 <td class="settingField">
-                    <span><asp:TextBox runat = "server" ID="tbFadeColor" class="tbColor" />&nbsp;&nbsp;&nbsp;</span>
+                    <span><asp:TextBox runat = "server" ID="tbBackgroundColor" class="tbColor" />&nbsp;&nbsp;&nbsp;</span>
                 </td>
                 <td class = "grayed_desc">
-                    When a slide is changing a nice fade effect is playing whose color is determined by this field
+                    The background color of the control. Leave empty for transparent.
                 </td>
             </tr>
 
@@ -102,7 +101,7 @@
 
             <tr>
                 <td class="settingField">
-                    <asp:Label runat="server" AssociatedControlID="cbAutoStartSlideShow">Auto Start SlideShow</asp:Label>
+                    <asp:Label runat="server" AssociatedControlID="cbAutoStartSlideShow">Auto Start</asp:Label>
                 </td>
                 <td class="settingField">
                     <asp:CheckBox runat = "server" ID="cbAutoStartSlideShow" />
@@ -207,7 +206,7 @@
                 </td>
             </tr>
 
-            <tr class="rowSep"><td colspan="3">&nbsp;</td></tr>
+            <%--<tr class="rowSep"><td colspan="3">&nbsp;</td></tr>
 
             <tr>
                 <td class="settingField">
@@ -228,7 +227,7 @@
                 <td class="settingField">
                     <span><asp:TextBox runat = "server" ID="tbRoundCornerMaskColor" class="tbColor ctlRoundCornder" />&nbsp;&nbsp;&nbsp;</span>
                 </td>
-            </tr>
+            </tr>--%>
 
             <tr class="rowSep"><td colspan="3">&nbsp;</td></tr>
 
@@ -302,7 +301,7 @@
                             <b>Slide Title: </b> 
                             <input type="text" class = "tbSlideTitle tooltip_hover" style = "width: 320px;" value="<%= DefaultSlide.Title %>" title="The slide title is displayed when hovering the navigation buttons.<br />This field can contain My Tokens." />
                         </div>
-                        <div class = "fieldRow ui-widget-content tooltip_hover" style="clear: left;" title="This option can be used to specify the slide background as a vertical gradient or a solid color (by setting the two fields to same value).">
+                        <div class = "fieldRow ui-widget-content tooltip_hover" style="clear: left;" title="This option can be used to specify the slide background as a vertical gradient or a solid color (by setting the two fields to same value). Leave empty for transparent.">
                             <b>Background Gradient: </b>
                             from <span><input type="text" style = "width: 60px;" class="tbColor tbColortbBkGradFrom" value="<%= ColorToHex(DefaultSlide.BackgroundGradientFrom) %>" />&nbsp;&nbsp;&nbsp;</span>
                             to <span><input type="text" style = "width: 60px;" class="tbColor tbColortbBkGradTo" value="<%= ColorToHex(DefaultSlide.BackgroundGradientTo) %>" />&nbsp;&nbsp;&nbsp;</span>
@@ -435,75 +434,6 @@
         <asp:Button runat="server" OnClick="ExportData" class="ui-state-default" style="padding: 4px 10px;" Text="Export" UseSubmitBehavior="false" CausesValidation="false" />
     </div>
 
-    <div id = "tabs-main-customize" style="margin: 15px 25px;">
-        <h2 style="color: #C77405;">We can design your banner/rotator!</h2>
-        <div>
-            Please choose the option that best suits you requirement.
-            <br /><br />
-
-            <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                <tr>
-                    <td class="cstmOptName" colspan="3">3 Slides + editing for up to 6 images</td>
-                    <td class="cstmOptName" colspan="3">5 Slides + editing for up to 10 images</td>
-                    <td class="cstmOptName">More...</td>
-                </tr>
-                <tr>
-                    <td class="cstmOptNameSub">Your Graphics*</td>
-                    <td class="cstmOptNameSub">Research **</td>
-                    <td class="cstmOptNameSub">Full Dev***</td>
-                    <td class="cstmOptNameSub">Your Graphics*</td>
-                    <td class="cstmOptNameSub">Research **</td>
-                    <td class="cstmOptNameSub">Full Dev***</td>
-                    <td class="cstmOptNameSub" rowspan="2" style="font-weight:normal;">
-                        If your requirement is not covered by these options, please <a href ="http://www.avatar-soft.ro/Contact.aspx">Contact Us</a> for a quote.
-                    </td>
-                </tr>
-                <tr>
-                    <td class="cstmOptPrice">$39.95</td>
-                    <td class="cstmOptPrice">$64.95</td>
-                    <td class="cstmOptPrice">$99.95</td>
-                    <td class="cstmOptPrice">$59.95</td>
-                    <td class="cstmOptPrice">$99.95</td>
-                    <td class="cstmOptPrice">$149.95</td>
-                </tr>
-                <tr>
-                    <td class="cstOptBtn"><a href = "https://www.plimus.com/jsp/buynow.jsp?contractId=2953628" class="ui-state-default" style="padding: 4px 10px;">Checkout</a></td>
-                    <td class="cstOptBtn"><a href = "https://www.plimus.com/jsp/buynow.jsp?contractId=2953668" class="ui-state-default" style="padding: 4px 10px;">Checkout</a></td>
-                    <td class="cstOptBtn"><a href = "https://www.plimus.com/jsp/buynow.jsp?contractId=2953670" class="ui-state-default" style="padding: 4px 10px;">Checkout</a></td>
-                    <td class="cstOptBtn"><a href = "https://www.plimus.com/jsp/buynow.jsp?contractId=2953672" class="ui-state-default" style="padding: 4px 10px;">Checkout</a></td>
-                    <td class="cstOptBtn"><a href = "https://www.plimus.com/jsp/buynow.jsp?contractId=2953674" class="ui-state-default" style="padding: 4px 10px;">Checkout</a></td>
-                    <td class="cstOptBtn"><a href = "https://www.plimus.com/jsp/buynow.jsp?contractId=2953676" class="ui-state-default" style="padding: 4px 10px;">Checkout</a></td>
-                    <td class="cstOptBtn"><a href="http://www.avatar-soft.ro/Contact.aspx" class="ui-state-default" style="padding: 4px 10px;">Contact Us</a></td>
-                </tr>
-            </table>
-
-            <br />
-                
-            <div style = "margin: 6px;">
-                <span style="color: #C77405;font-weight:bold;">*</span>
-                Select this option if already have the graphics, you just need them edited and everything put together into the banner/rotator.
-            </div>
-
-            <div style = "margin: 6px;">
-                <span style="color: #C77405;font-weight:bold;">**</span>
-                We'll do the research for you to find the graphics that match your ideas. We will send links so you can license them.
-            </div>
-
-            <div style = "margin: 6px;">
-                <span style="color: #C77405;font-weight:bold;">***</span>
-                We will take care of everything, including licensing the graphics and create additional vectorial graphics such as icons or small flash animations.
-            </div>
-
-            <br /><br />
-            <b>
-                Once you made your purchase, please send us the invoice number and your requirement at support@avatar-soft.ro and we'll reply back you within 24 hours.
-                Make ure your requirement is structured (Slide 1: This text, this link, this pictures... Slide 2: ....). We will deliver the work as a zip package that can be imported into your copy. 
-            </b>
-            <br /><br />
-        </div>
-
-    </div>
-
     <asp:Label runat="server" ID = "lblTabActivateContents">
         <div id = "tabs-main-activate" style="margin: 15px 25px;">
             <h2 style="color: #C77405;">This copy of Dynamic Rotator .NET is in Trial!</h2>
@@ -526,10 +456,10 @@
 <div class="footer">
     <div style="width: 1000px; margin: auto;">
         <div style="float: left;">
-            <a href = "http://www.avatar-soft.ro/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx">Read more about Dynamic Redirect .NET</a> |
+            <a href = "http://www.dnnsharp.com/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx">Read more about Dynamic Redirect .NET</a> |
             <a href ="<%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.DocSrv %>">Browse Documentation</a>
             <br /><br />
-            Version <%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.Build %> by <a href = "http://www.avatar-soft.ro" style="color: #C77405;">Avatar Software</a>
+            Version <%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.Build %> by <a href = "http://www.dnnsharp.com" style="color: #C77405;">Avatar Software</a>
         </div>
         <div class="btnPane" style="display: none;">
             <a href = "<%= ReturnUrl %>" style="color: #525252; padding: 1px 10px; margin-right: 10px; font-weight: normal;" >Cancel</a>
@@ -975,16 +905,6 @@
             } else {
                 jQuery('.ctlSliderBtn').attr('disabled','disabled');
                 jQuery(".ctlSliderBtnLbl").addClass("ui-state-disabled");
-            }
-        }).change();
-
-        jQuery("#<%= cbUseRoundCornersMask.ClientID %>").change(function() {
-            if (this.checked) { 
-                jQuery('.ctlRoundCornder').removeAttr('disabled'); 
-                jQuery(".ctlRoundCornderLbl").removeClass("ui-state-disabled");
-            } else {
-                jQuery('.ctlRoundCornder').attr('disabled','disabled');
-                jQuery(".ctlRoundCornderLbl").addClass("ui-state-disabled");
             }
         }).change();
 

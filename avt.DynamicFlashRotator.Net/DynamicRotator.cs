@@ -226,17 +226,6 @@ namespace avt.DynamicFlashRotator.Net
         public bool AutoStartSlideShow { get { return Settings.AutoStartSlideShow; } set { Settings.AutoStartSlideShow = value; } }
 
         [Category("Dynamic Rotator")]
-        [Description("Use this option if you want the rotator to have rounded corners. Make sure to setup the color so it matches the background of your web page")]
-        [DisplayName("Use Round Corners Mask")]
-        public bool UseRoundCornersMask { get { return Settings.UseRoundCornersMask; } set { Settings.UseRoundCornersMask = value; } }
-
-        [TypeConverter(typeof(WebColorConverter))]
-        [Category("Dynamic Rotator")]
-        [Description("Use this option if you want the rotator to have rounded corners. Make sure to setup the color so it matches the background of your web page")]
-        [DisplayName("Round Corner Mask Color")]
-        public Color RoundCornerMaskColor { get { return Settings.RoundCornerMaskColor; } set { Settings.RoundCornerMaskColor = value; } }
-
-        [Category("Dynamic Rotator")]
         [Description("The Slide Buttons are used by the user to navigate to any slide")]
         [DisplayName("Show Bottom Buttons")]
         public bool ShowBottomButtons { get { return Settings.ShowBottomButtons; } set { Settings.ShowBottomButtons = value; } }
@@ -248,9 +237,9 @@ namespace avt.DynamicFlashRotator.Net
 
         [TypeConverter(typeof(WebColorConverter))]
         [Category("Dynamic Rotator")]
-        [Description("When a slide is changing a nice fade effect is playing whose color is determined by this field")]
-        [DisplayName("Fade Color")]
-        public Color FadeColor { get { return Settings.FadeColor; } set { Settings.FadeColor = value; } }
+        [Description("Background of the control")]
+        [DisplayName("Background Color")]
+        public Color BackgroundColor { get { return Settings.BackgroundColor; } set { Settings.BackgroundColor = value; } }
         
         [Category("Dynamic Rotator")]
         [Description("Show or hide the top part with the slide title when the mouse is over a slide button.")]
@@ -311,10 +300,10 @@ namespace avt.DynamicFlashRotator.Net
         [DisplayName("Slide Buttons Y offset")]
         public int SlideButtonsYoffset { get { return Settings.SlideButtonsYoffset; } set { Settings.SlideButtonsYoffset = value; } }
 
-        [Category("Dynamic Rotator")]
-        [Description("If this option is selected, the flash control is transparent so it takes the color of the HTML page")]
-        [DisplayName("Transparent Background")]
-        public bool TransparentBackground { get { return Settings.TransparentBackground; } set { Settings.TransparentBackground = value; } }
+        //[Category("Dynamic Rotator")]
+        //[Description("If this option is selected, the flash control is transparent so it takes the color of the HTML page")]
+        //[DisplayName("Transparent Background")]
+        //public bool TransparentBackground { get { return Settings.TransparentBackground; } set { Settings.TransparentBackground = value; } }
 
         #endregion
 
@@ -353,7 +342,7 @@ namespace avt.DynamicFlashRotator.Net
 
                 SlideObjectInfo logoObj = new SlideObjectInfo();
                 logoObj.ObjectType = eObjectType.Image;
-                logoObj.ObjectUrl = "http://www.avatar-soft.ro/Portals/0/product_logo/Dynamic-Rotator.png";
+                logoObj.ObjectUrl = "http://www.dnnsharp.com/Portals/0/product_logo/Dynamic-Rotator.png";
                 logoObj.Yposition = 30;
                 logoObj.Xposition = 20;
                 logoObj.SlideFrom = eAllDirs.Left;
@@ -363,7 +352,7 @@ namespace avt.DynamicFlashRotator.Net
                 SlideInfo trialSlide = new SlideInfo();
                 trialSlide.SlideObjects.Add(trialText);
                 trialSlide.SlideObjects.Add(logoObj);
-                trialSlide.SlideUrl = "http://www.avatar-soft.ro/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx";
+                trialSlide.SlideUrl = "http://www.dnnsharp.com/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx";
                 trialSlide.ButtonCaption = "Read More...";
                 trialSlide.Settings = Settings;
 
@@ -414,41 +403,7 @@ namespace avt.DynamicFlashRotator.Net
 
         void RenderFrontEnd(HtmlTextWriter output)
         {
-            // add include
-            //Page.ClientScript.RegisterClientScriptInclude("AC_RunActiveContent", TemplateSourceDirectory + "/flash/AC_RunActiveContent.js");
-            //Page.ClientScript.RegisterClientScriptBlock(GetType(), "AC_FL_RunContent", "AC_FL_RunContent = 0;", true);
-
             Settings.FrontEndRenderEngine.Render(this, output);
-
-            //IRenderEngine feng = new FlashEngine();
-            //feng.Render(this, output);
-
-            //IRenderEngine jeng = new jQueryEngine();
-            //jeng.Render(this, output);
-
-            //if (!RotatorSettings.IsActivated() && HttpContext.Current.Request.Url.Host != "localhost") {
-            //    Random r = new Random();
-            //    if (r.Next(20) == 1) {
-            //        // put some trial notifications
-
-            //        string pageUrl = "http://www.avatar-soft.ro/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx";
-
-            //        string[] keywords = new string[] {
-            //            "Trial Notification: Powered by <i>Dynamic Rotator.NET</i> - a <a href = '{0}'{2}>DNN Banner Module</a> from <a href = '{1}'{2}>Avatar Software</a>",
-            //            "Trial Notification: <a href = '{0}'{2}>DNN Banner</a> built with <i>Dynamic Rotator.NET</i> from <a href = '{1}'{2}>Avatar Software</a>",
-            //            "Trial Notification: Powered by <i>Dynamic Rotator.NET</i> - a <a href = '{0}'{2}>DNN Banner Module</a> from <a href = '{1}'{2}>Avatar Software</a>",
-            //            "Trial Notification: <a href = '{0}'{2}>DNN Banner</a> built with <i>Dynamic Rotator.NET</i> from <a href = '{1}'{2}>Avatar Software</a>",
-
-            //            "Trial Notification: <a href = '{0}'{2}>DNN Banners</a> built with <i>Dynamic Rotator.NET</i> from <a href = '{1}'{2}>Avatar Software</a>",
-            //            "Trial Notification: <a href = '{0}'{2}>DotNetNuke Banner</a> built with <i>Dynamic Rotator.NET</i> from <a href = '{1}'{2}>Avatar Software</a>",
-            //            "Trial Notification: Powered by <i>Dynamic Rotator.NET</i> - a <a href = '{0}'{2}>DNN Flash</a> module from <a href = '{1}'{2}>Avatar Software</a>",
-            //            "Trial Notification: Powered by <i>Dynamic Rotator.NET</i> - a <a href = '{0}'{2}>DotNetNuke Flash</a> from <a href = '{1}'{2}>Avatar Software</a>"
-            //        };
-            //        bool isIp = Regex.Match(HttpContext.Current.Request.Url.Host, ".*\\d+\\.\\d+\\.\\d+\\.\\d+.*").Length > 0;
-
-            //        output.Write("<div>" + string.Format(keywords[Math.Abs((HttpContext.Current.Request.Url.Host + HttpContext.Current.Request.RawUrl).GetHashCode() % keywords.Length)], pageUrl, "http://www.avatar-soft.ro", isIp ? " rel=\"nofollow\"" : "") + ".</div>");
-            //    }
-            //}
 
             IList<IAdminAuthentication> security = GetSecurityLayers(RealId);
             if (AllowRuntimeConfiguration && RotatorSettings.Configuration.ShowManageLinks() && RotatorSettings.Configuration.HasAccess(RealId, security)) {
@@ -488,7 +443,7 @@ namespace avt.DynamicFlashRotator.Net
                 }
 
                 if (security.Count == 0) {
-                    output.Write("<div style='color:red;'>WARNING! Everybody can configure this rotator, setup security using <i>SecurityAllowAspRole, SecurityAllowIps or SecurityAllowInvokeType</i> attributes of the Dynamic Rotator control.<br/>Read <a href='http://rotator.avatar-soft.ro'>Security Layers for Asp.NET Control</a> articles for more information.</div>");
+                    output.Write("<div style='color:red;'>WARNING! Everybody can configure this rotator, setup security using <i>SecurityAllowAspRole, SecurityAllowIps or SecurityAllowInvokeType</i> attributes of the Dynamic Rotator control.<br/>Read <a href='http://rotator.dnnsharp.com'>Security Layers for Asp.NET Control</a> articles for more information.</div>");
                 }
             }
         }

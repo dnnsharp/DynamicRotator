@@ -36,9 +36,8 @@ using System.Web.UI;
 [assembly: AssemblyVersion("1.2.1.0")]
 [assembly: AssemblyFileVersion("1.2.1.0")]
 
-//[assembly: WebResource("avt.AllinOneRotator.Net.flash.AC_RunActiveContent.js", "text/javascript")]
-[assembly: WebResource("avt.DynamicFlashRotator.Net.flash.rotator-v2-5.swf", "application/x-shockwave-flash")]
-[assembly: WebResource("avt.DynamicFlashRotator.Net.js.jquery-1.5.1.js", "text/js")]
+[assembly: WebResource("avt.DynamicFlashRotator.Net.js.jquery-1.9.1.js", "text/js")]
+[assembly: WebResource("avt.DynamicFlashRotator.Net.js.color.js", "text/js")]
 [assembly: WebResource("avt.DynamicFlashRotator.Net.js.jquery-ui-1.8.11.eff.js", "text/js")]
 [assembly: WebResource("avt.DynamicFlashRotator.Net.js.jquery.hoverIntent.js", "text/js")]
 [assembly: WebResource("avt.DynamicFlashRotator.Net.js.avt-jQuery-rotator.js", "text/js")]

@@ -91,8 +91,8 @@ namespace avt.DynamicFlashRotator.Net.WebManage
                 ddObjEffect.DataSource = Enum.GetNames(typeof(eEffect));
                 ddObjEffect.DataBind();
                 
-                ddRenderEngine.DataSource = Enum.GetNames(typeof(eRenderEngine));
-                ddRenderEngine.DataBind();
+                //ddRenderEngine.DataSource = Enum.GetNames(typeof(eRenderEngine));
+                //ddRenderEngine.DataBind();
 
                 // load settings
                 settings.LoadFromDB(Request.QueryString["controlId"]);
@@ -100,14 +100,12 @@ namespace avt.DynamicFlashRotator.Net.WebManage
                 lblControlName.Text = Configuration.FormatTitle(Request.QueryString["controlId"]);
                 tbWidth.Text = settings.Width.Value.ToString();
                 tbHeight.Text = settings.Height.Value.ToString();
-                ddRenderEngine.SelectedValue = settings.RenderEngine.ToString();
+                //ddRenderEngine.SelectedValue = settings.RenderEngine.ToString();
                 tbFallBackImage.Text = settings.FallbackImage;
                 cbAutoStartSlideShow.Checked = settings.AutoStartSlideShow;
-                cbUseRoundCornersMask.Checked = settings.UseRoundCornersMask;
-                tbRoundCornerMaskColor.Text = ColorExt.ColorToHexString(settings.RoundCornerMaskColor);
                 cbShowBottomButtons.Checked = settings.ShowBottomButtons;
                 cbShowPlayPauseControls.Checked = settings.ShowPlayPauseControls;
-                tbFadeColor.Text = ColorExt.ColorToHexString(settings.FadeColor);
+                tbBackgroundColor.Text = ColorExt.ColorToHexString(settings.BackgroundColor);
                 cbShowTopTitle.Checked = settings.ShowTopTitle;
                 tbTopTitleBackground.Text = ColorExt.ColorToHexString(settings.TopTitleBackground);
                 tbTopTitleBgTransparency.Text = settings.TopTitleBgTransparency.ToString();
@@ -119,7 +117,7 @@ namespace avt.DynamicFlashRotator.Net.WebManage
                 try { ddSlideButtonsType.SelectedValue = settings.SlideButtonsType.ToString(); } catch { }
                 tbSlideButtonsXoffset.Text = settings.SlideButtonsXoffset.ToString();
                 tbSlideButtonsYoffset.Text = settings.SlideButtonsYoffset.ToString();
-                cbTransparentBackground.Checked = settings.TransparentBackground;
+                //cbTransparentBackground.Checked = settings.TransparentBackground;
 
                 hdnLastUpdate.Value = TotalMiliseconds(settings.LastUpdate).ToString();
 
@@ -157,14 +155,12 @@ namespace avt.DynamicFlashRotator.Net.WebManage
 
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "Width", tbWidth.Text);
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "Height", tbHeight.Text);
-            DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "RenderEngine", ddRenderEngine.SelectedValue);
+            //DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "RenderEngine", ddRenderEngine.SelectedValue);
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "FallbackImage", tbFallBackImage.Text);
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "AutoStartSlideShow", cbAutoStartSlideShow.Checked ? "true" : "false");
-            DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "UseRoundCornersMask", cbUseRoundCornersMask.Checked ? "true" : "false");
-            DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "RoundCornerMaskColor", tbRoundCornerMaskColor.Text);
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "ShowBottomButtons", cbShowBottomButtons.Checked ? "true" : "false");
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "ShowPlayPauseControls", cbShowPlayPauseControls.Checked ? "true" : "false");
-            DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "FadeColor", tbFadeColor.Text);
+            DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "BackgroundColor", tbBackgroundColor.Text);
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "ShowTopTitle", cbShowTopTitle.Checked ? "true" : "false");
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "TopTitleBackground", tbTopTitleBackground.Text);
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "TopTitleBgTransparency", tbTopTitleBgTransparency.Text);
@@ -176,7 +172,7 @@ namespace avt.DynamicFlashRotator.Net.WebManage
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "SlideButtonsType", ddSlideButtonsType.SelectedValue);
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "SlideButtonsXoffset", tbSlideButtonsXoffset.Text);
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "SlideButtonsYoffset", tbSlideButtonsYoffset.Text);
-            DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "TransparentBackground", cbTransparentBackground.Checked ? "true" : "false");
+            //DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "TransparentBackground", cbTransparentBackground.Checked ? "true" : "false");
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "LastUpdate", DateTime.Now.ToString(new CultureInfo("en-US").DateTimeFormat));
 
             // save slides

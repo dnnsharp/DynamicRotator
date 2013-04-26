@@ -17,7 +17,7 @@
 
     <div class = "title">Activate <%= _RegCoreApp.ProductName %></div>
     <div class = "help">
-        <a class = "help_link" href = "http://docs.avatar-soft.ro/doku.php?id=general:activation">Help</a>
+        <a class = "help_link" href = "http://docs.dnnsharp.com/doku.php?id=general:activation">Help</a>
     </div>
     <div style = "clear: both;"></div>
     

@@ -95,7 +95,7 @@ namespace avt.DynamicFlashRotator.Dnn
 
                 SlideObjectInfo logoObj = new SlideObjectInfo();
                 logoObj.ObjectType = eObjectType.Image;
-                logoObj.ObjectUrl = "http://www.avatar-soft.ro/Portals/0/product_logo/Dynamic-Rotator.png";
+                logoObj.ObjectUrl = "http://www.dnnsharp.com/Portals/0/product_logo/Dynamic-Rotator.png";
                 logoObj.Yposition = 30;
                 logoObj.Xposition = 20;
                 logoObj.SlideFrom = eAllDirs.Left;
@@ -105,7 +105,7 @@ namespace avt.DynamicFlashRotator.Dnn
                 SlideInfo trialSlide = new SlideInfo();
                 trialSlide.SlideObjects.Add(trialText);
                 trialSlide.SlideObjects.Add(logoObj);
-                trialSlide.SlideUrl = "http://www.avatar-soft.ro/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx";
+                trialSlide.SlideUrl = "http://www.dnnsharp.com/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx";
                 trialSlide.ButtonCaption = "Read More...";
                 trialSlide.Settings = settings;
 
