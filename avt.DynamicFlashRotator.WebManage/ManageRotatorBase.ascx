@@ -1034,7 +1034,7 @@ jQuery(document).ready(function() {
             connectWith: ".pnlSlideObjList",
             handle: ".dragObj",
             placeholder: 'objPlaceholder',
-            cancel: ".slideObjectText",
+            //cancel: ".slideObjectText",
 
             start: function(event, ui) {
                 g_isDragging = true;
@@ -1138,13 +1138,13 @@ jQuery(document).ready(function() {
             slideRoot.find(".pnlSlideObjList_empty").hide();
         }
 
-        if(slideRoot.find(".slideObjectText").size() == 0) {
-            slideRoot.find(".btnAddObjectText").removeClass("ui-state-disabled");
-            slideRoot.find(".btnAddObjectText").removeAttr("bt-xtitle").btOff();
-        } else {
-            slideRoot.find(".btnAddObjectText").addClass("ui-state-disabled");
-            slideRoot.find(".btnAddObjectText").attr("title", "Temporary Limitation: slides can only contain one text object.").bt(btOpts);
-        }
+        //if(slideRoot.find(".slideObjectText").size() == 0) {
+        //    slideRoot.find(".btnAddObjectText").removeClass("ui-state-disabled");
+        //    slideRoot.find(".btnAddObjectText").removeAttr("bt-xtitle").btOff();
+        //} else {
+        //    slideRoot.find(".btnAddObjectText").addClass("ui-state-disabled");
+        //    slideRoot.find(".btnAddObjectText").attr("title", "Temporary Limitation: slides can only contain one text object.").bt(btOpts);
+        //}
     }
 
     function openSlideObjectSettings(slideRoot, itemType, slideObjItem) {

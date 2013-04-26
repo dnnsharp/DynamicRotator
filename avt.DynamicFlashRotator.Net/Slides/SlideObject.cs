@@ -88,7 +88,7 @@ namespace avt.DynamicFlashRotator.Net
         [Category("General")]
         public string Name { get { return _Name; } set { _Name = value; } }
 
-        string _Text = "Slide text, supports <font color='#ff0000\'>HTML</font>";
+        string _Text = "Slide text, supports <strong>HTML</strong>";
         [Category("General")]
         public string Text { get { return _Text; } set { _Text = value; } }
 

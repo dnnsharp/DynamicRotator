@@ -343,10 +343,6 @@ a:link, a:visited, a:active, a:hover {
     display: block;
 }
 
-.slideObjectText .dragObj {
-    display: none !important;
-    
-}
 
 div.tooltip_hover,
 td.tooltip_hover,
