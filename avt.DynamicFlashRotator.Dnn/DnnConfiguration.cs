@@ -139,22 +139,20 @@ namespace avt.DynamicFlashRotator.Dnn
 
         public static string Tokenize(string strContent, ModuleInfo modInfo, bool forceDebug, bool bRevertToDnn)
         {
-            string cacheKey_Lock = "avt.MyTokens2.Lock";
             string cacheKey_Installed = "avt.MyTokens2.Installed";
             string cacheKey_MethodReplace = "avt.MyTokens2.MethodReplace";
 
             string bMyTokensInstalled = "no";
-            MethodInfo methodReplace = null;
+            System.Reflection.MethodInfo methodReplace = null;
 
-            // first, determine if MyTokens is installed
-            if (HttpRuntime.Cache.Get(cacheKey_Installed) == null) {
+            bool bDebug = forceDebug;
+            if (!bDebug) {
+                try { bDebug = DotNetNuke.Common.Globals.IsEditMode(); } catch { }
+            }
 
-                // get global lock 
-                if (HttpRuntime.Cache.Get(cacheKey_Lock) == null) {
-                    HttpRuntime.Cache.Insert(cacheKey_Lock, new object());
-                }
-
-                lock (HttpRuntime.Cache.Get(cacheKey_Lock)) {
+            lock (typeof(DotNetNuke.Services.Tokens.TokenReplace)) {
+                // first, determine if MyTokens is installed
+                if (HttpRuntime.Cache.Get(cacheKey_Installed) == null) {
 
                     // check again, maybe current thread was locked by another which did all the work
                     if (HttpRuntime.Cache.Get(cacheKey_Installed) == null) {
@@ -170,15 +168,15 @@ namespace avt.DynamicFlashRotator.Dnn
                             // we now know MyTokens is installed, get ReplaceTokensAll methods
                             methodReplace = myTokensRepl.GetMethod(
                                 "ReplaceTokensAll",
-                                BindingFlags.Public | BindingFlags.Static,
+                                System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static,
                                 null,
-                                CallingConventions.Any,
+                                System.Reflection.CallingConventions.Any,
                                 new Type[] { 
-                                    typeof(string), 
-                                    typeof(DotNetNuke.Entities.Users.UserInfo), 
-                                    typeof(bool),
-                                    typeof(ModuleInfo)
-                                },
+                                typeof(string), 
+                                typeof(DotNetNuke.Entities.Users.UserInfo), 
+                                typeof(bool),
+                                typeof(DotNetNuke.Entities.Modules.ModuleInfo)
+                            },
                                 null
                             );
 
@@ -202,11 +200,11 @@ namespace avt.DynamicFlashRotator.Dnn
 
             bMyTokensInstalled = HttpRuntime.Cache.Get(cacheKey_Installed).ToString();
             if (bMyTokensInstalled == "yes") {
-                if (strContent.IndexOf("[") == -1)
-                    return strContent;
-                methodReplace = (MethodInfo)HttpRuntime.Cache.Get(cacheKey_MethodReplace);
-                if (methodReplace == null)
+                methodReplace = (System.Reflection.MethodInfo)HttpRuntime.Cache.Get(cacheKey_MethodReplace);
+                if (methodReplace == null) {
+                    HttpRuntime.Cache.Remove(cacheKey_Installed);
                     return Tokenize(strContent, modInfo, forceDebug, bRevertToDnn);
+                }
             } else {
                 // if it's not installed return string or tokenize with DNN replacer
                 if (!bRevertToDnn) {
@@ -214,7 +212,7 @@ namespace avt.DynamicFlashRotator.Dnn
                 } else {
                     DotNetNuke.Services.Tokens.TokenReplace dnnTknRepl = new DotNetNuke.Services.Tokens.TokenReplace();
                     dnnTknRepl.AccessingUser = DotNetNuke.Entities.Users.UserController.GetCurrentUserInfo();
-                    dnnTknRepl.DebugMessages = !DotNetNuke.Common.Globals.IsTabPreview();
+                    dnnTknRepl.DebugMessages = bDebug;
                     if (modInfo != null)
                         dnnTknRepl.ModuleInfo = modInfo;
 
@@ -229,7 +227,7 @@ namespace avt.DynamicFlashRotator.Dnn
                 new object[] {
                     strContent,
                     DotNetNuke.Entities.Users.UserController.GetCurrentUserInfo(),
-                    forceDebug ? true : !DotNetNuke.Common.Globals.IsTabPreview(),
+                    bDebug,
                     modInfo
                 }
             );

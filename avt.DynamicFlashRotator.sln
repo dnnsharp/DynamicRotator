@@ -1,9 +1,9 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.WebApplication", "Test.WebApplication\Test.WebApplication.csproj", "{74393A65-1D3C-414E-9AA2-50EAEA57C0D0}"
-EndProject
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5D2A3A1C-E669-4942-9EF1-6024C6637D17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.WebApplication", "Test.WebApplication\Test.WebApplication.csproj", "{74393A65-1D3C-414E-9AA2-50EAEA57C0D0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "avt.DynamicFlashRotator.Net", "avt.DynamicFlashRotator.Net\avt.DynamicFlashRotator.Net.csproj", "{2B3E1E9E-512B-4F18-BD29-2737504CA8F1}"
 EndProject

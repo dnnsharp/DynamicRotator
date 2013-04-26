@@ -358,7 +358,7 @@
                 <div class="pnlSlideOpts pnlSlideOptsContent">
                         
                     <div style = "height: 84px; margin: 8px 8px 2px 120px; overflow: auto; padding-left: 40px; position: absolute;" class="pnlSlideObjList_empty">
-                        <div style = "padding: 16px 0 0 30px; font-size: 16px; color: #b2b2b2;">
+                        <div style = "margin: 16px 0 0 30px; font-size: 16px; color: #b2b2b2;">
                             No objects defined for this slide!<br />
                             Use buttons below to add objects...
                         </div>

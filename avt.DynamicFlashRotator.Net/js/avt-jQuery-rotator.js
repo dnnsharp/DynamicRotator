@@ -39,7 +39,7 @@
                 "position": "absolute",
                 "width": this.settings.stageWidth,
                 "height": this.settings.stageHeight,
-                "background-color": this.settings.fadeColor
+                "background-color": this.settings.transparentBackground == "yes" ? "transparent" : this.settings.fadeColor
             })
         );
 
@@ -64,7 +64,7 @@
                 "display": "block",
                 "width": this.settings.stageWidth,
                 "height": this.settings.stageHeight,
-                "background-color": s.bkGradFrom,
+                "background-color": this.settings.transparentBackground == "yes" ? "transparent" : s.bkGradFrom,
                 "display": "none",
                 "overflow": "hidden"
             });
@@ -289,11 +289,11 @@
                 var _self = this;
                 var o = _self.settings.slides[iSlide].slideObjects[j];
                 var sObj = _slide.find(".avtSlideObj:eq(" + j + ")");
-
+                
                 (function (o, sObj) {
                     o.showTimer = setTimeout(function () {
                         _self._showObject(sObj, o);
-                    }, o.itemType == "Text" ? _self.settings.textDelay * 1000 : o.delay * 1000);
+                    }, o.itemType == "Text" ? _self.settings.textDelay : o.delay * 1000);
                 })(o, sObj);
             }
         };
@@ -318,7 +318,7 @@
                 (function (o, sObj) {
                     o.showTimer = setTimeout(function () {
                         _self._hideObject(sObj, o);
-                    }, o.itemType == "Text" ? 0 : _self.settings.textDelay * 1000 + o.delay * 1000);
+                    }, o.itemType == "Text" ? 0 : _self.settings.textDelay + o.delay * 1000);
                 })(o, sObj);
             }
         };
@@ -329,7 +329,7 @@
                 "margin-left": opts.posx,
                 "margin-top": opts.posy
             });
-
+            
             if (opts.appearMode == "Slide") {
                 var pos = { x: opts.posx, y: opts.posy };
                 switch (opts.slideFrom) {
