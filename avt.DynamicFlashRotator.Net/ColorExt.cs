@@ -39,6 +39,22 @@ namespace avt.DynamicFlashRotator.Net
             }
             return "#" + new string(chars);
         }
+
+        public static Color Parse(object color, Color fallback)
+        {
+            string colorStr;
+            try { colorStr = color.ToString(); } catch { return fallback; }
+
+            if (colorStr.Equals("transparent", StringComparison.OrdinalIgnoreCase))
+                return Color.Transparent;
+
+            try {
+                return System.Drawing.Color.FromArgb(Convert.ToInt32(colorStr.Replace("#", "0x"), 16)); 
+            } catch {
+                return fallback;
+            }
+
+        }
     }
 
 }

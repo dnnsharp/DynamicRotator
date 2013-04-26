@@ -64,11 +64,12 @@
                 "display": "block",
                 "width": this.settings.stageWidth,
                 "height": this.settings.stageHeight,
-                "background-color": this.settings.transparentBackground == "yes" ? "transparent" : s.bkGradFrom,
+                "background-color": s.bkGradFrom == s.bkGradTo ? s.bkGradFrom : 'transparent',
                 "display": "none",
                 "overflow": "hidden"
             });
 
+            Gradient.elem(slide[0], 'top,' + s.bkGradFrom + ',' + s.bkGradTo);
 
             slide[0]["iSlide"] = i;
             this.container.append(slide);

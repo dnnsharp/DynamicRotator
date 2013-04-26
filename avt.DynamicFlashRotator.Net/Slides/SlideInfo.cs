@@ -210,20 +210,20 @@ namespace avt.DynamicFlashRotator.Net
             
             try { Title = dr["Title"].ToString(); } catch { }
             try { DurationSeconds = Convert.ToInt32(dr["DurationSeconds"].ToString()); } catch { }
-            try { BackgroundGradientFrom = System.Drawing.Color.FromArgb(Convert.ToInt32(dr["BackgroundGradientFrom"].ToString().Replace("#", "0x"), 16)); } catch { }
-            try { BackgroundGradientTo = System.Drawing.Color.FromArgb(Convert.ToInt32(dr["BackgroundGradientTo"].ToString().Replace("#", "0x"), 16)); } catch { }
+            BackgroundGradientFrom = ColorExt.Parse(dr["BackgroundGradientFrom"], BackgroundGradientFrom);
+            BackgroundGradientTo = ColorExt.Parse(dr["BackgroundGradientTo"], BackgroundGradientTo);
 
             try { SlideUrl = dr["Link_Url"].ToString(); } catch { }
             try { ButtonCaption = dr["Link_Caption"].ToString(); } catch { }
-            try { BtnTextColor = System.Drawing.Color.FromArgb(Convert.ToInt32(dr["BtnTextColor"].ToString().Replace("#", "0x"), 16)); } catch { }
-            try { BtnBackColor = System.Drawing.Color.FromArgb(Convert.ToInt32(dr["BtnBackColor"].ToString().Replace("#", "0x"), 16)); } catch { }
+            BtnTextColor = ColorExt.Parse(dr["BtnTextColor"], BtnTextColor);
+            BtnBackColor = ColorExt.Parse(dr["BtnBackColor"], BtnBackColor);
             try { Target = dr["Link_Target"].ToString(); } catch { }
             try { UseTextsBackground = dr["Link_UseTextsBackground"].ToString() == "1"; } catch { }
             try { ClickAnywhere = dr["Link_ClickAnywhere"].ToString() == "1"; } catch { }
 
             try { Mp3Url = dr["Mp3_Url"].ToString(); } catch { }
             try { ShowPlayer = dr["Mp3_ShowPlayer"].ToString() == "1"; } catch { }
-            try { IconColor = System.Drawing.Color.FromArgb(Convert.ToInt32(dr["Mp3_IconColor"].ToString().Replace("#", "0x"), 16)); } catch { }
+            IconColor = ColorExt.Parse(dr["Mp3_IconColor"], IconColor);
 
             try { ViewOrder = Convert.ToInt32(dr["ViewOrder"].ToString()); } catch { }
 
@@ -343,20 +343,20 @@ namespace avt.DynamicFlashRotator.Net
 
             try { Title = rootNode["Title"].InnerText; } catch { }
             try { DurationSeconds = Convert.ToInt32(rootNode["DurationSeconds"].InnerText); } catch { }
-            try { BackgroundGradientFrom = System.Drawing.Color.FromArgb(Convert.ToInt32(rootNode["BackgroundGradientFrom"].InnerText.Replace("#", "0x"), 16)); } catch { }
-            try { BackgroundGradientTo = System.Drawing.Color.FromArgb(Convert.ToInt32(rootNode["BackgroundGradientTo"].InnerText.Replace("#", "0x"), 16)); } catch { }
+            BackgroundGradientFrom = ColorExt.Parse(rootNode["BackgroundGradientFrom"], BackgroundGradientFrom);
+            BackgroundGradientTo = ColorExt.Parse(rootNode["BackgroundGradientTo"], BackgroundGradientTo);
 
             try { SlideUrl = rootNode["Link_Url"].InnerText; } catch { }
             try { ButtonCaption = rootNode["Link_Caption"].InnerText; } catch { }
-            try { BtnTextColor = System.Drawing.Color.FromArgb(Convert.ToInt32(rootNode["BtnTextColor"].InnerText.Replace("#", "0x"), 16)); } catch { }
-            try { BtnBackColor = System.Drawing.Color.FromArgb(Convert.ToInt32(rootNode["BtnBackColor"].InnerText.Replace("#", "0x"), 16)); } catch { }
+            BtnTextColor = ColorExt.Parse(rootNode["BtnTextColor"], BtnTextColor);
+            BtnBackColor = ColorExt.Parse(rootNode["BtnBackColor"], BtnBackColor);
             try { Target = rootNode["Link_Target"].InnerText; } catch { }
             try { UseTextsBackground = rootNode["Link_UseTextsBackground"].InnerText == "true"; } catch { }
             try { ClickAnywhere = rootNode["Link_ClickAnywhere"].InnerText == "true"; } catch { }
 
             //try { Mp3Url = rootNode["Mp3_Url"].InnerText; } catch { }
             //try { ShowPlayer = rootNode["Mp3_ShowPlayer"].InnerText == "true"; } catch { }
-            //try { IconColor = System.Drawing.Color.FromArgb(Convert.ToInt32(rootNode["Mp3_IconColor"].InnerText.Replace("#", "0x"), 16)); } catch { }
+            //try { IconColor = ColorExt.Parse(rootNode["Mp3_IconColor"].InnerText.Replace("#", "0x"), 16)); } catch { }
 
             try { ViewOrder = Convert.ToInt32(rootNode["ViewOrder"].InnerText); } catch { }
             Save();
