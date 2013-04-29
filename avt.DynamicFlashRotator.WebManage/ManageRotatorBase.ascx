@@ -284,7 +284,7 @@
                 </div>
 
                 <div class="pnlSlideExtra">
-                    <a href = "#" class="slideExtraBtn" onclick="cloneSlide(jQuery(this).parents('.slideRoot:first')); return false;" style="margin-top: 70px">Clone</a><a href = "#" class="slideExtraBtn" onclick="deleteSlide(jQuery(this).parents('.slideRoot:first')); return false;">Delete</a>
+                    <a href = "#" class="slideExtraBtn" onclick="cloneSlide($(this).parents('.slideRoot:first')); return false;" style="margin-top: 70px">Clone</a><a href = "#" class="slideExtraBtn" onclick="deleteSlide($(this).parents('.slideRoot:first')); return false;">Delete</a>
                 </div>
 
                 <div class = "pnlSlideOptGroups">
@@ -325,10 +325,10 @@
                             </select>
                             <input type="text" class = "tbUrl tbLinkUrl tooltip_hover" style = "width: 200px;" value="<%= DefaultSlide.SlideUrl %>" title="This field determines the page to redirect to when the user clicks the slide link. Use <i>Named Window...</i> option to specify your own window name." />
                             <b>in </b> 
-                            <asp:DropDownList runat="server" id="ddLinkTarget" class="ddLinkTarget tooltip_hover" style="width:130px" onchange="jQuery(this).toggle(jQuery(this).val() != 'other'); jQuery(this).parents('.fieldRow:first').find('.pnlLinkTarget').toggle(jQuery(this).val() == 'other').filter(':visible').find(':input').focus().select();" title="Use this option to determine the browser window where the link will be opened."></asp:DropDownList>
+                            <asp:DropDownList runat="server" id="ddLinkTarget" class="ddLinkTarget tooltip_hover" style="width:130px" onchange="$(this).toggle($(this).val() != 'other'); $(this).parents('.fieldRow:first').find('.pnlLinkTarget').toggle($(this).val() == 'other').filter(':visible').find(':input').focus().select();" title="Use this option to determine the browser window where the link will be opened."></asp:DropDownList>
                             <span class = "pnlLinkTarget" style="display:none;">
                                 <input type="text" class = "tbLinkTarget tooltip_hover" style = "width: 116px; " value="<%= DefaultSlide.Target %>" title="This fields determines the page to redirect to when the user clicks the slide link. Click link next to this field to go back to standard targets drop down." />
-                                <a href = "javascript: ;" onclick="jQuery(this).parents('.pnlLinkTarget:first').hide(); jQuery(this).parents('.fieldRow:first').find('.ddLinkTarget').show().val('_self');">^</a>
+                                <a href = "javascript: ;" onclick="$(this).parents('.pnlLinkTarget:first').hide(); $(this).parents('.fieldRow:first').find('.ddLinkTarget').show().val('_self');">^</a>
                             </span>
                         </div>
                         <div class = "fieldRow ui-widget-content" style="clear: left;">
@@ -339,7 +339,7 @@
                         </div>
                         <div class = "fieldRow ui-widget-content" style="clear: left;">
                             <label style="font-weight:bold;" class = "tooltip_hover" title="When this option is on, a Link Button is added below the slide text that when clicked activates the URL specified above.">
-                                <input type="checkbox" class="cbLinkCaption" style = "" onclick="checkLinkCaption(jQuery(this).parents('.pnlSlideOptsLink:first'), this.checked);" />
+                                <input type="checkbox" class="cbLinkCaption" style = "" onclick="checkLinkCaption($(this).parents('.pnlSlideOptsLink:first'), this.checked);" />
                                 <b>Display link button under slide text</b> 
                             </label>
                         </div>
@@ -367,8 +367,8 @@
                     </ul>
                         
                     <div style = "background-color: #F2F2FF; border-top: 1px solid #C2C2C2; padding: 3px 4px 2px 186px;">
-                        <a href = "#" onclick="addSlideText(jQuery(this).parents('.slideRoot:first')); return false;" class="btnAddObject btnAddObjectText"><img src="<%= TemplateSourceDirectory %>/res/img/add.gif" border="0" /> Add Text</a>
-                        <a href = "#" onclick="addSlideImage(jQuery(this).parents('.slideRoot:first')); return false;" class="btnAddObject btnAddObjectImage"><img src="<%= TemplateSourceDirectory %>/res/img/add.gif" border="0" /> Add Image/Flash</a>
+                        <a href = "#" onclick="addSlideText($(this).parents('.slideRoot:first')); return false;" class="btnAddObject btnAddObjectText"><img src="<%= TemplateSourceDirectory %>/res/img/add.gif" border="0" /> Add Text</a>
+                        <a href = "#" onclick="addSlideImage($(this).parents('.slideRoot:first')); return false;" class="btnAddObject btnAddObjectImage"><img src="<%= TemplateSourceDirectory %>/res/img/add.gif" border="0" /> Add Image/Flash</a>
                     </div>
                 </div>
 
@@ -535,13 +535,18 @@
                             </select>
                             <input type="text" class = "tbUrl tbObjectUrl tbRequired tooltip_hover" style = "width: 270px;" title="Instruct Dynamic Rotator where to find this resource." />
                             <div style="text-align: right; margin-right:6px;">
-                                <a href = "#" onclick="browseServerForResources(jQuery(this).parents('.objFieldRow')); return false;" style="color: #EB8F00;">Browse Server &raquo;</a>
+                                <a href = "#" onclick="browseServerForResources($(this).parents('.objFieldRow')); return false;" style="color: #EB8F00;">Browse Server &raquo;</a>
                             </div>
                         </td>
                     </tr>
                     <tr class = "objFieldRow ui-widget-content objFieldTextOnly">
                         <td class = "ui-widget-content hdr">Text:</td>
-                        <td class = "ui-widget-content"><textarea class = "tbObjText tooltip_hover" style = "width: 380px; height: 60px;" title="Note that you can use html tags (such as <i>i,b,u,a,font,etc</i>) to format the text.<br />This field can contain My Tokens."></textarea></td>
+                        <td class = "ui-widget-content">
+                            <textarea class = "tbObjText tooltip_hover" cols="50" style = "width: 395px; height: 182px;" title="Note that you can use html tags (such as <i>i,b,u,a,font,etc</i>) to format the text.<br />This field can contain My Tokens."></textarea>
+                            <br />
+                            <label><input type="radio" name="tbObjTextEditorType" value="editor" checked="checked" />Editor</label>
+                            <label><input type="radio" name="tbObjTextEditorType" value="raw" />Raw HTML</label>
+                        </td>
                     </tr>
                         
                 </table>
@@ -688,7 +693,7 @@
     <div class="fileLoader"></div>
     <div style="clear:both;"></div>
     <div class = "folderPane" style ="float: left; padding: 6px; width: 220px; height: 300px; overflow: auto; border: 1px solid #e2e2e2;">
-        <a href = "#" onclick="getFiles(jQuery(this).attr('')); generateBreads(jQuery(this)); return false;" class="folderRoot"><%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.Configuration.BrowseServerForResources.RootName %></a>
+        <a href = "#" onclick="getFiles($(this).attr('')); generateBreads($(this)); return false;" class="folderRoot"><%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.Configuration.BrowseServerForResources.RootName %></a>
     </div>
     <div style ="height: 300px; padding: 6px; overflow: auto; border: 1px solid #e2e2e2;">
         <div style="padding: 4px; background-color: #f2f2f2; border: 1px solid #c2c2c2;" class="breadPane">
@@ -710,19 +715,19 @@
 
     var g_isDragging = false;
 
-    jQuery(document).ready(function() {
+    jQuery(function($) {
     
-        jQuery("#mainLoading").hide();
-        jQuery("#mainTabs").tabs({ }).show();
-        <%= _ActiveTab != -1 ? "jQuery('#mainTabs').tabs('select', " + _ActiveTab + ");" : "" %>
+        $("#mainLoading").hide();
+        $("#mainTabs").tabs({ }).show();
+        <%= _ActiveTab != -1 ? "$('#mainTabs').tabs('select', " + _ActiveTab + ");" : "" %>
             
-        jQuery(".btnPane").show();
+        $(".btnPane").show();
         
-        applyColorpicker(jQuery("#tabs-main-settings"));
-        applyUrlFormatters(jQuery("#objSettingsTabs"));
+        applyColorpicker($("#tabs-main-settings"));
+        applyUrlFormatters($("#objSettingsTabs"));
         
         // init slides
-        jQuery("#slides").sortable({
+        $("#slides").sortable({
             handle: ".dragHandle",
             placeholder: 'slidePlaceholder',
             update: function(event, ui) {
@@ -730,28 +735,28 @@
             }
         });
         
-        jQuery(".slideOptsGroup")
+        $(".slideOptsGroup")
             .live("mouseover", function() {
-                if (jQuery(this).hasClass("ui-state-hover"))
+                if ($(this).hasClass("ui-state-hover"))
                     return;
-                jQuery(this).removeClass("ui-state-default").addClass("ui-state-active");
+                $(this).removeClass("ui-state-default").addClass("ui-state-active");
             })
             .live("mouseout", function() {
-                if (jQuery(this).hasClass("ui-state-hover"))
+                if ($(this).hasClass("ui-state-hover"))
                     return;
-                jQuery(this).removeClass("ui-state-active").addClass("ui-state-default");
+                $(this).removeClass("ui-state-active").addClass("ui-state-default");
             })
             .live("click", function() {
             
-                jQuery(this).parents(".pnlSlideOptGroups:first").find(".slideOptsGroup").removeClass("ui-state-hover").addClass("ui-state-default");
-                jQuery(this).addClass("ui-state-hover").removeClass("ui-state-default").removeClass("ui-state-active");
+                $(this).parents(".pnlSlideOptGroups:first").find(".slideOptsGroup").removeClass("ui-state-hover").addClass("ui-state-default");
+                $(this).addClass("ui-state-hover").removeClass("ui-state-default").removeClass("ui-state-active");
                     
-                var _root = jQuery(this).parents(".slideRoot:first");
+                var _root = $(this).parents(".slideRoot:first");
                 _root.find(".pnlSlideOpts").hide();
-                _root.find(".pnlSlideOpts").eq(_root.find(".slideOptsGroup").index(jQuery(this))).show();
+                _root.find(".pnlSlideOpts").eq(_root.find(".slideOptsGroup").index($(this))).show();
                     
-                applyColorpicker(jQuery(this));
-                applyUrlFormatters(jQuery(this));
+                applyColorpicker($(this));
+                applyUrlFormatters($(this));
             });
 
         var slides = <%= hdnSlideXml.Value %>;
@@ -759,7 +764,7 @@
             loadSlide(slides[i]);
         }
 
-        jQuery("#dlgFileBrowserResource").dialog({
+        $("#dlgFileBrowserResource").dialog({
             bgiframe: false,
             autoOpen: false,
             title: "Browse Server",
@@ -770,16 +775,17 @@
 
             buttons: {
                 'Close': function() {
-                    jQuery("#dlgFileBrowserResource").dialog('close');
+                    $("#dlgFileBrowserResource").dialog('close');
                 }
             }
         });
 
 
-        jQuery("#dlgObjectSettings").dialog({
+        $("#dlgObjectSettings").dialog({
             bgiframe: false,
             autoOpen: false,
             title: "Object Settings",
+            height: 500,
             width: 600,
             modal: true,
             resizable: false,
@@ -787,7 +793,7 @@
 
             buttons: {
                 'Save': function() {
-                    var _dlg = jQuery("#dlgObjectSettings");
+                    var _dlg = $("#dlgObjectSettings");
 
                     _dlg.find("#slideObjErr").hide();
                     _dlg.find(".tbErr").removeClass("tbErr");
@@ -797,27 +803,27 @@
                     _dlg.find(".tbRequired").each(function() { // .not(_dlg.find(".itemType").text().toLowerCase() == "text" ? ".objFieldImgOnly" :".objFieldTextOnly")
                             
                         if (_dlg.find(".itemType").text().toLowerCase() == "text") {
-                            if (jQuery(this).parents(".objFieldImgOnly").size() > 0)
+                            if ($(this).parents(".objFieldImgOnly").size() > 0)
                                 return;
                         } else {
-                            if (jQuery(this).parents(".objFieldTextOnly").size() > 0)
+                            if ($(this).parents(".objFieldTextOnly").size() > 0)
                                 return;
                         }
 
-                        if (jQuery.trim(jQuery(this).val()).length == 0) {
-                            jQuery(this).addClass("tbErr");
+                        if ($.trim($(this).val()).length == 0) {
+                            $(this).addClass("tbErr");
                                 
                             // make sure the tab with the error is visible
                             if (isValid) {
-                                _dlg.find("[href='#"+jQuery(this).parents(".ui-tabs-panel:first").attr("id")+"']").click();
-                                jQuery(this).focus();
+                                _dlg.find("[href='#"+$(this).parents(".ui-tabs-panel:first").attr("id")+"']").click();
+                                $(this).focus();
                                 isValid = false;
                             }
                         }
                     });
 
                     if (!isValid) {
-                        jQuery("#slideObjErr").show();
+                        $("#slideObjErr").show();
                         return;
                     }
 
@@ -830,15 +836,15 @@
                     }
 
                     // reset to first tab
-                    jQuery("#objSettingsTabs").tabs("select",0);
+                    $("#objSettingsTabs").tabs("select",0);
 
-                    jQuery("#dlgObjectSettings").dialog('close');
+                    $("#dlgObjectSettings").dialog('close');
                 },
                 'Cancel': function() {
                     // reset to first tab
-                    jQuery("#objSettingsTabs").tabs("select",0);
+                    $("#objSettingsTabs").tabs("select",0);
 
-                    jQuery("#dlgObjectSettings").dialog('close');
+                    $("#dlgObjectSettings").dialog('close');
                 }
             },
             close: function() {
@@ -846,79 +852,100 @@
 
         });
 
-        jQuery("#dlgObjectSettings").find("input").keyup(function(event) {
+        $("#dlgObjectSettings").find("input").keyup(function(event) {
             if (event.keyCode==13) { 
-                jQuery("#dlgObjectSettings").parents(".ui-dialog:first").find(".ui-dialog-buttonpane").find("button:first").click();
+                $("#dlgObjectSettings").parents(".ui-dialog:first").find(".ui-dialog-buttonpane").find("button:first").click();
             }
         });
 
-        jQuery("#objSettingsTabs").tabs({
+        $("#objSettingsTabs").tabs({
             show: function(event, ui) { 
                 if (ui.index == 1) {
                     try {
-                        var _dlg = jQuery("#dlgObjectSettings");
-                        _dlg.find(".tbObjOpacity").next("div").children("div:first").slider("value", jQuery(".tbObjOpacity").val());
-                        _dlg.find(".tbTextBgOpacity").next("div").children("div:first").slider("value", jQuery(".tbTextBgOpacity").val());
+                        var _dlg = $("#dlgObjectSettings");
+                        _dlg.find(".tbObjOpacity").next("div").children("div:first").slider("value", $(".tbObjOpacity").val());
+                        _dlg.find(".tbTextBgOpacity").next("div").children("div:first").slider("value", $(".tbTextBgOpacity").val());
                     } catch (e) {}
                 }
                     
             }
         });
-        applyColorpicker(jQuery("#objSettingsTabs"));
+        applyColorpicker($("#objSettingsTabs"));
 
-        jQuery(".tbRange").each(function() {
-            var _s = jQuery("<div style='margin-left: 10px; margin-right:"+(jQuery(this).width()+20)+"px;padding-top:5px;'><div></div></div>");
+        $(".tbRange").each(function() {
+            var _s = $("<div style='margin-left: 10px; margin-right:"+($(this).width()+20)+"px;padding-top:5px;'><div></div></div>");
             _s.find("div").slider({
-                value: jQuery(this).val(),
+                value: $(this).val(),
                 orientation: "horizontal",
-                min: jQuery(this).attr("min"),
-                max: jQuery(this).attr("max"),
+                min: $(this).attr("min"),
+                max: $(this).attr("max"),
                 range: "min",
                 animate: true,
                 slide: function(event, ui) {
-                    jQuery(this).parent().prev("input").val(ui.value);
+                    $(this).parent().prev("input").val(ui.value);
                 }
             });
-            jQuery(this).css("float", "right");
-            jQuery(this).after(_s);
-            jQuery(this).keyup(function() {
-                if (isNaN(parseInt(jQuery(this).val()))) {
+            $(this).css("float", "right");
+            $(this).after(_s);
+            $(this).keyup(function() {
+                if (isNaN(parseInt($(this).val()))) {
                     return;
                 }
                 try {
-                    jQuery(this).next().find("div").slider("value", jQuery(this).val());
+                    $(this).next().find("div").slider("value", $(this).val());
                 } catch (e) {}
             });
         });
 
 
-        jQuery(".ddAppearMode").find(":input").change(function() {
-            jQuery(this).val() == 'Slide' ? jQuery('#pnlObjSlideParams').show() : jQuery('#pnlObjSlideParams').hide();
+        $(".ddAppearMode").find(":input").change(function() {
+            $(this).val() == 'Slide' ? $('#pnlObjSlideParams').show() : $('#pnlObjSlideParams').hide();
         });
             
         initAllTooltips();
 
-        jQuery("#<%= cbShowBottomButtons.ClientID %>").change(function() {
+        $("#<%= cbShowBottomButtons.ClientID %>").change(function() {
             if (this.checked) {
-                jQuery('.ctlSliderBtn').removeAttr('disabled');
-                jQuery(".ctlSliderBtnLbl").removeClass("ui-state-disabled");
+                $('.ctlSliderBtn').removeAttr('disabled');
+                $(".ctlSliderBtnLbl").removeClass("ui-state-disabled");
             } else {
-                jQuery('.ctlSliderBtn').attr('disabled','disabled');
-                jQuery(".ctlSliderBtnLbl").addClass("ui-state-disabled");
+                $('.ctlSliderBtn').attr('disabled','disabled');
+                $(".ctlSliderBtnLbl").addClass("ui-state-disabled");
             }
         }).change();
 
-        jQuery("#<%= cbShowTopTitle.ClientID %>").change(function() {
+        $("#<%= cbShowTopTitle.ClientID %>").change(function() {
             if (this.checked) {
-                jQuery('.ctlTopTitle').removeAttr('disabled');
-                jQuery(".ctlTopTitleWidget .ui-state-disabled").removeClass("ui-state-disabled");
-                jQuery(".ctlTopTitleLbl").removeClass("ui-state-disabled");
+                $('.ctlTopTitle').removeAttr('disabled');
+                $(".ctlTopTitleWidget .ui-state-disabled").removeClass("ui-state-disabled");
+                $(".ctlTopTitleLbl").removeClass("ui-state-disabled");
             } else {
-                jQuery('.ctlTopTitle').attr('disabled','disabled');
-                jQuery(".ctlTopTitleWidget .ui-widget").addClass("ui-state-disabled");
-                jQuery(".ctlTopTitleLbl").addClass("ui-state-disabled");
+                $('.ctlTopTitle').attr('disabled','disabled');
+                $(".ctlTopTitleWidget .ui-widget").addClass("ui-state-disabled");
+                $(".ctlTopTitleLbl").addClass("ui-state-disabled");
             }
         }).change();
+
+        // initialize text boxes
+        $('.tbObjText').wysiwyg({
+            autoGrow: false,
+            //initialMinHeight: 120,
+            width: '380px',
+            initialContent: '<p>Slide text, supports <strong>HTML</strong></p>',
+            brIE: false,
+            replaceDivWithP: true
+        });
+
+        $('[name=tbObjTextEditorType]').click(function() {
+            var $p = $(this).parents('.objFieldRow:first');
+            if ($(this).val() == "editor") {
+                $p.find('.wysiwyg').show();
+                $p.find('.tbObjText').hide();
+            } else {
+                $p.find('.wysiwyg').hide();
+                $p.find('.tbObjText').show();
+            }
+        });
 
     });
 
@@ -930,12 +957,12 @@
 var g_lastUpdate;
 var g_checkUpdateTimer;
 
-jQuery(document).ready(function() {
+jQuery(function() {
     
-    g_lastUpdate = parseInt(jQuery("#<%= hdnLastUpdate.ClientID %>").val());
+    g_lastUpdate = parseInt($("#<%= hdnLastUpdate.ClientID %>").val());
 
     g_checkUpdateTimer = setInterval(function() {
-        jQuery.post("<%= TemplateSourceDirectory %>/AdminApi.aspx?controlId=<%= Request.QueryString["controlId"]%>&cmd=checkupdate&portalid=<%= Request.QueryString["portalId"] %>", { 
+        $.post("<%= TemplateSourceDirectory %>/AdminApi.aspx?controlId=<%= Request.QueryString["controlId"]%>&cmd=checkupdate&portalid=<%= Request.QueryString["portalId"] %>", { 
                 
             }, function(data) {
                 if (data.error) {
@@ -959,14 +986,14 @@ jQuery(document).ready(function() {
 
     function updateSlideIndexes() {
         var index = 1;
-        jQuery("#slides").find(".slideIndex").each(function() {
-            jQuery(this).text(index++);
+        $("#slides").find(".slideIndex").each(function() {
+            $(this).text(index++);
         });
     }
 
     function addSlide(bNew) {
-        var _item = jQuery("#slideTpl").clone().removeAttr("id");
-        _item.appendTo(jQuery("#slides"));
+        var _item = $("#slideTpl").clone().removeAttr("id");
+        _item.appendTo($("#slides"));
 
         initAllTooltips(_item);
 
@@ -1038,11 +1065,11 @@ jQuery(document).ready(function() {
 
             start: function(event, ui) {
                 g_isDragging = true;
-                jQuery(ui.item).addClass("slideObjectHover");
+                $(ui.item).addClass("slideObjectHover");
             },
 
             stop: function(event, ui) {
-                jQuery(".slideObjectHover").removeClass("slideObjectHover");
+                $(".slideObjectHover").removeClass("slideObjectHover");
                 setTimeout(function() { g_isDragging = false; }, 100);
             }
                  
@@ -1064,7 +1091,7 @@ jQuery(document).ready(function() {
         // also clone all object data
         var iobj = 0;
         slideRoot.find(".slideObject").each(function() {
-            _new.find(".slideObject").eq(iobj)[0].objData = jQuery.extend({}, this.objData, {id:-1, name: this.objData.name + " - Copy"});
+            _new.find(".slideObject").eq(iobj)[0].objData = $.extend({}, this.objData, {id:-1, name: this.objData.name + " - Copy"});
             _new.find(".slideObject").eq(iobj).find(".objTitle").text(_new.find(".slideObject").eq(iobj)[0].objData.name);
             iobj++;
         });
@@ -1088,15 +1115,15 @@ jQuery(document).ready(function() {
         
     function appendSlideObject(slideObj, slideRoot) {
         if (!slideRoot) {
-            slideRoot = jQuery(".slideRootActive");
+            slideRoot = $(".slideRootActive");
         }
 
-        var _item = jQuery("<li class='slideObject'></li>");
+        var _item = $("<li class='slideObject'></li>");
         // determine type
         if (slideObj.itemType.toLowerCase() == "text") {
             _item.addClass("slideObjectText");
         } else if (slideObj.itemType.toLowerCase() == "image") {
-            var resUrl = jQuery.trim(slideObj.resUrl);
+            var resUrl = $.trim(slideObj.resUrl);
             if (resUrl.indexOf(".swf") == resUrl.length - 4) {
                 _item.addClass("slideObjectSwf");
             } else {
@@ -1114,17 +1141,17 @@ jQuery(document).ready(function() {
             .mouseover(function() {
                 if (g_isDragging)
                     return;
-                jQuery(this).addClass("slideObjectHover");
+                $(this).addClass("slideObjectHover");
             })
             .mouseout(function() {
                 if (g_isDragging)
                     return;
-                jQuery(this).removeClass("slideObjectHover");
+                $(this).removeClass("slideObjectHover");
             })
             .click(function() {
                 if (g_isDragging === true)
                     return;
-                openSlideObjectSettings(jQuery(this).parents(".slideRoot:first"), this.objData.itemType, jQuery(this));
+                openSlideObjectSettings($(this).parents(".slideRoot:first"), this.objData.itemType, $(this));
             });
 
         checkSlideObjects(slideRoot);
@@ -1148,7 +1175,7 @@ jQuery(document).ready(function() {
     }
 
     function openSlideObjectSettings(slideRoot, itemType, slideObjItem) {
-        var _dlg = jQuery("#dlgObjectSettings");
+        var _dlg = $("#dlgObjectSettings");
 
         _dlg.find("#slideObjErr").hide();
         _dlg.find(".tbErr").removeClass("tbErr");
@@ -1169,7 +1196,7 @@ jQuery(document).ready(function() {
             _dlg.find(".objectId").text(slideObjItem[0].objData.id);
             _dlg.find(".tbObjName").val(slideObjItem[0].objData.name);
             fillUrl(_dlg.find(".tbLinkUrl"), _dlg.find(".ddLinkUrl"), slideObjItem[0].objData.linkUrl);
-            _dlg.find(".tbObjText").val(slideObjItem[0].objData.htmlContents);
+            _dlg.find(".tbObjText").val(slideObjItem[0].objData.htmlContents).wysiwyg('setContent', slideObjItem[0].objData.htmlContents);
             fillUrl(_dlg.find(".tbObjectUrl"), _dlg.find(".ddObjectUrl"), slideObjItem[0].objData.resUrl);
             _dlg.find(".tbObjDelay").val(slideObjItem[0].objData.delay);
             _dlg.find(".tbObjDuration").val(slideObjItem[0].objData.duration);
@@ -1203,7 +1230,7 @@ jQuery(document).ready(function() {
             _dlg.find(".ddObjEffect").val(slideObjItem[0].objData.effectAfterSlide);
                 
             _dlg[0].slideObjItem = slideObjItem;
-            jQuery("#btnDeleteObj").show();
+            $("#btnDeleteObj").show();
         } else {
             // load defaults
             _dlg.find(".objectId").text("-1");
@@ -1216,6 +1243,8 @@ jQuery(document).ready(function() {
 
             fillUrl(_dlg.find(".tbLinkUrl"), _dlg.find(".ddLinkUrl"), "<%= DefaultObject.Link %>");
             _dlg.find(".tbObjText").val("<%= DefaultObject.Text %>");
+            _dlg.find(".tbObjText").val("<%= DefaultObject.Text %>").wysiwyg('setContent', '<%= DefaultObject.Text %>');
+            
             fillUrl(_dlg.find(".tbObjectUrl"), _dlg.find(".ddObjectUrl"), "<%= DefaultObject.ObjectUrl %>");
             _dlg.find(".tbObjDelay").val("<%= DefaultObject.TimeDelay %>");
             _dlg.find(".tbObjDuration").val("<%= DefaultObject.TransitionDuration %>");
@@ -1246,16 +1275,16 @@ jQuery(document).ready(function() {
             _dlg.find(".ddObjMoveType").find("[value=<%= DefaultObject.SlideMoveType.ToString() %>]").attr("checked", "checked");
             _dlg.find(".ddObjEasingType").find("[value=<%= DefaultObject.SlideEasingType.ToString() %>]").attr("checked", "checked");
             _dlg.find(".ddObjEffect").val("<%= DefaultObject.EffectAfterSlide.ToString() %>");
-            jQuery("#btnDeleteObj").hide();
+            $("#btnDeleteObj").hide();
         }
 
-        jQuery("#objSettingsTabs").tabs("select",0);
+        $("#objSettingsTabs").tabs("select",0);
         _dlg.dialog("open");
 
         _dlg.find(".tbObjName").focus().select();
             
-        jQuery(".ui-button").removeClass("ui-state-focus");
-        jQuery(".slideRoot").removeClass("slideRootActive");
+        $(".ui-button").removeClass("ui-state-focus");
+        $(".slideRoot").removeClass("slideRootActive");
         slideRoot.addClass("slideRootActive");
 
         applyColorPreviews(_dlg);
@@ -1263,13 +1292,13 @@ jQuery(document).ready(function() {
 
     function deleteSlideObject(slideOjectRoot) {
         if (!slideOjectRoot) {
-            slideOjectRoot = jQuery("#dlgObjectSettings")[0].slideObjItem;
+            slideOjectRoot = $("#dlgObjectSettings")[0].slideObjItem;
         }
         if (confirm("Are you sure you want to delete this Slide Object?")) {
             var slideRoot = slideOjectRoot.parents(".slideRoot:first");
             slideOjectRoot.remove();
             checkSlideObjects(slideRoot);
-            jQuery("#dlgObjectSettings").dialog('close');
+            $("#dlgObjectSettings").dialog('close');
         }
             
     }
@@ -1325,9 +1354,9 @@ jQuery(document).ready(function() {
 
     function save() {
         var bErr = false;
-        jQuery(".fieldRowErr").removeClass("fieldRowErr");
-        jQuery(".slideRoot").not("#slideTpl").each(function() {
-            if (!validateSlide(jQuery(this))) {
+        $(".fieldRowErr").removeClass("fieldRowErr");
+        $(".slideRoot").not("#slideTpl").each(function() {
+            if (!validateSlide($(this))) {
                 bErr = true;
             }
         });
@@ -1336,11 +1365,11 @@ jQuery(document).ready(function() {
             return false;
 
         var x = "<slides>";
-        jQuery(".slideRoot").not("#slideTpl").each(function() {
-            x += saveSlideToXml(jQuery(this));
+        $(".slideRoot").not("#slideTpl").each(function() {
+            x += saveSlideToXml($(this));
         });
         x += "</slides>";
-        jQuery("#<%=hdnSlideXml.ClientID %>").val(encodeXml(x));
+        $("#<%=hdnSlideXml.ClientID %>").val(encodeXml(x));
 
         // stop timers
         clearInterval(g_checkUpdateTimer);
@@ -1349,7 +1378,7 @@ jQuery(document).ready(function() {
     }
 
     function validateSlide(slideRoot) {
-        if (isNaN(parseInt(jQuery.trim(slideRoot.find(".tbDuration").val())))) {
+        if (isNaN(parseInt($.trim(slideRoot.find(".tbDuration").val())))) {
             slideRoot.find(".tbDuration").parents(".fieldRow:first").addClass("fieldRowErr");
             return false;
         }
@@ -1359,7 +1388,7 @@ jQuery(document).ready(function() {
     function saveSlideToXml(slideRoot) {
         var x = "<slide>";
         x += "<id>"+ slideRoot.find(".slideId").text() +"</id>";
-        x += "<viewOrder>"+ jQuery(".slideRoot").index(slideRoot) +"</viewOrder>";
+        x += "<viewOrder>"+ $(".slideRoot").index(slideRoot) +"</viewOrder>";
 
         x += "<title>"+ encodeXml(slideRoot.find(".tbSlideTitle").val()) +"</title>";
         x += "<duration>"+ slideRoot.find(".tbDuration").val() +"</duration>";
@@ -1423,32 +1452,32 @@ jQuery(document).ready(function() {
     <%-- File Helpers -------------------------------------------------------------------------- --%>
 
     function browseServerForResources(propRoot) {
-        var _dlg = jQuery("#dlgFileBrowserResource");
+        var _dlg = $("#dlgFileBrowserResource");
         _dlg.dialog("open");
 
-        jQuery(".selFile").removeClass("selFile");
+        $(".selFile").removeClass("selFile");
         propRoot.addClass("selFile");
 
         _dlg[0].select = function(url) {
-            var propRoot = jQuery(".selFile");
+            var propRoot = $(".selFile");
             propRoot.find(".ddUrl").val("other");
             propRoot.find(".tbUrl").val(url);
             propRoot.removeClass("selFile");
         };
 
         if (_dlg.find(".folderPane ul").size() == 0) {
-            loadFolders("", jQuery("#dlgFileBrowserResource").find(".folderPane"));
+            loadFolders("", $("#dlgFileBrowserResource").find(".folderPane"));
             getFiles("");
-            generateBreads(jQuery("#dlgFileBrowserResource").find(".folderRoot"));
+            generateBreads($("#dlgFileBrowserResource").find(".folderRoot"));
         }
     }
 
     function loadFolders(parentFolder, appendTo) {
             
-        var _dlg = jQuery("#dlgFileBrowserResource");
+        var _dlg = $("#dlgFileBrowserResource");
         _dlg.find(".fileLoader").show().css("opacity", 0.8);
 
-        jQuery.post("<%= TemplateSourceDirectory %>/AdminApi.aspx?controlId=<%= Request.QueryString["controlId"]%>&cmd=listfolders&resPath=<%= Server.UrlEncode(Request.QueryString["resPath"]) %>&portalid=<%= Request.QueryString["portalId"] %>", { 
+        $.post("<%= TemplateSourceDirectory %>/AdminApi.aspx?controlId=<%= Request.QueryString["controlId"]%>&cmd=listfolders&resPath=<%= Server.UrlEncode(Request.QueryString["resPath"]) %>&portalid=<%= Request.QueryString["portalId"] %>", { 
             relPath: parentFolder
         }, function(data) {
             if (data.error) {
@@ -1458,14 +1487,14 @@ jQuery(document).ready(function() {
                 var _lst = appendTo.children("ul");
                 
                 for (var i = 0; i<data.length; i++) {
-                    var _f = jQuery("<li><a href='#' onclick='expandFolder(jQuery(this).parent()); return false;' class='expand'>&nbsp;+&nbsp;</a><a href='#' onclick='getFiles(jQuery(this).attr(\"relPath\")); generateBreads(jQuery(this)); return false;' class='folder' relPath='"+ data[i].relPath +"'>"+ data[i].name +"</a></li>");
+                    var _f = $("<li><a href='#' onclick='expandFolder($(this).parent()); return false;' class='expand'>&nbsp;+&nbsp;</a><a href='#' onclick='getFiles($(this).attr(\"relPath\")); generateBreads($(this)); return false;' class='folder' relPath='"+ data[i].relPath +"'>"+ data[i].name +"</a></li>");
                     if (!data[i].hasChildren) {
                         _f.find(".expand").css("visibility", "hidden");
                     }
                     _lst.append(_f);
                 }
             }
-            jQuery("#dlgFileBrowserResource").find(".fileLoader").fadeOut();
+            $("#dlgFileBrowserResource").find(".fileLoader").fadeOut();
         }, "json");
     }
 
@@ -1485,18 +1514,18 @@ jQuery(document).ready(function() {
 
     function getFiles(_folder) {
             
-        var _dlg = jQuery("#dlgFileBrowserResource");
+        var _dlg = $("#dlgFileBrowserResource");
         _dlg.find(".fileLoader").show().css("opacity", 0.8);
-        jQuery("#dlgFileBrowserResource").find(".filePane").empty();
+        $("#dlgFileBrowserResource").find(".filePane").empty();
 
-        jQuery.post("<%= TemplateSourceDirectory %>/AdminApi.aspx?controlId=<%= Request.QueryString["controlId"]%>&cmd=listfiles&resPath=<%= Server.UrlEncode(Request.QueryString["resPath"]) %>&portalid=<%= Request.QueryString["portalId"] %>", { 
+        $.post("<%= TemplateSourceDirectory %>/AdminApi.aspx?controlId=<%= Request.QueryString["controlId"]%>&cmd=listfiles&resPath=<%= Server.UrlEncode(Request.QueryString["resPath"]) %>&portalid=<%= Request.QueryString["portalId"] %>", { 
             //relPath: _folder.children(".folder").attr("relPath")
             relPath: _folder
         }, function(data) {
             if (data.error) {
                 alert("An error has occured: " + data.error);
             } else {
-                var _filePane = jQuery("#dlgFileBrowserResource").find(".filePane").empty();
+                var _filePane = $("#dlgFileBrowserResource").find(".filePane").empty();
                 if (data.length == 0) {
                     _filePane.append("<div style = 'margin: 40px; font-style: italic; color: #626262;'>No image or swf files in this folder...</div>");
                 } else {
@@ -1504,12 +1533,12 @@ jQuery(document).ready(function() {
                     var _lst = _filePane.children("ul");
                 
                     for (var i = 0; i<data.length; i++) {
-                        var _f = jQuery("<li><a href='<%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.Configuration.BrowseServerForResources.RootFolder.Url %>"+ data[i].fullUrl +"' onclick='selectImage(jQuery(this)); return false;' onmouseover='previewImage(jQuery(this));' onmouseout='hidePreviewImage(jQuery(this));' class='file' relPath='"+ data[i].relPath +"'>"+ data[i].name +"</a></li>");
+                        var _f = $("<li><a href='<%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.Configuration.BrowseServerForResources.RootFolder.Url %>"+ data[i].fullUrl +"' onclick='selectImage($(this)); return false;' onmouseover='previewImage($(this));' onmouseout='hidePreviewImage($(this));' class='file' relPath='"+ data[i].relPath +"'>"+ data[i].name +"</a></li>");
                         _lst.append(_f);
                     }
                 }
             }
-            jQuery("#dlgFileBrowserResource").find(".fileLoader").fadeOut();
+            $("#dlgFileBrowserResource").find(".fileLoader").fadeOut();
         }, "json");
     }
 
@@ -1519,11 +1548,11 @@ jQuery(document).ready(function() {
             return;
         }
 
-        var _breadPane = jQuery("#dlgFileBrowserResource").find(".breadPane").empty();
+        var _breadPane = $("#dlgFileBrowserResource").find(".breadPane").empty();
         _breadPane.append(_folder.clone().addClass("bread"));
         _folder.parents("ul").prev("a").each(function() {
             _breadPane.prepend("<span>&nbsp;/&nbsp;</span>");
-            _breadPane.prepend(jQuery(this).clone().addClass("bread"));
+            _breadPane.prepend($(this).clone().addClass("bread"));
         });
     }
 
@@ -1545,8 +1574,8 @@ jQuery(document).ready(function() {
     }
 
     function selectImage(_img) {
-        jQuery("#dlgFileBrowserResource").dialog('close');
-        jQuery("#dlgFileBrowserResource")[0].select(_img.attr("href"));
+        $("#dlgFileBrowserResource").dialog('close');
+        $("#dlgFileBrowserResource")[0].select(_img.attr("href"));
     }
 
 </script>
@@ -1583,10 +1612,10 @@ jQuery(document).ready(function() {
             pos = ["most"];
         
         if (!parent)
-            parent = jQuery("body");
+            parent = $("body");
             
-        parent.find('.tooltip_' + cssClass).bt(jQuery.extend({}, btOpts, {
-                offsetParent: jQuery("body"),
+        parent.find('.tooltip_' + cssClass).bt($.extend({}, btOpts, {
+                offsetParent: $("body"),
                 trigger: action,
                 positions: pos
             })
@@ -1601,25 +1630,25 @@ jQuery(document).ready(function() {
     function applyColorpicker(rootElement) {
         applyColorPreviews(rootElement);
         rootElement.find(".tbColor").each(function() {
-            var _this = jQuery(this);
+            var _this = $(this);
             _this.ColorPicker({
                 onSubmit: function(hsb, hex, rgb) {
                     _this.val("#" + hex);
                     _this.parent().css("background-color", "#"+hex);
-                    jQuery(".colorpicker").hide();
+                    $(".colorpicker").hide();
                 },
                 onBeforeShow: function () {
-                    jQuery(this).ColorPickerSetColor(this.value);
+                    $(this).ColorPickerSetColor(this.value);
                 }
             });
         });
             
-        jQuery(".colorpicker").css("z-index", "1100");
+        $(".colorpicker").css("z-index", "1100");
     }
 
     function applyColorPreviews(_root) {
         _root.find(".tbColor").each(function() {
-            jQuery(this).parent().css("background-color", jQuery(this).val());
+            $(this).parent().css("background-color", $(this).val());
         });
     }
 
@@ -1629,7 +1658,7 @@ jQuery(document).ready(function() {
     <%-- URL Helpers -------------------------------------------------------------------------- --%>
 
     function formatUrl(tb,dd) {
-        if (jQuery.trim(tb.val()).length == 0)
+        if ($.trim(tb.val()).length == 0)
             return "";
         if (!dd)
             dd = tb.parents(".fieldRow.:first").find(".ddUrl");
@@ -1664,8 +1693,8 @@ jQuery(document).ready(function() {
     function applyUrlFormatters(rootElement) {
             
         rootElement.find(".tbUrl").each(function() {
-            jQuery(this).bind('keyup', function(e) {
-                var tb = jQuery(this);
+            $(this).bind('keyup', function(e) {
+                var tb = $(this);
                 var dd = tb.prev();
                 var url = tb.val();
 

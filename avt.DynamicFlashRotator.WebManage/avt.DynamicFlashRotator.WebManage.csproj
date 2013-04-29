@@ -20,6 +20,10 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -81,6 +85,12 @@
     <Content Include="res\ui-lightness\images\ui-icons_ffd27a_256x240.png" />
     <Content Include="res\ui-lightness\images\ui-icons_ffffff_256x240.png" />
     <Content Include="res\ui-lightness\jquery-ui.css" />
+    <Content Include="res\wysiwyg\jquery.wysiwyg.bg.png" />
+    <Content Include="res\wysiwyg\jquery.wysiwyg.css" />
+    <Content Include="res\wysiwyg\jquery.wysiwyg.gif" />
+    <Content Include="res\wysiwyg\jquery.wysiwyg.min.css" />
+    <Content Include="res\wysiwyg\jquery.wysiwyg2.js" />
+    <Content Include="res\wysiwyg\jquery.wysiwyg2.min.js" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminApi.aspx.cs">
@@ -133,6 +143,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="deploy.cmd" />
+    <Content Include="res\wysiwyg\jquery.wysiwyg.css.gzip" />
+    <Content Include="res\wysiwyg\jquery.wysiwyg.min.css.gzip" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\avt.DynamicFlashRotator.Net\avt.DynamicFlashRotator.Net.csproj">
