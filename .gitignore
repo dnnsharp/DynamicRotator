@@ -20,3 +20,6 @@
 Flash.Presenter/!lib
 /Flash.Presenter/Presenter.swf
 /Flash.Presenter/.release
+
+.build/package-files
+.build/log.txt

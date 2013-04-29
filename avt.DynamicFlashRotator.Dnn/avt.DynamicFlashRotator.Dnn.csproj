@@ -21,6 +21,11 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <MSBuildCommunityTasksPath>$(SolutionDir)\.build</MSBuildCommunityTasksPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -101,7 +106,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AdminApi.aspx" />
+    <Content Include="License.txt" />
     <Content Include="ManageRotator.aspx" />
+    <Content Include="module.css" />
     <Content Include="RegCore\Activation.aspx" />
     <Content Include="RegCore\QuickStatusAndLink.ascx" />
     <Content Include="RegCore\res\bk.png" />
@@ -112,7 +120,82 @@
     <Content Include="RegCore\res\icon_help_over.png" />
     <Content Include="RegCore\res\style.css" />
     <Content Include="RegCore\UnlockTrial.aspx" />
+    <Content Include="release-notes.html" />
+    <Content Include="res\img\add.gif" />
+    <Content Include="res\img\drag.png" />
+    <Content Include="res\img\flash.png" />
+    <Content Include="res\img\folder.gif" />
+    <Content Include="res\img\help.png" />
+    <Content Include="res\img\help_small.jpg" />
+    <Content Include="res\img\html.png" />
+    <Content Include="res\img\images-small.png" />
+    <Content Include="res\img\images.png" />
+    <Content Include="res\img\loader.gif" />
+    <Content Include="res\img\swf.png" />
+    <Content Include="res\img\text.png" />
+    <Content Include="res\jquery.bt.css" />
+    <Content Include="res\js\colorpicker\css\colorpicker.css" />
+    <Content Include="res\js\colorpicker\css\layout.css" />
+    <Content Include="res\js\colorpicker\images\blank.gif" />
+    <Content Include="res\js\colorpicker\images\colorpicker_background.png" />
+    <Content Include="res\js\colorpicker\images\colorpicker_hex.png" />
+    <Content Include="res\js\colorpicker\images\colorpicker_hsb_b.png" />
+    <Content Include="res\js\colorpicker\images\colorpicker_hsb_h.png" />
+    <Content Include="res\js\colorpicker\images\colorpicker_hsb_s.png" />
+    <Content Include="res\js\colorpicker\images\colorpicker_indic.gif" />
+    <Content Include="res\js\colorpicker\images\colorpicker_overlay.png" />
+    <Content Include="res\js\colorpicker\images\colorpicker_rgb_b.png" />
+    <Content Include="res\js\colorpicker\images\colorpicker_rgb_g.png" />
+    <Content Include="res\js\colorpicker\images\colorpicker_rgb_r.png" />
+    <Content Include="res\js\colorpicker\images\colorpicker_select.gif" />
+    <Content Include="res\js\colorpicker\images\colorpicker_submit.png" />
+    <Content Include="res\js\colorpicker\images\custom_background.png" />
+    <Content Include="res\js\colorpicker\images\custom_hex.png" />
+    <Content Include="res\js\colorpicker\images\custom_hsb_b.png" />
+    <Content Include="res\js\colorpicker\images\custom_hsb_h.png" />
+    <Content Include="res\js\colorpicker\images\custom_hsb_s.png" />
+    <Content Include="res\js\colorpicker\images\custom_indic.gif" />
+    <Content Include="res\js\colorpicker\images\custom_rgb_b.png" />
+    <Content Include="res\js\colorpicker\images\custom_rgb_g.png" />
+    <Content Include="res\js\colorpicker\images\custom_rgb_r.png" />
+    <Content Include="res\js\colorpicker\images\custom_submit.png" />
+    <Content Include="res\js\colorpicker\images\select.png" />
+    <Content Include="res\js\colorpicker\images\select2.png" />
+    <Content Include="res\js\colorpicker\images\slider.png" />
+    <Content Include="res\js\colorpicker\index.html" />
+    <Content Include="res\js\colorpicker\js\colorpicker.js" />
+    <Content Include="res\js\colorpicker\js\eye.js" />
+    <Content Include="res\js\colorpicker\js\utils.js" />
+    <Content Include="res\js\excanvas.js" />
+    <Content Include="res\js\jquery-ui.js" />
+    <Content Include="res\js\jquery.bt.js" />
+    <Content Include="res\js\jquery.js" />
+    <Content Include="res\manage.css" />
+    <Content Include="res\ui-lightness\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="res\ui-lightness\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="res\ui-lightness\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="res\ui-lightness\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="res\ui-lightness\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="res\ui-lightness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="res\ui-lightness\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="res\ui-lightness\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="res\ui-lightness\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="res\ui-lightness\images\ui-icons_222222_256x240.png" />
+    <Content Include="res\ui-lightness\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="res\ui-lightness\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="res\ui-lightness\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="res\ui-lightness\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="res\ui-lightness\jquery-ui.css" />
+    <Content Include="res\wysiwyg\jquery.wysiwyg.bg.png" />
+    <Content Include="res\wysiwyg\jquery.wysiwyg.css" />
+    <Content Include="res\wysiwyg\jquery.wysiwyg.gif" />
+    <Content Include="res\wysiwyg\jquery.wysiwyg.min.css" />
+    <Content Include="res\wysiwyg\jquery.wysiwyg2.js" />
+    <Content Include="res\wysiwyg\jquery.wysiwyg2.min.js" />
+    <Content Include="res\wysiwyg\normalize.css" />
     <Content Include="Rotator.ascx" />
+    <Content Include="packages.config" />
+    <Content Include="version.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\avt.DynamicFlashRotator.Net\avt.DynamicFlashRotator.Net.csproj">
@@ -127,9 +210,32 @@
   <ItemGroup>
     <Content Include="Config.ashx" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="avt.DynamicRotator.dnn" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="res\js\colorpicker\images\Thumbs.db" />
+    <Content Include="res\wysiwyg\jquery.wysiwyg.css.gzip" />
+    <Content Include="res\wysiwyg\jquery.wysiwyg.min.css.gzip" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DataProviders\SqlDataProvider\01.00.00.SqlDataProvider" />
+    <Content Include="DataProviders\SqlDataProvider\01.01.00.SqlDataProvider" />
+    <Content Include="DataProviders\SqlDataProvider\01.01.02.SqlDataProvider" />
+    <Content Include="DataProviders\SqlDataProvider\Uninstall.SqlDataProvider" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PublishPackage|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
@@ -138,7 +244,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>6119</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
@@ -163,4 +269,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Import Project="..\.build\PublishPackageDnn.Targets" />
+  <Target Name="AfterBuild" DependsOnTargets="PublishPackage">
+  </Target>
+  <Import Project="$(SolutionDir)\.build\MSBuild.Community.Tasks.targets" />
 </Project>

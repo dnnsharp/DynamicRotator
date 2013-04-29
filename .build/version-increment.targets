@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" Condition="Exists('$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets')" />
+    
+    <Target Name="SetVersionInfo">
+        <Message Text="MSBUILD: getting version from $(MSBuildProjectDirectory)\version.txt ..." Importance="high"></Message>
+        
+        <!-- Obtain Version information from version.txt -->
+        <Version BuildType="None" RevisionType="None" VersionFile="$(MSBuildProjectDirectory)\version.txt">
+            <Output TaskParameter="Major" PropertyName="Major" />
+            <Output TaskParameter="Minor" PropertyName="Minor" />
+            <Output TaskParameter="Build" PropertyName="Build" />
+            <Output TaskParameter="Revision" PropertyName="Revision" />
+        </Version>
+        <Add Numbers="$(Revision);1">
+            <Output TaskParameter="Result" PropertyName="Revision" />
+        </Add>
+        
+        <Message Text="MSBUILD: Updating @(AssemblyInfoFile) with new version: $(Major).$(Minor).$(Build).$(Revision)" Importance="high"></Message>
+        
+        <FileUpdate Files="$(MSBuildProjectDirectory)\Properties\AssemblyInfo.cs" Encoding="ASCII" Regex="AssemblyVersion\(&quot;.*&quot;\)" ReplacementText="AssemblyVersion(&quot;$(Major).$(Minor).$(Build).$(Revision)&quot;)" />
+        <FileUpdate Files="$(MSBuildProjectDirectory)\Properties\AssemblyInfo.cs" Encoding="ASCII" Regex="AssemblyFileVersion\(&quot;.*&quot;\)" ReplacementText="AssemblyFileVersion(&quot;$(Major).$(Minor).$(Build).$(Revision)&quot;)" />
+        <WriteLinesToFile File="$(MSBuildProjectDirectory)\version.txt" Lines="$(Major).$(Minor).$(Build).$(Revision)" Overwrite="true" />
+    </Target>
+    
+    <Target Name="BeforeBuild">
+        <CallTarget Targets="SetVersionInfo" />
+    </Target>
+
+</Project>
+
+

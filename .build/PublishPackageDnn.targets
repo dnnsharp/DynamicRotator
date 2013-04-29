@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- WARNING, WARNING, WARNING -->
+<!-- REMEMBER THAT IF YOU MODIFY THE TARGETS FILE YOU NEED TO CLOSE/OPEN THE PROJECT FOR THE CHANGES TO TAKE EFFECT -->
+
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="MSBuild.Community.Tasks.Targets" />
+    <Target Name="PublishPackage" Condition=" '$(Configuration)|$(Platform)' == 'PublishPackage|AnyCPU' ">
+        <GetAssemblyIdentity AssemblyFiles="bin/release/$(AssemblyName).dll">
+            <Output TaskParameter="Assemblies" ItemName="assemblyInfo"/>
+        </GetAssemblyIdentity>
+
+        <RegexReplace Input="%(assemblyInfo.Version)" Expression="^(\d)\." Replacement="0$1.">
+            <Output PropertyName ="AssemblyVersion" TaskParameter="Output" />
+        </RegexReplace>
+        
+        <RegexReplace Input="$(AssemblyVersion)" Expression="\.(\d)\." Replacement=".0$1.">
+            <Output PropertyName ="AssemblyVersion" TaskParameter="Output" />
+        </RegexReplace>
+		
+		<RegexReplace Input="$(AssemblyVersion)" Expression="\.(\d)\." Replacement=".0$1.">
+            <Output PropertyName ="AssemblyVersion" TaskParameter="Output" />
+        </RegexReplace>
+        
+        <RegexReplace Input="$(AssemblyVersion)" Expression="^(\d{2})\.(\d{2})\.(\d{2})\..*$" Replacement="$1.$2.$3">
+            <Output PropertyName ="AssemblyVersion" TaskParameter="Output" />
+        </RegexReplace>
+
+         <Exec Command="call $(SolutionDir).build/package.cmd $(AssemblyVersion)" /> 
+
+        <!--<Exec Command="echo $(AssemblyVersion)" />-->
+    </Target>
+</Project>

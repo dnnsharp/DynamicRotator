@@ -18,6 +18,9 @@
     <script type = "text/javascript" src = "<%=TemplateSourceDirectory %>/res/js/colorpicker/js/colorpicker.js"></script>
     <script type = "text/javascript" src = "<%=TemplateSourceDirectory %>/res/js/colorpicker/js/eye.js"></script>
     <script type = "text/javascript" src = "<%=TemplateSourceDirectory %>/res/js/colorpicker/js/utils.js"></script>
+
+    <script src="<%=TemplateSourceDirectory %>/res/wysiwyg/jquery.wysiwyg2.js" type="text/javascript"></script>
+    <link href="<%=TemplateSourceDirectory + "/res/wysiwyg/jquery.wysiwyg.css" %>" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
