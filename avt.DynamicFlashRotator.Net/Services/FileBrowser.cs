@@ -63,33 +63,28 @@ namespace avt.DynamicFlashRotator.Net.Services
 
     public class FileBrowser
     {
-        string _RootName;
-        public string RootName { get { return _RootName; } }
-
-        string _RootPhysicalPath;
-        public string RootPhysicalPath { get { return _RootPhysicalPath; } }
-
-        FileBrowser_Folder _RootFolder;
-        public FileBrowser_Folder RootFolder { get { return _RootFolder; } }
+        public string RootName { get; private set; }
+        public string RootPhysicalPath { get; private set; }
+        public FileBrowser_Folder RootFolder { get; private set; }
 
         Dictionary<string, bool> _ext;
 
         public FileBrowser(string rootPhysicalPath, string rootName, params string[] extensions)
         {
-            _RootPhysicalPath = rootPhysicalPath.ToLower().Replace('/', '\\');
-            _RootName = rootName;
+            RootPhysicalPath = rootPhysicalPath.ToLower().Replace('/', '\\');
+            RootName = rootName;
 
             _ext = new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase);
             foreach (string ext in extensions) {
                 _ext[ext] = true;
             }
 
-            _RootFolder = new FileBrowser_Folder();
-            _RootFolder.PhysicalPath = _RootPhysicalPath;
-            _RootFolder.RelativePath = _RootPhysicalPath.Replace(HttpRuntime.AppDomainAppPath.ToLower(), "").Replace('\\', '/');
-            _RootFolder.Url = (HttpRuntime.AppDomainAppVirtualPath == "/" ? "" : HttpRuntime.AppDomainAppVirtualPath.TrimEnd('/')) + "/" + _RootFolder.RelativePath.Trim('/');
-            if (_RootFolder.Url == "/")
-                _RootFolder.Url = "";
+            RootFolder = new FileBrowser_Folder();
+            RootFolder.PhysicalPath = RootPhysicalPath;
+            RootFolder.RelativePath = RootPhysicalPath.Replace(HttpRuntime.AppDomainAppPath.ToLower(), "").Replace('\\', '/');
+            RootFolder.Url = (HttpRuntime.AppDomainAppVirtualPath == "/" ? "" : HttpRuntime.AppDomainAppVirtualPath.TrimEnd('/')) + "/" + RootFolder.RelativePath.Trim('/');
+            if (RootFolder.Url == "/")
+                RootFolder.Url = "";
         }
 
 
@@ -142,6 +137,15 @@ namespace avt.DynamicFlashRotator.Net.Services
             }
 
             return files;
+        }
+
+        public void Upload(string relPath, HttpPostedFile file)
+        {
+            var folderPath = Path.Combine(RootFolder.PhysicalPath, relPath.TrimStart('/'));
+            var filePath = Path.Combine(folderPath, file.FileName);
+            //if (File.Exists(filePath))
+            //    File.Delete(filePath);
+            file.SaveAs(filePath);
         }
 
         public static string ResolveUrl(string relativeUrl)

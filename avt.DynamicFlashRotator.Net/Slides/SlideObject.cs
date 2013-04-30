@@ -45,6 +45,7 @@ namespace avt.DynamicFlashRotator.Net
 
     public enum eAppearMode
     {
+        None,
         Fade,
         Slide
     }

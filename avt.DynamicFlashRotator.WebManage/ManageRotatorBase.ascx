@@ -690,6 +690,7 @@
 
 
 <div id = "dlgFileBrowserResource" style="overflow:visible; display: none;">
+    <asp:HiddenField runat="server" ID ="hdnFilePath" />
     <div class="fileLoader"></div>
     <div style="clear:both;"></div>
     <div class = "folderPane" style ="float: left; padding: 6px; width: 220px; height: 300px; overflow: auto; border: 1px solid #e2e2e2;">
@@ -704,9 +705,17 @@
         </div>
     </div>
     <div style="clear:both;"></div>
-    <div style="font-style: italic; color: #626262;">
+    <div style="font-style: italic; color: #626262; margin-left: 300px;">
         Hover file names for preview, click to select them...
     </div>
+
+    <div style = "position: absolute; margin-top: 30px;">
+        <b>Upload image: </b>
+        <input type="file" name="uplImportFile" /> 
+        <a href = "#" onclick = "AIM.submit(document.forms[0], {'onStart' : function() { $('#dlgFileBrowserResource').find('.fileLoader').show().css('opacity', 0.8); }, 'onComplete' : uploadComplete }); document.forms[0].submit(); return false;" class = "ui-state-default ui-corner-all blue" style = " height: 15px; padding: 5px; margin-right: 20px;">Upload</a>
+        <span id="uplDone" style="display: none;">done</span>
+    </div>
+
 </div>
 
 
@@ -772,6 +781,10 @@
             modal: true,
             resizable: false,
             closeOnEscape: true,
+            
+            open:function() {
+                $(this).parent().appendTo($("form:first"));
+            },
 
             buttons: {
                 'Close': function() {
@@ -1262,7 +1275,11 @@ jQuery(function() {
             _dlg.find(".tbTextBgOpacity").val(<%= DefaultObject.TextBackgroundOpacity %>);
             _dlg.find(".tbTextPadding").val(<%= DefaultObject.TextBackgroundPadding %>);
 
-            _dlg.find(".ddAppearMode").find("[value=<%= DefaultObject.AppearMode.ToString() %>]").attr("checked", "checked").change();
+            if (itemType.toLowerCase() =="text") {
+                _dlg.find(".ddAppearMode").find("[value=<%= DefaultText.AppearMode.ToString() %>]").attr("checked", "checked").change();
+            } else {
+                _dlg.find(".ddAppearMode").find("[value=<%= DefaultObject.AppearMode.ToString() %>]").attr("checked", "checked").change();
+            }
 
             if (itemType.toLowerCase() =="text") {
                 _dlg.find(".ddObjAppearFromText").find("[value=<%= DefaultObject.SlideFrom.ToString() %>]").attr("checked", "checked");
@@ -1451,6 +1468,67 @@ jQuery(function() {
 <script type="text/javascript">
     <%-- File Helpers -------------------------------------------------------------------------- --%>
 
+    var AIM = {
+ 
+        frame : function(c) {
+ 
+            var n = 'f' + Math.floor(Math.random() * 99999);
+            var d = document.createElement('DIV');
+            d.innerHTML = '<iframe style="display:none" src="about:blank" id="'+n+'" name="'+n+'" onload="AIM.loaded(\''+n+'\')"></iframe>';
+            document.body.appendChild(d);
+ 
+            var i = document.getElementById(n);
+            if (c && typeof(c.onComplete) == 'function') {
+                i.onComplete = c.onComplete;
+            }
+ 
+            return n;
+        },
+
+        formEl: null,
+ 
+        form : function(f, name) {
+            f.setAttribute('target', name);
+        },
+ 
+        submit : function(f, c) {
+
+            AIM.form(f, AIM.frame(c));
+            AIM.formEl = f;
+            f.setAttribute('enctype', 'multipart/form-data');
+
+            if (c && typeof(c.onStart) == 'function') {
+                return c.onStart();
+            } else {
+                return true;
+            }
+        },
+ 
+        loaded : function(id) {
+
+            AIM.formEl && AIM.formEl.removeAttribute('enctype');
+            AIM.formEl && AIM.formEl.removeAttribute('target');
+
+            var i = document.getElementById(id);
+            if (i.contentDocument) {
+                var d = i.contentDocument;
+            } else if (i.contentWindow) {
+                var d = i.contentWindow.document;
+            } else {
+                var d = window.frames[id].document;
+            }
+            if (d.location.href == "about:blank") {
+                return;
+            }
+ 
+            if (typeof(i.onComplete) == 'function') {
+                i.onComplete(d.body.innerHTML);
+            }
+        }
+ 
+    }
+
+
     function browseServerForResources(propRoot) {
         var _dlg = $("#dlgFileBrowserResource");
         _dlg.dialog("open");
@@ -1476,6 +1554,7 @@ jQuery(function() {
             
         var _dlg = $("#dlgFileBrowserResource");
         _dlg.find(".fileLoader").show().css("opacity", 0.8);
+        $('#<%= hdnFilePath.ClientID %>').val(parentFolder);
 
         $.post("<%= TemplateSourceDirectory %>/AdminApi.aspx?controlId=<%= Request.QueryString["controlId"]%>&cmd=listfolders&resPath=<%= Server.UrlEncode(Request.QueryString["resPath"]) %>&portalid=<%= Request.QueryString["portalId"] %>", { 
             relPath: parentFolder
@@ -1497,6 +1576,22 @@ jQuery(function() {
             $("#dlgFileBrowserResource").find(".fileLoader").fadeOut();
         }, "json");
     }
+    
+    function uploadComplete() {
+    }
+
+    function uploadComplete() {
+        $('#dlgFileBrowserResource').find('.fileLoader').fadeOut(); 
+        refreshFolder();
+        $('#uplDone').show().fadeOut();
+    }
+
+    function refreshFolder() {
+        getFiles($('#<%= hdnFilePath.ClientID %>').val());
+    }
+
+    function deleteFile() {
+    }
 
     function expandFolder(_folder) {
         if (_folder.children(".expand").hasClass("opened")) {
@@ -1513,10 +1608,11 @@ jQuery(function() {
     }
 
     function getFiles(_folder) {
-            
+
         var _dlg = $("#dlgFileBrowserResource");
         _dlg.find(".fileLoader").show().css("opacity", 0.8);
         $("#dlgFileBrowserResource").find(".filePane").empty();
+        $('#<%= hdnFilePath.ClientID %>').val(_folder);
 
         $.post("<%= TemplateSourceDirectory %>/AdminApi.aspx?controlId=<%= Request.QueryString["controlId"]%>&cmd=listfiles&resPath=<%= Server.UrlEncode(Request.QueryString["resPath"]) %>&portalid=<%= Request.QueryString["portalId"] %>", { 
             //relPath: _folder.children(".folder").attr("relPath")
@@ -1722,4 +1818,6 @@ jQuery(function() {
         });
     }
 
+
+    
 </script>

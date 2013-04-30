@@ -18,7 +18,13 @@ namespace avt.DynamicFlashRotator.Net.WebManage
     public partial class ManageRotatorBase : UserControl
     {
         protected SlideInfo DefaultSlide = new SlideInfo();
-        protected SlideObjectInfo DefaultObject = new SlideObjectInfo();
+        protected SlideObjectInfo DefaultObject = new SlideObjectInfo() {
+            AppearMode = eAppearMode.Fade
+        };
+
+        protected SlideObjectInfo DefaultText = new SlideObjectInfo() {
+            AppearMode = eAppearMode.Slide
+        };
         protected int _ActiveTab = -1;
 
         IConfiguration _Configuration;
@@ -90,7 +96,7 @@ namespace avt.DynamicFlashRotator.Net.WebManage
 
                 ddObjEffect.DataSource = Enum.GetNames(typeof(eEffect));
                 ddObjEffect.DataBind();
-                
+
                 //ddRenderEngine.DataSource = Enum.GetNames(typeof(eRenderEngine));
                 //ddRenderEngine.DataBind();
 
@@ -123,7 +129,34 @@ namespace avt.DynamicFlashRotator.Net.WebManage
 
                 // load slides
                 hdnSlideXml.Value = settings.SlidesToDesignerJson();
+            } else {
+                HandleUploads();
             }
+        }
+
+        void HandleUploads()
+        {
+            if (Request.Files == null || Request.Files.Count == 0 || Request.Files[0].ContentLength <= 0)
+                return;
+
+            RotatorSettings.Configuration.BrowseServerForResources.Upload(hdnFilePath.Value, Request.Files[0]);
+            Response.Clear();
+            Response.Write("{\"success\": true}");
+            Response.End();
+            //try {
+            //    string path = portal.HomeDirectoryMapPath + "\\avt.NavXp.Import." + (DateTime.Now.ToFileTime() >> 16).ToString() + ".zip";
+            //    Request.Files[0].SaveAs(path);
+            //    Server.Execute(TemplateSourceDirectory + "/NavXpApi.aspx?fn=import_summary&format=json&portalid=" + portal.PortalID.ToString() + "&path=" + path); // Response.Write("success");
+            //    try {
+            //        Response.Flush();
+            //        Response.End();
+            //    } catch { }
+            //} catch (Exception ex) {
+            //    if (ex.Message.IndexOf("Thread") == -1) {
+            //        Response.Write("Error uploading file (Server response: " + ex.Message + ")");
+            //    }
+            //}
+            //bEndResponse = true;
         }
 
         double TotalMiliseconds(DateTime date)
