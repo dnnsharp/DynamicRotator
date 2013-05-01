@@ -463,43 +463,43 @@ namespace avt.DynamicFlashRotator.Net.Settings
             return sbJson.ToString();
         }
 
-        public string ToXml()
-        {
-            StringBuilder strXML = new StringBuilder();
-            XmlWriterSettings settings = new XmlWriterSettings();
-            settings.Indent = true;
-            settings.OmitXmlDeclaration = false;
-            settings.Encoding = Encoding.UTF8;
-            XmlWriter Writer = XmlWriter.Create(strXML, settings);
+        //public string ToXml()
+        //{
+        //    StringBuilder strXML = new StringBuilder();
+        //    XmlWriterSettings settings = new XmlWriterSettings();
+        //    settings.Indent = true;
+        //    settings.OmitXmlDeclaration = false;
+        //    settings.Encoding = Encoding.UTF8;
+        //    XmlWriter Writer = XmlWriter.Create(strXML, settings);
 
-            Writer.WriteStartElement("settings");
-            Writer.WriteElementString("stageWidth", Width.Value.ToString());
-            Writer.WriteElementString("stageHeight", Height.Value.ToString());
-            //Writer.WriteElementString("renderEngine", RenderEngine.ToString());
-            Writer.WriteElementString("startSlideShow", AutoStartSlideShow ? "yes" : "no");
-            Writer.WriteElementString("showBottomButtons", ShowBottomButtons ? "yes" : "no");
-            Writer.WriteElementString("showPlayPauseControls", ShowPlayPauseControls ? "yes" : "no");
-            Writer.WriteElementString("backgroundColor", ColorExt.ColorToHexString(BackgroundColor).Replace("#", "0x"));
-            Writer.WriteElementString("showTopTitle", ShowTopTitle ? "yes" : "no");
-            Writer.WriteElementString("topTitleBackground", ColorExt.ColorToHexString(TopTitleBackground).Replace("#", "0x"));
-            Writer.WriteElementString("topTitleBgTransparency", TopTitleBgTransparency.ToString());
-            Writer.WriteElementString("topTitleTextColor", ColorExt.ColorToHexString(TopTitleTextColor).Replace("#", "0x"));
-            Writer.WriteElementString("showTimerBar", ShowTimerBar ? "yes" : "no");
-            //Writer.WriteElementString("randomOrder", RandomOrder ? "yes" : "no");
-            Writer.WriteElementString("smallButtonsColor", ColorExt.ColorToHexString(SlideButtonsColor).Replace("#", "0x"));
-            Writer.WriteElementString("smallButtonsNumberColor", ColorExt.ColorToHexString(SlideButtonsNumberColor).Replace("#", "0x"));
-            Writer.WriteElementString("smallButtonsType", ((int)SlideButtonsType).ToString());
-            Writer.WriteElementString("smallButtonsXoffset", SlideButtonsXoffset.ToString());
-            Writer.WriteElementString("smallButtonsYoffset", SlideButtonsYoffset.ToString());
-            //Writer.WriteElementString("transparentBackground", TransparentBackground ? "yes" : "no");
+        //    Writer.WriteStartElement("settings");
+        //    Writer.WriteElementString("stageWidth", Width.Value.ToString());
+        //    Writer.WriteElementString("stageHeight", Height.Value.ToString());
+        //    //Writer.WriteElementString("renderEngine", RenderEngine.ToString());
+        //    Writer.WriteElementString("startSlideShow", AutoStartSlideShow ? "yes" : "no");
+        //    Writer.WriteElementString("showBottomButtons", ShowBottomButtons ? "yes" : "no");
+        //    Writer.WriteElementString("showPlayPauseControls", ShowPlayPauseControls ? "yes" : "no");
+        //    Writer.WriteElementString("backgroundColor", ColorExt.ColorToHexString(BackgroundColor).Replace("#", "0x"));
+        //    Writer.WriteElementString("showTopTitle", ShowTopTitle ? "yes" : "no");
+        //    Writer.WriteElementString("topTitleBackground", ColorExt.ColorToHexString(TopTitleBackground).Replace("#", "0x"));
+        //    Writer.WriteElementString("topTitleBgTransparency", TopTitleBgTransparency.ToString());
+        //    Writer.WriteElementString("topTitleTextColor", ColorExt.ColorToHexString(TopTitleTextColor).Replace("#", "0x"));
+        //    Writer.WriteElementString("showTimerBar", ShowTimerBar ? "yes" : "no");
+        //    //Writer.WriteElementString("randomOrder", RandomOrder ? "yes" : "no");
+        //    Writer.WriteElementString("smallButtonsColor", ColorExt.ColorToHexString(SlideButtonsColor).Replace("#", "0x"));
+        //    Writer.WriteElementString("smallButtonsNumberColor", ColorExt.ColorToHexString(SlideButtonsNumberColor).Replace("#", "0x"));
+        //    Writer.WriteElementString("smallButtonsType", ((int)SlideButtonsType).ToString());
+        //    Writer.WriteElementString("smallButtonsXoffset", SlideButtonsXoffset.ToString());
+        //    Writer.WriteElementString("smallButtonsYoffset", SlideButtonsYoffset.ToString());
+        //    //Writer.WriteElementString("transparentBackground", TransparentBackground ? "yes" : "no");
 
-            Writer.WriteElementString("DebugMode", DebugMode ? "on" : "off");
-            Writer.WriteEndElement(); // "settings";
+        //    Writer.WriteElementString("DebugMode", DebugMode ? "on" : "off");
+        //    Writer.WriteEndElement(); // "settings";
 
-            Writer.Close();
+        //    Writer.Close();
 
-            return strXML.ToString();
-        }
+        //    return strXML.ToString();
+        //}
 
 
         public string ToJson()

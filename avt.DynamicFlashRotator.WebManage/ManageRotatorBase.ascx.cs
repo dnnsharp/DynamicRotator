@@ -27,17 +27,12 @@ namespace avt.DynamicFlashRotator.Net.WebManage
         };
         protected int _ActiveTab = -1;
 
-        IConfiguration _Configuration;
-        public IConfiguration Configuration { get { return _Configuration; } set { _Configuration = value; } }
+        public IConfiguration Configuration { get; set; }
+        public Type ControllerType { get; set; }
 
-        string _ReturnUrl;
-        public string ReturnUrl { get { return _ReturnUrl; } set { _ReturnUrl = value; } }
+        public string ReturnUrl { get; set; }
+        public string BuyUrl { get; set; }
 
-        string _BuyUrl;
-        public string BuyUrl { get { return _BuyUrl; } set { _BuyUrl = value; } }
-
-        Type _ControllerType;
-        public Type ControllerType { get { return _ControllerType; } set { _ControllerType = value; } }
 
         protected int LastUpdate;
 
@@ -219,13 +214,13 @@ namespace avt.DynamicFlashRotator.Net.WebManage
 
             XmlDocument xmlDocSlides = null;
             //try {
-                xmlDocSlides = new XmlDocument();
-                xmlDocSlides.LoadXml(Server.HtmlDecode(hdnSlideXml.Value));
+            xmlDocSlides = new XmlDocument();
+            xmlDocSlides.LoadXml(Server.HtmlDecode(hdnSlideXml.Value));
             //} catch { xmlDocSlides = null; }
 
             if (xmlDocSlides != null) {
                 foreach (XmlElement xmlSlide in xmlDocSlides.DocumentElement.SelectNodes("slide")) {
-                    
+
                     int slideId = Convert.ToInt32(xmlSlide["id"].InnerText);
                     if (slideId > 0) {
                         existingSlides.Remove(slideId);
@@ -241,6 +236,7 @@ namespace avt.DynamicFlashRotator.Net.WebManage
                     slide.ControlId = Request.QueryString["controlId"];
                     slide.Title = xmlSlide["title"].InnerText;
                     slide.DurationSeconds = Convert.ToInt32(xmlSlide["duration"].InnerText);
+                    slide.Effect = xmlSlide["effect"].InnerText;
                     try { slide.BackgroundGradientFrom = Color.FromArgb(Convert.ToInt32(xmlSlide["bkGradFrom"].InnerText.Replace("#", "0x"), 16)); } catch { slide.BackgroundGradientFrom = Color.Transparent; }
                     try { slide.BackgroundGradientTo = Color.FromArgb(Convert.ToInt32(xmlSlide["bkGradTo"].InnerText.Replace("#", "0x"), 16)); } catch { slide.BackgroundGradientFrom = Color.Transparent; }
                     slide.SlideUrl = xmlSlide["linkUrl"].InnerText;
@@ -252,7 +248,7 @@ namespace avt.DynamicFlashRotator.Net.WebManage
                     //slide.UseTextsBackground = xmlSlide["useTextsBk"].InnerText == "true";
                     slide.UseTextsBackground = true;
                     slide.ClickAnywhere = xmlSlide["linkClickAnywhere"].InnerText == "true";
-                    
+
 
                     //slide.Mp3Url = xmlSlide["mp3Url"].InnerText;
                     //slide.ShowPlayer = xmlSlide["mp3ShowPlayer"].InnerText == "true";
@@ -266,7 +262,7 @@ namespace avt.DynamicFlashRotator.Net.WebManage
                     foreach (SlideObjectInfo slideObj in slide.SlideObjects) {
                         existingSlideObjects.Add(slideObj.Id);
                     }
-                    
+
                     if (xmlSlide["slideObjects"] != null) {
                         int viewOrder = 0;
                         foreach (XmlElement xmlSlideObj in xmlSlide["slideObjects"].SelectNodes("obj")) {
@@ -293,7 +289,7 @@ namespace avt.DynamicFlashRotator.Net.WebManage
                             try { slideObj.Yposition = Convert.ToInt32(xmlSlideObj["posy"].InnerText); } catch { }
                             try { slideObj.Width = Convert.ToInt32(xmlSlideObj["width"].InnerText); } catch { }
                             try { slideObj.VerticalAlign = (eVerticalAlign)Enum.Parse(typeof(eVerticalAlign), xmlSlideObj["valign"].InnerText, true); } catch { }
-                            
+
                             try { slideObj.GlowSize = Convert.ToInt32(xmlSlideObj["glowSize"].InnerText); } catch { }
                             try { slideObj.GlowStrength = Convert.ToInt32(xmlSlideObj["glowStrength"].InnerText); } catch { }
                             try { slideObj.GlowColor = Color.FromArgb(Convert.ToInt32(xmlSlideObj["glowColor"].InnerText.Replace("#", "0x"), 16)); } catch { }
@@ -336,7 +332,7 @@ namespace avt.DynamicFlashRotator.Net.WebManage
                 RotatorSettings.LoadFromPortableXml(xmlDoc.DocumentElement, Request.QueryString["controlId"]);
             } catch (Exception ex) {
                 validImportXml.IsValid = false;
-                validImportXml.Text = "The XML is invalid (inner exception: " + ex.Message + "<be/>" + ex.StackTrace +")";
+                validImportXml.Text = "The XML is invalid (inner exception: " + ex.Message + "<be/>" + ex.StackTrace + ")";
                 _ActiveTab = 2;
                 return;
             }

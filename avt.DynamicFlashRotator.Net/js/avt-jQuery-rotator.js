@@ -290,7 +290,13 @@
         this._showSlide = function (iSlide, fn) {
             var _slide = this.container.find(".avtSlide:eq(" + iSlide + ")");
             this.container.find(".avtRotBg").fadeOut(this.settings.fadeOutEasing, this.settings.fadeOutEasing);
-            _slide.fadeIn(this.settings.fadeInDuration, this.settings.fadeInEasing, fn);
+
+            if (this.settings.slides[iSlide].effect == "Fade") {
+                _slide.fadeIn(this.settings.fadeInDuration, this.settings.fadeInEasing, fn);
+            } else {
+                _slide.show();
+                fn.call(_slide[0]);
+            }
 
             // animate objects
             _slide.find(".avtSlideObj").hide();
@@ -314,8 +320,13 @@
             //if (!this.settings.paused) {
             _slide.timerChange = setTimeout(function () {
                 _self.container.find(".avtRotBg").fadeIn(_self.settings.fadeInDuration, _self.settings.fadeInEasing);
-                _slide.fadeOut(_self.settings.fadeOutEasing, _self.settings.fadeOutEasing, fn);
-            }, this.settings.textDelay);
+                if (_self.settings.slides[iSlide].effect == "Fade") {
+                    _slide.fadeOut(_self.settings.fadeOutEasing, _self.settings.fadeOutEasing, fn);
+                } else {
+                    _slide.hide();
+                    fn.call(_slide[0]);
+                }
+            }, _self.settings.slides[iSlide].effect == "Fade" ? this.settings.textDelay : 0);
             //}
 
             // animate objects
@@ -363,8 +374,10 @@
                     "margin-top": opts.posy
                 }, opts.duration * 1000, "easeOutExpo");
 
-            } else {
+            } else if (opts.appearMode == 'Fade') {
                 sObj.stop(true, true).fadeIn(opts.duration * 1000, "easeOutExpo");
+            } else {
+                sObj.stop(true, true).show();
             }
         }
 

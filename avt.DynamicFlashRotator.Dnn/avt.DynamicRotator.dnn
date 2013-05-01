@@ -1,4 +1,4 @@
-<dotnetnuke version="5.0" type="Package" xmlns:fo="http://www.w3.org/1999/XSL/Format">
+﻿<dotnetnuke version="5.0" type="Package" xmlns:fo="http://www.w3.org/1999/XSL/Format">
   <packages>
     <package name="avt.Dynamic Rotator.NET" type="Module" version="01.02.17">
       <friendlyName>avt.Dynamic Rotator.NET</friendlyName>
@@ -30,6 +30,10 @@
               <name>DataProviders\SqlDataProvider\01.01.02.SqlDataProvider</name>
               <version>01.01.02</version>
             </script>
+              <script type="Install">
+                  <name>DataProviders\SqlDataProvider\01.02.18.SqlDataProvider</name>
+                  <version>01.02.18</version>
+              </script>
             <script type="UnInstall">
               <name>DataProviders\SqlDataProvider\Uninstall.SqlDataProvider</name>
               <version>01.02.17</version>

@@ -40,7 +40,7 @@ namespace avt.DynamicFlashRotator.Net.Data
                 config.DbOwner + config.ObjQualifier + "avtRotator_Slides",
                 true,
                 new string[] { "SlideId" },
-                "ControlId", "Title", "DurationSeconds", "BackgroundGradientFrom", "BackgroundGradientTo",
+                "ControlId", "Title", "DurationSeconds", "Effect", "BackgroundGradientFrom", "BackgroundGradientTo",
                 "Link_Url", "Link_Caption", "BtnTextColor", "BtnBackColor", "Link_Target", "Link_UseTextsBackground", "Link_ClickAnywhere",
                 "Mp3_Url", "Mp3_ShowPlayer", "Mp3_IconColor",
                 "ViewOrder"
@@ -98,13 +98,13 @@ namespace avt.DynamicFlashRotator.Net.Data
         #region Slides
 
         public override int UpdateSlide(
-            int slideId, string controlId, string title, int durationSeconds, string backgroundGradientFrom, string backgroundGradientTo,
+            int slideId, string controlId, string title, int durationSeconds, string effect, string backgroundGradientFrom, string backgroundGradientTo,
             string linkUrl, string linkCaption, string btnTextColor, string btnBackColor, string linkTarget, bool useTextsBk, bool clickAnywhere,
             string mp3LinkUrl, bool mp3ShowPlayer, string mp3IconColor,
             int viewOrder)
         {
             return _TableSlides.Update(
-                new object[] { slideId }, controlId, title, durationSeconds, backgroundGradientFrom, backgroundGradientTo,
+                new object[] { slideId }, controlId, title, durationSeconds, effect, backgroundGradientFrom, backgroundGradientTo,
                 linkUrl, linkCaption, btnTextColor, btnBackColor, linkTarget, useTextsBk, clickAnywhere,
                 mp3LinkUrl, mp3ShowPlayer, mp3IconColor,
                 viewOrder

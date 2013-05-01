@@ -80,50 +80,50 @@ namespace avt.DynamicFlashRotator.Net
 
             Settings.FrontEndRenderEngine.OnLoad(this);
 
-            if (Page.Request.Params["controlId"] == RealId) {
-                if (Page.Request.Params["avtadrot"] == "settings") {
-                    Page.Response.Cache.SetCacheability(HttpCacheability.NoCache);
-                    Page.Response.Cache.SetNoStore();
-                    Page.Response.Write(Settings.ToXml());
-                    //Page.Response.ContentType = "text/xml";
-                    Page.Response.ContentType = "text/xml; charset=utf-8";
-                    Page.Response.End();
-                    return;
-                }
+//            if (Page.Request.Params["controlId"] == RealId) {
+//                if (Page.Request.Params["avtadrot"] == "settings") {
+//                    Page.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+//                    Page.Response.Cache.SetNoStore();
+//                    Page.Response.Write(Settings.ToXml());
+//                    //Page.Response.ContentType = "text/xml";
+//                    Page.Response.ContentType = "text/xml; charset=utf-8";
+//                    Page.Response.End();
+//                    return;
+//                }
 
-                if (Page.Request.Params["avtadrot"] == "content") {
-                    Page.Response.Cache.SetCacheability(HttpCacheability.NoCache);
-                    Page.Response.Cache.SetNoStore(); 
-                    Page.Response.Write(GetSlidesXml());
-                    Page.Response.ContentType = "text/xml; charset=utf-8"; 
-                    //Page.Response.ContentType = "text/xml";
-                    Page.Response.End();
-                    return;
-                }
+//                if (Page.Request.Params["avtadrot"] == "content") {
+//                    Page.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+//                    Page.Response.Cache.SetNoStore(); 
+//                    Page.Response.Write(GetSlidesXml());
+//                    Page.Response.ContentType = "text/xml; charset=utf-8"; 
+//                    //Page.Response.ContentType = "text/xml";
+//                    Page.Response.End();
+//                    return;
+//                }
 
-                if (Page.Request.Params["avtadrot"] == "transitions") {
-                    Page.Response.Cache.SetCacheability(HttpCacheability.NoCache);
-                    Page.Response.Cache.SetNoStore(); 
-                    Page.Response.Write(@"<?xml version=""1.0"" encoding=""utf-8""?>
-    <picturesTransitions>
-        <transition theName=""Blinds"" theEasing=""Strong"" theStrips=""20"" theDimension=""1""/>
-        <trasition ></trasition>
-        <transition theName=""Fly"" theEasing=""Strong"" theStartPoint=""9""/>
-        <transition theName=""Iris"" theEasing=""Bounce"" theStartPoint=""1"" theShape=""CIRCLE""/>
-        <transition theName=""Photo"" theEasing=""Elastic""/>
-        <transition theName=""PixelDissolve"" theEasing=""Strong"" theXsections=""20"" theYsections=""20""/>
-        <transition theName=""Rotate"" theEasing=""Strong"" theDegrees=""720""/>
-        <transition theName=""Squeeze"" theEasing=""Strong"" theDimension=""1""/>
-        <transition theName=""Wipe"" theEasing=""Strong"" theStartPoint=""1""/>
-        <transition theName=""Zoom"" theEasing=""Back""/>
-    </picturesTransitions>
-    "
-                        );
-                    Page.Response.ContentType = "text/xml";
-                    Page.Response.End();
-                    return;
-                }
-            }
+//                if (Page.Request.Params["avtadrot"] == "transitions") {
+//                    Page.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+//                    Page.Response.Cache.SetNoStore(); 
+//                    Page.Response.Write(@"<?xml version=""1.0"" encoding=""utf-8""?>
+//    <picturesTransitions>
+//        <transition theName=""Blinds"" theEasing=""Strong"" theStrips=""20"" theDimension=""1""/>
+//        <trasition ></trasition>
+//        <transition theName=""Fly"" theEasing=""Strong"" theStartPoint=""9""/>
+//        <transition theName=""Iris"" theEasing=""Bounce"" theStartPoint=""1"" theShape=""CIRCLE""/>
+//        <transition theName=""Photo"" theEasing=""Elastic""/>
+//        <transition theName=""PixelDissolve"" theEasing=""Strong"" theXsections=""20"" theYsections=""20""/>
+//        <transition theName=""Rotate"" theEasing=""Strong"" theDegrees=""720""/>
+//        <transition theName=""Squeeze"" theEasing=""Strong"" theDimension=""1""/>
+//        <transition theName=""Wipe"" theEasing=""Strong"" theStartPoint=""1""/>
+//        <transition theName=""Zoom"" theEasing=""Back""/>
+//    </picturesTransitions>
+//    "
+//                        );
+//                    Page.Response.ContentType = "text/xml";
+//                    Page.Response.End();
+//                    return;
+//                }
+//            }
         }
 
         string _OverrideId = null;
@@ -318,58 +318,58 @@ namespace avt.DynamicFlashRotator.Net
         public SlideCollection Slides { get { return Settings.Slides; } }
 
         
-        string GetSlidesXml()
-        {
+        //string GetSlidesXml()
+        //{
             
-            StringBuilder strXML = new StringBuilder();
-            XmlWriterSettings settings = new XmlWriterSettings();
-            settings.Indent = true;
-            settings.OmitXmlDeclaration = true;
-            settings.Encoding = Encoding.UTF8;
-            XmlWriter Writer = XmlWriter.Create(strXML, settings);
+        //    StringBuilder strXML = new StringBuilder();
+        //    XmlWriterSettings settings = new XmlWriterSettings();
+        //    settings.Indent = true;
+        //    settings.OmitXmlDeclaration = true;
+        //    settings.Encoding = Encoding.UTF8;
+        //    XmlWriter Writer = XmlWriter.Create(strXML, settings);
 
-            if (!Settings.IsActivated() || Settings.IsTrialExpired()) {
+        //    if (!Settings.IsActivated() || Settings.IsTrialExpired()) {
                     
-                SlideObjectInfo trialText = new SlideObjectInfo();
-                trialText.ObjectType = eObjectType.Text;
-                if (Settings.IsTrialExpired()) {
-                    trialText.Text = "<font size='20px' style='font-size:20px;' color='#C77405'><font size='30px' style='font-size:30px;'><i>Dynamic Rotator .NET</i></font> Trial Expired!</font>";
-                } else {
-                    trialText.Text = "<font size='20px' style='font-size:20px;' color='#C77405'><font size='30px' style='font-size:30px;'><i>Dynamic Rotator .NET</i></font><br/>Use admin to Unlock 30 Day Trial or Activate for production.</font>";
-                }
-                trialText.Yposition = 70;
-                trialText.Xposition = 240;
+        //        SlideObjectInfo trialText = new SlideObjectInfo();
+        //        trialText.ObjectType = eObjectType.Text;
+        //        if (Settings.IsTrialExpired()) {
+        //            trialText.Text = "<font size='20px' style='font-size:20px;' color='#C77405'><font size='30px' style='font-size:30px;'><i>Dynamic Rotator .NET</i></font> Trial Expired!</font>";
+        //        } else {
+        //            trialText.Text = "<font size='20px' style='font-size:20px;' color='#C77405'><font size='30px' style='font-size:30px;'><i>Dynamic Rotator .NET</i></font><br/>Use admin to Unlock 30 Day Trial or Activate for production.</font>";
+        //        }
+        //        trialText.Yposition = 70;
+        //        trialText.Xposition = 240;
 
-                SlideObjectInfo logoObj = new SlideObjectInfo();
-                logoObj.ObjectType = eObjectType.Image;
-                logoObj.ObjectUrl = "http://www.dnnsharp.com/Portals/0/product_logo/Dynamic-Rotator.png";
-                logoObj.Yposition = 30;
-                logoObj.Xposition = 20;
-                logoObj.SlideFrom = eAllDirs.Left;
-                logoObj.EffectAfterSlide = eEffect.Zoom;
-                logoObj.TransitionDuration = 1;
+        //        SlideObjectInfo logoObj = new SlideObjectInfo();
+        //        logoObj.ObjectType = eObjectType.Image;
+        //        logoObj.ObjectUrl = "http://www.dnnsharp.com/Portals/0/product_logo/Dynamic-Rotator.png";
+        //        logoObj.Yposition = 30;
+        //        logoObj.Xposition = 20;
+        //        logoObj.SlideFrom = eAllDirs.Left;
+        //        logoObj.EffectAfterSlide = eEffect.Zoom;
+        //        logoObj.TransitionDuration = 1;
                     
-                SlideInfo trialSlide = new SlideInfo();
-                trialSlide.SlideObjects.Add(trialText);
-                trialSlide.SlideObjects.Add(logoObj);
-                trialSlide.SlideUrl = "http://www.dnnsharp.com/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx";
-                trialSlide.ButtonCaption = "Read More...";
-                trialSlide.Settings = Settings;
+        //        SlideInfo trialSlide = new SlideInfo();
+        //        trialSlide.SlideObjects.Add(trialText);
+        //        trialSlide.SlideObjects.Add(logoObj);
+        //        trialSlide.SlideUrl = "http://www.dnnsharp.com/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx";
+        //        trialSlide.ButtonCaption = "Read More...";
+        //        trialSlide.Settings = Settings;
 
-                Slides.Clear();
-                Slides.Add(trialSlide);
-            }
+        //        Slides.Clear();
+        //        Slides.Add(trialSlide);
+        //    }
 
-            Writer.WriteStartElement("ads");
-            IList slides = Settings.RandomOrder ? ShuffleSlides(Slides) : Slides;
-            foreach (SlideInfo slide in slides) 
-                slide.ToXml(Writer);
-            Writer.WriteEndElement(); // "ads";
+        //    Writer.WriteStartElement("ads");
+        //    IList slides = Settings.RandomOrder ? ShuffleSlides(Slides) : Slides;
+        //    foreach (SlideInfo slide in slides) 
+        //        slide.ToXml(Writer);
+        //    Writer.WriteEndElement(); // "ads";
 
-            Writer.Close();
+        //    Writer.Close();
 
-            return strXML.ToString();
-        }
+        //    return strXML.ToString();
+        //}
 
         static IList ShuffleSlides(SlideCollection slides)
         {

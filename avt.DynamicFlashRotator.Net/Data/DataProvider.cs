@@ -47,7 +47,7 @@ namespace avt.DynamicFlashRotator.Net.Data
 
         // Slides
         public abstract int UpdateSlide(
-            int slideId, string controlId, string title, int durationSeconds, string backgroundGradientFrom, string backgroundGradientTo,
+            int slideId, string controlId, string title, int durationSeconds, string effect, string backgroundGradientFrom, string backgroundGradientTo,
             string linkUrl, string linkCaption, string btnTextColor, string btnBackColor, string linkTarget, bool useTextsBk, bool clickAnywhere,
             string mp3LinkUrl, bool mp3ShowPlayer, string mp3IconColor,
             int viewOrder

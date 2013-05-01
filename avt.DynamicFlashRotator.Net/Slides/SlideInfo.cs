@@ -88,12 +88,17 @@ namespace avt.DynamicFlashRotator.Net
 
         string _Title = "New Slide Title";
         [Category("General")]
-        [Description("Slide Title wad wae dwaed")]
+        [Description("Slide Title")]
         public string Title { get { return _Title; } set { _Title = value; } }
 
         int _DurationSeconds = 10;
         [Category("General")]
         public int DurationSeconds { get { return _DurationSeconds; } set { _DurationSeconds = value; } }
+
+        string _Effect = "Fade";
+        [Category("General")]
+        [Description("The effect with which the slide appears and disappears from the scene.")]
+        public string Effect { get { return _Effect; } set { _Effect = value; } }
 
         string _TextContent = "Content of new slide, supports <i>HTML</i>.";
         [Category("General")]
@@ -210,6 +215,8 @@ namespace avt.DynamicFlashRotator.Net
             
             try { Title = dr["Title"].ToString(); } catch { }
             try { DurationSeconds = Convert.ToInt32(dr["DurationSeconds"].ToString()); } catch { }
+            try { Effect = dr["Effect"].ToString(); } catch { }
+            
             BackgroundGradientFrom = ColorExt.Parse(dr["BackgroundGradientFrom"], BackgroundGradientFrom);
             BackgroundGradientTo = ColorExt.Parse(dr["BackgroundGradientTo"], BackgroundGradientTo);
 
@@ -266,6 +273,7 @@ namespace avt.DynamicFlashRotator.Net
                 ControlId,
                 Title,
                 DurationSeconds,
+                Effect,
                 ColorExt.ColorToHexString(BackgroundGradientFrom),
                 ColorExt.ColorToHexString(BackgroundGradientTo),
 
@@ -303,25 +311,26 @@ namespace avt.DynamicFlashRotator.Net
             StringBuilder sbJson = new StringBuilder();
             
             sbJson.Append("{");
-            sbJson.AppendFormat("id:{0},", Id.ToString());
-            sbJson.AppendFormat("title:\"{0}\",", RotatorSettings.JsonEncode(Title));
-            sbJson.AppendFormat("duration:{0},", DurationSeconds.ToString());
-            sbJson.AppendFormat("bkGradFrom:\"{0}\",", ColorExt.ColorToHexString(BackgroundGradientFrom));
-            sbJson.AppendFormat("bkGradTo:\"{0}\",", ColorExt.ColorToHexString(BackgroundGradientTo));
+            sbJson.AppendFormat("\"id\":{0},", Id.ToString());
+            sbJson.AppendFormat("\"title\":\"{0}\",", RotatorSettings.JsonEncode(Title));
+            sbJson.AppendFormat("\"duration\":{0},", DurationSeconds.ToString());
+            sbJson.AppendFormat("\"effect\":\"{0}\",", Effect ?? "None");
+            sbJson.AppendFormat("\"bkGradFrom\":\"{0}\",", ColorExt.ColorToHexString(BackgroundGradientFrom));
+            sbJson.AppendFormat("\"bkGradTo\":\"{0}\",", ColorExt.ColorToHexString(BackgroundGradientTo));
 
-            sbJson.AppendFormat("linkUrl:\"{0}\",", SlideUrl);
-            sbJson.AppendFormat("linkCaption:\"{0}\",", ButtonCaption);
-            sbJson.AppendFormat("btnTextColor:\"{0}\",", ColorExt.ColorToHexString(BtnTextColor));
-            sbJson.AppendFormat("btnBackColor:\"{0}\",", ColorExt.ColorToHexString(BtnBackColor));
-            sbJson.AppendFormat("linkTarget:\"{0}\",", Target);
-            sbJson.AppendFormat("useTextsBk:{0},", UseTextsBackground ? "true" : "false");
-            sbJson.AppendFormat("linkClickAnywhere:{0},", ClickAnywhere ? "true" : "false");
+            sbJson.AppendFormat("\"linkUrl\":\"{0}\",", SlideUrl);
+            sbJson.AppendFormat("\"linkCaption\":\"{0}\",", ButtonCaption);
+            sbJson.AppendFormat("\"btnTextColor\":\"{0}\",", ColorExt.ColorToHexString(BtnTextColor));
+            sbJson.AppendFormat("\"btnBackColor\":\"{0}\",", ColorExt.ColorToHexString(BtnBackColor));
+            sbJson.AppendFormat("\"linkTarget\":\"{0}\",", Target);
+            sbJson.AppendFormat("\"useTextsBk\":{0},", UseTextsBackground ? "true" : "false");
+            sbJson.AppendFormat("\"linkClickAnywhere\":{0},", ClickAnywhere ? "true" : "false");
 
-            sbJson.AppendFormat("mp3Url:\"{0}\",", Mp3Url);
-            sbJson.AppendFormat("mp3IconColor:\"{0}\",", ColorExt.ColorToHexString(IconColor));
-            sbJson.AppendFormat("mp3ShowPlayer:{0},", ShowPlayer ? "true" : "false");
+            sbJson.AppendFormat("\"mp3Url\":\"{0}\",", Mp3Url);
+            sbJson.AppendFormat("\"mp3IconColor\":\"{0}\",", ColorExt.ColorToHexString(IconColor));
+            sbJson.AppendFormat("\"mp3ShowPlayer\":{0},", ShowPlayer ? "true" : "false");
 
-            sbJson.Append("slideObjects:[");
+            sbJson.Append("\"slideObjects\":[");
             foreach (SlideObjectInfo slideObject in SlideObjects) {
                 sbJson.Append(slideObject.ToStringJson());
                 sbJson.Append(",");
@@ -343,6 +352,8 @@ namespace avt.DynamicFlashRotator.Net
 
             try { Title = rootNode["Title"].InnerText; } catch { }
             try { DurationSeconds = Convert.ToInt32(rootNode["DurationSeconds"].InnerText); } catch { }
+            try { Effect = rootNode["Effect"].InnerText; } catch { }
+
             BackgroundGradientFrom = ColorExt.Parse(rootNode["BackgroundGradientFrom"], BackgroundGradientFrom);
             BackgroundGradientTo = ColorExt.Parse(rootNode["BackgroundGradientTo"], BackgroundGradientTo);
 
@@ -375,6 +386,7 @@ namespace avt.DynamicFlashRotator.Net
 
             // slide node attributes
             Writer.WriteElementString("DurationSeconds", DurationSeconds.ToString());
+            Writer.WriteElementString("Effect", Effect ?? "None");
             Writer.WriteElementString("Title", Title);
 
             // background node and attributes
@@ -402,75 +414,75 @@ namespace avt.DynamicFlashRotator.Net
         }
 
 
-        public void ToXml(XmlWriter Writer)
-        {
-            Writer.WriteStartElement("ad");
+        //public void ToXml(XmlWriter Writer)
+        //{
+        //    Writer.WriteStartElement("ad");
 
-            // slide node attributes
-            Writer.WriteAttributeString("theTime", DurationSeconds.ToString());
-            Writer.WriteAttributeString("theTitle", RotatorSettings.Configuration.Tokenize(ControlId, Title));
+        //    // slide node attributes
+        //    Writer.WriteAttributeString("theTime", DurationSeconds.ToString());
+        //    Writer.WriteAttributeString("theTitle", RotatorSettings.Configuration.Tokenize(ControlId, Title));
 
-            // background node and attributes
-            Writer.WriteStartElement("background");
-            Writer.WriteAttributeString("gradient1", ColorExt.ColorToHexString(BackgroundGradientFrom).Replace("#","0x"));
-            Writer.WriteAttributeString("gradient2", ColorExt.ColorToHexString(BackgroundGradientTo).Replace("#", "0x"));
-            Writer.WriteEndElement(); //  ("background");
+        //    // background node and attributes
+        //    Writer.WriteStartElement("background");
+        //    Writer.WriteAttributeString("gradient1", ColorExt.ColorToHexString(BackgroundGradientFrom).Replace("#","0x"));
+        //    Writer.WriteAttributeString("gradient2", ColorExt.ColorToHexString(BackgroundGradientTo).Replace("#", "0x"));
+        //    Writer.WriteEndElement(); //  ("background");
 
             
-            bool bTextFound = false;
-            foreach (SlideObjectInfo slideObj in SlideObjects) {
-                if (slideObj.ObjectType == eObjectType.Text) {
-                    slideObj.ToXml(ControlId, Writer, this);
-                    bTextFound = true;
-                    break;
-                }
-            }
-            if (!bTextFound) {
-                // text default node and attributes so it doesn't crash
-                SlideObjectInfo emptyText = new SlideObjectInfo();
-                emptyText.ObjectType = eObjectType.Text;
-                emptyText.Text = " ";
-                emptyText.ToXml(ControlId, Writer, this);
-            }
+        //    bool bTextFound = false;
+        //    foreach (SlideObjectInfo slideObj in SlideObjects) {
+        //        if (slideObj.ObjectType == eObjectType.Text) {
+        //            slideObj.ToXml(ControlId, Writer, this);
+        //            bTextFound = true;
+        //            break;
+        //        }
+        //    }
+        //    if (!bTextFound) {
+        //        // text default node and attributes so it doesn't crash
+        //        SlideObjectInfo emptyText = new SlideObjectInfo();
+        //        emptyText.ObjectType = eObjectType.Text;
+        //        emptyText.Text = " ";
+        //        emptyText.ToXml(ControlId, Writer, this);
+        //    }
 
-            // slide objects
-            Writer.WriteStartElement("pictures"); 
-            foreach (SlideObjectInfo slideObj in SlideObjects) {
-                if (slideObj.ObjectType != eObjectType.Text) {
-                    slideObj.ToXml(ControlId, Writer, this);
-                }
-            }
-            Writer.WriteEndElement(); // ("pictures");
+        //    // slide objects
+        //    Writer.WriteStartElement("pictures"); 
+        //    foreach (SlideObjectInfo slideObj in SlideObjects) {
+        //        if (slideObj.ObjectType != eObjectType.Text) {
+        //            slideObj.ToXml(ControlId, Writer, this);
+        //        }
+        //    }
+        //    Writer.WriteEndElement(); // ("pictures");
 
-            // link node and attributes
-            Writer.WriteStartElement("link");
-            Writer.WriteAttributeString("theTarget", Target);
-            if (!string.IsNullOrEmpty(ButtonCaption) && !string.IsNullOrEmpty(SlideUrl)) {
-                Writer.WriteAttributeString("btnName", RotatorSettings.Configuration.Tokenize(ControlId, ButtonCaption));
-                Writer.WriteAttributeString("showBtn", "yes");
-                Writer.WriteAttributeString("btnTextColor", ColorExt.ColorToHexString(BtnTextColor).Replace("#", "0x"));
-                Writer.WriteAttributeString("btnBackColor", ColorExt.ColorToHexString(BtnBackColor).Replace("#", "0x"));
-            } else {
-                Writer.WriteAttributeString("btnName", "");
-                Writer.WriteAttributeString("showBtn", "no");
-            }
-            Writer.WriteAttributeString("useLink", string.IsNullOrEmpty(SlideUrl) || !ClickAnywhere ? "no" : "yes");
-            Writer.WriteAttributeString("useTextsBackground", UseTextsBackground ? "yes" : "no");
+        //    // link node and attributes
+        //    Writer.WriteStartElement("link");
+        //    Writer.WriteAttributeString("theTarget", Target);
+        //    if (!string.IsNullOrEmpty(ButtonCaption) && !string.IsNullOrEmpty(SlideUrl)) {
+        //        Writer.WriteAttributeString("btnName", RotatorSettings.Configuration.Tokenize(ControlId, ButtonCaption));
+        //        Writer.WriteAttributeString("showBtn", "yes");
+        //        Writer.WriteAttributeString("btnTextColor", ColorExt.ColorToHexString(BtnTextColor).Replace("#", "0x"));
+        //        Writer.WriteAttributeString("btnBackColor", ColorExt.ColorToHexString(BtnBackColor).Replace("#", "0x"));
+        //    } else {
+        //        Writer.WriteAttributeString("btnName", "");
+        //        Writer.WriteAttributeString("showBtn", "no");
+        //    }
+        //    Writer.WriteAttributeString("useLink", string.IsNullOrEmpty(SlideUrl) || !ClickAnywhere ? "no" : "yes");
+        //    Writer.WriteAttributeString("useTextsBackground", UseTextsBackground ? "yes" : "no");
 
-            Writer.WriteString(RotatorSettings.Configuration.Tokenize(ControlId, SlideUrl));
+        //    Writer.WriteString(RotatorSettings.Configuration.Tokenize(ControlId, SlideUrl));
 
-            Writer.WriteEndElement(); // ("link");
+        //    Writer.WriteEndElement(); // ("link");
 
-            // mp3 note and attributes
-            Writer.WriteStartElement("mp3");
-            //if (!string.IsNullOrEmpty(Mp3Url)) {
-                Writer.WriteAttributeString("file", "");//Mp3Url);
-                Writer.WriteAttributeString("player", "off");//ShowPlayer ? "on" : "off");
-                Writer.WriteAttributeString("iconColor", ColorExt.ColorToHexString(IconColor));
-            //}
-            Writer.WriteEndElement(); // ("mp3");
+        //    // mp3 note and attributes
+        //    Writer.WriteStartElement("mp3");
+        //    //if (!string.IsNullOrEmpty(Mp3Url)) {
+        //        Writer.WriteAttributeString("file", "");//Mp3Url);
+        //        Writer.WriteAttributeString("player", "off");//ShowPlayer ? "on" : "off");
+        //        Writer.WriteAttributeString("iconColor", ColorExt.ColorToHexString(IconColor));
+        //    //}
+        //    Writer.WriteEndElement(); // ("mp3");
 
-            Writer.WriteEndElement(); // ("ad");
-        }
+        //    Writer.WriteEndElement(); // ("ad");
+        //}
     }
 }

@@ -224,6 +224,9 @@
     <Content Include="DataProviders\SqlDataProvider\01.01.02.SqlDataProvider" />
     <Content Include="DataProviders\SqlDataProvider\Uninstall.SqlDataProvider" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="DataProviders\SqlDataProvider\01.02.18.SqlDataProvider" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

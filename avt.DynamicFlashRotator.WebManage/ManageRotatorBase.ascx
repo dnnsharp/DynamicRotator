@@ -309,6 +309,11 @@
                             <div class = "fieldRow ui-widget-content" style="clear: left;">
                             <b>Duration: </b>
                             <input type="text" style = "width: 24px;" class="tbDuration tooltip_hover" value="<%= DefaultSlide.DurationSeconds %>" title="Duration determines the number of seconds the slide will be displayed." /> seconds
+                            <b>Effect: </b>
+                            <select class = "ddSlideEffect tooltip_hover" title="The effect with which the slide appears and disappears from the scene.">
+                                <option>None</option>
+                                <option>Fade</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -1036,6 +1041,7 @@ jQuery(function() {
 
         slideRoot.find(".tbSlideTitle").val(slide.title);
         slideRoot.find(".tbDuration").val(slide.duration);
+        slideRoot.find(".ddSlideEffect").val(slide.effect);
         slideRoot.find(".tbColortbBkGradFrom").val(slide.bkGradFrom);
         slideRoot.find(".tbColortbBkGradTo").val(slide.bkGradTo);
 
@@ -1409,6 +1415,7 @@ jQuery(function() {
 
         x += "<title>"+ encodeXml(slideRoot.find(".tbSlideTitle").val()) +"</title>";
         x += "<duration>"+ slideRoot.find(".tbDuration").val() +"</duration>";
+        x += "<effect>"+ slideRoot.find(".ddSlideEffect").val() +"</effect>";
         x += "<bkGradFrom>"+ encodeXml(slideRoot.find(".tbColortbBkGradFrom").val()) +"</bkGradFrom>";
         x += "<bkGradTo>"+ encodeXml(slideRoot.find(".tbColortbBkGradTo").val()) +"</bkGradTo>";
 
