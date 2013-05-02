@@ -1,0 +1,62 @@
+Dynamic Rotator .NET Installation Guide
+--------------------------------------------------------------------------
+
+Dynamic Rotator can be configured two ways:
+a) at design time using Visual Studio Designer (or manually adjust the server tag attributes)
+b) at runtime by providing Dynamic Rotator .NET with a connection string and then accessing the Web Administration Console
+
+
+Design time support
+--------------------------------------------------------------------------
+
+Eiher:
+
+A. Put avt.DynamicRotator.Net.dll in your Visual Studio toolbox
+
+    In Visual Studio, open the Toolbox, right click a tab and select Choose Items...
+    In the window that open select .Net Framework Components tab and browse for avt.DynamiRotator.Net.dll file (you need to unpack the package downloaded from our website first).
+    Now you should see the control in the toolbox. Drag it to the page.
+
+B. Manually register Dynamic Rotator .NET
+
+    Add a reference to avt.DynamicRotator.Net.dll to your Web Application project.
+    If it's a website project simply copy the DLL to your website /bin folder.
+    Open the aspx page or the ascx user control where you want to add the rotator and register the server tag at the top of the file right after the @Page or @Control directive:
+
+    <%@ Register assembly="avt.DynamicFlashRotator.Net" namespace="avt.DynamicFlashRotator.Net" tagprefix="cc1" %>
+
+    Then, instantiate the server control to initialize with default settings:
+
+    <cc1:DynamicRotator ID="dynRotator" runat="server"></cc1:DynamicRotator>
+
+    
+Runtime support
+--------------------------------------------------------------------------
+
+To enable runtime configuration:
+
+   1. In the zip package you downloaded there should be a folder called WebManage. Copy this folder to your website and rename it to something descriptive. 
+      We recommend copying it under /Controls/Rotator because this is the default path.
+      Also, make sure to copy the 2 DLL files if the root folder to your website /bin folder (or add them as a reference to your project)
+
+   2. In the zip package there's also a WebManage-Sql folder. Open the readme.txt file and execute appropriate SQL queries in order to create the database tables.
+
+   3. In Visual Studio Designer select the Dynamic Rotator element and set Enable Runtime Configuration to true (or manually set the attribute AllowRuntimeConfiguration="True") as show in screenshot below:
+
+   4. Let Dynamic Rotator know how to connect to the database by specifying a the name of a connection string from web.config and optionally the database owner and object qualifier.
+
+   5. Provide path to the ManageRotator.aspx file (that you copied to your website at step 1) - the default is ~/Controls/Rotator/ManageRotator.aspx.
+
+   6. Optionally, provide the path to the resources folder. This is used by Dynamic Rotator .NET to present administrations with a list of images to choose from and add them to slides. If not specified, Dynamic Rotator starts from the root of the website.
+
+   7. Open the page in browser and you should see the Manage Links under the rotator as show in next image:
+      Clicking the manage links will open the Web Administration Console where you can add slides, images, text and so on.
+
+   8. You're almost done! Go to the front page and you should see the link to the manage screen.
+      The only thing left is to enforce security. Right now everybody is able to edit the configuration and you'll want to enforce this. 
+      Read the Security Layers for Asp.NET Control page for more information: http://dynamic-rotator.dnnsharp.com/security-layers-asp-net-rotator-banner
+
+
+Read more about installation on our documentation site at:
+http://dynamic-rotator.dnnsharp.com/rotator-banner-installation-guide
+

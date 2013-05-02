@@ -1,0 +1,42 @@
+What's new in Dynamic Rotator .NET?
+--------------------------------------------------------------------------
+
+1.3.0
+
+    * Added rich text editor for slide texts; switch between the rich editor and the raw html
+    * Ability to add multiple texts to a slide
+    * Implemented file upload directly from the rotator admin
+    * Implemented ISearchable so now slides can be searched by title or content
+    * Dropped obsolete flash renderer
+    * Added option to randomly order slides
+    * Added linear gradients capabilities for the jQuery renderer
+    * Ability to specify the transition effect between slides (none or fade)
+    * Updated My Tokens integration
+    * Fixed open in new window for jQuery rendered
+    * Upgraded jQuery components to fix IE compatibility issues
+    * Fixed the file browser showing files only from the default portal
+    * Fixed image URLs on IIS virtual directories
+    * Fixed jQuery rendered delays were not converted from seconds to miliseconds
+    * Fixed jQuery rendered clicking slide links did not reset the show/hide timers
+
+1.2.0
+
+    * Added jQuery rendering engine (note that not all options are supported)
+    * Added fallback image when flash is not available
+    * Added option to specify foreground and background color for slide link button
+    * Fixed slide title from displaying undefined when hovering slide buttons
+    * Fixed invalid URLs for child portals URLs
+
+1.1.0
+
+    * Implemented IPortable, so slides can now be exported/imported
+    * Add Browse Server function to be able to select from available images in the portal home folder
+    * Implemented Text Width that will determine where the text wraps (by default, it takes all available space)
+    * Add Order Customization tab with 6 options
+    * Switched Manage Screen to fixed width
+    * Auto fill protocol dropdown for URL fields on copy/paste and when typing
+
+1.0.0
+
+    * Initial Version
+
