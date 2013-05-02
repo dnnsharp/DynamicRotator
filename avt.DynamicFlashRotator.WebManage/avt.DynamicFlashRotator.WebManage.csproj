@@ -140,6 +140,7 @@
   <ItemGroup>
     <Folder Include="js\" />
     <Folder Include="res\img\" />
+    <Folder Include="templates\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="deploy.cmd" />

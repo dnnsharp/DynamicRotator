@@ -591,8 +591,15 @@ namespace avt.DynamicFlashRotator.Net.Settings
         public static string ProductName { get { return "Dynamic Rotator .NET"; } }
         public static string ProductCode { get { return "ADROT"; } }
         public static string ProductKey { get { return "<RSAKeyValue><Modulus>xjeQuuf4zC2gbVI0ZJJnKagUgmeFH8klB27NK80DhxcBaJkw/naUJl1N9195kxUyznRf8uwSkjt9sZfmGQplu3gYz+X3GFCcVhABZsXyO+vNAdkyU+F6KkX5wL4/AAfmpKbqhsYt/z3abPInaRWG1Mk6uoUSv0bkAXsvLWOjUZs=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>"; } }
-        public static string Version { get { return "1.2.0"; } }
-        public static string Build { get { return Version + "-rc2"; } }
+        public static string Version { get { return "1.3.0"; } }
+        public static string Build
+        {
+            get
+            {
+                var version = System.Reflection.Assembly.GetAssembly(typeof(RotatorSettings)).GetName().Version;
+                return version.ToString().Substring(0, version.ToString().LastIndexOf('.'));
+            }
+        }
 
         static public string DocSrv = RegCoreServer + "/Api.aspx?cmd=doc&product=" + ProductCode + "&version=" + Version;
         static public string BuyLink = RegCoreServer + "/Api.aspx?cmd=buy&product=" + ProductCode + "&version=" + Version;

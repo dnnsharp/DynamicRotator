@@ -88,7 +88,7 @@
                     "position": "absolute",
                     "width": this.settings.stageWidth,
                     "height": "32px",
-                    "opacity": "0." + this.settings.topTitleBgTransparency,
+                    "opacity": this.settings.topTitleBgTransparency / 100,
                     "background-color": this.settings.topTitleBackground
                 }));
 
@@ -127,7 +127,7 @@
                     var bk = $("<div class='avtSlideObjBk'></div>").css({
                         //"position": "absolute",
                         "background-color": o.textBackgroundColor,
-                        "opacity": "0." + o.textBackgroundOpacity
+                        "opacity": o.textBackgroundOpacity / 100
                     });
                     bk.append($("<div style='visibility: hidden; padding: " + o.textBackgroundPadding + "px;'>" + o.htmlContents.replace("\n", "<br/>") + "</div>"));
                     sobj.append(bk);

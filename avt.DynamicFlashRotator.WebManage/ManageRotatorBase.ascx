@@ -29,6 +29,7 @@
         <li><a href="#tabs-main-settings">General Settings</a></li>
         <li><a href="#tabs-main-slides">Slides</a></li>
         <li><a href="#tabs-main-portable">Import/Export</a></li>
+        <li><a href="#tabs-main-support">Support</a></li>
         <%--<li><a href="#tabs-main-presets">Presets</a></li>
         <li><a href="#tabs-main-library">Object Library</a></li>--%>
         <asp:Literal runat="server" ID = "lblTabActivate">
@@ -439,6 +440,25 @@
         <asp:Button runat="server" OnClick="ExportData" class="ui-state-default" style="padding: 4px 10px;" Text="Export" UseSubmitBehavior="false" CausesValidation="false" />
     </div>
 
+    <div id = "tabs-main-support" style="margin: 15px 25px; padding: 60px 20px;">
+        Contact us for feature requests and support on 
+        <a href="http://www.dnnsharp.com/support.aspx#opturl=%2Fdynamic-rotator-net">our Open Traits community forums</a>.<br /><br />
+        Or, use the feedback widget on the left 
+        <div style="display: inline-block; background-color: rgb(255, 136, 0); color: rgb(255, 255, 255); cursor: default;  border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; border: 2px solid rgb(51, 51, 51);">
+            <span style="display: block; padding: 4px 8px; color: rgb(255, 255, 255); font-weight: bold; text-decoration: none; font-size: 16px; line-height: 30px;">Feedback <img src="http://cdn.opentraits.com/logo/logo-white.png" style="width: 25px; height: 25px; vertical-align:middle; padding-bottom: 4px;"></span>
+        </div>
+
+        <div style="margin-top: 90px;">
+            <a href="http://www.facebook.com/DnnSharp" title="FaceBook" style="margin-right: 8px;"><img src="http://www.dnnsharp.com/static/icon/icon-facebook.png" border="0" width="25"></a>
+            <a href="http://twitter.com/dnnsharp" title="Twitter" style="margin-right: 8px;"><img src="http://www.dnnsharp.com/static/icon/icon-twitter.png" border="0" width="24"></a>
+            <a href="http://www.youtube.com/user/dnnsharp" title="YouTube" style="margin-right: 8px;"><img src="http://www.dnnsharp.com/static/icon/icon-youtube.png" border="0" width="24"></a>
+            <br />
+            Follow us for updates
+        </div>
+    </div>
+
+
+
     <asp:Label runat="server" ID = "lblTabActivateContents">
         <div id = "tabs-main-activate" style="margin: 15px 25px;">
             <h2 style="color: #C77405;">This copy of Dynamic Rotator .NET is in Trial!</h2>
@@ -464,7 +484,9 @@
             <a href = "http://www.dnnsharp.com/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx">Read more about Dynamic Redirect .NET</a> |
             <a href ="<%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.DocSrv %>">Browse Documentation</a>
             <br /><br />
-            Version <%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.Build %> by <a href = "http://www.dnnsharp.com" style="color: #C77405;">Avatar Software</a>
+            Version <%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.Build %> by <a href = "http://www.dnnsharp.com" style="color: #C77405;">DNN Sharp</a>
+            <br /><br />
+            <a href="http://www.dnnsharp.com/support.aspx#opturl=%2Fdynamic-rotator-net">Request a feature or report bugs</a>.
         </div>
         <div class="btnPane" style="display: none;">
             <a href = "<%= ReturnUrl %>" style="color: #525252; padding: 1px 10px; margin-right: 10px; font-weight: normal;" >Cancel</a>
@@ -493,7 +515,7 @@
                     <tr class="rowSepGray"><td colspan="2">&nbsp;</td></tr>
 
                     <tr class = "objFieldRow ui-widget-content">
-                        <td class = "ui-widget-content hdr">Name:</td>
+                        <td class = "ui-widget-content hdr">ID:</td>
                         <td class = "ui-widget-content tooltip_hover" title="The name is used only in administration screen to quickly identify objects.">
                             <input type="text" class = "tbObjName tbRequired" style = "width: 200px;" />
                         </td>
@@ -957,8 +979,10 @@
         $('[name=tbObjTextEditorType]').click(function() {
             var $p = $(this).parents('.objFieldRow:first');
             if ($(this).val() == "editor") {
-                $p.find('.wysiwyg').show();
-                $p.find('.tbObjText').hide();
+                $p.find('.wysiwyg').show()
+                    
+                $p.find('.tbObjText').hide()
+                    .wysiwyg('setContent', $p.find('.tbObjText').val());
             } else {
                 $p.find('.wysiwyg').hide();
                 $p.find('.tbObjText').show();
@@ -1137,7 +1161,7 @@ jQuery(function() {
             slideRoot = $(".slideRootActive");
         }
 
-        var _item = $("<li class='slideObject'></li>");
+        var _item = $('<li class="slideObject" title="Click to edit"></li>');
         // determine type
         if (slideObj.itemType.toLowerCase() == "text") {
             _item.addClass("slideObjectText");
@@ -1150,7 +1174,7 @@ jQuery(function() {
             }
         }
 
-        _item.append("<div class='dragObj'><img width='20' src='<%= TemplateSourceDirectory %>/res/img/drag.png' /></div>");
+        _item.append("<div class='dragObj' title='Drag to define stacking or move to different slide'><img width='20' src='<%= TemplateSourceDirectory %>/res/img/drag.png' /></div>");
         _item.append("<div style='text-align: center;' class='objTitle'>" + slideObj.name + "</div>");
 
         slideRoot.find(".pnlSlideObjList").append(_item);
@@ -1828,3 +1852,24 @@ jQuery(function() {
 
     
 </script>
+
+
+
+<!--Start OpenTraits widget-->
+<script>window.jQuery || document.write('<script src="'+ ('https:' == document.location.protocol ? 'https:' : 'http:') +  +'//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"><\/script>')</script>
+<script>
+
+    var _optw = _optw || {
+        project: '//support.dnnsharp.com/dynamic-rotator-net',
+        bgColor: '#FF8800',
+        color: '#ffffff'
+    };
+
+    (function () {
+        var opt = document.createElement('script'); opt.type = 'text/javascript'; opt.async = true;
+        opt.src = ('https:' == document.location.protocol ? 'https:' : 'http:') + '//cdn.opentraits.com/js/optwidget.min.js.gzip?v=1.2.5.003';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(opt, s);
+    })();
+</script>
+<!--End OpenTraits widget-->
+

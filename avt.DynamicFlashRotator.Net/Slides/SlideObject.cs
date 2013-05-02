@@ -174,12 +174,12 @@ namespace avt.DynamicFlashRotator.Net
         [Category("Effects")]
         public Color TextColor { get { return _TextColor; } set { _TextColor = value; } }
 
-        Color _TextBackgroundColor = Color.White;
+        Color _TextBackgroundColor = Color.Black;
         [TypeConverter(typeof(WebColorConverter))]
         [Category("Effects")]
         public Color TextBackgroundColor { get { return _TextBackgroundColor; } set { _TextBackgroundColor = value; } }
 
-        int _TextBackgroundOpacity = 0;
+        int _TextBackgroundOpacity = 5;
         [Category("Effects")]
         public int TextBackgroundOpacity { get { return _TextBackgroundOpacity; } set { _TextBackgroundOpacity = value; } }
 
