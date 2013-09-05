@@ -92,7 +92,7 @@
                     "background-color": this.settings.topTitleBackground
                 }));
 
-                slideTitle.append($("<div class='avtSlideTitleText'>" + s.title + "</div>").css({
+                slideTitle.append($("<div class='avtSlideTitleText'>" + s.titleTokenized + "</div>").css({
                     "position": "absolute",
                     "width": this.settings.stageWidth,
                     "color": this.settings.topTitleTextColor,
@@ -120,7 +120,7 @@
                         "color": o.textColor,
                         "padding": o.textBackgroundPadding,
                         "z-index": 800
-                    }).html(o.htmlContents.replace("\n", "<br/>"))
+                    }).html(o.htmlContentsTokenized.replace("\n", "<br/>"))
                     );
 
                     // add background
@@ -129,14 +129,20 @@
                         "background-color": o.textBackgroundColor,
                         "opacity": o.textBackgroundOpacity / 100
                     });
-                    bk.append($("<div style='visibility: hidden; padding: " + o.textBackgroundPadding + "px;'>" + o.htmlContents.replace("\n", "<br/>") + "</div>"));
+                    bk.append($("<div style='visibility: hidden; padding: " + o.textBackgroundPadding + "px;'>" + o.htmlContentsTokenized.replace("\n", "<br/>") + "</div>"));
                     sobj.append(bk);
 
                     sobj.css({ "z-index": 800 });
 
                 } else if (o.itemType == "Image") {
-                    sobj.css({ "z-index": 700 }).append("<img border='0' src= '" + o.resUrl + "' />");
-                } else { // TODO: flash
+                    if (o.resUrl.toLowerCase().indexOf(".swf") == o.resUrl.length - 4) {
+                        // Flash
+                        sobj.css({ "z-index": 700 }).append(
+                            '<object type="application/x-shockwave-flash" width="100%" height="100%"><param name="scale" value="noscale"><param name="salign" value="tl"><param name="allowScriptAccess" value="sameDomain"><param name="allowFullScreen" value="false"><param name="MOVIE" value="' + o.resUrl + '"><param name="quality" value="high"><param name="wmode" value="transparent"><div style="width:100%;text-align:left;vertical-align:top;#display:none;"><embed src="' + o.resUrl + '" wmode="transparent" quality="high" bgcolor="#ffffff" align="middle" allowscriptaccess="sameDomain" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"></div></object>'
+                        );
+                    } else {
+                        sobj.css({ "z-index": 700 }).append("<img border='0' src= '" + o.resUrl + "' />");
+                    }
                 }
 
                 if (o.linkUrl) {

@@ -1167,7 +1167,7 @@ jQuery(function() {
             _item.addClass("slideObjectText");
         } else if (slideObj.itemType.toLowerCase() == "image") {
             var resUrl = $.trim(slideObj.resUrl);
-            if (resUrl.indexOf(".swf") == resUrl.length - 4) {
+            if (resUrl.toLowerCase().indexOf(".swf") == resUrl.length - 4) {
                 _item.addClass("slideObjectSwf");
             } else {
                 _item.addClass("slideObjectImg");

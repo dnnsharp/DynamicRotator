@@ -4,10 +4,10 @@ set projectDir=%~dp0..\avt.DynamicFlashRotator.Dnn\
 set buildDir=%~dp0package-files\
 set packageName=avt.DynamicRotator.Dnn_%1_Install
 
-"%OwnToolsPath%xpath-update\bin\release\xpath-update.exe" --value="%1" --xpath="//packages/package" -attr="version" --file="avt.DynamicRotator.dnn"
-"%OwnToolsPath%xpath-update\bin\release\xpath-update.exe" --value="%1" --xpath="//assemblies/assembly[1]/version" --file="avt.DynamicRotator.dnn"
-"%OwnToolsPath%xpath-update\bin\release\xpath-update.exe" --value="%1" --xpath="//assemblies/assembly[2]/version" --file="avt.DynamicRotator.dnn"
-"%OwnToolsPath%xpath-update\bin\release\xpath-update.exe" --value="%1" --xpath="//scripts/script[@type='UnInstall']/version" --file="avt.DynamicRotator.dnn"
+"%OwnToolsPath%xpath-update\bin\release\xpath-update.exe" --value="%1" --xpath="//packages/package" -attr="version" --file="avt.DynamicFlashRotator.Net.dnn"
+"%OwnToolsPath%xpath-update\bin\release\xpath-update.exe" --value="%1" --xpath="//assemblies/assembly[1]/version" --file="avt.DynamicFlashRotator.Net.dnn"
+"%OwnToolsPath%xpath-update\bin\release\xpath-update.exe" --value="%1" --xpath="//assemblies/assembly[2]/version" --file="avt.DynamicFlashRotator.Net.dnn"
+"%OwnToolsPath%xpath-update\bin\release\xpath-update.exe" --value="%1" --xpath="//scripts/script[@type='UnInstall']/version" --file="avt.DynamicFlashRotator.Net.dnn"
 echo %1 > version.txt
 
 

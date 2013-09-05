@@ -313,6 +313,7 @@ namespace avt.DynamicFlashRotator.Net
             sbJson.Append("{");
             sbJson.AppendFormat("\"id\":{0},", Id.ToString());
             sbJson.AppendFormat("\"title\":\"{0}\",", RotatorSettings.JsonEncode(Title));
+            sbJson.AppendFormat("\"titleTokenized\":\"{0}\",", RotatorSettings.JsonEncode(RotatorSettings.Configuration.Tokenize(ControlId, Title)));
             sbJson.AppendFormat("\"duration\":{0},", DurationSeconds.ToString());
             sbJson.AppendFormat("\"effect\":\"{0}\",", Effect ?? "None");
             sbJson.AppendFormat("\"bkGradFrom\":\"{0}\",", ColorExt.ColorToHexString(BackgroundGradientFrom));
@@ -332,7 +333,7 @@ namespace avt.DynamicFlashRotator.Net
 
             sbJson.Append("\"slideObjects\":[");
             foreach (SlideObjectInfo slideObject in SlideObjects) {
-                sbJson.Append(slideObject.ToStringJson());
+                sbJson.Append(slideObject.ToStringJson(ControlId));
                 sbJson.Append(",");
             }
             if (sbJson[sbJson.Length - 1] == ',') {

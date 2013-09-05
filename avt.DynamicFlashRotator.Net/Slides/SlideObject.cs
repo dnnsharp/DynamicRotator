@@ -332,7 +332,7 @@ namespace avt.DynamicFlashRotator.Net
             Writer.WriteEndElement(); // ("text/picture");
         }
 
-        public string ToStringJson()
+        public string ToStringJson(string controlId)
         {
             StringBuilder sbJson = new StringBuilder();
 
@@ -341,6 +341,7 @@ namespace avt.DynamicFlashRotator.Net
             sbJson.AppendFormat("\"name\":\"{0}\",", RotatorSettings.JsonEncode(Name));
             sbJson.AppendFormat("\"linkUrl\":\"{0}\",", RotatorSettings.JsonEncode(Link));
             sbJson.AppendFormat("\"htmlContents\":\"{0}\",", RotatorSettings.JsonEncode(Text));
+            sbJson.AppendFormat("\"htmlContentsTokenized\":\"{0}\",", RotatorSettings.JsonEncode(RotatorSettings.Configuration.Tokenize(controlId, Text)));
             sbJson.AppendFormat("\"itemType\":\"{0}\",", ObjectType.ToString());
             sbJson.AppendFormat("\"resUrl\":\"{0}\",", RotatorSettings.JsonEncode(ObjectUrl));
             sbJson.AppendFormat("\"delay\":{0},", TimeDelay.ToString());

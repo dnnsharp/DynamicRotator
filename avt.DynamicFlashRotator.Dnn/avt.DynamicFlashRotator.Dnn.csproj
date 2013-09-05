@@ -211,7 +211,7 @@
     <Content Include="Config.ashx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="avt.DynamicRotator.dnn" />
+    <Content Include="avt.DynamicFlashRotator.Net.dnn" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="res\js\colorpicker\images\Thumbs.db" />
