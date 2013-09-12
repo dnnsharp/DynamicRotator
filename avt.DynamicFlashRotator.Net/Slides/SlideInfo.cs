@@ -320,6 +320,7 @@ namespace avt.DynamicFlashRotator.Net
             sbJson.AppendFormat("\"bkGradTo\":\"{0}\",", ColorExt.ColorToHexString(BackgroundGradientTo));
 
             sbJson.AppendFormat("\"linkUrl\":\"{0}\",", SlideUrl);
+            sbJson.AppendFormat("\"linkUrlTokenized\":\"{0}\",", RotatorSettings.Configuration.Tokenize(ControlId, SlideUrl));
             sbJson.AppendFormat("\"linkCaption\":\"{0}\",", ButtonCaption);
             sbJson.AppendFormat("\"btnTextColor\":\"{0}\",", ColorExt.ColorToHexString(BtnTextColor));
             sbJson.AppendFormat("\"btnBackColor\":\"{0}\",", ColorExt.ColorToHexString(BtnBackColor));

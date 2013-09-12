@@ -66,7 +66,7 @@ namespace avt.DynamicFlashRotator.Net.Data
             int glowSize, int glowStrength, string glowColor,
             string appearMode, string slideFrom, string slideMoveType, string slideEasingType, string effectAfterSlide,
             string textColor, string textBackgroundColor, int textBackgroundOpacity, int textBackgroundPadding,
-            int viewOrder, int width
+            int viewOrder, int width, int height
         );
         public abstract IDataReader GetSlideObjects(int slideId);
         public abstract IDataReader GetSlideObject(int slideObjectId);

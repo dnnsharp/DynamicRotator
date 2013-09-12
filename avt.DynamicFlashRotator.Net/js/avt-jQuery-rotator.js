@@ -53,8 +53,8 @@
             var s = this.settings.slides[i];
             var slide;
 
-            if (s.linkUrl && s.linkClickAnywhere) {
-                slide = $("<a href='" + s.linkUrl + "' class='avtSlide' target='" + s.linkTarget + "'></a>");
+            if (s.linkUrlTokenized && s.linkClickAnywhere) {
+                slide = $("<a href='" + s.linkUrlTokenized + "' class='avtSlide' target='" + s.linkTarget + "'></a>");
             } else {
                 slide = $("<div class='avtSlide'></div>");
             }
@@ -135,18 +135,19 @@
                     sobj.css({ "z-index": 800 });
 
                 } else if (o.itemType == "Image") {
-                    if (o.resUrl.toLowerCase().indexOf(".swf") == o.resUrl.length - 4) {
+                    if (o.resUrlTokenized.toLowerCase().indexOf(".swf") == o.resUrlTokenized.length - 4) {
                         // Flash
                         sobj.css({ "z-index": 700 }).append(
-                            '<object type="application/x-shockwave-flash" width="100%" height="100%"><param name="scale" value="noscale"><param name="salign" value="tl"><param name="allowScriptAccess" value="sameDomain"><param name="allowFullScreen" value="false"><param name="MOVIE" value="' + o.resUrl + '"><param name="quality" value="high"><param name="wmode" value="transparent"><div style="width:100%;text-align:left;vertical-align:top;#display:none;"><embed src="' + o.resUrl + '" wmode="transparent" quality="high" bgcolor="#ffffff" align="middle" allowscriptaccess="sameDomain" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"></div></object>'
+                            '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" type="application/x-shockwave-flash" width="' + (o.width > 0 ? o.width : "1000") + '" height="' + (o.height > 0 ? o.height : "1000") + '" ><param name="salign" value="tl"><param name="allowScriptAccess" value="sameDomain"><param name="allowFullScreen" value="false"><param name="MOVIE" value="' + o.resUrlTokenized + '"><param name="quality" value="high"><param name="wmode" value="transparent">' +
+                            '<embed src="' + o.resUrlTokenized + '" wmode="transparent" quality="high" bgcolor="#ffffff" width="' + (o.width > 0 ? o.width : "100%") + '" height="' + (o.height > 0 ? o.height : "100%") + '" allowscriptaccess="sameDomain" allowfullscreen="false" align="top" salign="TL" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" /></object>'
                         );
                     } else {
-                        sobj.css({ "z-index": 700 }).append("<img border='0' src= '" + o.resUrl + "' />");
+                        sobj.css({ "z-index": 700 }).append('<img border="0" src= "' + o.resUrlTokenized + '" style="width: ' + (o.width > 0 ? o.width + "px" : "auto") + '; height: ' + (o.height > 0 ? o.height + "px" : "auto") + ';" />');
                     }
                 }
 
-                if (o.linkUrl) {
-                    sobj = $("<a href='" + o.linkUrl + "'></a>").append(sobj);
+                if (o.linkUrlTokenized) {
+                    sobj = $("<a href='" + o.linkUrlTokenized + "'></a>").append(sobj);
                 }
 
                 slide.append(sobj);

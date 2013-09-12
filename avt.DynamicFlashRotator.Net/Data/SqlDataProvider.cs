@@ -58,7 +58,7 @@ namespace avt.DynamicFlashRotator.Net.Data
                 "GlowSize", "GlowStrength", "GlowColor",
                 "AppearMode", "SlideFrom", "SlideMoveType", "SlideEasingType", "EffectAfterSlide",
                 "TextColor", "TextBackgroundColor", "TextBackgroundOpacity", "TextBackgroundPadding",
-                "ViewOrder", "Width"
+                "ViewOrder", "Width", "Height"
             );
         }
 
@@ -139,7 +139,7 @@ namespace avt.DynamicFlashRotator.Net.Data
             int glowSize, int glowStrength, string glowColor,
             string appearMode, string slideFrom, string slideMoveType, string slideEasingType, string effectAfterSlide,
             string textColor, string textBackgroundColor, int textBackgroundOpacity, int textBackgroundPadding,
-            int viewOrder, int width)
+            int viewOrder, int width, int height)
         {
             return _TableSlideObjects.Update(
                 new object[] { slideObjectId },
@@ -150,7 +150,7 @@ namespace avt.DynamicFlashRotator.Net.Data
                 glowSize, glowStrength, glowColor,
                 appearMode, slideFrom, slideMoveType, slideEasingType, effectAfterSlide,
                 textColor, textBackgroundColor, textBackgroundOpacity, textBackgroundPadding,
-                viewOrder, width
+                viewOrder, width, height
             );
         }
 

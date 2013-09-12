@@ -529,10 +529,11 @@
                             </asp:DropDownList>
                         </td>
                     </tr>
-                    <tr class = "objFieldRow ui-widget-content objFieldTextOnly">
-                        <td class = "ui-widget-content hdr">Width:</td>
-                        <td class = "ui-widget-content tooltip_hover" title="Use this option to specify the text width which determines where the text goes on next line.<br/> If not specified, the text takes full available width.">
-                            <input type="text" style = "width: 60px;" class="tbObjWidth tbNumber" /> pixels
+                    <tr class = "objFieldRow ui-widget-content">
+                        <td class = "ui-widget-content hdr">Size:</td>
+                        <td class = "ui-widget-content tooltip_hover" title="Use this option to specify a size. For texts this determines where the text goes on next line. For images and flash, this will scale it up or down.<br/><b>Note</b> that for flash you always have to specify the size otherwise you'll get inconsistent results across browsers.">
+                            <b>Width:</b> <input type="text" style = "width: 60px;" class="tbObjWidth tbNumber" /> px
+                            <b>Height:</b> <input type="text" style = "width: 60px;" class="tbObjHeight tbNumber" /> px
                         </td>
                     </tr>
                     <tr class = "objFieldRow ui-widget-content objFieldImgOnly">
@@ -1247,6 +1248,7 @@ jQuery(function() {
             _dlg.find(".tbObjPosX").val(slideObjItem[0].objData.posx);
             _dlg.find(".tbObjPosY").val(slideObjItem[0].objData.posy);
             _dlg.find(".tbObjWidth").val(slideObjItem[0].objData.width > 0 ? slideObjItem[0].objData.width : "");
+            _dlg.find(".tbObjHeight").val(slideObjItem[0].objData.height > 0 ? slideObjItem[0].objData.height : "");
             _dlg.find(".ddVerticalAlgin").val(slideObjItem[0].objData.valign);
             _dlg.find(".tbObjGlowSize").val(slideObjItem[0].objData.glowSize);
             _dlg.find(".tbObjGlowColor").val(slideObjItem[0].objData.glowColor);
@@ -1295,6 +1297,7 @@ jQuery(function() {
             _dlg.find(".tbObjPosX").val(<%= DefaultObject.Xposition %>);
             _dlg.find(".tbObjPosY").val(<%= DefaultObject.Yposition %>);
             _dlg.find(".tbObjWidth").val("");
+            _dlg.find(".tbObjHeight").val("");
             _dlg.find(".ddVerticalAlgin").val("<%= DefaultObject.VerticalAlign.ToString() %>");
             _dlg.find(".tbObjGlowSize").val(<%= DefaultObject.GlowSize %>);
             _dlg.find(".tbObjGlowColor").val("<%= avt.DynamicFlashRotator.Net.ColorExt.ColorToHexString(DefaultObject.GlowColor) %>");
@@ -1379,6 +1382,7 @@ jQuery(function() {
             posx: dlg.find(".tbObjPosX").val(),
             posy: dlg.find(".tbObjPosY").val(),
             width: dlg.find(".tbObjWidth").val(),
+            height: dlg.find(".tbObjHeight").val(),
             valign: dlg.find(".ddVerticalAlgin").val(),
                 
             glowSize: dlg.find(".tbObjGlowSize").val(),

@@ -112,6 +112,10 @@ namespace avt.DynamicFlashRotator.Net
         [Category("Position")]
         public int Width { get { return _Width; } set { _Width = value; } }
 
+        int _Height = -1;
+        [Category("Position")]
+        public int Height { get { return _Height; } set { _Height = value; } }
+
         eVerticalAlign _VerticalAlign = eVerticalAlign.Middle;
         [Category("Position")]
         public eVerticalAlign VerticalAlign { get { return _VerticalAlign; } set { _VerticalAlign = value; } }
@@ -201,7 +205,7 @@ namespace avt.DynamicFlashRotator.Net
                 AppearMode.ToString().ToLower(), SlideFrom.ToString().ToLower(), SlideMoveType.ToString().ToLower(),
                 SlideEasingType.ToString().ToLower(), EffectAfterSlide.ToString().ToLower(),
                 ColorExt.ColorToHexString(TextColor),  ColorExt.ColorToHexString(TextBackgroundColor), TextBackgroundOpacity, TextBackgroundPadding,
-                ViewOrder, Width
+                ViewOrder, Width, Height
             );
         }
 
@@ -227,6 +231,7 @@ namespace avt.DynamicFlashRotator.Net
             try { Xposition = Convert.ToInt32(rootNode["Xposition"].InnerText); } catch { }
             try { Yposition = Convert.ToInt32(rootNode["Yposition"].InnerText); } catch { }
             try { Width = Convert.ToInt32(rootNode["Width"].InnerText); } catch { }
+            try { Height = Convert.ToInt32(rootNode["Height"].InnerText); } catch { }
 
             try { VerticalAlign = (eVerticalAlign)Enum.Parse(typeof(eVerticalAlign), rootNode["VerticalAlign"].InnerText, true); } catch { }
             try { GlowSize = Convert.ToInt32(rootNode["GlowSize"].InnerText); } catch { }
@@ -259,6 +264,7 @@ namespace avt.DynamicFlashRotator.Net
             Writer.WriteElementString("Xposition", Xposition.ToString());
             Writer.WriteElementString("Yposition", Yposition.ToString());
             Writer.WriteElementString("Width", Width.ToString());
+            Writer.WriteElementString("Height", Height.ToString());
             Writer.WriteElementString("VerticalAlign", VerticalAlign.ToString());
             Writer.WriteElementString("GlowSize", GlowSize.ToString());
             Writer.WriteElementString("GlowStrength", GlowStrength.ToString());
@@ -277,60 +283,60 @@ namespace avt.DynamicFlashRotator.Net
         }
 
 
-        public void ToXml(string controlId, XmlWriter Writer, SlideInfo Slide)
-        {
-            Writer.WriteStartElement(ObjectType == eObjectType.Text ? "theText" : "picture");
+        //public void ToXml(string controlId, XmlWriter Writer, SlideInfo Slide)
+        //{
+        //    Writer.WriteStartElement(ObjectType == eObjectType.Text ? "theText" : "picture");
 
-            Writer.WriteAttributeString("x", Xposition.ToString());
-            Writer.WriteAttributeString("y", Yposition.ToString());
+        //    Writer.WriteAttributeString("x", Xposition.ToString());
+        //    Writer.WriteAttributeString("y", Yposition.ToString());
 
-            Writer.WriteAttributeString("opacity", Opacity.ToString());
-            Writer.WriteAttributeString("glowSize", GlowSize.ToString());
-            Writer.WriteAttributeString("glowColor", ColorExt.ColorToHexString(GlowColor).Replace("#", "0x"));
-            Writer.WriteAttributeString("glowStrength", GlowStrength.ToString());
+        //    Writer.WriteAttributeString("opacity", Opacity.ToString());
+        //    Writer.WriteAttributeString("glowSize", GlowSize.ToString());
+        //    Writer.WriteAttributeString("glowColor", ColorExt.ColorToHexString(GlowColor).Replace("#", "0x"));
+        //    Writer.WriteAttributeString("glowStrength", GlowStrength.ToString());
 
-            Writer.WriteAttributeString("moveType", SlideMoveType.ToString());
-            Writer.WriteAttributeString("easingType", SlideEasingType.ToString());
-            Writer.WriteAttributeString("transitionDuration", TransitionDuration.ToString());
+        //    Writer.WriteAttributeString("moveType", SlideMoveType.ToString());
+        //    Writer.WriteAttributeString("easingType", SlideEasingType.ToString());
+        //    Writer.WriteAttributeString("transitionDuration", TransitionDuration.ToString());
 
-            Writer.WriteAttributeString("appearFrom", SlideFrom.ToString().ToLower());
-            Writer.WriteAttributeString("justFade", AppearMode == eAppearMode.Fade ? "yes" : "no");
+        //    Writer.WriteAttributeString("appearFrom", SlideFrom.ToString().ToLower());
+        //    Writer.WriteAttributeString("justFade", AppearMode == eAppearMode.Fade ? "yes" : "no");
 
-            if (ObjectType == eObjectType.Text) {
+        //    if (ObjectType == eObjectType.Text) {
                 
-                Writer.WriteAttributeString("textColor", ColorExt.ColorToHexString(TextColor).Replace("#", "0x"));
+        //        Writer.WriteAttributeString("textColor", ColorExt.ColorToHexString(TextColor).Replace("#", "0x"));
                 
-                Writer.WriteAttributeString("verticalAlign", eVerticalAlign.Top.ToString().ToLower());// VerticalAlign.ToString().ToLower());
-                Writer.WriteAttributeString("useBackground", TextBackgroundOpacity == 0 ? "no" : "yes");
-                Writer.WriteAttributeString("backgroundColor", ColorExt.ColorToHexString(TextBackgroundColor).Replace("#", "0x"));
-                Writer.WriteAttributeString("backgroundTransparency", TextBackgroundOpacity.ToString());
-                Writer.WriteAttributeString("backgroundPadding", TextBackgroundPadding.ToString());
+        //        Writer.WriteAttributeString("verticalAlign", eVerticalAlign.Top.ToString().ToLower());// VerticalAlign.ToString().ToLower());
+        //        Writer.WriteAttributeString("useBackground", TextBackgroundOpacity == 0 ? "no" : "yes");
+        //        Writer.WriteAttributeString("backgroundColor", ColorExt.ColorToHexString(TextBackgroundColor).Replace("#", "0x"));
+        //        Writer.WriteAttributeString("backgroundTransparency", TextBackgroundOpacity.ToString());
+        //        Writer.WriteAttributeString("backgroundPadding", TextBackgroundPadding.ToString());
 
-                if (Width > 0) {
-                    Writer.WriteAttributeString("theTextWidth", Width.ToString());
-                } else {
-                    Writer.WriteAttributeString("theTextWidth", ((int)Slide.Settings.Width.Value - Xposition).ToString());
-                }
+        //        if (Width > 0) {
+        //            Writer.WriteAttributeString("theTextWidth", Width.ToString());
+        //        } else {
+        //            Writer.WriteAttributeString("theTextWidth", ((int)Slide.Settings.Width.Value - Xposition).ToString());
+        //        }
 
-                Writer.WriteCData(RotatorSettings.Configuration.Tokenize(controlId, Text));
-            } else {
-                Writer.WriteAttributeString("timeDelay", TimeDelay.ToString());
+        //        Writer.WriteCData(RotatorSettings.Configuration.Tokenize(controlId, Text));
+        //    } else {
+        //        Writer.WriteAttributeString("timeDelay", TimeDelay.ToString());
                 
-                // add effect for images and swf only
-                if (EffectAfterSlide != eEffect.None) {
-                    Writer.WriteAttributeString("useEffect", "yes");
-                    Writer.WriteAttributeString("effect", EffectAfterSlide.ToString());
-                } else {
-                    Writer.WriteAttributeString("useEffect", "no");
-                    Writer.WriteAttributeString("effect", "");
-                }
-                Writer.WriteAttributeString("theLink", FileBrowser.ResolveUrl(RotatorSettings.Configuration.Tokenize(controlId, Link)));
+        //        // add effect for images and swf only
+        //        if (EffectAfterSlide != eEffect.None) {
+        //            Writer.WriteAttributeString("useEffect", "yes");
+        //            Writer.WriteAttributeString("effect", EffectAfterSlide.ToString());
+        //        } else {
+        //            Writer.WriteAttributeString("useEffect", "no");
+        //            Writer.WriteAttributeString("effect", "");
+        //        }
+        //        Writer.WriteAttributeString("theLink", FileBrowser.ResolveUrl(RotatorSettings.Configuration.Tokenize(controlId, Link)));
 
-                Writer.WriteString(FileBrowser.ResolveUrl(RotatorSettings.Configuration.Tokenize(controlId, ObjectUrl)));
-            }
+        //        Writer.WriteString(FileBrowser.ResolveUrl(RotatorSettings.Configuration.Tokenize(controlId, ObjectUrl)));
+        //    }
 
-            Writer.WriteEndElement(); // ("text/picture");
-        }
+        //    Writer.WriteEndElement(); // ("text/picture");
+        //}
 
         public string ToStringJson(string controlId)
         {
@@ -340,16 +346,19 @@ namespace avt.DynamicFlashRotator.Net
             sbJson.AppendFormat("\"id\":{0},", Id.ToString());
             sbJson.AppendFormat("\"name\":\"{0}\",", RotatorSettings.JsonEncode(Name));
             sbJson.AppendFormat("\"linkUrl\":\"{0}\",", RotatorSettings.JsonEncode(Link));
+            sbJson.AppendFormat("\"linkUrlTokenized\":\"{0}\",", RotatorSettings.JsonEncode(RotatorSettings.Configuration.Tokenize(controlId, Link)));
             sbJson.AppendFormat("\"htmlContents\":\"{0}\",", RotatorSettings.JsonEncode(Text));
             sbJson.AppendFormat("\"htmlContentsTokenized\":\"{0}\",", RotatorSettings.JsonEncode(RotatorSettings.Configuration.Tokenize(controlId, Text)));
             sbJson.AppendFormat("\"itemType\":\"{0}\",", ObjectType.ToString());
             sbJson.AppendFormat("\"resUrl\":\"{0}\",", RotatorSettings.JsonEncode(ObjectUrl));
+            sbJson.AppendFormat("\"resUrlTokenized\":\"{0}\",", RotatorSettings.JsonEncode(RotatorSettings.Configuration.Tokenize(controlId, ObjectUrl)));
             sbJson.AppendFormat("\"delay\":{0},", TimeDelay.ToString());
             sbJson.AppendFormat("\"duration\":{0},", TransitionDuration.ToString());
             sbJson.AppendFormat("\"opacity\":{0},", Opacity.ToString());
             sbJson.AppendFormat("\"posx\":{0},", Xposition.ToString());
             sbJson.AppendFormat("\"posy\":{0},", Yposition.ToString());
             sbJson.AppendFormat("\"width\":{0},", Width.ToString());
+            sbJson.AppendFormat("\"height\":{0},", Height.ToString());
             sbJson.AppendFormat("\"valign\":\"{0}\",", VerticalAlign.ToString());
             sbJson.AppendFormat("\"glowSize\":{0},", GlowSize.ToString());
             sbJson.AppendFormat("\"glowStrength\":{0},", GlowStrength.ToString());
@@ -385,6 +394,7 @@ namespace avt.DynamicFlashRotator.Net
             try { slideObject.Xposition = Convert.ToInt32(dr["PositionX"].ToString()); } catch { }
             try { slideObject.Yposition = Convert.ToInt32(dr["PositionY"].ToString()); } catch { }
             try { slideObject.Width = Convert.ToInt32(dr["Width"].ToString()); } catch { }
+            try { slideObject.Height = Convert.ToInt32(dr["Height"].ToString()); } catch { }
 
             try { slideObject.VerticalAlign = (eVerticalAlign)Enum.Parse(typeof(eVerticalAlign), dr["VerticalAlign"].ToString(), true); } catch { }
             try { slideObject.GlowSize = Convert.ToInt32(dr["GlowSize"].ToString()); } catch { }

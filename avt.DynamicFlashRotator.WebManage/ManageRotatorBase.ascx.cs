@@ -288,6 +288,7 @@ namespace avt.DynamicFlashRotator.Net.WebManage
                             try { slideObj.Xposition = Convert.ToInt32(xmlSlideObj["posx"].InnerText); } catch { }
                             try { slideObj.Yposition = Convert.ToInt32(xmlSlideObj["posy"].InnerText); } catch { }
                             try { slideObj.Width = Convert.ToInt32(xmlSlideObj["width"].InnerText); } catch { }
+                            try { slideObj.Height = Convert.ToInt32(xmlSlideObj["height"].InnerText); } catch { }
                             try { slideObj.VerticalAlign = (eVerticalAlign)Enum.Parse(typeof(eVerticalAlign), xmlSlideObj["valign"].InnerText, true); } catch { }
 
                             try { slideObj.GlowSize = Convert.ToInt32(xmlSlideObj["glowSize"].InnerText); } catch { }
