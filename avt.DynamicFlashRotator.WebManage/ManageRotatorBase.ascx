@@ -1415,7 +1415,7 @@ jQuery(function() {
         if (bErr)
             return false;
 
-        var x = "<slides>";
+        var x = '<?xml version="1.0" encoding="utf-8"?><slides>';
         $(".slideRoot").not("#slideTpl").each(function() {
             x += saveSlideToXml($(this));
         });
@@ -1481,8 +1481,14 @@ jQuery(function() {
     function encodeXml(sXml) {
         if (!sXml)
             return "";
-        sXml = sXml.toString();
-        return sXml.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&apos;");
+
+        var pre = document.createElement('pre');
+        var text = document.createTextNode( sXml );
+        pre.appendChild(text);
+        return pre.innerHTML;
+
+        //sXml = sXml.toString();
+        //return sXml.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&apos;");
     }
 
 </script>

@@ -12,9 +12,9 @@ namespace avt.DynamicFlashRotator.Net.Data
 
         #region "Private Members"
 
-        AvtSqlHelper_Table _TableSettings;
-        AvtSqlHelper_Table _TableSlides;
-        AvtSqlHelper_Table _TableSlideObjects;
+        SqlTable _TableSettings;
+        SqlTable _TableSlides;
+        SqlTable _TableSlideObjects;
 
         #endregion
 
@@ -27,7 +27,7 @@ namespace avt.DynamicFlashRotator.Net.Data
 
         public override void Init(IConfiguration config)
         {
-            _TableSettings = new AvtSqlHelper_Table(
+            _TableSettings = new SqlTable(
                 config.ConnStr,
                 config.DbOwner + config.ObjQualifier + "avtRotator_Settings",
                 false,
@@ -35,7 +35,7 @@ namespace avt.DynamicFlashRotator.Net.Data
                 "SettingValue"
             );
 
-            _TableSlides = new AvtSqlHelper_Table(
+            _TableSlides = new SqlTable(
                 config.ConnStr,
                 config.DbOwner + config.ObjQualifier + "avtRotator_Slides",
                 true,
@@ -46,7 +46,7 @@ namespace avt.DynamicFlashRotator.Net.Data
                 "ViewOrder"
             );
 
-            _TableSlideObjects = new AvtSqlHelper_Table(
+            _TableSlideObjects = new SqlTable(
                 config.ConnStr,
                 config.DbOwner + config.ObjQualifier + "avtRotator_SlideObjects",
                 true,
@@ -73,17 +73,17 @@ namespace avt.DynamicFlashRotator.Net.Data
 
         public override IDataReader GetSettings(string controlId)
         {
-            return _TableSettings.Get("Where ControlId=" + AvtSqlHelper_Table.EncodeSql(controlId));
+            return _TableSettings.Get("Where ControlId=" + SqlTable.EncodeSql(controlId));
         }
 
         public override IDataReader GetSetting(string controlId, string settingName)
         {
-            return _TableSettings.Get("Where ControlId=" + AvtSqlHelper_Table.EncodeSql(controlId) + " AND SettingName=" + AvtSqlHelper_Table.EncodeSql(settingName));
+            return _TableSettings.Get("Where ControlId=" + SqlTable.EncodeSql(controlId) + " AND SettingName=" + SqlTable.EncodeSql(settingName));
         }
 
         public override void RemoveSettings(string controlId)
         {
-            _TableSettings.Delete("ControlId=" + AvtSqlHelper_Table.EncodeSql(controlId));
+            _TableSettings.Delete("ControlId=" + SqlTable.EncodeSql(controlId));
         }
 
 
@@ -113,7 +113,7 @@ namespace avt.DynamicFlashRotator.Net.Data
 
         public override IDataReader GetSlides(string controlId)
         {
-            return _TableSlides.Get("Where ControlID=" + AvtSqlHelper_Table.EncodeSql(controlId) + " Order by ViewOrder");
+            return _TableSlides.Get("Where ControlID=" + SqlTable.EncodeSql(controlId) + " Order by ViewOrder");
         }
 
         public override IDataReader GetSlide(int slideId)
@@ -128,7 +128,7 @@ namespace avt.DynamicFlashRotator.Net.Data
 
         public override void RemoveSlides(string controlId)
         {
-            _TableSlides.Delete("ControlId=" + AvtSqlHelper_Table.EncodeSql(controlId));
+            _TableSlides.Delete("ControlId=" + SqlTable.EncodeSql(controlId));
         }
 
         public override int UpdateSlideObject(
