@@ -7,6 +7,7 @@ using avt.DynamicFlashRotator.Net.Settings;
 using avt.DynamicFlashRotator.Net.Services.Authentication;
 using System.Web.UI;
 using System.Collections.Specialized;
+using avt.DynamicFlashRotator.Dnn.DnnSf.Licensing.v2;
 
 namespace avt.DynamicFlashRotator.Net.Services
 {
@@ -103,6 +104,27 @@ namespace avt.DynamicFlashRotator.Net.Services
                 return new FileBrowser(HttpContext.Current.Server.MapPath(resPath), pathName, "png", "jpg", "swf"); 
             }
         }
+
+        public string LicenseFilePath
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public LicenseStatus LicenseStatus
+        {
+            get
+            {
+                return new LicenseStatus() {
+                    Code = Dnn.DnnSf.Licensing.v2.LicenseStatus.eCode.Ok,
+                    Type = Dnn.DnnSf.Licensing.v2.LicenseStatus.eType.Info
+                };
+                   
+            }
+        }
+
 
         #endregion
 

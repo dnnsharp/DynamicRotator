@@ -11,6 +11,8 @@ using System.Reflection;
 using avt.DynamicFlashRotator.Net.Settings;
 using avt.DynamicFlashRotator.Net.Services.Authentication;
 using DotNetNuke.Security.Permissions;
+using System.IO;
+using avt.DynamicFlashRotator.Dnn.DnnSf.Licensing.v2;
 
 namespace avt.DynamicFlashRotator.Dnn
 {
@@ -232,5 +234,35 @@ namespace avt.DynamicFlashRotator.Dnn
                 }
             );
         }
+
+        public string LicenseFilePath
+        {
+            get
+            {
+                var asm = System.Reflection.Assembly.GetAssembly(typeof(RotatorSettings));
+                var asmPath = asm.CodeBase.Replace("file:///", "").Replace('/', '\\');
+
+                if (Path.GetExtension(asmPath).ToLower() == ".dll") {
+                    asmPath = Path.GetDirectoryName(asmPath);
+                }
+
+                if (asmPath.IndexOf(System.AppDomain.CurrentDomain.BaseDirectory.Replace('/', '\\')) == -1) {
+                    // it's not in the bin folder
+                    asmPath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "bin");
+                }
+
+                return Path.Combine(asmPath, asm.GetName().Name.Replace(".Core", "") + ".lic");
+            }
+        }
+
+        public LicenseStatus LicenseStatus
+        {
+            get
+            {
+                var license = LicenseFactory.Get(RotatorSettings.Configuration.LicenseFilePath, RotatorSettings.Version, RotatorSettings.ProductKey);
+                return license.Status;
+            }
+        }
+
     }
 }

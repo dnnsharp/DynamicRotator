@@ -4,12 +4,12 @@ using avt.DynamicFlashRotator.Net.Settings;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Modules.Actions;
 using DotNetNuke.Security;
-using avt.DynamicFlashRotator.Net.RegCore;
 using System.Collections.Generic;
 using System.Web.UI.WebControls;
 using DotNetNuke.Entities.Portals;
 using System.Collections;
 using System.IO;
+using avt.DynamicFlashRotator.Dnn.DnnSf.Licensing.v2;
 
 namespace avt.DynamicFlashRotator.Dnn
 {
@@ -40,23 +40,23 @@ namespace avt.DynamicFlashRotator.Dnn
         private void Page_Load(object sender, System.EventArgs e)
         {
             RotatorSettings rotatorSettings = new RotatorSettings();
-            rotatorSettings.Hosts = new System.Collections.Generic.List<System.Web.UI.WebControls.ListItem>();
-
-            PortalAliasController paCtrl = new PortalAliasController();
-            foreach (DictionaryEntry de in paCtrl.GetPortalAliases()) {
-                PortalAliasInfo paInfo = (PortalAliasInfo)de.Value;
-                rotatorSettings.Hosts.Add(new ListItem(paInfo.HTTPAlias, paInfo.HTTPAlias));
-            }
-
-            Control ctrlAct = LoadControl(TemplateSourceDirectory.TrimEnd('/') + "/RegCore/QuickStatusAndLink.ascx");
-            (ctrlAct as IRegCoreComponent).InitRegCore(IsAdmin, RotatorSettings.RegCoreServer, RotatorSettings.ProductName, RotatorSettings.ProductCode, RotatorSettings.ProductKey, RotatorSettings.Version, TemplateSourceDirectory.TrimEnd('/') + "/RegCore/", typeof(DynamicRotatorController));
-            this.pnlAdmin.Controls.Add(ctrlAct);
-
-            if (!rotatorSettings.IsActivated() || rotatorSettings.IsTrialExpired()) {
+            var licStatus = RotatorSettings.Configuration.LicenseStatus;
+            if (licStatus.Type == LicenseStatus.eType.Error) {
+                this.pnlAdmin.InnerText = licStatus.Message;
                 DynamicRotator.Visible = false;
             }
 
+            //Control ctrlAct = LoadControl(TemplateSourceDirectory.TrimEnd('/') + "/RegCore/QuickStatusAndLink.ascx");
+            //(ctrlAct as IRegCoreComponent).InitRegCore(IsAdmin, RotatorSettings.RegCoreServer, RotatorSettings.ProductName, RotatorSettings.ProductCode, RotatorSettings.ProductKey, RotatorSettings.Version, TemplateSourceDirectory.TrimEnd('/') + "/RegCore/", typeof(DynamicRotatorController));
+            //this.pnlAdmin.Controls.Add(ctrlAct);
+
+            //if (!rotatorSettings.IsActivated() || rotatorSettings.IsTrialExpired()) {
+            //    DynamicRotator.Visible = false;
+            //}
+
         }
+
+       
 
         //private bool HasAdminRights()
         //{
@@ -73,10 +73,16 @@ namespace avt.DynamicFlashRotator.Dnn
         {
             get {
 
-                RotatorSettings rotatorSettings = new RotatorSettings();
-                if (!rotatorSettings.IsActivated() || rotatorSettings.IsTrialExpired()) {
+                var license = LicenseFactory.Get(RotatorSettings.Configuration.LicenseFilePath, RotatorSettings.Version, RotatorSettings.ProductKey);
+                var licStatus = license.Status;
+                if (licStatus.Type == LicenseStatus.eType.Error) {
                     return new ModuleActionCollection();
                 }
+
+                //RotatorSettings rotatorSettings = new RotatorSettings();
+                //if (!rotatorSettings.IsActivated() || rotatorSettings.IsTrialExpired()) {
+                //    return new ModuleActionCollection();
+                //}
 
                 string managePath = TemplateSourceDirectory + "/ManageRotator.aspx?controlId=" + ModuleId.ToString() + "&rurl=" + HttpUtility.UrlEncode(Request.RawUrl) + "&portalid=" + PortalId;
                 ModuleActionCollection Actions = new ModuleActionCollection();

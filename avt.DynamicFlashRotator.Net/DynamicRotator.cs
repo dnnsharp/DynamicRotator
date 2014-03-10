@@ -17,10 +17,12 @@ using System.Text.RegularExpressions;
 using avt.DynamicFlashRotator.Net.Services.Authentication;
 using avt.DynamicFlashRotator.Net.RenderEngine;
 using System.Collections;
+using avt.DynamicFlashRotator.Dnn.DnnSf.Licensing.v2;
 
 namespace avt.DynamicFlashRotator.Net
 {
-    public enum eSlideButtonsType {
+    public enum eSlideButtonsType
+    {
         SquareWithNumbers = 1,
         RoundNoNumbers = 2
     }
@@ -37,9 +39,10 @@ namespace avt.DynamicFlashRotator.Net
 
             Settings.Width = new Unit(950, UnitType.Pixel);
             Settings.Height = new Unit(250, UnitType.Pixel);
+            Settings.Direction = "LTR";
         }
 
-        protected override void  OnDataBinding(EventArgs e)
+        protected override void OnDataBinding(EventArgs e)
         {
             base.OnDataBinding(e);
         }
@@ -58,7 +61,7 @@ namespace avt.DynamicFlashRotator.Net
                     // don't have DbConnectionString
                 }
             }
-            
+
 
             // merge dynamic settings
             if (AllowRuntimeConfiguration) {
@@ -80,50 +83,50 @@ namespace avt.DynamicFlashRotator.Net
 
             Settings.FrontEndRenderEngine.OnLoad(this);
 
-//            if (Page.Request.Params["controlId"] == RealId) {
-//                if (Page.Request.Params["avtadrot"] == "settings") {
-//                    Page.Response.Cache.SetCacheability(HttpCacheability.NoCache);
-//                    Page.Response.Cache.SetNoStore();
-//                    Page.Response.Write(Settings.ToXml());
-//                    //Page.Response.ContentType = "text/xml";
-//                    Page.Response.ContentType = "text/xml; charset=utf-8";
-//                    Page.Response.End();
-//                    return;
-//                }
+            //            if (Page.Request.Params["controlId"] == RealId) {
+            //                if (Page.Request.Params["avtadrot"] == "settings") {
+            //                    Page.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            //                    Page.Response.Cache.SetNoStore();
+            //                    Page.Response.Write(Settings.ToXml());
+            //                    //Page.Response.ContentType = "text/xml";
+            //                    Page.Response.ContentType = "text/xml; charset=utf-8";
+            //                    Page.Response.End();
+            //                    return;
+            //                }
 
-//                if (Page.Request.Params["avtadrot"] == "content") {
-//                    Page.Response.Cache.SetCacheability(HttpCacheability.NoCache);
-//                    Page.Response.Cache.SetNoStore(); 
-//                    Page.Response.Write(GetSlidesXml());
-//                    Page.Response.ContentType = "text/xml; charset=utf-8"; 
-//                    //Page.Response.ContentType = "text/xml";
-//                    Page.Response.End();
-//                    return;
-//                }
+            //                if (Page.Request.Params["avtadrot"] == "content") {
+            //                    Page.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            //                    Page.Response.Cache.SetNoStore(); 
+            //                    Page.Response.Write(GetSlidesXml());
+            //                    Page.Response.ContentType = "text/xml; charset=utf-8"; 
+            //                    //Page.Response.ContentType = "text/xml";
+            //                    Page.Response.End();
+            //                    return;
+            //                }
 
-//                if (Page.Request.Params["avtadrot"] == "transitions") {
-//                    Page.Response.Cache.SetCacheability(HttpCacheability.NoCache);
-//                    Page.Response.Cache.SetNoStore(); 
-//                    Page.Response.Write(@"<?xml version=""1.0"" encoding=""utf-8""?>
-//    <picturesTransitions>
-//        <transition theName=""Blinds"" theEasing=""Strong"" theStrips=""20"" theDimension=""1""/>
-//        <trasition ></trasition>
-//        <transition theName=""Fly"" theEasing=""Strong"" theStartPoint=""9""/>
-//        <transition theName=""Iris"" theEasing=""Bounce"" theStartPoint=""1"" theShape=""CIRCLE""/>
-//        <transition theName=""Photo"" theEasing=""Elastic""/>
-//        <transition theName=""PixelDissolve"" theEasing=""Strong"" theXsections=""20"" theYsections=""20""/>
-//        <transition theName=""Rotate"" theEasing=""Strong"" theDegrees=""720""/>
-//        <transition theName=""Squeeze"" theEasing=""Strong"" theDimension=""1""/>
-//        <transition theName=""Wipe"" theEasing=""Strong"" theStartPoint=""1""/>
-//        <transition theName=""Zoom"" theEasing=""Back""/>
-//    </picturesTransitions>
-//    "
-//                        );
-//                    Page.Response.ContentType = "text/xml";
-//                    Page.Response.End();
-//                    return;
-//                }
-//            }
+            //                if (Page.Request.Params["avtadrot"] == "transitions") {
+            //                    Page.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            //                    Page.Response.Cache.SetNoStore(); 
+            //                    Page.Response.Write(@"<?xml version=""1.0"" encoding=""utf-8""?>
+            //    <picturesTransitions>
+            //        <transition theName=""Blinds"" theEasing=""Strong"" theStrips=""20"" theDimension=""1""/>
+            //        <trasition ></trasition>
+            //        <transition theName=""Fly"" theEasing=""Strong"" theStartPoint=""9""/>
+            //        <transition theName=""Iris"" theEasing=""Bounce"" theStartPoint=""1"" theShape=""CIRCLE""/>
+            //        <transition theName=""Photo"" theEasing=""Elastic""/>
+            //        <transition theName=""PixelDissolve"" theEasing=""Strong"" theXsections=""20"" theYsections=""20""/>
+            //        <transition theName=""Rotate"" theEasing=""Strong"" theDegrees=""720""/>
+            //        <transition theName=""Squeeze"" theEasing=""Strong"" theDimension=""1""/>
+            //        <transition theName=""Wipe"" theEasing=""Strong"" theStartPoint=""1""/>
+            //        <transition theName=""Zoom"" theEasing=""Back""/>
+            //    </picturesTransitions>
+            //    "
+            //                        );
+            //                    Page.Response.ContentType = "text/xml";
+            //                    Page.Response.End();
+            //                    return;
+            //                }
+            //            }
         }
 
         string _OverrideId = null;
@@ -240,7 +243,7 @@ namespace avt.DynamicFlashRotator.Net
         [Description("Background of the control")]
         [DisplayName("Background Color")]
         public Color BackgroundColor { get { return Settings.BackgroundColor; } set { Settings.BackgroundColor = value; } }
-        
+
         [Category("Dynamic Rotator")]
         [Description("Show or hide the top part with the slide title when the mouse is over a slide button.")]
         [DisplayName("Show Top Title")]
@@ -317,10 +320,10 @@ namespace avt.DynamicFlashRotator.Net
         [MergableProperty(false)]
         public SlideCollection Slides { get { return Settings.Slides; } }
 
-        
+
         //string GetSlidesXml()
         //{
-            
+
         //    StringBuilder strXML = new StringBuilder();
         //    XmlWriterSettings settings = new XmlWriterSettings();
         //    settings.Indent = true;
@@ -329,7 +332,7 @@ namespace avt.DynamicFlashRotator.Net
         //    XmlWriter Writer = XmlWriter.Create(strXML, settings);
 
         //    if (!Settings.IsActivated() || Settings.IsTrialExpired()) {
-                    
+
         //        SlideObjectInfo trialText = new SlideObjectInfo();
         //        trialText.ObjectType = eObjectType.Text;
         //        if (Settings.IsTrialExpired()) {
@@ -348,7 +351,7 @@ namespace avt.DynamicFlashRotator.Net
         //        logoObj.SlideFrom = eAllDirs.Left;
         //        logoObj.EffectAfterSlide = eEffect.Zoom;
         //        logoObj.TransitionDuration = 1;
-                    
+
         //        SlideInfo trialSlide = new SlideInfo();
         //        trialSlide.SlideObjects.Add(trialText);
         //        trialSlide.SlideObjects.Add(logoObj);
@@ -407,7 +410,7 @@ namespace avt.DynamicFlashRotator.Net
 
             IList<IAdminAuthentication> security = GetSecurityLayers(RealId);
             if (AllowRuntimeConfiguration && RotatorSettings.Configuration.ShowManageLinks() && RotatorSettings.Configuration.HasAccess(RealId, security)) {
-                
+
                 // if (RotatorSettings.Configuration.ShowManageLinks()) { // this pretty much means it's a Asp.NET control for now
 
                 // save data in session
@@ -434,8 +437,9 @@ namespace avt.DynamicFlashRotator.Net
                 manageUrl += "&rurl=" + HttpUtility.UrlEncode(HttpContext.Current.Request.RawUrl);
                 output.Write("<br />");
 
-                if (!Settings.IsActivated() || Settings.IsTrialExpired()) {
-                    output.Write("<a href='" + manageUrl + "' style='color: #CB2027;font-weight: bold;text-decoration: underline;'>Unlock 30 Day Trial or Activate for Production</a>");
+                var licStatus = RotatorSettings.Configuration.LicenseStatus;
+                if (licStatus.Type == LicenseStatus.eType.Error) {
+                    output.Write("<a href='" + manageUrl + "' style='color: #CB2027;font-weight: bold;text-decoration: underline;'>" + licStatus.Message + "</a>");
                 } else {
                     output.Write("<a href='" + manageUrl + "#tabs-main-slides' style='color: #CB2027;font-weight: bold;text-decoration: none;'>Manage Slides</a>");
                     output.Write("&nbsp;&nbsp;|&nbsp;&nbsp;");

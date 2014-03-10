@@ -295,6 +295,7 @@
         };
 
         this._showSlide = function (iSlide, fn) {
+
             var _slide = this.container.find(".avtSlide:eq(" + iSlide + ")");
             this.container.find(".avtRotBg").fadeOut(this.settings.fadeOutEasing, this.settings.fadeOutEasing);
 
@@ -373,11 +374,13 @@
                         pos.y = this.settings.stageHeight + sObj.height();
                         break;
                 }
+
+                var margin = opts.direction == "RTL" ? '"margin-right' : '"margin-left';
                 sObj.stop(true, true).css({
-                    "margin-left": pos.x,
+                    margin: pos.x,
                     "margin-top": pos.y
                 }).show().animate({
-                    "margin-left": opts.posx,
+                    margin: opts.posx,
                     "margin-top": opts.posy
                 }, opts.duration * 1000, "easeOutExpo");
 

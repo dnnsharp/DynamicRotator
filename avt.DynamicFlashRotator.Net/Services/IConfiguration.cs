@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using avt.DynamicFlashRotator.Net.Settings;
 using avt.DynamicFlashRotator.Net.Services.Authentication;
+using avt.DynamicFlashRotator.Dnn.DnnSf.Licensing.v2;
 
 namespace avt.DynamicFlashRotator.Net.Services
 {
@@ -22,5 +23,9 @@ namespace avt.DynamicFlashRotator.Net.Services
         string Tokenize(string controlId, string content);
 
         FileBrowser BrowseServerForResources { get; }
+
+        string LicenseFilePath { get; }
+
+        LicenseStatus LicenseStatus { get; }
     }
 }

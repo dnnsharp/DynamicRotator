@@ -57,7 +57,8 @@ namespace avt.DynamicFlashRotator.Net.WebManage
                 RotatorSettings settings = new RotatorSettings();
 
                 // check activation
-                lblTabActivateContents.Visible = lblTabActivate.Visible = !settings.IsActivated() || settings.IsTrial();
+                var licStatus = RotatorSettings.Configuration.LicenseStatus;
+                lblLicenseMessage.Text = licStatus.Message;
 
                 ddSlideButtonsType.Items.Add(new ListItem("Square (with numbers)", eSlideButtonsType.SquareWithNumbers.ToString()));
                 ddSlideButtonsType.Items.Add(new ListItem("Round (no numbers)", eSlideButtonsType.RoundNoNumbers.ToString()));
@@ -101,6 +102,7 @@ namespace avt.DynamicFlashRotator.Net.WebManage
                 lblControlName.Text = Configuration.FormatTitle(Request.QueryString["controlId"]);
                 tbWidth.Text = settings.Width.Value.ToString();
                 tbHeight.Text = settings.Height.Value.ToString();
+                ddDirection.SelectedValue = settings.Direction;
                 //ddRenderEngine.SelectedValue = settings.RenderEngine.ToString();
                 tbFallBackImage.Text = settings.FallbackImage;
                 cbAutoStartSlideShow.Checked = settings.AutoStartSlideShow;
@@ -183,6 +185,7 @@ namespace avt.DynamicFlashRotator.Net.WebManage
 
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "Width", tbWidth.Text);
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "Height", tbHeight.Text);
+            DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "Direction", ddDirection.SelectedValue);
             //DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "RenderEngine", ddRenderEngine.SelectedValue);
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "FallbackImage", tbFallBackImage.Text);
             DataProvider.Instance().UpdateSetting(Request.QueryString["controlId"], "AutoStartSlideShow", cbAutoStartSlideShow.Checked ? "true" : "false");

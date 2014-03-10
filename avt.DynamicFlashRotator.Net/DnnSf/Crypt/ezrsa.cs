@@ -35,7 +35,7 @@ using System.Security.Cryptography;
 using System.IO;
 using System.Xml;
 
-namespace avt.DynamicFlashRotator.Net.RegCore.Cryptography
+namespace avt.DynamicFlashRotator.Dnn.DnnSf.Crypt
 {
 
     // ----------------------------------------------------------------------------

@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>avt.DynamicFlashRotator.WebManage</RootNamespace>
     <AssemblyName>avt.DynamicFlashRotator.WebManage</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <UseIISExpress>false</UseIISExpress>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -24,6 +24,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -57,16 +58,6 @@
     <Content Include="AdminApi.aspx" />
     <Content Include="ManageRotatorBase.ascx" />
     <Content Include="ManageRotator.aspx" />
-    <Content Include="RegCore\Activation.aspx" />
-    <Content Include="RegCore\QuickStatusAndLink.ascx" />
-    <Content Include="RegCore\res\bk.png" />
-    <Content Include="RegCore\res\btn_cancel.png" />
-    <Content Include="RegCore\res\btn_next.png" />
-    <Content Include="RegCore\res\btn_purchase.png" />
-    <Content Include="RegCore\res\icon_help.png" />
-    <Content Include="RegCore\res\icon_help_over.png" />
-    <Content Include="RegCore\res\style.css" />
-    <Content Include="RegCore\UnlockTrial.aspx" />
     <Content Include="res\js\jquery-ui.js" />
     <Content Include="res\js\jquery.js" />
     <Content Include="res\manage.css" />
@@ -115,27 +106,6 @@
       <DependentUpon>ManageRotatorBase.ascx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegCore\Activation.aspx.cs">
-      <DependentUpon>Activation.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="RegCore\Activation.aspx.designer.cs">
-      <DependentUpon>Activation.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="RegCore\QuickStatusAndLink.ascx.cs">
-      <DependentUpon>QuickStatusAndLink.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="RegCore\QuickStatusAndLink.ascx.designer.cs">
-      <DependentUpon>QuickStatusAndLink.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="RegCore\UnlockTrial.aspx.cs">
-      <DependentUpon>UnlockTrial.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="RegCore\UnlockTrial.aspx.designer.cs">
-      <DependentUpon>UnlockTrial.aspx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="js\" />
@@ -146,6 +116,16 @@
     <None Include="deploy.cmd" />
     <Content Include="res\wysiwyg\jquery.wysiwyg.css.gzip" />
     <Content Include="res\wysiwyg\jquery.wysiwyg.min.css.gzip" />
+    <Content Include="web.config" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.PublishPackage.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\avt.DynamicFlashRotator.Net\avt.DynamicFlashRotator.Net.csproj">

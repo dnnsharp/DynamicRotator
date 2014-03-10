@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Dynamic Flash Rotator - DotNetNuke Module")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Avatar Software")]
+[assembly: AssemblyCompany("DNN Sharp")]
 [assembly: AssemblyProduct("Dynamic Flash Rotator")]
-[assembly: AssemblyCopyright("Copyright © Avatar Software 2011")]
+[assembly: AssemblyCopyright("Copyright © DNN Sharp 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("1.3.5.0")]
-[assembly: AssemblyFileVersion("1.3.5.0")]
+[assembly: AssemblyVersion("1.3.10.0")]
+[assembly: AssemblyFileVersion("1.3.10.0")]

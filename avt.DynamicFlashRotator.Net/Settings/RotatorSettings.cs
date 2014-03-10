@@ -14,12 +14,10 @@ using System.Web;
 using avt.DynamicFlashRotator.Net.Serialization;
 using avt.DynamicFlashRotator.Net.RenderEngine;
 using System.Globalization;
-using avt.DynamicFlashRotator.Net.RegCore.Storage;
-using avt.DynamicFlashRotator.Net.RegCore;
 
 namespace avt.DynamicFlashRotator.Net.Settings
 {
-    
+
     public enum eRenderEngine
     {
         Flash,
@@ -33,12 +31,14 @@ namespace avt.DynamicFlashRotator.Net.Settings
 
         public RotatorSettings()
         {
-            
+
         }
 
         static IConfiguration _ConfigurationProvider = null;
-        public static IConfiguration Configuration {
-            get {
+        public static IConfiguration Configuration
+        {
+            get
+            {
                 lock (typeof(RotatorSettings)) {
                     return _ConfigurationProvider;
                 }
@@ -65,6 +65,9 @@ namespace avt.DynamicFlashRotator.Net.Settings
 
         Unit _Height = 250;
         public Unit Height { get { return _Height; } set { _Height = value; } }
+
+        public string Direction { get; set; }
+
 
         eRenderEngine _RenderEngine = eRenderEngine.jQuery;
         public eRenderEngine RenderEngine { get { return _RenderEngine; } set { _RenderEngine = value; } }
@@ -233,8 +236,10 @@ namespace avt.DynamicFlashRotator.Net.Settings
 
         #endregion
 
-        public IRenderEngine FrontEndRenderEngine {
-            get {
+        public IRenderEngine FrontEndRenderEngine
+        {
+            get
+            {
                 return new jQueryEngine();
                 //switch (RenderEngine) {
                 //    case eRenderEngine.jQuery:
@@ -250,9 +255,9 @@ namespace avt.DynamicFlashRotator.Net.Settings
             DataProvider.Instance().Init(Configuration);
             bool hasValues = false;
             using (IDataReader dr = DataProvider.Instance().GetSettings(RotatorId)) {
-                
+
                 while (dr.Read()) {
-                    
+
                     hasValues = true;
 
                     string val = "";
@@ -267,6 +272,11 @@ namespace avt.DynamicFlashRotator.Net.Settings
                         case "Height":
                             try {
                                 Height = Convert.ToInt32(val);
+                            } catch { }
+                            break;
+                        case "Direction":
+                            try {
+                                Direction = val;
                             } catch { }
                             break;
                         //case "RenderEngine":
@@ -412,7 +422,7 @@ namespace avt.DynamicFlashRotator.Net.Settings
         public void SaveToPortableXml(XmlWriter Writer, string controlId)
         {
             Writer.WriteStartElement("RotatorSettings");
-            
+
             // save settings
             Writer.WriteElementString("Width", Width.Value.ToString());
             Writer.WriteElementString("Height", Height.Value.ToString());
@@ -509,6 +519,7 @@ namespace avt.DynamicFlashRotator.Net.Settings
             rw.BeginObject("settings");
             rw.WriteProperty("stageWidth", Width.Value);
             rw.WriteProperty("stageHeight", Height.Value);
+            rw.WriteProperty("direction", Direction);
             //rw.WriteProperty("renderEngine", RenderEngine.ToString());
             rw.WriteProperty("startSlideShow", AutoStartSlideShow ? "yes" : "no");
             rw.WriteProperty("showBottomButtons", ShowBottomButtons ? "yes" : "no");
@@ -591,7 +602,7 @@ namespace avt.DynamicFlashRotator.Net.Settings
         public static string ProductName { get { return "Dynamic Rotator .NET"; } }
         public static string ProductCode { get { return "ADROT"; } }
         public static string ProductKey { get { return "<RSAKeyValue><Modulus>xjeQuuf4zC2gbVI0ZJJnKagUgmeFH8klB27NK80DhxcBaJkw/naUJl1N9195kxUyznRf8uwSkjt9sZfmGQplu3gYz+X3GFCcVhABZsXyO+vNAdkyU+F6KkX5wL4/AAfmpKbqhsYt/z3abPInaRWG1Mk6uoUSv0bkAXsvLWOjUZs=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>"; } }
-        public static string Version { get { return "1.3.0"; } }
+        public static string Version { get { return "1.3"; } }
         public static string Build
         {
             get
@@ -604,46 +615,11 @@ namespace avt.DynamicFlashRotator.Net.Settings
         static public string DocSrv = RegCoreServer + "/Api.aspx?cmd=doc&product=" + ProductCode + "&version=" + Version;
         static public string BuyLink = RegCoreServer + "/Api.aspx?cmd=buy&product=" + ProductCode + "&version=" + Version;
 
-        List<ListItem> _Hosts = new List<ListItem>();
-        public List<ListItem> Hosts {
-            get { return _Hosts; }
-            set { _Hosts = value; }
-        }
-
-        internal IActivationDataStore GetActivationSrc()
-        {
-            return new DsLicFile();
-        }
-
-        public static IRegCoreClient RegCore {
-            get {
-                return RegCoreClient.Get(new RegCoreServer(RegCoreServer).ApiScript, ProductCode, new DsLicFile(), false);
-            }
-        }
-
-        public bool IsActivated()
-        {
-            return RegCore.IsActivated(ProductCode, Version, HttpContext.Current.Request.Url.Host);
-        }
-
-        public bool IsTrial()
-        {
-            return RegCore.IsTrial(ProductCode, Version, HttpContext.Current.Request.Url.Host);
-        }
-
-        public bool IsTrialExpired()
-        {
-            return RegCore.IsTrialExpired(ProductCode, Version, HttpContext.Current.Request.Url.Host);
-        }
-
-        public void Activate(string regCode, string host, string actCode)
-        {
-            if (string.IsNullOrEmpty(actCode)) {
-                RegCore.Activate(regCode, ProductCode, Version, host, ProductKey);
-            } else {
-                RegCore.Activate(regCode, ProductCode, Version, host, ProductKey, actCode);
-            }
-        }
+        //List<ListItem> _Hosts = new List<ListItem>();
+        //public List<ListItem> Hosts {
+        //    get { return _Hosts; }
+        //    set { _Hosts = value; }
+        //}
 
         #endregion
 

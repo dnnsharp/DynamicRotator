@@ -8,8 +8,6 @@ using avt.DynamicFlashRotator.Net.Settings;
 using avt.DynamicFlashRotator.Net;
 using avt.DynamicFlashRotator.Net.Data;
 using System.Web.UI.WebControls;
-using avt.DynamicFlashRotator.Net.RegCore.Storage;
-using avt.DynamicFlashRotator.Net.RegCore;
 using DotNetNuke.Entities.Portals;
 using System.Collections;
 using DotNetNuke.Services.Search;
@@ -42,43 +40,6 @@ namespace avt.DynamicFlashRotator.Dnn
                     hosts.Add(new ListItem(paInfo.HTTPAlias, paInfo.HTTPAlias));
                 }
                 return hosts;
-            }
-        }
-
-        internal IActivationDataStore GetActivationSrc()
-        {
-            return new DsLicFile();
-        }
-
-        public static IRegCoreClient RegCore
-        {
-            get
-            {
-                return RegCoreClient.Get(new RegCoreServer(RegCoreServer).ApiScript, ProductCode, new DsLicFile(), false);
-            }
-        }
-
-        public bool IsActivated()
-        {
-            return RegCore.IsActivated(ProductCode, Version, HttpContext.Current.Request.Url.Host);
-        }
-
-        public bool IsTrial()
-        {
-            return RegCore.IsTrial(ProductCode, Version, HttpContext.Current.Request.Url.Host);
-        }
-
-        public bool IsTrialExpired()
-        {
-            return RegCore.IsTrialExpired(ProductCode, Version, HttpContext.Current.Request.Url.Host);
-        }
-
-        public void Activate(string regCode, string host, string actCode)
-        {
-            if (string.IsNullOrEmpty(actCode)) {
-                RegCore.Activate(regCode, ProductCode, Version, host, ProductKey);
-            } else {
-                RegCore.Activate(regCode, ProductCode, Version, host, ProductKey, actCode);
             }
         }
 
@@ -118,7 +79,7 @@ namespace avt.DynamicFlashRotator.Dnn
         public string UpgradeModule(string Version)
         {
             // update activation
-            RegCore.Upgrade(ProductCode, Version, ProductKey, false);
+            //RegCore.Upgrade(ProductCode, Version, ProductKey, false);
 
             return "Done";
         }

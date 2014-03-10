@@ -33,7 +33,7 @@
         <%--<li><a href="#tabs-main-presets">Presets</a></li>
         <li><a href="#tabs-main-library">Object Library</a></li>--%>
         <asp:Literal runat="server" ID = "lblTabActivate">
-            <li><a href="#tabs-main-activate">Activate</a></li>
+            <li><a href="#tabs-main-activate">License</a></li>
         </asp:Literal>
     </ul>
 
@@ -52,6 +52,22 @@
                     Determines width and height of the rotator in pixels
                 </td>
             </tr>
+
+            <tr>
+                <td class="settingField ctlSliderBtnLbl">
+                    <asp:Label runat="server" AssociatedControlID="ddDirection">Direction</asp:Label>
+                </td>
+                <td class="settingField">
+                    <asp:DropDownList runat = "server" ID="ddDirection" CssClass="ctlSliderBtn">
+                        <asp:ListItem>LTR</asp:ListItem>
+                        <asp:ListItem>RTL</asp:ListItem>
+                    </asp:DropDownList>
+                </td>
+                <td class = "grayed_desc">
+                    Choose between Right To Left or Left to Right display.
+                </td>
+            </tr>
+
            <%-- <tr>
                 <td class="settingField" style="width: 200px;">
                     <asp:Label runat="server" AssociatedControlID="ddRenderEngine">Render Engine</asp:Label>
@@ -461,18 +477,16 @@
 
     <asp:Label runat="server" ID = "lblTabActivateContents">
         <div id = "tabs-main-activate" style="margin: 15px 25px;">
-            <h2 style="color: #C77405;">This copy of Dynamic Rotator .NET is in Trial!</h2>
-            <div>
-                This means that you can evaluate the software with full functionalities for 30 days.
-            </div>
+            <h2 style="color: #C77405;">License Information</h2>
+
+            <p>
+                <asp:Label runat="server" ID = "lblLicenseMessage"></asp:Label>
+            </p>
 
             <br /><br />
-            <div>
-                To activate this package you need a License Key. If you don't have one yet you can <a style="color: #1C94C4;" href = "<%= BuyUrl %>">Purchase a License here</a>.
-
-                <br /><br />
-                If you already have a license, proceed to <a href = "<%= TemplateSourceDirectory + "/RegCore/Activation.aspx?t="+ HttpUtility.UrlEncode(ControllerType.AssemblyQualifiedName) + "&rurl=" + Server.UrlEncode(Request.RawUrl) %>" style="color: #1C94C4; font-weight: bold;">Activation Wizard</a>.
-            </div>
+            <p>
+                If you need a new license, you can <a style="color: #1C94C4;" href = "<%= BuyUrl %>">Purchase a License here</a>.
+            </p>
         </div>
     </asp:Label>
 </div>
@@ -536,6 +550,7 @@
                             <b>Height:</b> <input type="text" style = "width: 60px;" class="tbObjHeight tbNumber" /> px
                         </td>
                     </tr>
+                     
                     <tr class = "objFieldRow ui-widget-content objFieldImgOnly">
                         <td class = "ui-widget-content hdr">Link URL:</td>
                         <td class = "ui-widget-content">

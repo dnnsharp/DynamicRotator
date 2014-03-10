@@ -22,7 +22,7 @@ namespace avt.DynamicFlashRotator.Net.RenderEngine
 
         public void Render(DynamicRotator rotator, HtmlTextWriter output)
         {
-            output.Write("<div class='avtRot'></div>");
+            output.Write("<div class='avtRot' style=\"direction: " + rotator.Settings.Direction + ";\"></div>");
 
             output.WriteBeginTag("script");
             output.WriteAttribute("type", "text/javascript");
