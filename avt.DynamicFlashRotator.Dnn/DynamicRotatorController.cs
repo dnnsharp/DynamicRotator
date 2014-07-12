@@ -31,13 +31,14 @@ namespace avt.DynamicFlashRotator.Dnn
         static public string DocSrv = RegCoreServer + "/Api.aspx?cmd=doc&product=" + ProductCode + "&version=" + Version;
         static public string BuyLink = RegCoreServer + "/Api.aspx?cmd=buy&product=" + ProductCode + "&version=" + Version;
 
-        public List<ListItem> Hosts {
-            get {
-                List<ListItem> hosts = new List<ListItem>();
+        public List<System.Web.UI.WebControls.ListItem> Hosts
+        {
+            get
+            {
+                List<System.Web.UI.WebControls.ListItem> hosts = new List<System.Web.UI.WebControls.ListItem>();
                 PortalAliasController paCtrl = new PortalAliasController();
-                foreach (DictionaryEntry de in paCtrl.GetPortalAliases()) {
-                    PortalAliasInfo paInfo = (PortalAliasInfo)de.Value;
-                    hosts.Add(new ListItem(paInfo.HTTPAlias, paInfo.HTTPAlias));
+                foreach (PortalAliasInfo paInfo in PortalAliasController.GetPortalAliasLookup().Values) {
+                    hosts.Add(new System.Web.UI.WebControls.ListItem(paInfo.HTTPAlias, paInfo.HTTPAlias));
                 }
                 return hosts;
             }

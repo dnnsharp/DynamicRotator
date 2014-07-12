@@ -1,6 +1,6 @@
 <dotnetnuke version="5.0" type="Package" xmlns:fo="http://www.w3.org/1999/XSL/Format">
   <packages>
-    <package name="avt.Dynamic Rotator.NET" type="Module" version="01.03.10">
+    <package name="avt.Dynamic Rotator.NET" type="Module" version="01.03.12">
       <friendlyName>avt.Dynamic Rotator.NET</friendlyName>
       <description>Dynamic Rotator .NET is a powerfull tool which will help you create exactly the look and feel you've been searching for your website! You can use it in many different ways: a classic animated banner, products gallery, photo slide show, complex ads rotator, etc. Why waste time explaining your vision when you can shape it yourself in  minutes!</description>
       <owner>
@@ -40,7 +40,7 @@
             </script>
             <script type="UnInstall">
               <name>DataProviders\SqlDataProvider\Uninstall.SqlDataProvider</name>
-              <version>01.03.10</version>
+              <version>01.03.12</version>
             </script>
           </scripts>
         </component>
@@ -49,17 +49,17 @@
             <assembly>
               <name>avt.DynamicFlashRotator.Net.dll</name>
               <sourceFileName>avt.DynamicFlashRotator.Net.dll</sourceFileName>
-              <version>01.03.10</version>
+              <version>01.03.12</version>
             </assembly>
             <assembly>
               <name>avt.DynamicFlashRotator.WebManage.dll</name>
               <sourceFileName>avt.DynamicFlashRotator.WebManage.dll</sourceFileName>
-              <version>01.03.10</version>
+              <version>01.03.12</version>
             </assembly>
             <assembly>
               <name>avt.DynamicFlashRotator.Dnn.dll</name>
               <sourceFileName>avt.DynamicFlashRotator.Dnn.dll</sourceFileName>
-              <version>01.03.10</version>
+              <version>01.03.12</version>
             </assembly>
           </assemblies>
         </component>
@@ -102,7 +102,8 @@
         </component>
         <component type="ResourceFile">
           <resourceFiles>
-            <basePath>/DesktopModules/AvatarSoft/DynamicRotator</basePath>
+            <basePath>
+            </basePath>
             <resourceFile>
               <name>Resources.zip</name>
             </resourceFile>
