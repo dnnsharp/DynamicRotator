@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="True" CodeBehind="ManageRotator.aspx.cs" Inherits="avt.DynamicFlashRotator.Dnn.ManageRotator" ValidateRequest="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="True" Inherits="DnnSharp.DynamicRotator.ManageRotator" ValidateRequest="false" Codefile="ManageRotator.aspx.cs" %>
 <%@ Register TagPrefix="avt" TagName="ManageDynamicRototator" Src="ManageRotatorBase.ascx" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

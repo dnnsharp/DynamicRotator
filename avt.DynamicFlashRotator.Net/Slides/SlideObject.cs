@@ -9,11 +9,11 @@ using System.Web.UI;
 using System.Drawing.Design;
 using System.Xml;
 using System.Data;
-using avt.DynamicFlashRotator.Net.Data;
-using avt.DynamicFlashRotator.Net.Settings;
-using avt.DynamicFlashRotator.Net.Services;
+using DnnSharp.DynamicRotator.Core.Data;
+using DnnSharp.DynamicRotator.Core.Settings;
+using DnnSharp.DynamicRotator.Core.Services;
 
-namespace avt.DynamicFlashRotator.Net
+namespace DnnSharp.DynamicRotator.Core
 {
     public enum eEffect
     {

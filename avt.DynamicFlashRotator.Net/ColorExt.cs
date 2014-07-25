@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace avt.DynamicFlashRotator.Net
+namespace DnnSharp.DynamicRotator.Core
 {
     using System;
     using System.Drawing;

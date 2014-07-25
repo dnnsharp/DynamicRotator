@@ -1,5 +1,5 @@
 ﻿
-namespace avt.DynamicFlashRotator.Net
+namespace DnnSharp.DynamicRotator.Core
 {
     using System;
     using System.Collections.Generic;

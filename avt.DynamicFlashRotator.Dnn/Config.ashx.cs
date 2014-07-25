@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using avt.DynamicFlashRotator.Net.Settings;
-using avt.DynamicFlashRotator.Net;
+using DnnSharp.DynamicRotator.Core.Settings;
+using DnnSharp.DynamicRotator.Core;
 using System.Xml;
 using System.Text;
 using System.Collections;
 
-namespace avt.DynamicFlashRotator.Dnn
+namespace DnnSharp.DynamicRotator.Dnn
 {
     /// <summary>
     /// Summary description for Config

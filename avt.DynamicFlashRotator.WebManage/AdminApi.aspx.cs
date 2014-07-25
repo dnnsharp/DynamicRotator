@@ -26,41 +26,41 @@ namespace avt.DynamicFlashRotator.Net.WebManage
 
             // TODO: fix this for DNN !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-            // check settings
-            if (RotatorSettings.Configuration == null) {
+            //// check settings
+            //if (RotatorSettings.Configuration == null) {
             
-                string connStr = "";
-                string dbOwner = "";
-                string objQualifier = "";
-                string allowRole = "";
-                string allowIp = "";
-                string allowInvokeType = "";
+            //    string connStr = "";
+            //    string dbOwner = "";
+            //    string objQualifier = "";
+            //    string allowRole = "";
+            //    string allowIp = "";
+            //    string allowInvokeType = "";
 
-                string controlId = Request.QueryString["controlId"];
-                string sessionKey = "avt.DynamicRotator." + controlId;
-                if (HttpContext.Current.Session[sessionKey] != null) {
+            //    string controlId = Request.QueryString["controlId"];
+            //    string sessionKey = "avt.DynamicRotator." + controlId;
+            //    if (HttpContext.Current.Session[sessionKey] != null) {
 
-                    Dictionary<string, string> settings = Session[sessionKey] as Dictionary<string, string>;
+            //        Dictionary<string, string> settings = Session[sessionKey] as Dictionary<string, string>;
 
-                    connStr = settings["DbConnectionString"];
-                    dbOwner = settings["DbOwner"];
-                    objQualifier = settings["DbObjectQualifier"];
-                    allowRole = settings["SecurityAllowAspRole"];
-                    allowIp = settings["SecurityAllowIps"];
-                    allowInvokeType = settings["SecurityAllowInvokeType"];
+            //        connStr = settings["DbConnectionString"];
+            //        dbOwner = settings["DbOwner"];
+            //        objQualifier = settings["DbObjectQualifier"];
+            //        allowRole = settings["SecurityAllowAspRole"];
+            //        allowIp = settings["SecurityAllowIps"];
+            //        allowInvokeType = settings["SecurityAllowInvokeType"];
 
-                }
+            //    }
 
-                RotatorSettings.Init(new AspNetConfiguration(connStr, dbOwner, objQualifier, allowRole, allowIp, allowInvokeType));
+            //    RotatorSettings.Init(new AspNetConfiguration(connStr, dbOwner, objQualifier, allowRole, allowIp, allowInvokeType));
 
-                //if (!string.IsNullOrEmpty(Request.QueryString["connStr"])) {
-                //    // TODO: RotatorSettings.Init(new AspNetConfiguration());
-                //} else {
-                //    // don't have it in the query string, let's go back to previous page
-                //    Response.Write("{\"error\":\"Access Denied!\"}");
-                //    return;
-                //}
-            }
+            //    //if (!string.IsNullOrEmpty(Request.QueryString["connStr"])) {
+            //    //    // TODO: RotatorSettings.Init(new AspNetConfiguration());
+            //    //} else {
+            //    //    // don't have it in the query string, let's go back to previous page
+            //    //    Response.Write("{\"error\":\"Access Denied!\"}");
+            //    //    return;
+            //    //}
+            //}
 
             if (!RotatorSettings.Configuration.HasAccess(Request.QueryString["controlId"])) {
                 Response.Write("{\"error\":\"Access Denied!\"}");

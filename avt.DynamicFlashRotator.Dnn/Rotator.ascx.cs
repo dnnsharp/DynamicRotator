@@ -1,6 +1,6 @@
 using System.Web;
 using System.Web.UI;
-using avt.DynamicFlashRotator.Net.Settings;
+using DnnSharp.DynamicRotator.Core.Settings;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Modules.Actions;
 using DotNetNuke.Security;
@@ -9,9 +9,10 @@ using System.Web.UI.WebControls;
 using DotNetNuke.Entities.Portals;
 using System.Collections;
 using System.IO;
-using avt.DynamicFlashRotator.Dnn.DnnSf.Licensing.v2;
+using DnnSharp.Common.Licensing.v1;
+using DnnSharp.DynamicRotator.Core;
 
-namespace avt.DynamicFlashRotator.Dnn
+namespace DnnSharp.DynamicRotator
 {
 
     public partial class Rotator : PortalModuleBase, IActionable
@@ -33,18 +34,26 @@ namespace avt.DynamicFlashRotator.Dnn
         private void Page_Init(object sender, System.EventArgs e)
         {
             RotatorSettings.Init(new DnnConfiguration());
-            DynamicRotator.OverrideId = ModuleId.ToString();
-            DynamicRotator.ConfigUrlBase = TemplateSourceDirectory + "/Config.ashx";
+            ctlRotator.OverrideId = ModuleId.ToString();
+            ctlRotator.ConfigUrlBase = TemplateSourceDirectory + "/Config.ashx";
         }
 
         private void Page_Load(object sender, System.EventArgs e)
         {
-            RotatorSettings rotatorSettings = new RotatorSettings();
-            var licStatus = RotatorSettings.Configuration.LicenseStatus;
-            if (licStatus.Type == LicenseStatus.eType.Error) {
-                this.pnlAdmin.InnerText = licStatus.Message;
-                DynamicRotator.Visible = false;
-            }
+            Control ctrlAct = LoadControl(TemplateSourceDirectory.TrimEnd('/') + "/RegCore/QuickStatusAndLink.ascx");
+            (ctrlAct as IRegCoreComponent).InitRegCore(IsAdmin, App.RegCoreServer, App.Info.Name,
+                App.Info.Code, App.Info.Key, App.Info.Version, TemplateSourceDirectory.TrimEnd('/') + "/RegCore/", typeof(App));
+            pnlAdmin.Controls.Add(ctrlAct);
+
+            if (!App.IsActivated())
+                ctlRotator.Visible = false;
+
+            //RotatorSettings rotatorSettings = new RotatorSettings();
+            //var licStatus = RotatorSettings.Configuration.LicenseStatus;
+            //if (licStatus.Type == LicenseStatus.eType.Error) {
+            //    this.pnlAdmin.InnerText = licStatus.Message;
+            //    DynamicRotator.Visible = false;
+            //}
 
             //Control ctrlAct = LoadControl(TemplateSourceDirectory.TrimEnd('/') + "/RegCore/QuickStatusAndLink.ascx");
             //(ctrlAct as IRegCoreComponent).InitRegCore(IsAdmin, RotatorSettings.RegCoreServer, RotatorSettings.ProductName, RotatorSettings.ProductCode, RotatorSettings.ProductKey, RotatorSettings.Version, TemplateSourceDirectory.TrimEnd('/') + "/RegCore/", typeof(DynamicRotatorController));
@@ -56,7 +65,7 @@ namespace avt.DynamicFlashRotator.Dnn
 
         }
 
-       
+
 
         //private bool HasAdminRights()
         //{
@@ -71,13 +80,17 @@ namespace avt.DynamicFlashRotator.Dnn
 
         public ModuleActionCollection ModuleActions
         {
-            get {
+            get
+            {
 
-                var license = LicenseFactory.Get(RotatorSettings.Configuration.LicenseFilePath, RotatorSettings.Version, RotatorSettings.ProductKey);
-                var licStatus = license.Status;
-                if (licStatus.Type == LicenseStatus.eType.Error) {
+                if (!App.IsActivated())
                     return new ModuleActionCollection();
-                }
+
+                //var license = LicenseFactory.Get(RotatorSettings.Configuration.LicenseFilePath, RotatorSettings.Version, RotatorSettings.ProductKey);
+                //var licStatus = license.Status;
+                //if (licStatus.Type == LicenseStatus.eType.Error) {
+                //    return new ModuleActionCollection();
+                //}
 
                 //RotatorSettings rotatorSettings = new RotatorSettings();
                 //if (!rotatorSettings.IsActivated() || rotatorSettings.IsTrialExpired()) {
@@ -86,7 +99,7 @@ namespace avt.DynamicFlashRotator.Dnn
 
                 string managePath = TemplateSourceDirectory + "/ManageRotator.aspx?controlId=" + ModuleId.ToString() + "&rurl=" + HttpUtility.UrlEncode(Request.RawUrl) + "&portalid=" + PortalId;
                 ModuleActionCollection Actions = new ModuleActionCollection();
-                Actions.Add(GetNextActionID(), "Manage Slides", DotNetNuke.Entities.Modules.Actions.ModuleActionType.AddContent, "", "icon_hostsettings_16px.gif", managePath +"#tabs-main-slides", false, DotNetNuke.Security.SecurityAccessLevel.Edit, true, false);
+                Actions.Add(GetNextActionID(), "Manage Slides", DotNetNuke.Entities.Modules.Actions.ModuleActionType.AddContent, "", "icon_hostsettings_16px.gif", managePath + "#tabs-main-slides", false, DotNetNuke.Security.SecurityAccessLevel.Edit, true, false);
                 Actions.Add(GetNextActionID(), "Rotator Settings", DotNetNuke.Entities.Modules.Actions.ModuleActionType.AddContent, "", "icon_sitesettings_16px.gif", managePath, false, DotNetNuke.Security.SecurityAccessLevel.Edit, true, false);
                 return Actions;
             }

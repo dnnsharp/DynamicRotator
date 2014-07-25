@@ -1,15 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5D2A3A1C-E669-4942-9EF1-6024C6637D17}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.WebApplication", "Test.WebApplication\Test.WebApplication.csproj", "{74393A65-1D3C-414E-9AA2-50EAEA57C0D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "avt.DynamicFlashRotator.Net", "avt.DynamicFlashRotator.Net\avt.DynamicFlashRotator.Net.csproj", "{2B3E1E9E-512B-4F18-BD29-2737504CA8F1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DnnSharp.DynamicRotator.Core", "avt.DynamicFlashRotator.Net\DnnSharp.DynamicRotator.Core.csproj", "{2B3E1E9E-512B-4F18-BD29-2737504CA8F1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "avt.DynamicFlashRotator.WebManage", "avt.DynamicFlashRotator.WebManage\avt.DynamicFlashRotator.WebManage.csproj", "{1E55C374-958F-4C9B-BE61-F207DD90ABA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "avt.DynamicFlashRotator.Dnn", "avt.DynamicFlashRotator.Dnn\avt.DynamicFlashRotator.Dnn.csproj", "{E226216B-4F33-400F-92FA-2899F7FC9BE4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DnnSharp.DynamicRotator", "avt.DynamicFlashRotator.Dnn\DnnSharp.DynamicRotator.csproj", "{E226216B-4F33-400F-92FA-2899F7FC9BE4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{48FDD436-B554-4E03-84A4-AA545D9844B7}"
 	ProjectSection(SolutionItems) = preProject

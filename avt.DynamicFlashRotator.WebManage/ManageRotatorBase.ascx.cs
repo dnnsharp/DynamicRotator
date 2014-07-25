@@ -12,6 +12,7 @@ using System.Xml;
 using avt.DynamicFlashRotator.Net.Services;
 using System.Text;
 using System.Globalization;
+using avt.DynamicFlashRotator.Dnn;
 
 namespace avt.DynamicFlashRotator.Net.WebManage
 {
@@ -27,7 +28,7 @@ namespace avt.DynamicFlashRotator.Net.WebManage
         };
         protected int _ActiveTab = -1;
 
-        public IConfiguration Configuration { get; set; }
+        public DnnConfiguration Configuration { get; set; }
         public Type ControllerType { get; set; }
 
         public string ReturnUrl { get; set; }
@@ -57,8 +58,8 @@ namespace avt.DynamicFlashRotator.Net.WebManage
                 RotatorSettings settings = new RotatorSettings();
 
                 // check activation
-                var licStatus = RotatorSettings.Configuration.LicenseStatus;
-                lblLicenseMessage.Text = licStatus.Message;
+                //var licStatus = RotatorSettings.Configuration.LicenseStatus;
+                //lblLicenseMessage.Text = licStatus.Message;
 
                 ddSlideButtonsType.Items.Add(new ListItem("Square (with numbers)", eSlideButtonsType.SquareWithNumbers.ToString()));
                 ddSlideButtonsType.Items.Add(new ListItem("Round (no numbers)", eSlideButtonsType.RoundNoNumbers.ToString()));

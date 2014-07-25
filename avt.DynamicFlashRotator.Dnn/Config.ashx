@@ -1,1 +1,1 @@
-﻿<%@ WebHandler Language="C#" CodeBehind="Config.ashx.cs" Class="avt.DynamicFlashRotator.Dnn.Config" %>
+﻿<%@ WebHandler Language="C#" CodeBehind="Config.ashx.cs" Class="DnnSharp.DynamicRotator.Dnn.Config" %>

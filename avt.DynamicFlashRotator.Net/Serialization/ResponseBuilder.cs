@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace avt.DynamicFlashRotator.Net.Serialization
+namespace DnnSharp.DynamicRotator.Core.Serialization
 {
     public interface ResponseBuilder
     {

@@ -4,7 +4,7 @@ using System.Text;
 using System.Security.Permissions;
 using System.ComponentModel.Design;
 
-namespace avt.DynamicFlashRotator.Net
+namespace DnnSharp.DynamicRotator.Core
 {
     [SecurityPermission(SecurityAction.Demand, Flags=SecurityPermissionFlag.UnmanagedCode)]
     public class SlideCollectionEditor : CollectionEditor

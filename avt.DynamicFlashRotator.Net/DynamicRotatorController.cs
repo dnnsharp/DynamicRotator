@@ -4,49 +4,20 @@ using System.Web;
 using DotNetNuke.Entities.Modules;
 using System.Text;
 using System.Xml;
-using avt.DynamicFlashRotator.Net.Settings;
-using avt.DynamicFlashRotator.Net;
-using avt.DynamicFlashRotator.Net.Data;
+using DnnSharp.DynamicRotator.Core.Settings;
+using DnnSharp.DynamicRotator.Core;
+using DnnSharp.DynamicRotator.Core.Data;
 using System.Web.UI.WebControls;
 using DotNetNuke.Entities.Portals;
 using System.Collections;
 using DotNetNuke.Services.Search;
 using DotNetNuke.Common.Utilities;
+using DnnSharp.DynamicRotator.Core;
 
-namespace avt.DynamicFlashRotator.Dnn
+namespace DnnSharp.DynamicRotator.Core
 {
     public class DynamicRotatorController : IPortable, IUpgradeable, ISearchable
     {
-
-        #region RegCore
-
-        public static bool IsAdmin { get { return DotNetNuke.Entities.Users.UserController.GetCurrentUserInfo().IsInRole(DotNetNuke.Entities.Portals.PortalController.GetCurrentPortalSettings().AdministratorRoleName); } }
-        public static string RegCoreServer { get { return RotatorSettings.RegCoreServer; } }
-        public static string ProductName { get { return RotatorSettings.ProductName; } }
-        public static string ProductCode { get { return RotatorSettings.ProductCode; } }
-        public static string ProductKey { get { return RotatorSettings.ProductKey; } }
-        public static string Version { get { return RotatorSettings.Version; } }
-        public static string Build { get { return RotatorSettings.Build; } }
-
-        static public string DocSrv = RegCoreServer + "/Api.aspx?cmd=doc&product=" + ProductCode + "&version=" + Version;
-        static public string BuyLink = RegCoreServer + "/Api.aspx?cmd=buy&product=" + ProductCode + "&version=" + Version;
-
-        public List<System.Web.UI.WebControls.ListItem> Hosts
-        {
-            get
-            {
-                List<System.Web.UI.WebControls.ListItem> hosts = new List<System.Web.UI.WebControls.ListItem>();
-                PortalAliasController paCtrl = new PortalAliasController();
-                foreach (PortalAliasInfo paInfo in PortalAliasController.GetPortalAliasLookup().Values) {
-                    hosts.Add(new System.Web.UI.WebControls.ListItem(paInfo.HTTPAlias, paInfo.HTTPAlias));
-                }
-                return hosts;
-            }
-        }
-
-        #endregion
-
-
 
         #region IPortable Members
 

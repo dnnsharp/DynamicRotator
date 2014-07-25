@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace avt.DynamicFlashRotator.Net.Services.Authentication
+namespace DnnSharp.DynamicRotator.Core.Services.Authentication
 {
     public interface IAuthenticationProxy
     {

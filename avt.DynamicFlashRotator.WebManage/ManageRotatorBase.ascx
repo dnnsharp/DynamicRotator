@@ -496,9 +496,9 @@
     <div style="width: 1000px; margin: auto;">
         <div style="float: left;">
             <a href = "http://www.dnnsharp.com/dotnetnuke-modules/dnn-banner/flash/dynamic-rotator.aspx">Read more about Dynamic Redirect .NET</a> |
-            <a href ="<%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.DocSrv %>">Browse Documentation</a>
+            <a href ="<%= avt.DynamicRotator.Core.App.Info.DocUrl %>">Browse Documentation</a>
             <br /><br />
-            Version <%= avt.DynamicFlashRotator.Net.Settings.RotatorSettings.Build %> by <a href = "http://www.dnnsharp.com" style="color: #C77405;">DNN Sharp</a>
+            Version <%= avt.DynamicRotator.Core.App.Info.Build %> by <a href = "http://www.dnnsharp.com" style="color: #C77405;">DNN Sharp</a>
             <br /><br />
             <a href="http://www.dnnsharp.com/support.aspx#opturl=%2Fdynamic-rotator-net">Request a feature or report bugs</a>.
         </div>

@@ -4,18 +4,19 @@ using System.Text;
 using System.Drawing;
 using System.Xml;
 using System.Data;
-using avt.DynamicFlashRotator.Net.Data;
+using DnnSharp.DynamicRotator.Core.Data;
 using System.Configuration;
 using System.Web.UI.WebControls;
 using System.Xml.Xsl;
 using System.IO;
-using avt.DynamicFlashRotator.Net.Services;
+using DnnSharp.DynamicRotator.Core.Services;
 using System.Web;
-using avt.DynamicFlashRotator.Net.Serialization;
-using avt.DynamicFlashRotator.Net.RenderEngine;
+using DnnSharp.DynamicRotator.Core.Serialization;
+using DnnSharp.DynamicRotator.Core.RenderEngine;
 using System.Globalization;
+using DnnSharp.DynamicRotator.Core;
 
-namespace avt.DynamicFlashRotator.Net.Settings
+namespace DnnSharp.DynamicRotator.Core.Settings
 {
 
     public enum eRenderEngine
@@ -34,8 +35,8 @@ namespace avt.DynamicFlashRotator.Net.Settings
 
         }
 
-        static IConfiguration _ConfigurationProvider = null;
-        public static IConfiguration Configuration
+        static DnnConfiguration _ConfigurationProvider = null;
+        public static DnnConfiguration Configuration
         {
             get
             {
@@ -45,7 +46,7 @@ namespace avt.DynamicFlashRotator.Net.Settings
             }
         }
 
-        public static void Init(IConfiguration config)
+        public static void Init(DnnConfiguration config)
         {
             lock (typeof(RotatorSettings)) {
                 _ConfigurationProvider = config;
@@ -591,37 +592,6 @@ namespace avt.DynamicFlashRotator.Net.Settings
             return sb.ToString();
         }
 
-
-        #region RegCore
-
-        //public static bool IsAdmin { get { return DotNetNuke.Entities.Users.UserController.GetCurrentUserInfo().IsInRole(DotNetNuke.Entities.Portals.PortalController.GetCurrentPortalSettings().AdministratorRoleName); } }
-
-        static bool _IsAdmin = true; // TODO:
-        public static bool IsAdmin { get { return _IsAdmin; } set { _IsAdmin = value; } }
-        public static string RegCoreServer { get { return "http://www.dnnsharp.com/DesktopModules/RegCore/"; } }
-        public static string ProductName { get { return "Dynamic Rotator .NET"; } }
-        public static string ProductCode { get { return "ADROT"; } }
-        public static string ProductKey { get { return "<RSAKeyValue><Modulus>xjeQuuf4zC2gbVI0ZJJnKagUgmeFH8klB27NK80DhxcBaJkw/naUJl1N9195kxUyznRf8uwSkjt9sZfmGQplu3gYz+X3GFCcVhABZsXyO+vNAdkyU+F6KkX5wL4/AAfmpKbqhsYt/z3abPInaRWG1Mk6uoUSv0bkAXsvLWOjUZs=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>"; } }
-        public static string Version { get { return "1.3"; } }
-        public static string Build
-        {
-            get
-            {
-                var version = System.Reflection.Assembly.GetAssembly(typeof(RotatorSettings)).GetName().Version;
-                return version.ToString().Substring(0, version.ToString().LastIndexOf('.'));
-            }
-        }
-
-        static public string DocSrv = RegCoreServer + "/Api.aspx?cmd=doc&product=" + ProductCode + "&version=" + Version;
-        static public string BuyLink = RegCoreServer + "/Api.aspx?cmd=buy&product=" + ProductCode + "&version=" + Version;
-
-        //List<ListItem> _Hosts = new List<ListItem>();
-        //public List<ListItem> Hosts {
-        //    get { return _Hosts; }
-        //    set { _Hosts = value; }
-        //}
-
-        #endregion
 
     }
 }

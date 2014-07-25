@@ -6,11 +6,11 @@ using System.Web.UI;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("avt.DynamicFlashRotator.Net")]
+[assembly: AssemblyTitle("DnnSharp.DynamicRotator.Core")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Avatar Software")]
-[assembly: AssemblyProduct("avt.DynamicFlashRotator.Net")]
+[assembly: AssemblyProduct("DnnSharp.DynamicRotator.Core")]
 [assembly: AssemblyCopyright("Copyright © Avatar Software 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -33,14 +33,14 @@ using System.Web.UI;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.3.0.0")]
-[assembly: AssemblyFileVersion("1.3.0.0")]
+[assembly: AssemblyVersion("1.3.15.0")]
+[assembly: AssemblyFileVersion("1.3.15.0")]
 
-[assembly: WebResource("avt.DynamicFlashRotator.Net.js.jquery-1.9.1.js", "text/js")]
-[assembly: WebResource("avt.DynamicFlashRotator.Net.js.color.js", "text/js")]
-[assembly: WebResource("avt.DynamicFlashRotator.Net.js.jquery-ui-1.8.11.eff.js", "text/js")]
-[assembly: WebResource("avt.DynamicFlashRotator.Net.js.jquery.hoverIntent.js", "text/js")]
-[assembly: WebResource("avt.DynamicFlashRotator.Net.js.avt-jQuery-rotator.js", "text/js")]
+[assembly: WebResource("DnnSharp.DynamicRotator.Core.js.jquery-1.9.1.js", "text/js")]
+[assembly: WebResource("DnnSharp.DynamicRotator.Core.js.color.js", "text/js")]
+[assembly: WebResource("DnnSharp.DynamicRotator.Core.js.jquery-ui-1.8.11.eff.js", "text/js")]
+[assembly: WebResource("DnnSharp.DynamicRotator.Core.js.jquery.hoverIntent.js", "text/js")]
+[assembly: WebResource("DnnSharp.DynamicRotator.Core.js.avt-jQuery-rotator.js", "text/js")]
 
-[assembly: InternalsVisibleTo("avt.DynamicFlashRotator.Dnn")]
+[assembly: InternalsVisibleTo("DnnSharp.DynamicRotator.Dnn")]
 

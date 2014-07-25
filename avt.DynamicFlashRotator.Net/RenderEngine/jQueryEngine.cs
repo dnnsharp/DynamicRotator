@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web.UI;
 using System.Web;
-using avt.DynamicFlashRotator.Net.Settings;
+using DnnSharp.DynamicRotator.Core.Settings;
 
-namespace avt.DynamicFlashRotator.Net.RenderEngine
+namespace DnnSharp.DynamicRotator.Core.RenderEngine
 {
     public class jQueryEngine : IRenderEngine
     {
@@ -13,11 +13,11 @@ namespace avt.DynamicFlashRotator.Net.RenderEngine
         public void OnLoad(DynamicRotator rotator)
         {
             // include the rotator
-            rotator.Page.ClientScript.RegisterClientScriptInclude("avtRot_jQuery", rotator.Page.ClientScript.GetWebResourceUrl(rotator.GetType(), "avt.DynamicFlashRotator.Net.js.jquery-1.9.1.js"));
-            rotator.Page.ClientScript.RegisterClientScriptInclude("avtRot_color", rotator.Page.ClientScript.GetWebResourceUrl(rotator.GetType(), "avt.DynamicFlashRotator.Net.js.color.js"));
-            rotator.Page.ClientScript.RegisterClientScriptInclude("avtRot_jQueryUi_1_8_11_eff", rotator.Page.ClientScript.GetWebResourceUrl(rotator.GetType(), "avt.DynamicFlashRotator.Net.js.jquery-ui-1.8.11.eff.js"));
-            rotator.Page.ClientScript.RegisterClientScriptInclude("avtRot_jQuery-hoverIntent", rotator.Page.ClientScript.GetWebResourceUrl(rotator.GetType(), "avt.DynamicFlashRotator.Net.js.jquery.hoverIntent.js"));
-            rotator.Page.ClientScript.RegisterClientScriptInclude("avtRot-jQuery-rotator", rotator.Page.ClientScript.GetWebResourceUrl(rotator.GetType(), "avt.DynamicFlashRotator.Net.js.avt-jQuery-rotator.js"));
+            rotator.Page.ClientScript.RegisterClientScriptInclude("avtRot_jQuery", rotator.Page.ClientScript.GetWebResourceUrl(rotator.GetType(), "DnnSharp.DynamicRotator.Core.js.jquery-1.9.1.js"));
+            rotator.Page.ClientScript.RegisterClientScriptInclude("avtRot_color", rotator.Page.ClientScript.GetWebResourceUrl(rotator.GetType(), "DnnSharp.DynamicRotator.Core.js.color.js"));
+            rotator.Page.ClientScript.RegisterClientScriptInclude("avtRot_jQueryUi_1_8_11_eff", rotator.Page.ClientScript.GetWebResourceUrl(rotator.GetType(), "DnnSharp.DynamicRotator.Core.js.jquery-ui-1.8.11.eff.js"));
+            rotator.Page.ClientScript.RegisterClientScriptInclude("avtRot_jQuery-hoverIntent", rotator.Page.ClientScript.GetWebResourceUrl(rotator.GetType(), "DnnSharp.DynamicRotator.Core.js.jquery.hoverIntent.js"));
+            rotator.Page.ClientScript.RegisterClientScriptInclude("avtRot-jQuery-rotator", rotator.Page.ClientScript.GetWebResourceUrl(rotator.GetType(), "DnnSharp.DynamicRotator.Core.js.avt-jQuery-rotator.js"));
         }
 
         public void Render(DynamicRotator rotator, HtmlTextWriter output)

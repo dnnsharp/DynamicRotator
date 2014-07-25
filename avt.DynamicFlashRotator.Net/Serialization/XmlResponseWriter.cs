@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Globalization;
 
-namespace avt.DynamicFlashRotator.Net.Serialization
+namespace DnnSharp.DynamicRotator.Core.Serialization
 {
     //class XmlResponse : IApiResponseBuilder
     //{

@@ -6,7 +6,7 @@ using System.ComponentModel.Design;
 using System.ComponentModel;
 using System.Drawing.Design;
 
-namespace avt.DynamicFlashRotator.Net
+namespace DnnSharp.DynamicRotator.Core
 {
     public class DynamicRotatorDesigner : ControlDesigner
     {
@@ -99,7 +99,7 @@ namespace avt.DynamicFlashRotator.Net
 
         //    public string Test { get { return ""; } set { } }
 
-        //    [Editor(typeof(avt.DynamicFlashRotator.Net.SlideCollectionEditor), typeof(UITypeEditor))]
+        //    [Editor(typeof(DnnSharp.DynamicRotator.Core.SlideCollectionEditor), typeof(UITypeEditor))]
         //    public SlideCollection Slides { get { return _rotator.Slides; } }
 
         //    // Properties

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Web.UI;
-using avt.DynamicFlashRotator.Net.Settings;
+using DnnSharp.DynamicRotator.Core.Settings;
 
-namespace avt.DynamicFlashRotator.Net.RenderEngine
+namespace DnnSharp.DynamicRotator.Core.RenderEngine
 {
     public interface IRenderEngine
     {

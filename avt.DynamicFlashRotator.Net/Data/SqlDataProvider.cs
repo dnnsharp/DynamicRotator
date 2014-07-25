@@ -2,9 +2,10 @@
 using System.Data;
 using System.Data.SqlTypes;
 using System.Data.SqlClient;
-using avt.DynamicFlashRotator.Net.Services;
+using DnnSharp.DynamicRotator.Core.Services;
+using DnnSharp.DynamicRotator.Core;
 
-namespace avt.DynamicFlashRotator.Net.Data
+namespace DnnSharp.DynamicRotator.Core.Data
 {
 
     public class SqlDataProvider : DataProvider
@@ -25,7 +26,7 @@ namespace avt.DynamicFlashRotator.Net.Data
             
         }
 
-        public override void Init(IConfiguration config)
+        public override void Init(DnnConfiguration config)
         {
             _TableSettings = new SqlTable(
                 config.ConnStr,

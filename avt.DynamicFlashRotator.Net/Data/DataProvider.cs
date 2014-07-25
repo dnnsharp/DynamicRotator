@@ -1,9 +1,9 @@
-﻿
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlTypes;
-using avt.DynamicFlashRotator.Net.Services;
+using DnnSharp.DynamicRotator.Core.Services;
+using DnnSharp.DynamicRotator.Core;
 
-namespace avt.DynamicFlashRotator.Net.Data
+namespace DnnSharp.DynamicRotator.Core.Data
 {
     public abstract class DataProvider
     {
@@ -33,7 +33,7 @@ namespace avt.DynamicFlashRotator.Net.Data
             return objProvider;
         }
 
-        public abstract void Init(IConfiguration config);
+        public abstract void Init(DnnConfiguration config);
 
         #endregion
 

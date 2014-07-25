@@ -9,17 +9,17 @@ using System.Xml;
 using System.Drawing;
 using System.Drawing.Design;
 using System.Configuration;
-using avt.DynamicFlashRotator.Net.Data;
-using avt.DynamicFlashRotator.Net.Settings;
-using avt.DynamicFlashRotator.Net.Services;
+using DnnSharp.DynamicRotator.Core.Data;
+using DnnSharp.DynamicRotator.Core.Settings;
+using DnnSharp.DynamicRotator.Core.Services;
 using System.Web.UI.HtmlControls;
 using System.Text.RegularExpressions;
-using avt.DynamicFlashRotator.Net.Services.Authentication;
-using avt.DynamicFlashRotator.Net.RenderEngine;
+using DnnSharp.DynamicRotator.Core.Services.Authentication;
+using DnnSharp.DynamicRotator.Core.RenderEngine;
 using System.Collections;
-using avt.DynamicFlashRotator.Dnn.DnnSf.Licensing.v2;
+using DnnSharp.DynamicRotator.Core.Services;
 
-namespace avt.DynamicFlashRotator.Net
+namespace DnnSharp.DynamicRotator.Core
 {
     public enum eSlideButtonsType
     {
@@ -28,7 +28,7 @@ namespace avt.DynamicFlashRotator.Net
     }
 
     [ToolboxData("<{0}:DynamicRotator runat=server></{0}:DynamicRotator>")]
-    [Designer(typeof(avt.DynamicFlashRotator.Net.DynamicRotatorDesigner))]
+    [Designer(typeof(DnnSharp.DynamicRotator.Core.DynamicRotatorDesigner))]
     public class DynamicRotator : WebControl
     {
         public RotatorSettings Settings;
@@ -54,13 +54,13 @@ namespace avt.DynamicFlashRotator.Net
                 ConfigUrlBase = Page.Request.RawUrl;
 
             // check settings
-            if (RotatorSettings.Configuration == null) {
-                if (!string.IsNullOrEmpty(DbConnectionString)) {
-                    RotatorSettings.Init(new AspNetConfiguration(DbConnectionString, DbOwner, DbObjectQualifier, SecurityAllowAspRole, SecurityAllowIps, SecurityAllowInvokeType));
-                } else {
-                    // don't have DbConnectionString
-                }
-            }
+            //if (RotatorSettings.Configuration == null) {
+            //    if (!string.IsNullOrEmpty(DbConnectionString)) {
+            //        RotatorSettings.Init(new AspNetConfiguration(DbConnectionString, DbOwner, DbObjectQualifier, SecurityAllowAspRole, SecurityAllowIps, SecurityAllowInvokeType));
+            //    } else {
+            //        // don't have DbConnectionString
+            //    }
+            //}
 
 
             // merge dynamic settings
@@ -316,7 +316,7 @@ namespace avt.DynamicFlashRotator.Net
         [DefaultValue((string)null)]
         [PersistenceMode(PersistenceMode.InnerProperty)]
         [Category("Dynamic Rotator - Slides")]
-        [Editor(typeof(avt.DynamicFlashRotator.Net.SlideCollectionEditor), typeof(UITypeEditor))]
+        [Editor(typeof(DnnSharp.DynamicRotator.Core.SlideCollectionEditor), typeof(UITypeEditor))]
         [MergableProperty(false)]
         public SlideCollection Slides { get { return Settings.Slides; } }
 
@@ -425,7 +425,7 @@ namespace avt.DynamicFlashRotator.Net
                 prvData["SecurityAllowIps"] = SecurityAllowIps;
                 prvData["SecurityAllowInvokeType"] = SecurityAllowInvokeType;
 
-                HttpContext.Current.Session["avt.DynamicRotator." + RealId] = prvData;
+                HttpContext.Current.Session["DnnSharp.DynamicRotator." + RealId] = prvData;
 
                 string manageUrl = Page.ResolveUrl(ManageUrl);
                 manageUrl += "?controlId=" + RealId;
@@ -437,18 +437,20 @@ namespace avt.DynamicFlashRotator.Net
                 manageUrl += "&rurl=" + HttpUtility.UrlEncode(HttpContext.Current.Request.RawUrl);
                 output.Write("<br />");
 
-                var licStatus = RotatorSettings.Configuration.LicenseStatus;
-                if (licStatus.Type == LicenseStatus.eType.Error) {
-                    output.Write("<a href='" + manageUrl + "' style='color: #CB2027;font-weight: bold;text-decoration: underline;'>" + licStatus.Message + "</a>");
-                } else {
-                    output.Write("<a href='" + manageUrl + "#tabs-main-slides' style='color: #CB2027;font-weight: bold;text-decoration: none;'>Manage Slides</a>");
-                    output.Write("&nbsp;&nbsp;|&nbsp;&nbsp;");
-                    output.Write("<a href='" + manageUrl + "' style='color: #CB2027;font-weight: bold;text-decoration: none;'>Rotator Settings</a>");
-                }
+                ////LiceneSummary
+                //var lic = new AdminApi().GetLicensing();
+                //var licStatus = RotatorSettings.Configuration.LicenseStatus;
+                //if (licStatus.Type == LicenseStatus.eType.Error) {
+                //    output.Write("<a href='" + manageUrl + "' style='color: #CB2027;font-weight: bold;text-decoration: underline;'>" + licStatus.Message + "</a>");
+                //} else {
+                //    output.Write("<a href='" + manageUrl + "#tabs-main-slides' style='color: #CB2027;font-weight: bold;text-decoration: none;'>Manage Slides</a>");
+                //    output.Write("&nbsp;&nbsp;|&nbsp;&nbsp;");
+                //    output.Write("<a href='" + manageUrl + "' style='color: #CB2027;font-weight: bold;text-decoration: none;'>Rotator Settings</a>");
+                //}
 
-                if (security.Count == 0) {
-                    output.Write("<div style='color:red;'>WARNING! Everybody can configure this rotator, setup security using <i>SecurityAllowAspRole, SecurityAllowIps or SecurityAllowInvokeType</i> attributes of the Dynamic Rotator control.<br/>Read <a href='http://rotator.dnnsharp.com'>Security Layers for Asp.NET Control</a> articles for more information.</div>");
-                }
+                //if (security.Count == 0) {
+                //    output.Write("<div style='color:red;'>WARNING! Everybody can configure this rotator, setup security using <i>SecurityAllowAspRole, SecurityAllowIps or SecurityAllowInvokeType</i> attributes of the Dynamic Rotator control.<br/>Read <a href='http://rotator.dnnsharp.com'>Security Layers for Asp.NET Control</a> articles for more information.</div>");
+                //}
             }
         }
 
@@ -484,7 +486,7 @@ namespace avt.DynamicFlashRotator.Net
         //protected override void OnPreRender(EventArgs e)
         //{
         //    base.OnPreRender(e);
-        //    string resourceName = "avt.DynamicRotator.Net.flash.AC_RunActiveContent.js";
+        //    string resourceName = "DnnSharp.DynamicRotator.Dnn.flash.AC_RunActiveContent.js";
 
         //    ClientScriptManager cs = this.Page.ClientScript;
         //    cs.RegisterClientScriptResource(GetType(), resourceName);

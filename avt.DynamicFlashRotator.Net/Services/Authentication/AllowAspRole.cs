@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web;
 
-namespace avt.DynamicFlashRotator.Net.Services.Authentication
+namespace DnnSharp.DynamicRotator.Core.Services.Authentication
 {
     public class AllowAspRole : IAdminAuthentication
     {

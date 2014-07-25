@@ -9,8 +9,8 @@
     <ProjectGuid>{2B3E1E9E-512B-4F18-BD29-2737504CA8F1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>avt.DynamicFlashRotator.Net</RootNamespace>
-    <AssemblyName>avt.DynamicFlashRotator.Net</AssemblyName>
+    <RootNamespace>DnnSharp.DynamicRotator.Core</RootNamespace>
+    <AssemblyName>DnnSharp.DynamicRotator.Core</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Nonshipping>true</Nonshipping>
@@ -43,6 +43,13 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DnnSharp.Common">
+      <HintPath>..\avt.DynamicFlashRotator.Dnn\Dependencies\DnnSharp.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetNuke">
+      <HintPath>..\avt.DynamicFlashRotator.Dnn\Dependencies\DotNetNuke.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Microsoft.ApplicationBlocks.Data">
       <HintPath>..\avt.DynamicFlashRotator.Dnn\Dependencies\Microsoft.ApplicationBlocks.Data.dll</HintPath>
       <Private>False</Private>
@@ -57,33 +64,29 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiSettings.cs" />
+    <Compile Include="App.cs" />
     <Compile Include="ColorExt.cs" />
     <Compile Include="Data\AvtSqlHelper.cs" />
     <Compile Include="Data\DataProvider.cs" />
     <Compile Include="Data\SqlDataProvider.cs" />
-    <Compile Include="DnnSf\Crypt\BigInteger.cs" />
-    <Compile Include="DnnSf\Crypt\CryptUtils.cs" />
-    <Compile Include="DnnSf\Crypt\ezrsa.cs" />
-    <Compile Include="DnnSf\Licensing\v2\LicenseBase.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DnnSf\Licensing\v2\LicenseInfo.cs" />
-    <Compile Include="DnnSf\Licensing\v2\LicenseStatus.cs" />
     <Compile Include="DynamicRotator.cs" />
+    <Compile Include="DynamicRotatorController.cs" />
     <Compile Include="DynamicRotatorDesigner.cs" />
+    <Compile Include="IFileStorage.cs" />
     <Compile Include="RenderEngine\jQueryEngine.cs" />
     <Compile Include="RenderEngine\IRenderEngine.cs" />
     <Compile Include="Serialization\ResponseBuilder.cs" />
     <Compile Include="Serialization\JsonResponseWriter.cs" />
     <Compile Include="Serialization\XmlResponseWriter.cs" />
-    <Compile Include="Services\AspNetConfiguration.cs" />
+    <Compile Include="Services\AdminApi.cs" />
     <Compile Include="Services\Authentication\AllowAspRole.cs" />
     <Compile Include="Services\Authentication\AllowIps.cs" />
     <Compile Include="Services\Authentication\AllowInvokeType.cs" />
     <Compile Include="Services\Authentication\IAuthenticationProxy.cs" />
+    <Compile Include="DnnConfiguration.cs" />
     <Compile Include="Services\FileBrowser.cs" />
     <Compile Include="Services\Authentication\IAdminAuthentication.cs" />
-    <Compile Include="Services\IConfiguration.cs" />
     <Compile Include="Settings\RotatorSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Slides\SlideCollection.cs" />

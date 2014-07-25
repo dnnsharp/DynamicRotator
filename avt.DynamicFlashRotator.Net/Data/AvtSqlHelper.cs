@@ -7,7 +7,7 @@ using Microsoft.ApplicationBlocks.Data;
 using System.Data.SqlTypes;
 using System.Globalization;
 
-namespace avt.DynamicFlashRotator.Net.Data
+namespace DnnSharp.DynamicRotator.Core.Data
 {
     public class SqlTable
     {

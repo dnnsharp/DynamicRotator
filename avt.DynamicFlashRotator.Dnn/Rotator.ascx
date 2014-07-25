@@ -1,8 +1,8 @@
-<%@ Control language="C#" Inherits="avt.DynamicFlashRotator.Dnn.Rotator" AutoEventWireup="true" Explicit="True" CodeBehind="Rotator.ascx.cs" %>
-<%@ Register assembly="avt.DynamicFlashRotator.Net" namespace="avt.DynamicFlashRotator.Net" tagprefix="avt" %>
+<%@ Control language="C#" Inherits="DnnSharp.DynamicRotator.Rotator" AutoEventWireup="True" Explicit="True" Codefile="Rotator.ascx.cs" %>
+<%@ Register assembly="DnnSharp.DynamicRotator.Core" namespace="DnnSharp.DynamicRotator.Core" tagprefix="avt" %>
 
 <div runat="server" id="pnlAdmin" style="color: #ff0000;"></div>
 
-<avt:DynamicRotator ID="DynamicRotator" runat="server" AllowRuntimeConfiguration="True"> 
+<avt:DynamicRotator ID="ctlRotator" runat="server" AllowRuntimeConfiguration="True"> 
 </avt:DynamicRotator>
 

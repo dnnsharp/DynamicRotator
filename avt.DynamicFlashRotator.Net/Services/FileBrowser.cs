@@ -4,9 +4,9 @@ using System.Text;
 using System.Web.UI.WebControls;
 using System.IO;
 using System.Web;
-using avt.DynamicFlashRotator.Net.Settings;
+using DnnSharp.DynamicRotator.Core.Settings;
 
-namespace avt.DynamicFlashRotator.Net.Services
+namespace DnnSharp.DynamicRotator.Core.Services
 {
 
     public class FileBrowser_Folder

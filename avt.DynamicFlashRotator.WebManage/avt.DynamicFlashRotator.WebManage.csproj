@@ -57,7 +57,6 @@
   <ItemGroup>
     <Content Include="AdminApi.aspx" />
     <Content Include="ManageRotatorBase.ascx" />
-    <Content Include="ManageRotator.aspx" />
     <Content Include="res\js\jquery-ui.js" />
     <Content Include="res\js\jquery.js" />
     <Content Include="res\manage.css" />
@@ -95,37 +94,18 @@
       <DependentUpon>ManageRotatorBase.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ManageRotator.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-      <DependentUpon>ManageRotator.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ManageRotator.aspx.designer.cs">
-      <DependentUpon>ManageRotator.aspx</DependentUpon>
-    </Compile>
     <Compile Include="ManageRotatorBase.ascx.designer.cs">
       <DependentUpon>ManageRotatorBase.ascx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="js\" />
     <Folder Include="res\img\" />
-    <Folder Include="templates\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="deploy.cmd" />
     <Content Include="res\wysiwyg\jquery.wysiwyg.css.gzip" />
     <Content Include="res\wysiwyg\jquery.wysiwyg.min.css.gzip" />
-    <Content Include="web.config" />
-    <None Include="web.Debug.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
-    <None Include="web.PublishPackage.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
-    <None Include="web.Release.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\avt.DynamicFlashRotator.Net\avt.DynamicFlashRotator.Net.csproj">

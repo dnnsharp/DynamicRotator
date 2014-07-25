@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace avt.DynamicFlashRotator.Dnn {
+namespace DnnSharp.DynamicRotator {
     
     
     public partial class ManageRotator {
@@ -28,6 +28,6 @@ namespace avt.DynamicFlashRotator.Dnn {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::avt.DynamicFlashRotator.Net.WebManage.ManageRotatorBase ctlManageRotator;
+        protected global::DnnSharp.DynamicRotator.ManageRotatorBase ctlManageRotator;
     }
 }

@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>avt.DynamicFlashRotator.Dnn</RootNamespace>
-    <AssemblyName>avt.DynamicFlashRotator.Dnn</AssemblyName>
+    <RootNamespace>DnnSharp.DynamicRotator</RootNamespace>
+    <AssemblyName>DnnSharp.DynamicRotator</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <UseIISExpress>false</UseIISExpress>
     <TargetFrameworkProfile />
@@ -31,7 +31,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\bin\</OutputPath>
+    <OutputPath>bin\debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -45,8 +45,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DnnSharp.Common, Version=1.0.25.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\DnnSharp.Common.dll</HintPath>
+    </Reference>
     <Reference Include="DotNetNuke">
       <HintPath>Dependencies\DotNetNuke.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationBlocks.Data, Version=2.0.0.0, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\Microsoft.ApplicationBlocks.Data.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -63,16 +72,13 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config.ashx.cs">
-      <DependentUpon>Config.ashx</DependentUpon>
+    <Compile Include="AdminApi.aspx.cs">
+      <DependentUpon>AdminApi.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="DnnConfiguration.cs" />
-    <Compile Include="DnnSf\Licensing\v2\FullSiteLicense.cs" />
-    <Compile Include="DnnSf\Licensing\v2\LicenseFactory.cs" />
-    <Compile Include="DnnSf\Licensing\v2\NoLicense.cs" />
-    <Compile Include="DnnSf\Licensing\v2\PortalLicense.cs" />
-    <Compile Include="DnnSf\Licensing\v2\TrialLicense.cs" />
-    <Compile Include="DynamicRotatorController.cs" />
+    <Compile Include="AdminApi.aspx.designer.cs">
+      <DependentUpon>AdminApi.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ManageRotator.aspx.cs">
       <DependentUpon>ManageRotator.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -80,7 +86,35 @@
     <Compile Include="ManageRotator.aspx.designer.cs">
       <DependentUpon>ManageRotator.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ManageRotatorBase.ascx.cs">
+      <DependentUpon>ManageRotatorBase.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageRotatorBase.ascx.designer.cs">
+      <DependentUpon>ManageRotatorBase.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegCore\Activation.aspx.cs">
+      <DependentUpon>Activation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RegCore\Activation.aspx.designer.cs">
+      <DependentUpon>Activation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RegCore\QuickStatusAndLink.ascx.cs">
+      <DependentUpon>QuickStatusAndLink.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RegCore\QuickStatusAndLink.ascx.designer.cs">
+      <DependentUpon>QuickStatusAndLink.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="RegCore\UnlockTrial.aspx.cs">
+      <DependentUpon>UnlockTrial.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RegCore\UnlockTrial.aspx.designer.cs">
+      <DependentUpon>UnlockTrial.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Rotator.ascx.cs">
       <DependentUpon>Rotator.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -93,7 +127,18 @@
     <Content Include="AdminApi.aspx" />
     <Content Include="License.txt" />
     <Content Include="ManageRotator.aspx" />
+    <Content Include="ManageRotatorBase.ascx" />
     <Content Include="module.css" />
+    <Content Include="RegCore\Activation.aspx" />
+    <Content Include="RegCore\QuickStatusAndLink.ascx" />
+    <Content Include="RegCore\res\bk.png" />
+    <Content Include="RegCore\res\btn_cancel.png" />
+    <Content Include="RegCore\res\btn_next.png" />
+    <Content Include="RegCore\res\btn_purchase.png" />
+    <Content Include="RegCore\res\icon_help.png" />
+    <Content Include="RegCore\res\icon_help_over.png" />
+    <Content Include="RegCore\res\style.css" />
+    <Content Include="RegCore\UnlockTrial.aspx" />
     <Content Include="release-notes.html" />
     <Content Include="res\img\add.gif" />
     <Content Include="res\img\drag.png" />
@@ -172,20 +217,7 @@
     <Content Include="version.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\avt.DynamicFlashRotator.Net\avt.DynamicFlashRotator.Net.csproj">
-      <Project>{2B3E1E9E-512B-4F18-BD29-2737504CA8F1}</Project>
-      <Name>avt.DynamicFlashRotator.Net</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\avt.DynamicFlashRotator.WebManage\avt.DynamicFlashRotator.WebManage.csproj">
-      <Project>{1E55C374-958F-4C9B-BE61-F207DD90ABA9}</Project>
-      <Name>avt.DynamicFlashRotator.WebManage</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Config.ashx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="avt.DynamicFlashRotator.Net.dnn">
+    <Content Include="DnnSharp.DynamicRotator.dnn">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
@@ -205,6 +237,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataProviders\SqlDataProvider\01.03.04.SqlDataProvider" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\avt.DynamicFlashRotator.Net\DnnSharp.DynamicRotator.Core.csproj">
+      <Project>{2b3e1e9e-512b-4f18-bd29-2737504ca8f1}</Project>
+      <Name>DnnSharp.DynamicRotator.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DataProviders\SqlDataProvider\v2.SqlDataProvider" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
