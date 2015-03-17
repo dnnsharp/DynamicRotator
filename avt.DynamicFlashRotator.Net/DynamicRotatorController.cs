@@ -13,6 +13,7 @@ using System.Collections;
 using DotNetNuke.Services.Search;
 using DotNetNuke.Common.Utilities;
 using DnnSharp.DynamicRotator.Core;
+using DnnSharp.Common.Dnn;
 
 namespace DnnSharp.DynamicRotator.Core
 {
@@ -43,7 +44,7 @@ namespace DnnSharp.DynamicRotator.Core
         public void ImportModule(int ModuleID, string Content, string Version, int UserID)
         {
             RotatorSettings.Init(new DnnConfiguration());
-            RotatorSettings.LoadFromPortableXml(DotNetNuke.Common.Globals.GetContent(Content, "RotatorSettings"), ModuleID.ToString());
+            RotatorSettings.LoadFromPortableXml(ModuleApi.GetImportNode(Content, "RotatorSettings"), ModuleID.ToString());
         }
 
         #endregion
