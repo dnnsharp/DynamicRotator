@@ -101,12 +101,14 @@ namespace DnnSharp.DynamicRotator.Core
 
         public static bool IsActivated()
         {
-            return RegCore.IsActivated(App.Info.Code, App.Info.Version, HttpContext.Current.Request.Url.Host);
+            return true;
+            //return RegCore.IsActivated(App.Info.Code, App.Info.Version, HttpContext.Current.Request.Url.Host);
         }
 
         public static bool IsTrial()
         {
-            return RegCore.IsTrial(App.Info.Code, App.Info.Version, HttpContext.Current.Request.Url.Host);
+            return false;
+            // RegCore.IsTrial(App.Info.Code, App.Info.Version, HttpContext.Current.Request.Url.Host);
         }
 
         public static int TrialDaysLeft

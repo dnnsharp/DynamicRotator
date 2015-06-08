@@ -1,4 +1,4 @@
-call ..\..\..\..\..\..\..\paths.cmd
+call ..\..\..\..\..\..\paths.cmd
 
 set projectDir=%~dp0..\avt.DynamicFlashRotator.Dnn\
 set buildDir=%~dp0package-files\

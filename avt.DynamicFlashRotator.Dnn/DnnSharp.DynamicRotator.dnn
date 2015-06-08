@@ -1,6 +1,6 @@
 <dotnetnuke version="5.0" type="Package" xmlns:fo="http://www.w3.org/1999/XSL/Format">
   <packages>
-    <package name="avt.Dynamic Rotator.NET" type="Module" version="01.03.15">
+    <package name="avt.Dynamic Rotator.NET" type="Module" version="01.03.16">
       <friendlyName>avt.Dynamic Rotator</friendlyName>
       <description>Dynamic Rotator .NET is a powerfull tool which will help you create exactly the look and feel you've been searching for your website! You can use it in many different ways: a classic animated banner, products gallery, photo slide show, complex ads rotator, etc. Why waste time explaining your vision when you can shape it yourself in  minutes!</description>
       <iconFile>~/DesktopModules/DnnSharp/DynamicRotator/static/images/dynamic-banner-rotator-32x32t.png</iconFile>
@@ -41,11 +41,11 @@
             </script>
             <script type="Install">
               <name>DataProviders\SqlDataProvider\v2.SqlDataProvider</name>
-              <version>01.03.15</version>
+              <version>01.03.16</version>
             </script>
             <script type="UnInstall">
               <name>DataProviders\SqlDataProvider\Uninstall.SqlDataProvider</name>
-              <version>01.03.15</version>
+              <version>01.03.16</version>
             </script>
           </scripts>
         </component>
@@ -54,12 +54,12 @@
             <assembly>
               <name>DnnSharp.DynamicRotator.Core.dll</name>
               <sourceFileName>DnnSharp.DynamicRotator.Core.dll</sourceFileName>
-              <version>01.03.15</version>
+              <version>01.03.16</version>
             </assembly>
             <assembly>
               <name>DnnSharp.DynamicRotator.dll</name>
               <sourceFileName>DnnSharp.DynamicRotator.dll</sourceFileName>
-              <version>01.03.15</version>
+              <version>01.03.16</version>
             </assembly>
             <assembly>
               <name>DnnSharp.Common.dll</name>
@@ -133,7 +133,7 @@
                         </file>
                     </files>
                 </component>-->
-        <component type="Cleanup" version="01.03.15" fileName="01.03.15.txt" />
+        <component type="Cleanup" version="01.03.16" fileName="01.03.16.txt" />
       </components>
     </package>
   </packages>
