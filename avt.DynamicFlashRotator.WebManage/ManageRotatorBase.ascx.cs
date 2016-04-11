@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using avt.DynamicFlashRotator.Net.Data;
 using System.Configuration;
 using System.Data;
-using avt.DynamicFlashRotator.Net.Settings;
 using System.Drawing;
 using System.Xml;
-using avt.DynamicFlashRotator.Net.Services;
 using System.Text;
 using System.Globalization;
-using avt.DynamicFlashRotator.Dnn;
+using DnnSharp.DynamicRotator.Core;
+using DnnSharp.DynamicRotator.Core.Settings;
+using DnnSharp.DynamicRotator.Core.Data;
 
 namespace avt.DynamicFlashRotator.Net.WebManage
 {
@@ -369,7 +368,7 @@ namespace avt.DynamicFlashRotator.Net.WebManage
 
         protected string ColorToHex(Color color)
         {
-            return avt.DynamicFlashRotator.Net.ColorExt.ColorToHexString(color);
+            return ColorExt.ColorToHexString(color);
         }
 
         #endregion

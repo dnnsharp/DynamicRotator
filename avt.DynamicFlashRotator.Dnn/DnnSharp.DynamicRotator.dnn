@@ -66,6 +66,11 @@
               <sourceFileName>DnnSharp.Common.dll</sourceFileName>
               <version>01.03.14</version>
             </assembly>
+            <assembly>
+              <name>DnnSharp.Common.InitCommonDlls.dll</name>
+              <sourceFileName>DnnSharp.Common.InitCommonDlls.dll</sourceFileName>
+              <version>1.1.630.0</version>
+            </assembly>
           </assemblies>
         </component>
         <!-- <component type="Cleanup">
@@ -134,6 +139,27 @@
                     </files>
                 </component>-->
         <component type="Cleanup" version="01.03.16" fileName="01.03.16.txt" />
+        <component type="Config">
+          <config>
+            <configFile>web.config</configFile>
+            <install>
+              <configuration>
+                <nodes>
+                  <node path="//configuration/system.webServer/modules" action="update" targetpath="/configuration/system.webServer/modules/add[@name='DnnSharp.Common.InitCommonDlls.DynamicRotator']" collision="ignore" nameSpace="urn:schemas-microsoft-com:asm.v1" nameSpacePrefix="ab">
+                    <add name="DnnSharp.Common.InitCommonDlls.DynamicRotator" type="DnnSharp.Common.InitCommonDlls.InitApp, DnnSharp.Common.InitCommonDlls" preCondition="managedHandler" />
+                  </node>
+                </nodes>
+              </configuration>
+            </install>
+            <uninstall>
+              <configuration>
+                <nodes>
+                  <node path="/configuration/system.webServer/modules/add[@name='DnnSharp.Common.InitCommonDlls.DynamicRotator']" action="remove" />
+                </nodes>
+              </configuration>
+            </uninstall>
+          </config>
+        </component>
       </components>
     </package>
   </packages>

@@ -11,6 +11,8 @@ using DnnSharp.DynamicRotator.Core;
 using DnnSharp.Common.Logging.Target;
 using DotNetNuke.Entities.Portals;
 using DnnSharp.DynamicRotator.Core.Settings;
+using DnnSharp.DynamicRotator.Core.Properties;
+using System.Globalization;
 
 namespace DnnSharp.DynamicRotator.Core
 {
@@ -53,7 +55,11 @@ namespace DnnSharp.DynamicRotator.Core
 
 
         #region Licensing and Registration
-
+        public static DateTime BuildDate {
+            get {
+                return DateTime.Parse(Resources.date, new CultureInfo("en-us"));
+            }
+        }
         public static bool IsAdmin { get { return DotNetNuke.Entities.Users.UserController.GetCurrentUserInfo().IsInRole(DotNetNuke.Entities.Portals.PortalController.GetCurrentPortalSettings().AdministratorRoleName); } }
         public static string RegCoreServer { get { return "http://www.dnnsharp.com/DesktopModules/RegCore/"; } }
 
@@ -171,6 +177,7 @@ namespace DnnSharp.DynamicRotator.Core
                 BasePath = RootPath + "\\DesktopModules\\DnnSharp\\DynamicRotator",
                 BaseUrl = RootUrl + "/DesktopModules/DnnSharp/DynamicRotator",
                 ProductUrl = "http://www.dnnsharp.com/dnn/modules/banner/dynamic-rotator",
+                BuildDate = DateTime.Parse(Resources.date, new CultureInfo("en-us")),
 
 #if DEBUG
                 IsDebug = true,

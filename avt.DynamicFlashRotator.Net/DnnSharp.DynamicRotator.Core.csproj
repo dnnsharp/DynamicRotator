@@ -94,6 +94,18 @@
     <Compile Include="Slides\SlideInfo.cs" />
     <Compile Include="Slides\SlideObject.cs" />
     <Compile Include="Slides\SlideObjectCollection.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="js\jquery.hoverIntent.js" />
@@ -111,6 +123,25 @@
     <EmbeddedResource Include="js\color.js" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>for /f %25%25x in ('wmic path win32_utctime get /format:list ^| findstr "="') do set %25%25x
+SET Month=00%25Month%25
+SET Month=%25Month:~-2%25
+
+SET Day=00%25Day%25
+SET Day=%25Day:~-2%25
+
+SET Hour=00%25Hour%25
+SET Hour=%25Hour:~-2%25
+
+SET Minute=00%25Minute%25
+SET Minute=%25Minute:~-2%25
+
+SET Second=00%25Second%25
+SET Second=%25Second:~-2%25
+SET today=%25Year%25-%25Month%25-%25Day%25T%25Hour%25:%25Minute%25:%25Second%25
+echo %25today%25 &gt; "$(ProjectDir)\Properties\date.txt"</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

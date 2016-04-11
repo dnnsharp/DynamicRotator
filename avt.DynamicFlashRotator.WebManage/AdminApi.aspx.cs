@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using avt.DynamicFlashRotator.Net.Data;
 using System.Configuration;
 using System.Data;
-using avt.DynamicFlashRotator.Net.Settings;
 using System.Drawing;
 using System.Xml;
-using avt.DynamicFlashRotator.Net.Services;
 using System.Text;
+using DnnSharp.DynamicRotator.Core.Settings;
+using DnnSharp.DynamicRotator.Core.Services;
 
 namespace avt.DynamicFlashRotator.Net.WebManage
 {

@@ -26,6 +26,7 @@
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <MSBuildCommunityTasksPath>$(SolutionDir)\.build</MSBuildCommunityTasksPath>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,6 +49,9 @@
     <Reference Include="DnnSharp.Common, Version=1.0.25.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Dependencies\DnnSharp.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="DnnSharp.Common.InitCommonDlls">
+      <HintPath>Dependencies\DnnSharp.Common.InitCommonDlls.dll</HintPath>
     </Reference>
     <Reference Include="DotNetNuke">
       <HintPath>Dependencies\DotNetNuke.dll</HintPath>
